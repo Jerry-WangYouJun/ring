@@ -5,7 +5,7 @@ public class User {
 	  private String userName ; 
 	  private String userNo ; 
 	  private String pwd ;
-	  private String roleId ;
+	  private String role ;
 	public Integer getId() {
 		return id;
 	}
@@ -30,11 +30,11 @@ public class User {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-	public String getRoleId() {
-		return roleId;
+	public String getRole() {
+		return role;
 	}
-	public void setRoleId(String roleId) {
-		this.roleId = roleId;
+	public void setRole(String role) {
+		this.role = role;
 	}
 	 
 }

@@ -55,7 +55,7 @@
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">管理员类型:</label>
-							<select class="form-control"  id ="roleId" name="roleId">  
+							<select class="form-control"  id ="role" name="role">  
 					           <option value="1">超级管理员</option>
 					           <option value="2">普通管理</option>
 					           <option value="3">其他</option>  
@@ -112,7 +112,7 @@
 			        },{  
 			            field : 'userNo',   title : '登录账号',  align: 'center',   valign: 'middle'  
 			        },{  
-			            field : 'roleId',   title : '管理员类型',  align: 'center',   valign: 'middle'  ,
+			            field : 'role',   title : '管理员类型',  align: 'center',   valign: 'middle'  ,
 						formatter : function(value, row, index) {
 							if (value == '1') {
 								return "超级管理员";
