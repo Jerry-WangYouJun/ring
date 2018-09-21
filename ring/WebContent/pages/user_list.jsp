@@ -28,6 +28,9 @@
 			            <button id="btn_delete" type="button" class="btn btn-default" onclick="addInfo()">  
 			            	<span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
 			            </button>
+			            <button id="btn_delete" type="button" class="btn btn-default" onclick="resetPwd()">  
+			            	<span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>重置密码
+			            </button>
 			        </div>  
 				  </div>
 			</div>
@@ -45,22 +48,23 @@
 				<div class="modal-body">
 					<form id="dataForm">
 					 <input  class="form-control" name="id" type="hidden"></input>
+					  <input  class="form-control" name="role" type="hidden" value = "1"></input>
 						<div class="form-group">
 							<label for="recipient-name" class="control-label">登录名:</label> <input
-								type="text" class="form-control" name="userNo" id="userNo">
+								type="text" class="form-control" name="userNo" id="userNo" onchange="checkUnique( 'user','userNo',this.value)" placeholder="必填" required>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">管理员名称:</label> 
-								<input type="text" class="form-control" name="userName" id="userName">
+								<input type="text" class="form-control" name="userName" id="userName" placeholder="必填" required>
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label for="message-text" class="control-label">管理员类型:</label>
-							<select class="form-control"  id ="role" name="role">  
-					           <option value="1">超级管理员</option>
+							<select class="form-control"  id ="role" name="role" >  
+					           <option value="1" selected="selected">超级管理员</option>
 					           <option value="2">普通管理</option>
 					           <option value="3">其他</option>  
 					        </select>	
-						</div>
+						</div> -->
 						<div class="form-group">
 							<label for="message-text" class="control-label">备注:</label> 
 								<input type="text" class="form-control" name="remark" id="remark">
@@ -85,6 +89,34 @@
 		function delDish(){
 			deleteDataAll("user");
 		}
+		
+		function resetPwd(){
+			var selectObj = $("#infoTable").bootstrapTable('getSelections')[0];
+			var id = selectObj.id; 
+			console.info(selectObj)
+			if (id > 0) {
+				var path = "${basePath}/user/reset";
+				$.ajax({
+					url : path,
+					type : 'post',
+					data: selectObj ,
+					dataType : 'json',
+					success : function(data) {
+						if (data.success) {
+							alert( data.msg);
+							$("#infoTable").bootstrapTable("refresh");
+						} else {
+							alert( data.msg);
+						}
+		
+					},
+					error : function(transport) {
+						alert( "系统产生错误,请联系管理员!");
+					}
+				});
+			} 
+		}
+		
 		$(function(){
 			    $('#infoTable').bootstrapTable({  
 			        url : '${basePath}/user/query', // 请求后台的URL（*）            

@@ -1,6 +1,6 @@
 package com.common;
 
-import com.model.Pagination;
+import com.common.entry.Pagination;
 
 
 public class CodeUtil {
@@ -19,6 +19,6 @@ public class CodeUtil {
 			} else {
 				pagination.setPageIndex(pagination.getTotal() / pagination.getPageSize() + 1);
 			}
-
+			pagination.setStart(pagination.getPageSize() * ( pagination.getPageNo() - 1));
 		}
 }

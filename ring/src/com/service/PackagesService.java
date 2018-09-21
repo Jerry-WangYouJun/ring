@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.common.entry.Pagination;
 import com.dao.PackageDao;
 import com.dao.PackageMapper;
 import com.model.Packages;
-import com.model.Pagination;
 
 @Service
 public class PackagesService {

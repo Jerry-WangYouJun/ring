@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.common.entry.Pagination;
 import com.dao.UserDao;
 import com.dao.UserMapper;
-import com.model.Pagination;
 import com.model.User;
 
 @Service
@@ -28,21 +28,25 @@ public class UserService {
 		return mapper.queryByWhere(user , page);
 	}
 	
-	public int queryListCount(User user  ) {
-		return dao.queryTotal(user);
-	}
-
 	public void insert(User user) {
-		 dao.insert(user);
+		mapper.insert(user);
 	}
 
 	public void update(User user) {
-		dao.update(user);
+		mapper.updateByPrimaryKey(user);
 		
 	}
 
 	public void delete(Integer id) {
-		dao.delete(id);
+		mapper.deleteByPrimaryKey(id);
+	}
+
+	public int queryTotal(User user) {
+		return mapper.queryTotal(user);
+	}
+
+	public int checkUnique(String userNo) {
+		return dao.checkUnique(userNo);
 	}
 	 	 
 	

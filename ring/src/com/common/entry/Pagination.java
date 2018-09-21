@@ -1,8 +1,9 @@
-package com.model;
+package com.common.entry;
 
 import java.util.List;
 
 public class Pagination {
+	 private int start = 0 ;
 	//第几页
 	 private int pageNo = 1;
 	 //每页几条
@@ -64,5 +65,10 @@ public class Pagination {
 	public void setList(List list) {
 		this.list = list;
 	}
-	 
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
+	}
 }

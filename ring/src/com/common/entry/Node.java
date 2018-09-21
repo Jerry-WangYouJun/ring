@@ -1,4 +1,4 @@
-package com.model;
+package com.common.entry;
 
 public class Node {
 	  String code ; 

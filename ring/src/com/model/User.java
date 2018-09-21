@@ -6,6 +6,7 @@ public class User {
 	  private String userNo ; 
 	  private String pwd ;
 	  private String role ;
+	  private String remark;
 	public Integer getId() {
 		return id;
 	}
@@ -35,6 +36,12 @@ public class User {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	 
 }

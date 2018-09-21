@@ -12,8 +12,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.common.Dialect;
+import com.common.entry.Pagination;
 import com.model.Packages;
-import com.model.Pagination;
 
 
 @Repository

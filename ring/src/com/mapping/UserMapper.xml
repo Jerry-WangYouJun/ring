@@ -9,7 +9,7 @@
      <result column="role" property="role" jdbcType="INTEGER" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap><sql id="Base_Column_List">
-    id, user_no, user_name, role, remark
+    id, user_no, pwd , user_name, role, remark
   </sql>
   <select id="queryByWhere" resultMap="BaseResultMap" >
   	    select * from t_user where 1=1 
@@ -22,6 +22,20 @@
   	    <if test="obj.userName!= null and obj.userName != '' ">
   	    	     and user_name like #{user.userName}
   	    </if>
+  	     limit  #{page.start}, #{page.pageSize} 
+  </select>
+  
+  <select id="queryTotal"  resultType="java.lang.Integer">
+  	    select count(*) from t_user where 1=1 
+  	    <if test="id!=null and id > 0">
+  	    	    and id = #{id}
+  	    </if>
+  	    <if test="userNo !=null and userNo != '' ">
+  	    	 	and  user_no like #{userNo}
+  	    </if>
+  	    <if test="userName!= null and userName != '' ">
+  	    	     and user_name like #{userName}
+  	    </if>
   </select>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -30,16 +44,19 @@
     from t_user
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  
   <insert id="insert" parameterType="com.model.User">
-    insert into t_user ( user_no, user_name, 
+    insert into t_user ( user_no, user_name, pwd , 
       role, remark)
-    values ( #{userNo,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+    values ( #{userNo,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, 
       #{role,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
   </insert>
+  
   <insert id="insertSelective" parameterType="com.model.User">
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -48,6 +65,9 @@
       </if>
       <if test="userName != null">
         user_name,
+      </if>
+       <if test="pwd != null">
+        pwd,
       </if>
       <if test="role != null">
         role,
@@ -62,6 +82,9 @@
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
+      </if>
+       <if test="pwd != null">
+        #{pwd,jdbcType=VARCHAR},
       </if>
       <if test="role != null">
         #{role,jdbcType=VARCHAR},
@@ -80,6 +103,9 @@
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
+      <if test="pwd != null">
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
       <if test="role != null">
         role = #{role,jdbcType=VARCHAR},
       </if>
@@ -93,6 +119,7 @@
     update t_user
     set user_no = #{userNo,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR},
       role = #{role,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

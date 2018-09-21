@@ -30,29 +30,9 @@
         
         <meta name="msapplication-TileColor" content="#3399cc" />
         <script type="text/javascript">
-        
  		
  		
  		
- 		function upload() {
- 			var path = "${pageContext.request.contextPath}/uploadExcel/uploadInit"  ;
- 			document.getElementById('frameContent').src = path;
- 			$('#dlg-frame').dialog('open');
- 		}
- 		
- 		function uploadBindData(table){
- 			$.ajax( {
- 				url : "${pageContext.request.contextPath}/unicomUpload/"+ table +"_update" ,
- 				type : 'post',
- 				dataType : 'json',
- 				success : function(data) {
- 					alert(data.msg);
- 				},
- 				error : function(transport) {
- 					alert("系统有误，请重试或联系管理员");
- 				}
- 			});
- 		}
         </script>
     </head>
 <body>
@@ -76,7 +56,7 @@
                             <li class="dropdown">
                                 <a href="#" style="padding: 12px" data-toggle="dropdown"><i class="st-settings"></i></a>
                                 <ul class="dropdown-menu right" role="menu">
-                                    <li><a href="${pageContext.request.contextPath}/loginOut"><i class="im-exit"></i>注销用户</a>
+                                    <li><a href="${pageContext.request.contextPath}/user/loginOut"><i class="im-exit"></i>注销用户</a>
                                     </li>
                                 </ul>
                             </li>

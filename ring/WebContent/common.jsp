@@ -5,6 +5,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="basePath" value="${pageContext.request.contextPath}" scope="request"></c:set>
 <script type="text/javascript" src="${basePath}/js/jquery-easyui-1.4/jquery.min.js"></script>
+<script src="${basePath}/js/validate/jquery.validate.min.js"></script>
+<script src="${basePath}/js/validate/jquery.metadata.js"></script>
+<script src="${basePath}/js/validate/messages_zh.js"></script>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-theme.min.css">
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
@@ -18,8 +22,15 @@
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script> 
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js"></script> 
 
-
+<style>
+.error{
+	 color:red;
+}
+</style>
 <script type="text/javascript">
+		$(function(){
+			$("#dataForm").validate();
+		});
 		
 		function addInfo() {
 			$(':input', '#dataForm').not(':button,:submit,:reset').val(
@@ -41,6 +52,10 @@
 		}
 		
 		function subInfoAll(name) {
+			
+			if(!$("#dataForm").validate().form()){
+				return false ; 
+			}
 			var path = "${pageContext.request.contextPath}/"+name+"/"+name+"_edit";
 			$.ajax({
 				url : path,
@@ -75,7 +90,6 @@
 				return false;
 			}
 			var selectObj = $("#infoTable").bootstrapTable('getSelections')[0];
-			console.info(selectObj);
 			var id = selectObj.id;
 			if (id > 0) {
 				var path = "${basePath}/"+name+"/"+name+"_delete";
@@ -100,6 +114,29 @@
 			}
 		}
 		
+		function checkUnique(name , column , value ){
+			console.info(name);
+			console.info(value);
+			var path = "${pageContext.request.contextPath}/"+name+"/"+name+"_unique";
+			$.ajax({
+				url : path,
+				type : 'post',
+				data :  {name:value},
+				dataType : 'json',
+				success : function(data) {
+					if (data.success) {
+						
+					} else {
+						alert(data.msg);
+						$("#" + column).val("");
+					}
+		
+				},
+				error : function(transport) {
+					alert("系统产生错误,请联系管理员!");
+				}
+			});
+		}
 		
 		function remarkData() {
 			var selectRow =  $("#infoTable").bootstrapTable('getSelections');
