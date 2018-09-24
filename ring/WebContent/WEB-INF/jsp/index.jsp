@@ -27,13 +27,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-theme.min.css">
         <script src="${pageContext.request.contextPath}/assets/js/jquery-1.8.3.min.js"></script>
         <script type="text/JavaScript" src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
-        
         <meta name="msapplication-TileColor" content="#3399cc" />
-        <script type="text/javascript">
- 		
- 		
- 		
-        </script>
     </head>
 <body>
         <!-- Start #header -->
@@ -54,16 +48,16 @@
                         </ul>
                         <ul class="nav navbar-nav pull-right">
                             <li class="dropdown">
-                                <a href="#" style="padding: 12px" data-toggle="dropdown"><i class="st-settings"></i></a>
+                                <a href="#"  data-toggle="dropdown">设置</a>
                                 <ul class="dropdown-menu right" role="menu">
-                                    <li><a href="${pageContext.request.contextPath}/user/loginOut"><i class="im-exit"></i>注销用户</a>
+                                    <li><a href="${pageContext.request.contextPath}/user/loginOut"><i class="im-exit"></i>退出登录</a>
+                                    </li>
+                                    <li><a href="###" onclick="uploadModal()"><i class="im-spell-check"></i>修改密码</a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" data-toggle="dropdown">
-                                    <img class="user-avatar" src="${pageContext.request.contextPath}/assets/img/avatars/48.jpg" alt="SuggeElson">${sessionScope.user.userName}</a>
-                                
+                            <li class="dropdown" style="margin-top: 15px">
+                               <span class="text-logo" style="margin-top: 15px">${user.userName}</span>
                             </li>
                         </ul>
                     </nav>
@@ -247,10 +241,48 @@
             return tab.length > 0;
         }
 
-      
+     	function uploadModal() {
+     		$('#uploadModal').modal({backdrop: 'static'});
+    			$("#uploadModal").modal("show");
+    			
+    		}
+     	
+     	function uploadPwd(){
+     		var path = "${pageContext.request.contextPath}/user/pwd";
+     		var pwd = $("#newpwd").val();
+     		var confirm = $("#confirmpwd").val();
+     		if(pwd=='' || confirm==''){
+     			 alert("密码不能为空");
+     			 return  false;
+     		}
+     		if(pwd != confirm){
+     			 alert("两次密码不一致，请重新输入");
+     			$("#newpwd").val("");
+         		$("#confirmpwd").val("");
+         		return false ;
+     		}
+     		$.ajax({
+				url : path,
+				type : 'post',
+				data: {'pwd': pwd} ,
+				dataType : 'json',
+				success : function(data) {
+					if (data.success) {
+						alert( data.msg);
+						closeModel();
+					} else {
+						alert( data.msg);
+					}
+	
+				},
+				error : function(transport) {
+					alert( "系统产生错误,请联系管理员!");
+				}
+			});
+     	}
 	</script>
 	
-	<div class="modal fade" id="mlbModal" tabindex="-2" role="dialog"
+	<div class="modal fade" id="uploadModal" tabindex="-2" role="dialog"
 		aria-labelledby="uploadModalLabel" aria-hidden="true">
 		<div class="modal-dialog" style="width:400px; ">
 			<div class="modal-content">
@@ -259,27 +291,18 @@
 						 id="mlbForm"
 						action="${pageContext.request.contextPath}/uploadExcel/upload.do">
 						<div class="form-group">
-							<label for="message-text" class="control-label" id="timetext">出库时间:</label>
-							 <div class='input-group date' id='datetimepicker1'  >  
-					                <input type='text' class="form-control" readonly name="createdate"  id="createdate"/>  
-					                <span class="input-group-addon" >  
-					                    <span class="glyphicon glyphicon-calendar"></span>  
-					                </span>  
-					            </div>   
+						    <label style="width: 70px" for="message-text" class="control-label">新密码:</label>
+						    <input type="password"   id="newpwd" />
 						</div>
 						<div class="form-group">
-						   <label for="message-text" class="control-label">选择卡类型:</label>
-						    <select name="apiCode" id = "apiCode" class="form-control" >
-						      <option value="1">移动</option>
-						      <option value="2">联通</option>
-						      <option value="3">电信</option>
-						    </select>
+						    <label style="width: 70px" for="message-text" class="control-label">确认密码:</label>
+						    <input type="password"   id="confirmpwd" />
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" id="btn_mlb" class="btn btn-primary" data-dismiss="modal" onclick="">导入数据</button>
+					<button type="button"  class="btn btn-primary"  onclick="uploadPwd()">修改密码</button>
 				</div>
 			</div>
 			<!-- /.modal-content -->
@@ -287,120 +310,4 @@
 		<!-- /.modal -->
 	</div>
     </body>
-    <script type="text/javascript">
-	
-	function uploadData() {
-		$("#uploadModal").modal("show");
-	}
-	
-	//ajax 方式上传文件操作
-	$(document).ready(function() {
-		$('#btn_api').click(function() {
-			if($("#apiCode").val() == "0"){
-				  alert("请选择数据接口");
-				  return false ;
-			}
-			//if (checkData()) {
-				$('#form1').ajaxSubmit({
-					url : '${pageContext.request.contextPath}/uploadExcel/ajaxUpload.do',
-					dataType : 'text',
-					success : resutlMsg,
-					error : errorMsg
-				});
-				function resutlMsg(msg) {
-					alert(msg);
-					parent.$('#dlg-frame').dialog("close");
-					//window.location.href = "${pageContext.request.contextPath}/uploadExcel/dataList.do?dateBegin=&dateEnd=&status=";
-					$("#upfile").val("");
-				}
-				function errorMsg() {
-					alert("导入excel出错！");
-				}
-			//}
-		});
-	});
-	
-
-	function uploadUnicomData() {
-		$("#unicomModal").modal("show");
-	}
-	
-	//ajax 方式上传文件操作
-	$(document).ready(function() {
-		$('#btn_insert').click(function() {
-				$('#unicomForm').ajaxSubmit({
-					url : '${pageContext.request.contextPath}/unicomUpload/uploadExcelUnicom?act=insert',
-					dataType : 'text',
-					success : resutlMsg,
-					error : errorMsg
-				});
-				function resutlMsg(msg) {
-					alert(msg);
-					parent.$('#dlg-frame').dialog('close');
-					//window.location.href = "${pageContext.request.contextPath}/uploadExcel/dataList.do?dateBegin=&dateEnd=&status=";
-					$("#upfile").val("");
-				}
-				function errorMsg() {
-					alert("导入excel出错！");
-				}
-		});
-		$('#btn_update').click(function() {
-			$('#unicomForm').ajaxSubmit({
-				url : '${pageContext.request.contextPath}/unicomUpload/uploadExcelUnicom?act=update',
-				dataType : 'text',
-				success : resutlMsg,
-				error : errorMsg
-			});
-			function resutlMsg(msg) {
-				alert(msg);
-				parent.$('#dlg-frame').dialog('close');
-				$("#upfile").val("");
-			}
-			function errorMsg() {
-				alert("导入excel出错！");
-			}
-	});
-	});
-	
-	
-	function uploadMlbData(){
-		 $("#mlbModal").modal("show");
-	}
-	
-	$(document).ready(function() {
-		$('#btn_mlb').click(function() {
-			if($("#createdate").val() == ''){
-				 alert("请添加出库时间");
-				 return false;
-			}
-			$('#mlbForm').ajaxSubmit({
-				url : '${pageContext.request.contextPath}/unicomUpload/uploadExcelUnicom',
-				dataType : 'text',
-				success : resutlMsg,
-				error : errorMsg
-			});
-			function resutlMsg(msg) {
-				alert(msg);
-				parent.$('#dlg-frame').dialog('close');
-				$("#upfile").val("");
-			}
-			function errorMsg() {
-				alert("导入excel出错！");
-			}
-	});
-	});
-	
-	$(function(){
-			if($('#datetimepicker1')[0] != undefined){
-				$('#datetimepicker1').datetimepicker({  
-					minView: "month",
-					format: 'yyyy-mm-dd',
-				    todayBtn: true,//显示今日按钮
-				    autoclose: true,
-				    language:"zh-CN",
-				    clearBtn: true 
-				});
-			}
-		});
-</script>
 </html>

@@ -118,6 +118,26 @@ public class UserController {
 		return msg;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/pwd")
+	public Message  uploadPwd(String pwd , HttpSession session){
+		Message msg = new Message();
+		try{
+			User user = (User)session.getAttribute("user");
+			if(user.getId() != null  &&  user.getId() > 0){
+				user.setPwd(pwd);
+				service.update(user);
+			}
+			msg.setSuccess(true);
+			msg.setMsg("操作成功");
+		}catch(Exception e ){
+			 msg.setSuccess(false);
+			 msg.setMsg("操作失败：" + e.getMessage());
+			 return msg ;
+		} 
+		return msg;
+	}
+	
 	@RequestMapping("/checkUser")
 	public String checkUser(User user , HttpServletRequest request , HttpSession session){
 		user = service.checkUser(user);
