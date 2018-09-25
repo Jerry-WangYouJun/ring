@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.PointsMapper">
+  <resultMap id="BaseResultMap" type="com.model.Points">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cust_id" jdbcType="INTEGER" property="custId" />
+    <result column="point" jdbcType="INTEGER" property="point" />
+    <result column="flag" jdbcType="VARCHAR" property="flag" />
+    <result column="wave_point" jdbcType="INTEGER" property="wavePoint" />
+    <result column="wave_reason" jdbcType="VARCHAR" property="waveReason" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cust_id, point, flag, wave_point, wave_reason
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_points
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_points
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.Points">
+    insert into t_points (id, cust_id, point, 
+      flag, wave_point, wave_reason
+      )
+    values (#{id,jdbcType=INTEGER}, #{custId,jdbcType=INTEGER}, #{point,jdbcType=INTEGER}, 
+      #{flag,jdbcType=VARCHAR}, #{wavePoint,jdbcType=INTEGER}, #{waveReason,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.Points">
+    insert into t_points
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="custId != null">
+        cust_id,
+      </if>
+      <if test="point != null">
+        point,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="wavePoint != null">
+        wave_point,
+      </if>
+      <if test="waveReason != null">
+        wave_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="custId != null">
+        #{custId,jdbcType=INTEGER},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="wavePoint != null">
+        #{wavePoint,jdbcType=INTEGER},
+      </if>
+      <if test="waveReason != null">
+        #{waveReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Points">
+    update t_points
+    <set>
+      <if test="custId != null">
+        cust_id = #{custId,jdbcType=INTEGER},
+      </if>
+      <if test="point != null">
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="wavePoint != null">
+        wave_point = #{wavePoint,jdbcType=INTEGER},
+      </if>
+      <if test="waveReason != null">
+        wave_reason = #{waveReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Points">
+    update t_points
+    set cust_id = #{custId,jdbcType=INTEGER},
+      point = #{point,jdbcType=INTEGER},
+      flag = #{flag,jdbcType=VARCHAR},
+      wave_point = #{wavePoint,jdbcType=INTEGER},
+      wave_reason = #{waveReason,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -93,6 +93,10 @@
                             	<a href="#" class="ec-users" onclick='addTab("user","${pageContext.request.contextPath}/pages/user_list.jsp","提醒信息维护")'>
 								 提醒信息维护</a>
                             </li>
+                            <li>
+                            	<a href="#" class="ec-users" onclick='addTab("dic","${pageContext.request.contextPath}/pages/dic_list.jsp","字典信息")'>
+								 字典信息</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
