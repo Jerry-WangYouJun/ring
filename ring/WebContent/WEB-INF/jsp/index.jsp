@@ -29,6 +29,11 @@
         <script type="text/JavaScript" src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
         <meta name="msapplication-TileColor" content="#3399cc" />
     </head>
+    <script type="text/javascript">
+    	 $(function(){
+    		   console.info(eval('(${dic})'));
+    	 });
+    </script>
 <body>
         <!-- Start #header -->
         <div id="header">

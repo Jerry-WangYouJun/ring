@@ -1,6 +1,6 @@
 package com.common.entry;
 
-import java.util.List;
+import com.common.CodeUtil;
 
 public class Pagination {
 	 private int start = 0 ;
@@ -12,7 +12,6 @@ public class Pagination {
 	 private int pageIndex  ;
 	 //总条数
 	 private int total ;
-	 private List list;
 	
 	public Pagination() {
 		super();
@@ -27,6 +26,7 @@ public class Pagination {
 		super();
 		this.pageNo = pageNo==null?1:Integer.valueOf(pageNo);
 		this.pageSize = pageSize==null?10:Integer.valueOf(pageSize);
+		CodeUtil.initPagination(this);
 	}
 	
 	public Pagination(String pageNo, String pageSize , int initSize) {
@@ -58,12 +58,6 @@ public class Pagination {
 	}
 	public void setTotal(int total) {
 		this.total = total;
-	}
-	public List getList() {
-		return list;
-	}
-	public void setList(List list) {
-		this.list = list;
 	}
 	public int getStart() {
 		return start;

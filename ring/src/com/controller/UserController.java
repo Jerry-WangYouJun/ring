@@ -1,10 +1,14 @@
 package com.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +19,9 @@ import com.common.CodeUtil;
 import com.common.entry.Grid;
 import com.common.entry.Message;
 import com.common.entry.Pagination;
+import com.model.Dictionary;
 import com.model.User;
+import com.service.DictionaryService;
 import com.service.UserService;
 
 
@@ -25,6 +31,8 @@ public class UserController {
 	 
 	@Autowired
 	UserService service ;
+	@Autowired
+	DictionaryService dicService;
 	
 	@ResponseBody
 	@RequestMapping("/query")
@@ -35,7 +43,6 @@ public class UserController {
 	    User user = new User();
 	    user.setUserName(userName);
 		Pagination page =  new Pagination(pageNo, pageSize) ;
-	    CodeUtil.initPagination(page);
 		List<User> list = service.queryList(user , page );
 		int total = service.queryTotal(user );
 		Grid grid = new Grid();
@@ -138,11 +145,14 @@ public class UserController {
 		return msg;
 	}
 	
+	@SuppressWarnings("unused")
 	@RequestMapping("/checkUser")
 	public String checkUser(User user , HttpServletRequest request , HttpSession session){
 		user = service.checkUser(user);
+		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		if(user != null ){
 			session.setAttribute("user", user);
+			session.setAttribute("dic",   JSONArray.fromObject(dicMap));
 			return "index" ;
 		}else{
 			request.setAttribute("msg", "用户名或者密码错误");
