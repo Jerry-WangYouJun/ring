@@ -145,14 +145,13 @@ public class UserController {
 		return msg;
 	}
 	
-	@SuppressWarnings("unused")
 	@RequestMapping("/checkUser")
 	public String checkUser(User user , HttpServletRequest request , HttpSession session){
 		user = service.checkUser(user);
 		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		if(user != null ){
 			session.setAttribute("user", user);
-			session.setAttribute("dic",   JSONArray.fromObject(dicMap));
+			session.setAttribute("dic",   JSONObject.fromObject(dicMap));
 			return "index" ;
 		}else{
 			request.setAttribute("msg", "用户名或者密码错误");
@@ -168,6 +167,7 @@ public class UserController {
 	@RequestMapping("/loginOut")
 	public String logout(HttpSession session){
 		session.removeAttribute("user");
+		session.removeAttribute("dic");
 		return "login";
 	}
 	

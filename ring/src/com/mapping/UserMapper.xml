@@ -20,7 +20,7 @@
   	    	 	and  user_no like #{obj.userNo}
   	    </if>
   	    <if test="obj.userName!= null and obj.userName != '' ">
-  	    	     and user_name like #{user.userName}
+  	    	     and user_name like #{obj.userName}
   	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>

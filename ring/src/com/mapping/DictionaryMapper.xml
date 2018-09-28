@@ -22,7 +22,7 @@
   	    	 	and  col like #{obj.col}
   	    </if>
   	    <if test="obj.name!= null and obj.name != '' ">
-  	    	     and name like #{user.name}
+  	    	     and name like #{obj.name}
   	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>

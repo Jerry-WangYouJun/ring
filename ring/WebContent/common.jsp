@@ -178,4 +178,17 @@
 			});
 		}
 		
+		$(function(){
+			if($('#datetimepicker1')[0] != undefined){
+				$('#datetimepicker1').datetimepicker({  
+					minView: "month",
+					format: 'yyyy-mm-dd',
+				    todayBtn: true,//显示今日按钮
+				    autoclose: true,
+				    language:"zh-CN",
+				    clearBtn: true 
+				});
+			}
+		});
+		
 </script>

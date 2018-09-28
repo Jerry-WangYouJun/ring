@@ -1,5 +1,10 @@
 package com.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.common.entry.Pagination;
 import com.model.Customer;
 
 public interface CustomerMapper {
@@ -14,4 +19,8 @@ public interface CustomerMapper {
     int updateByPrimaryKeySelective(Customer record);
 
     int updateByPrimaryKey(Customer record);
+
+	List<Customer> queryByWhere(@Param("obj")Customer customer,@Param("page")Pagination page);
+
+	int queryTotal(Customer customer);
 }

@@ -2,6 +2,8 @@ package com.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Customer {
     private Integer id;
 
@@ -15,7 +17,8 @@ public class Customer {
 
     private String sex;
 
-    private Date birthday;
+   
+    private String birthday;
 
     private String hometown;
 
@@ -101,11 +104,11 @@ public class Customer {
         this.sex = sex == null ? null : sex.trim();
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

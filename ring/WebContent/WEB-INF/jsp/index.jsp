@@ -29,9 +29,9 @@
         <script type="text/JavaScript" src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
         <meta name="msapplication-TileColor" content="#3399cc" />
     </head>
-    <script type="text/javascript">
+    <script type="text/javascript"> 
     	 $(function(){
-    		   console.info(eval('(${dic})'));
+    		 
     	 });
     </script>
 <body>
@@ -105,7 +105,7 @@
                         </ul>
                     </li>
                     <li>
-                    	 	 <a href="#" class="ec-users" onclick='addTab("user2","${pageContext.request.contextPath}/pages/user_list.jsp","会员管理")'> 会员管理 </a>
+                    	 	 <a href="#" class="ec-users" onclick='addTab("customer","${pageContext.request.contextPath}/pages/customer_list.jsp","会员管理")'> 会员管理 </a>
                     </li>
                     <li>
                     	 	 <a href="#" class="ec-users" onclick='addTab("user2","${pageContext.request.contextPath}/pages/user_list.jsp","会员积分信息")'> 会员积分信息 </a>

@@ -33,6 +33,40 @@
     weight, marriage, children, degree, house_status, industry, income, qq, telephone, 
     email, referee, introduction, declaration, ask, remark
   </sql>
+  
+  <select id="queryByWhere" resultMap="BaseResultMap" >
+  	    select  <include refid="Base_Column_List" /> from t_customer where 1=1 
+  	    <if test="obj.id!=null and obj.id > 0">
+  	    	    and id = #{obj.id}
+  	    </if>
+  	    <if test="obj.chName !=null and obj.chName != '' ">
+  	    	 	and  ch_name like #{obj.chName}
+  	    </if>
+  	    <if test="obj.nickName!= null and obj.nickName != '' ">
+  	    	     and nick_name like #{obj.nickName}
+  	    </if>
+  	    <if test="obj.sex!= null and obj.sex != '' ">
+  	    	     and sex = #{obj.sex}
+  	    </if>
+  	     limit  #{page.start}, #{page.pageSize} 
+  </select>
+  
+  <select id="queryTotal"  resultType="java.lang.Integer">
+  	    select count(*) from t_customer where 1=1 
+  	     <if test="id!=null and id > 0">
+  	    	    and id = #{id}
+  	    </if>
+  	    <if test="chName !=null and chName != '' ">
+  	    	 	and  ch_name like #{chName}
+  	    </if>
+  	    <if test="nickName!= null and nickName != '' ">
+  	    	     and nick_name like #{nickName}
+  	    </if>
+  	    <if test="sex!= null and sex != '' ">
+  	    	     and sex = #{sex}
+  	    </if>
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
