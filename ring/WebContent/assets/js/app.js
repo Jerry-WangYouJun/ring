@@ -73,7 +73,7 @@ $(document).ready(function() {
             hover: false, //shows subs on hover or click
             showNotificationNumbers: 'onhover',//show how many elements menu have with notifcation style values - always, onhover, never
             showArrows: true,//show arrow to indicate sub
-            sideNavArrowIcon: 'im-plus', //arrow icon for navigation
+            sideNavArrowIcon: 'en-arrow-down5', /**收起、展开图标**/
             showIndicator: false,//show indicator when hover links
             notificationColor: 'red', //green, red
             subOpenSpeed: 300,//animation speed for open subsim-plus
