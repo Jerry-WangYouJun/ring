@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.LocationMapper">
+  <resultMap id="BaseResultMap" type="com.model.Location">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="loc_name" jdbcType="VARCHAR" property="locName" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="manager" jdbcType="VARCHAR" property="manager" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="work_date" jdbcType="VARCHAR" property="workDate" />
+    <result column="work_time" jdbcType="VARCHAR" property="workTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, loc_name, location, address, manager, telephone, work_date, work_time, remark
+  </sql>
+  
+   <select id="queryByWhere" resultMap="BaseResultMap" >
+  	    select  <include refid="Base_Column_List" /> from t_location where 1=1 
+  	    <if test="obj.id!=null and obj.id > 0">
+  	    	    and id = #{obj.id}
+  	    </if>
+  	    <if test="obj.location !=null and obj.location != '' ">
+  	    	 	and  location = #{obj.location}
+  	    </if>
+  	    <if test="obj.address!= null and obj.address != '' ">
+  	    	     and address like #{obj.address}
+  	    </if>
+  	    <if test="obj.telephone!= null and obj.telephone != '' ">
+  	    	     and telephone like #{obj.telephone}
+  	    </if>
+  	     limit  #{page.start}, #{page.pageSize} 
+  </select>
+  
+  <select id="queryTotal"  resultType="java.lang.Integer">
+  	    select count(*) from t_location where 1=1 
+  	   <if test="id!=null and id > 0">
+  	    	    and id = #{id}
+  	    </if>
+  	    <if test="location !=null and location != '' ">
+  	    	 	and  location = #{location}
+  	    </if>
+  	    <if test="address!= null and address != '' ">
+  	    	     and address like #{address}
+  	    </if>
+  	    <if test="telephone!= null and telephone != '' ">
+  	    	     and telephone like #{telephone}
+  	    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_location
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_location
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.Location">
+    insert into t_location (id, loc_name, location, 
+      address, manager, telephone, 
+      work_date, work_time, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{locName,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{manager,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{workDate,jdbcType=VARCHAR}, #{workTime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.Location">
+    insert into t_location
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="locName != null">
+        loc_name,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="manager != null">
+        manager,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="workDate != null">
+        work_date,
+      </if>
+      <if test="workTime != null">
+        work_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="locName != null">
+        #{locName,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null">
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="workDate != null">
+        #{workDate,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null">
+        #{workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Location">
+    update t_location
+    <set>
+      <if test="locName != null">
+        loc_name = #{locName,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null">
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="workDate != null">
+        work_date = #{workDate,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null">
+        work_time = #{workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Location">
+    update t_location
+    set loc_name = #{locName,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      manager = #{manager,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      work_date = #{workDate,jdbcType=VARCHAR},
+      work_time = #{workTime,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

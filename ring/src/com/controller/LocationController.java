@@ -1,13 +1,9 @@
 package com.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,18 +14,16 @@ import com.common.CodeUtil;
 import com.common.entry.Grid;
 import com.common.entry.Message;
 import com.common.entry.Pagination;
-import com.model.Dictionary;
-import com.service.DictionaryService;
+import com.model.Location;
+import com.service.LocationService;
 
 
 @Controller
-@RequestMapping("/dic")
-public class DictionaryController {
+@RequestMapping("/location")
+public class LocationController {
 	 
 	@Autowired
-	DictionaryService service ;
-	@Autowired
-	DictionaryService dicService;
+	LocationService service ;
 	
 	@ResponseBody
 	@RequestMapping("/query")
@@ -37,12 +31,11 @@ public class DictionaryController {
 		String col = request.getParameter("col");
 		String pageNo = request.getParameter("pageNumber");
 		String pageSize = request.getParameter("pageSize");
-	    Dictionary dic = new Dictionary();
-	    dic.setCol(col);
+	    Location location = new Location();
 		Pagination page =  new Pagination(pageNo, pageSize) ;
 	    CodeUtil.initPagination(page);
-		List<Dictionary> list = service.queryList(dic , page );
-		int total = service.queryTotal(dic );
+		List<Location> list = service.queryList(location , page );
+		int total = service.queryTotal(location );
 		Grid grid = new Grid();
 		grid.setRows(list);
 		grid.setTotal((long)total);
@@ -50,17 +43,15 @@ public class DictionaryController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/dic_edit")
-	public Message  editDictionary(Dictionary dic , HttpSession session ){
+	@RequestMapping("/location_edit")
+	public Message  editLocation(Location location ){
 		Message msg = new Message();
 		try{
-			if(dic.getId() != null  &&  dic.getId() > 0){
-				service.update(dic);
+			if(location.getId() != null  &&  location.getId() > 0){
+				service.update(location);
 			}else{
-				service.insert(dic);
+				service.insert(location);
 			}
-			Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
-			session.setAttribute("dic",   JSONObject.fromObject(dicMap));
 			msg.setSuccess(true);
 			msg.setMsg("操作成功");
 		}catch(Exception e ){
@@ -72,8 +63,8 @@ public class DictionaryController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/dic_delete")
-	public Message  deleteDictionary( Integer id  ){
+	@RequestMapping("/location_delete")
+	public Message  deleteLocation( Integer id  ){
 		Message msg = new Message();
 		try{
 			service.delete(id);
@@ -88,8 +79,8 @@ public class DictionaryController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/dic_unique")
-	public Message  uniqueDictionary( String name ){
+	@RequestMapping("/location_unique")
+	public Message  uniqueLocation( String name ){
 		Message msg = new Message();
 		try{
 			int num = service.checkUnique(name);

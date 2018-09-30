@@ -94,7 +94,7 @@
 		$(function(){
 			    $('#infoTable').bootstrapTable({  
 			        url : '${basePath}/dic/query', // 请求后台的URL（*）            
-			        method : 'get', // 请求方式（*）  
+			        method : 'post', // 请求方式（*）  
 			        toolbar : '#toolbar', // 工具按钮用哪个容器  
 			        cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）  
 			        sidePagination : "server", // 分页方式：client客户端分页，server服务端分页（*）  

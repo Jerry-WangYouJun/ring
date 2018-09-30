@@ -87,7 +87,7 @@
 								 账户信息</a>
                             </li>
                             <li>
-                            	<a href="#" class="ec-location" onclick='addTab("location","${pageContext.request.contextPath}/pages/user_list.jsp","约会地点维护")'>
+                            	<a href="#" class="ec-location" onclick='addTab("location","${pageContext.request.contextPath}/pages/location_list.jsp","约会地点维护")'>
 								 约会地点信息</a>
                             </li>
                             <li>
