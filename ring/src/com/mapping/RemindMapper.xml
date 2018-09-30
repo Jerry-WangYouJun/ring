@@ -10,8 +10,37 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, remind_time, remind, remind_type, remark
+   	 id, name, remind_time, remind, remind_type, remark
   </sql>
+  
+  
+   <select id="queryByWhere" resultMap="BaseResultMap" >
+  	    select  <include refid="Base_Column_List" /> from t_remind where 1=1 
+  	    <if test="obj.id!=null and obj.id > 0">
+  	    	    and id = #{obj.id}
+  	    </if>
+  	    <if test="obj.name !=null and obj.name != '' ">
+  	    	 	and  name like #{obj.name}
+  	    </if>
+  	    <if test="obj.remindType!= null and obj.remindType != '' ">
+  	    	     and remind_type = #{obj.remindType}
+  	    </if>
+  	     limit  #{page.start}, #{page.pageSize} 
+  </select>
+  
+  <select id="queryTotal"  resultType="java.lang.Integer">
+  	    select count(*) from t_remind where 1=1 
+  	  <if test="id!=null and id > 0">
+  	    	    and id = #{id}
+  	    </if>
+  	    <if test="name !=null and name != '' ">
+  	    	 	and  name like #{name}
+  	    </if>
+  	    <if test="remindType!= null and remindType != '' ">
+  	    	     and remind_type = #{remindType}
+  	    </if>
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

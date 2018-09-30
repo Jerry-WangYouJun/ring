@@ -5,7 +5,7 @@
 <html id="a1">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>约会地点管理</title>
+<title>提醒消息设置</title>
 <style type="text/css">
 .panel-body {
 	padding: 0px !important;
@@ -44,40 +44,28 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">地点管理</h4>
+					<h4 class="modal-title" id="myModalLabel">提醒消息设置</h4>
 				</div>
 				<div class="modal-body">
 					<form id="dataForm">
 						<input class="form-control" name="id" type="hidden"></input>
 						<div class="form-group">
-							<label for="message-text" class="control-label">店名:</label> <input
-								type="text" class="form-control" name="locName" id="locName" placeholder="必填" required>
+							<label for="message-text" class="control-label">提醒名称:</label> <input
+								type="text" class="form-control" name="name" id="name" placeholder="必填" required>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">所在区:</label> 
-								<select  class="form-control dicSelect"  id="location" name="location" placeholder="必填" required>
+							<label for="message-text" class="control-label">提醒时间:</label> 
+								<input type="text" class="form-control" name="remindTime" id="remindTime" placeholder="必填" required>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">提醒内容:</label> <input
+								type="text" class="form-control" name="remind" id="remind">
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">提醒类型:</label> 
+								<select  class="form-control dicSelect"  id="remindType" name="remindType" >
 									 
 								</select>
-						</div>
-						<div class="form-group">
-							<label for="message-text" class="control-label">地址:</label> <input
-								type="text" class="form-control" name="address" id="address">
-						</div>
-						<div class="form-group">
-							<label for="message-text" class="control-label">联系人:</label> <input
-								type="text" class="form-control" name="manager" id="manager">
-						</div>
-						<div class="form-group">
-							<label for="message-text" class="control-label">联系电话:</label> <input
-								type="text" class="form-control" name="telephone" id="telephone">
-						</div>
-						<div class="form-group">
-							<label for="message-text" class="control-label">工作日:</label> <input
-								type="text" class="form-control" name="workDate" id="workDate">
-						</div>
-						<div class="form-group">
-							<label for="message-text" class="control-label">营业时间:</label> <input
-								type="text" class="form-control" name="workDime" id="workDime">
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">备注:</label> <input
@@ -97,17 +85,17 @@
 </body>
 <script type="text/javascript">
 	function subInfo() {
-		subInfoAll("location");
+		subInfoAll("remind");
 	}
 
 	function delDish() {
-		deleteDataAll("location");
+		deleteDataAll("remind");
 	}
 
 	$(function() {
 		$('#infoTable').bootstrapTable({
-			url : '${basePath}/location/query', // 请求后台的URL（*）            
-			method : 'get', // 请求方式（*）  
+			url : '${basePath}/remind/query', // 请求后台的URL（*）            
+			method : 'post', // 请求方式（*）  
 			toolbar : '#toolbar', // 工具按钮用哪个容器  
 			cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）  
 			sidePagination : "server", // 分页方式：client客户端分页，server服务端分页（*）  
@@ -122,38 +110,24 @@
 			showToggle : false, // 是否显示详细视图和列表视图的切换按钮  
 			search : true, //是否启用搜索框 
 
-			columns : [ {
-				checkbox : true
-			}, {
-				field : 'id',visible : false
-			}, {
-				field : 'locName',title : '店名',align : 'center',valign : 'middle'
-			}, {
-				field : 'location',title : '区域',align : 'center',valign : 'middle',
-				formatter : function(value, row, index, field) {
-					return getDicDescirb(value, field);
-				}
-			}, {
-				field : 'address',title : '地址',align : 'center',valign : 'middle'
-			}, {
-				field : 'manager',title : '联系人',align : 'center',valign : 'middle'
-			}, {
-				field : 'telephone',title : '联系电话',align : 'center',valign : 'middle'
-			},  {
-				field : 'workDate',title : '工作日',align : 'center',valign : 'middle'
-			}, {
-				field : 'workTime',title : '营业时间',align : 'center',valign : 'middle'
-			}, {
-				field : 'remark',title : '备注',align : 'center',valign : 'middle'
-			} ],
+			columns : [ {checkbox : true}, 
+			            {field : 'id',visible : false}, 
+			            {field : 'name',title : '提醒名',align : 'center',valign : 'middle'}, 
+			            {field : 'remindTime',title : '提醒时间',align : 'center',valign : 'middle'}, 
+			            {field : 'remindType',title : '提醒类型',align : 'center',valign : 'middle',
+							formatter : function(value, row, index, field) {
+								return getDicDescirb(value, field);
+							}
+			            },  
+			            {field : 'remind',title : '提醒内容',align : 'center',valign : 'middle'}, 
+						{field : 'remark',title : '备注',align : 'center',valign : 'middle'} 
+					  ],
 			silent : true, // 刷新事件必须设置  
 		});
 	});
 	
 	$(function(){
-		 
-		 $(".dicSelect").each(function(){
-			 console.info($(this))
+		  $(".dicSelect").each(function(){
 			     var field = this.name ;
 		    	 var htmlStr = "";
 			     if (dic.hasOwnProperty(field)) {
@@ -163,7 +137,8 @@
 					 }
 				  } 
 			     $(this).append(htmlStr);
-		 });
+		 }); 
+		  
 	});
 </script>
 

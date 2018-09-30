@@ -120,7 +120,7 @@
 		$(function(){
 			    $('#infoTable').bootstrapTable({  
 			        url : '${basePath}/user/query', // 请求后台的URL（*）            
-			        method : 'post', // 请求方式（*）  
+			        method : 'get', // 请求方式（*）  
 			        toolbar : '#toolbar', // 工具按钮用哪个容器  
 			        cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）  
 			        sidePagination : "server", // 分页方式：client客户端分页，server服务端分页（*）  
@@ -139,7 +139,12 @@
 			            checkbox : true 
 			        },{  
 			            field : 'id', visible: false 
-			        },{  
+			        }, {
+                        field: 'Number',title: '序号', align: 'center', width:'20px',
+                        formatter: function (value, row, index) {
+                            return index+1;
+                        }
+ 					},{  
 			            field : 'userName',   title : '管理员',   align: 'center', valign: 'middle'  
 			        },{  
 			            field : 'userNo',   title : '登录账号',  align: 'center',   valign: 'middle'  

@@ -91,8 +91,8 @@
 								 约会地点信息</a>
                             </li>
                             <li>
-                            	<a href="#" class="ec-clock" onclick='addTab("remind","${pageContext.request.contextPath}/pages/user_list.jsp","提醒信息维护")'>
-								 提醒信息维护</a>
+                            	<a href="#" class="ec-clock" onclick='addTab("remind","${pageContext.request.contextPath}/pages/remind_list.jsp","提醒信息维护")'>
+								 提醒信息设置</a>
                             </li>
                             <li>
                             	<a href="#" class="ec-archive" onclick='addTab("dic","${pageContext.request.contextPath}/pages/dic_list.jsp","字典信息")'>
