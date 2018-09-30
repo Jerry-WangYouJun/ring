@@ -28,6 +28,7 @@
 }
 </style>
 <script type="text/javascript">
+	var dic = eval('(${dic})');
 		$(function(){
 			$("#dataForm").validate();
 		});
@@ -190,5 +191,15 @@
 				});
 			}
 		});
+		
+
+		function getDicDescirb(value, field) {
+			
+			if (dic.hasOwnProperty(field) && dic[field][value] != undefined) {
+				return dic[field][value]["describ"];
+			} else {
+				return "-";
+			}
+		}
 		
 </script>

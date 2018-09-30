@@ -87,31 +87,27 @@
 								 账户信息</a>
                             </li>
                             <li>
-                            	<a href="#" class="ec-users" onclick='addTab("user","${pageContext.request.contextPath}/pages/user_list.jsp","信用状态")'>
-								信用状态</a>
-                            </li>
-                            <li>
-                            	<a href="#" class="ec-users" onclick='addTab("user","${pageContext.request.contextPath}/pages/user_list.jsp","约会地点维护")'>
+                            	<a href="#" class="ec-location" onclick='addTab("location","${pageContext.request.contextPath}/pages/user_list.jsp","约会地点维护")'>
 								 约会地点信息</a>
                             </li>
                             <li>
-                            	<a href="#" class="ec-users" onclick='addTab("user","${pageContext.request.contextPath}/pages/user_list.jsp","提醒信息维护")'>
+                            	<a href="#" class="ec-clock" onclick='addTab("remind","${pageContext.request.contextPath}/pages/user_list.jsp","提醒信息维护")'>
 								 提醒信息维护</a>
                             </li>
                             <li>
-                            	<a href="#" class="ec-users" onclick='addTab("dic","${pageContext.request.contextPath}/pages/dic_list.jsp","字典信息")'>
+                            	<a href="#" class="ec-archive" onclick='addTab("dic","${pageContext.request.contextPath}/pages/dic_list.jsp","字典信息")'>
 								 字典信息</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                    	 	 <a href="#" class="ec-users" onclick='addTab("customer","${pageContext.request.contextPath}/pages/customer_list.jsp","会员管理")'> 会员管理 </a>
+                    	 	 <a href="#" class="im-users2" onclick='addTab("customer","${pageContext.request.contextPath}/pages/customer_list.jsp","会员管理")'> 会员管理 </a>
                     </li>
                     <li>
-                    	 	 <a href="#" class="ec-users" onclick='addTab("user2","${pageContext.request.contextPath}/pages/user_list.jsp","会员积分信息")'> 会员积分信息 </a>
+                    	 	 <a href="#" class="im-spades" onclick='addTab("score","${pageContext.request.contextPath}/pages/user_list.jsp","会员积分信息")'> 会员积分信息 </a>
                     </li>
                     <li>
-                    	 	 <a href="#" class="ec-users" onclick='addTab("user2","${pageContext.request.contextPath}/pages/user_list.jsp","约会信息")'> 约会信息 </a>
+                    	 	 <a href="#" class="im-heart2" onclick='addTab("heart","${pageContext.request.contextPath}/pages/user_list.jsp","约会信息")'> 约会信息 </a>
                     </li>
                 </ul>
             </div>
