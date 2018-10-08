@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2018-09-25 17:26:40
+Date: 2018-10-08 17:16:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -46,11 +46,17 @@ CREATE TABLE `t_customer` (
   `ask` varchar(100) DEFAULT NULL COMMENT '择偶要求',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_customer
 -- ----------------------------
+INSERT INTO `t_customer` VALUES ('1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1', null, null, null, null, null, '1');
+INSERT INTO `t_customer` VALUES ('2', '0', null, null, null, '1', null, null, null, '0.00', null, '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `t_customer` VALUES ('3', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `t_customer` VALUES ('4', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `t_customer` VALUES ('5', '', '123', '123', '123', null, '2018-09-04', '123', '', null, null, '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+INSERT INTO `t_customer` VALUES ('9', '', null, '', '', null, '2018-09-03', '', '', null, null, '', '', '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for t_dictionary
@@ -64,13 +70,24 @@ CREATE TABLE `t_dictionary` (
   `describ` varchar(20) DEFAULT NULL COMMENT '描述',
   `flag` varchar(2) DEFAULT '1' COMMENT '1:可用 0 ：不可用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_dictionary
 -- ----------------------------
 INSERT INTO `t_dictionary` VALUES ('1', 'sex', '性别', '1', '男', '1');
 INSERT INTO `t_dictionary` VALUES ('2', 'sex', '性别', '3', '女', '1');
+INSERT INTO `t_dictionary` VALUES ('3', 'sex', '性别', '2', 'gay', '1');
+INSERT INTO `t_dictionary` VALUES ('4', 'marriage', '婚姻状况', '0', '未婚', '1');
+INSERT INTO `t_dictionary` VALUES ('5', 'marriage', '婚姻状况', '1', '离异', '1');
+INSERT INTO `t_dictionary` VALUES ('6', 'marriage', '婚姻状况', '2', '丧偶', '1');
+INSERT INTO `t_dictionary` VALUES ('9', 'examine', '审核状态', '1', '已审核', '1');
+INSERT INTO `t_dictionary` VALUES ('10', 'location', '地区', '1', '市南区', '1');
+INSERT INTO `t_dictionary` VALUES ('11', 'location', '地区', '2', '市北区', '1');
+INSERT INTO `t_dictionary` VALUES ('12', 'location', '地区', '3', '崂山区', '1');
+INSERT INTO `t_dictionary` VALUES ('13', 'location', '地区', '4', '城阳区', '1');
+INSERT INTO `t_dictionary` VALUES ('14', 'remindType', '提醒类型', '1', '定时提醒', '1');
+INSERT INTO `t_dictionary` VALUES ('15', 'remindType', '提醒类型', '2', '提前提醒', '1');
 
 -- ----------------------------
 -- Table structure for t_examine
@@ -90,6 +107,29 @@ CREATE TABLE `t_examine` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for t_location
+-- ----------------------------
+DROP TABLE IF EXISTS `t_location`;
+CREATE TABLE `t_location` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `loc_name` varchar(30) DEFAULT NULL COMMENT '地点名称',
+  `location` varchar(10) DEFAULT NULL COMMENT '区域-关联字典表',
+  `address` varchar(100) DEFAULT NULL COMMENT '具体地址',
+  `manager` varchar(10) DEFAULT NULL COMMENT '联系人',
+  `telephone` varchar(20) DEFAULT NULL COMMENT '联系电话',
+  `work_date` varchar(30) DEFAULT NULL COMMENT '工作日',
+  `work_time` varchar(30) DEFAULT NULL,
+  `remark` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_location
+-- ----------------------------
+INSERT INTO `t_location` VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1');
+INSERT INTO `t_location` VALUES ('2', '111', '2', '123', '123', '123', '123', null, '123');
+
+-- ----------------------------
 -- Table structure for t_points
 -- ----------------------------
 DROP TABLE IF EXISTS `t_points`;
@@ -105,6 +145,24 @@ CREATE TABLE `t_points` (
 
 -- ----------------------------
 -- Records of t_points
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for t_remind
+-- ----------------------------
+DROP TABLE IF EXISTS `t_remind`;
+CREATE TABLE `t_remind` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) DEFAULT NULL COMMENT '提醒名称',
+  `remind_time` varchar(30) DEFAULT NULL COMMENT '提醒时间（约会前多久/固定时间提醒）',
+  `remind` varchar(100) DEFAULT NULL COMMENT '提醒内容',
+  `remind_type` varchar(1) DEFAULT NULL COMMENT '提醒类型-关联字典表',
+  `remark` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_remind
 -- ----------------------------
 
 -- ----------------------------
