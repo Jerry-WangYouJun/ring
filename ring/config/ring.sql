@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2018-10-08 17:16:54
+Date: 2018-10-09 16:46:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -90,6 +90,24 @@ INSERT INTO `t_dictionary` VALUES ('14', 'remindType', '提醒类型', '1', '定
 INSERT INTO `t_dictionary` VALUES ('15', 'remindType', '提醒类型', '2', '提前提醒', '1');
 
 -- ----------------------------
+-- Table structure for t_evaluate
+-- ----------------------------
+DROP TABLE IF EXISTS `t_evaluate`;
+CREATE TABLE `t_evaluate` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `from_id` int(11) DEFAULT NULL COMMENT '评价人id',
+  `to_id` int(11) DEFAULT NULL COMMENT '被评价人id',
+  `evaluate_msg` varchar(100) DEFAULT NULL COMMENT '评价内容',
+  `evaluate_ids` varchar(50) DEFAULT NULL COMMENT '评价标签列表',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_evaluate
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for t_examine
 -- ----------------------------
 DROP TABLE IF EXISTS `t_examine`;
@@ -104,6 +122,25 @@ CREATE TABLE `t_examine` (
 
 -- ----------------------------
 -- Records of t_examine
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for t_invite
+-- ----------------------------
+DROP TABLE IF EXISTS `t_invite`;
+CREATE TABLE `t_invite` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `from_id` int(11) DEFAULT NULL COMMENT '邀请人id',
+  `join_id` int(11) DEFAULT NULL COMMENT '受邀人id',
+  `point_id` int(11) DEFAULT NULL COMMENT '约会地点id',
+  `invite_date` datetime DEFAULT NULL COMMENT '约会时间',
+  `invite_states` varchar(1) DEFAULT NULL COMMENT '约会状态-关联字典表',
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_invite
 -- ----------------------------
 
 -- ----------------------------
@@ -128,6 +165,25 @@ CREATE TABLE `t_location` (
 -- ----------------------------
 INSERT INTO `t_location` VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1');
 INSERT INTO `t_location` VALUES ('2', '111', '2', '123', '123', '123', '123', null, '123');
+
+-- ----------------------------
+-- Table structure for t_message
+-- ----------------------------
+DROP TABLE IF EXISTS `t_message`;
+CREATE TABLE `t_message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `from_id` int(11) DEFAULT NULL COMMENT '发送用户id',
+  `to_id` int(11) DEFAULT NULL COMMENT '接收用户id',
+  `msg` varchar(100) DEFAULT NULL,
+  `msg_date` datetime DEFAULT NULL COMMENT '留言时间',
+  `follow_id` int(11) DEFAULT NULL COMMENT '回复的消息id',
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_message
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for t_points
@@ -163,6 +219,23 @@ CREATE TABLE `t_remind` (
 
 -- ----------------------------
 -- Records of t_remind
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for t_sign
+-- ----------------------------
+DROP TABLE IF EXISTS `t_sign`;
+CREATE TABLE `t_sign` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL COMMENT '签到id',
+  `invite_id` int(11) DEFAULT NULL COMMENT '邀约id',
+  `sign_flag` varchar(1) DEFAULT NULL COMMENT '签到标志-关联字典表',
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_sign
 -- ----------------------------
 
 -- ----------------------------
