@@ -12,6 +12,9 @@ public class Points {
     private Integer wavePoint;
 
     private String waveReason;
+    
+    private Customer customer;
+    
 
     public Integer getId() {
         return id;
@@ -60,4 +63,12 @@ public class Points {
     public void setWaveReason(String waveReason) {
         this.waveReason = waveReason == null ? null : waveReason.trim();
     }
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 }

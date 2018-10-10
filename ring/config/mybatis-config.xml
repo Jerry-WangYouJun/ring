@@ -6,10 +6,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 
 	<!-- 全局setting配置，根据需要添加 -->
-	<!-- <settings>   -->
+	 <settings> 
         <!-- 打印查询语句 -->  
         <!-- <setting name="logImpl" value="STDOUT_LOGGING" />  --> 
-    <!-- </settings> -->
+			<setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings> 
 	<!-- 配置别名 -->
 	<!-- 配置mapper 由于使用spring和mybatis的整合包进行mapper扫描，这里不需要配置了。 必须遵循：mapper.xml和mapper.java文件同名且在一个目录 -->
 

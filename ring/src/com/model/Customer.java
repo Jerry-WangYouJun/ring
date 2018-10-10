@@ -1,8 +1,5 @@
 package com.model;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 public class Customer {
     private Integer id;

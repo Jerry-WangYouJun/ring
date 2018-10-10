@@ -8,10 +8,41 @@
     <result column="flag" jdbcType="VARCHAR" property="flag" />
     <result column="wave_point" jdbcType="INTEGER" property="wavePoint" />
     <result column="wave_reason" jdbcType="VARCHAR" property="waveReason" />
+            <!--association:用于映射关联查询单个对象的信息
+            property:要将关联查询的用户信息映射到Orders中那个属性
+          -->
+        <association property="customer" column="cust_id" javaType="com.model.Customer" select="selectCustomer"/>
   </resultMap>
   <sql id="Base_Column_List">
     id, cust_id, point, flag, wave_point, wave_reason
   </sql>
+  
+  <select id="selectCustomer" parameterType="java.lang.Integer" resultType="com.model.Customer">
+    select  * from t_customer
+    where id = #{id}
+  </select>
+  
+   <select id="queryByWhere" resultMap="BaseResultMap" >
+  	    select  <include refid="Base_Column_List" /> from t_points where 1=1 
+  	    <if test="obj.id!=null and obj.id > 0">
+  	    	    and id = #{obj.id}
+  	    </if>
+  	    <if test="obj.point !=null and obj.point != '' ">
+  	    	 	and  point >= #{obj.point}
+  	    </if>
+  	     limit  #{page.start}, #{page.pageSize} 
+  </select>
+  
+  <select id="queryTotal"  resultType="java.lang.Integer">
+  	    select count(*) from t_points where 1=1 
+  	  <if test="id!=null and id > 0">
+  	    	    and id = #{id}
+  	    </if>
+  	   <if test="point !=null and point != '' ">
+  	    	 	and  point >= #{point}
+  	    </if>
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

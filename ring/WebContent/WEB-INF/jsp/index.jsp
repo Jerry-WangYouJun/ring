@@ -104,7 +104,7 @@
                     	 	 <a href="#" class="im-users2" onclick='addTab("customer","${pageContext.request.contextPath}/pages/customer_list.jsp","会员管理")'> 会员管理 </a>
                     </li>
                     <li>
-                    	 	 <a href="#" class="im-spades" onclick='addTab("score","${pageContext.request.contextPath}/pages/user_list.jsp","会员积分信息")'> 会员积分信息 </a>
+                    	 	 <a href="#" class="im-coin" onclick='addTab("point","${pageContext.request.contextPath}/pages/point_list.jsp","会员积分信息")'> 会员积分信息 </a>
                     </li>
                     <li>
                     	 	 <a href="#" class="im-heart2" onclick='addTab("heart","${pageContext.request.contextPath}/pages/user_list.jsp","约会信息")'> 约会信息 </a>
