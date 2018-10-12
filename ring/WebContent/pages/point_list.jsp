@@ -23,7 +23,7 @@
 			                <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改  
 			            </button>  
 			            <button id="btn_delete" type="button" class="btn btn-default" onclick="delDish()">  
-			                <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>删除  
+			                <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>新增
 			            </button>  
 			            <button id="btn_delete" type="button" class="btn btn-default" onclick="detailInfo()">  
 			            	<span class="glyphicon glyphicon-plus" aria-hidden="true" ></span> 积分记录
@@ -33,7 +33,7 @@
 			</div>
 		</div>
 		
-		<div class="modal fade" id="myModal"  role="dialog"
+		<div class="modal fade" id="detailModal"  role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog" style="height: ">
 				<div class="modal-content">
@@ -47,13 +47,6 @@
 		<!-- /.modal -->
 </body>
 <script type="text/javascript">
-		function subInfo(){
-			subInfoAll("point"); 
-		}
-			
-		function delDish(){
-			deleteDataAll("point");
-		}
 		
 		function detailInfo() {
 			var selectRow =  $("#infoTable").bootstrapTable('getSelections')[0];
@@ -64,7 +57,7 @@
 			
 			$('#detailTable').bootstrapTable(
 					'refresh',{query: {id: selectRow.id}});
-			$("#myModal").modal("show");
+			$("#detailModal").modal("show");
 		}
 		
 		
@@ -105,7 +98,7 @@
 			       /*  ,{
                          title:"操作",align: 'center', 
                          formatter:function(value,row,index){     //把需要创建的按钮封装在函数中
-                             return "<button class='btn btn-default' id='details' href='point_detail_list.jsp' data-toggle='modal' data-target='#myModal'>积分详情</button>"
+                             return "<button class='btn btn-default' id='details' href='point_detail_list.jsp' data-toggle='modal' data-target='#detailModal'>积分详情</button>"
                          }
 			         } */
 			        ],
