@@ -124,21 +124,21 @@
 			        pageList: [10,30,50],        //可供选择的每页的行数（*）  
 			        queryParamsType:'',
 			        singleSelect    : true,   
-			        showRefresh : true, // 是否显示刷新按钮  
 			        clickToSelect : true, // 是否启用点击选中行  
 			        showToggle : false, // 是否显示详细视图和列表视图的切换按钮  
-			        search:true,   //是否启用搜索框 
 			        
 			        columns : [ {  
 			            checkbox : true 
 			        },{  
 			            field : 'id', visible: false 
 			        },{  
-			            field : 'customer.chName',   title : '客户名',  align: 'center',   valign: 'middle'  
-			        },{  
-			            field : 'customer.nickName',   title : '昵称',  align: 'center',   valign: 'middle'  
+			            field : 'account',   title : '当前积分',  align: 'center',   valign: 'middle'  
 			        },{  
 			            field : 'point',   title : '积分',  align: 'center',   valign: 'middle'
+			        },{  
+			            field : 'reason',   title : '积分来源',  align: 'center',   valign: 'middle'  
+			        },{  
+			            field : 'pointDate',   title : '更新时间',  align: 'center',   valign: 'middle'  
 			        }
 			        ],
 			        silent : true, // 刷新事件必须设置  

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.PointDetailMapper">
+  <resultMap id="BaseResultMap" type="com.model.PointDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="account" jdbcType="INTEGER" property="account" />
+    <result column="point" jdbcType="INTEGER" property="point" />
+    <result column="point_id" jdbcType="INTEGER" property="pointId" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="point_date" jdbcType="DATE" property="pointDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id,account, point, point_id, reason, point_date ,  remark
+  </sql>
+  
+  <select id="selectPoint" parameterType="java.lang.Integer" resultType="com.model.Points">
+    select  * from t_points
+    where id = #{id}
+  </select>
+  
+  <select id="queryByWhere" resultMap="BaseResultMap" >
+  	    select  <include refid="Base_Column_List" /> from t_point_detail where 1=1 
+  	    <if test="obj.id!=null and obj.id > 0">
+  	    	    and id = #{obj.id}
+  	    </if>
+  	    <if test="obj.pointId !=null and obj.pointId != '' ">
+  	    	 	and  point_id = #{obj.pointId}
+  	    </if>
+  	     <if test="obj.pointDate !=null and obj.pointDate != '' ">
+  	    	 	and  point_date > #{obj.pointDate}
+  	    </if>
+  	     order by  point_date 
+  	     limit  #{page.start}, #{page.pageSize} 
+  </select>
+  
+  <select id="queryTotal"  resultType="java.lang.Integer">
+  	    select count(*) from t_point_detail where 1=1 
+  	  <if test="id!=null and id > 0">
+  	    	    and id = #{id}
+  	    </if>
+  	   <if test="pointId !=null and pointId != '' ">
+  	    	 	and  point_id = #{pointId}
+  	    </if>
+  	    <if test="pointDate !=null and pointDate != '' ">
+  	    	 	and  point_date > #{pointDate}
+  	    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_point_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_point_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.PointDetail">
+    insert into t_point_detail (id, account,point, point_id, 
+      reason, point_date , remark)
+    values (#{id,jdbcType=INTEGER}, #{account,jdbcType=INTEGER}, #{point,jdbcType=INTEGER}, #{pointId,jdbcType=INTEGER}, 
+      #{reason,jdbcType=VARCHAR}, #{pointDate,jdbcType=DATE}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.PointDetail">
+    insert into t_point_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="point != null">
+        point,
+      </if>
+      <if test="pointId != null">
+        point_id,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="pointDate != null">
+        point_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=INTEGER},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="pointId != null">
+        #{pointId,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="pointDate != null">
+        #{pointDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.PointDetail">
+    update t_point_detail
+    <set>
+      <if test="account != null">
+        account = #{account,jdbcType=INTEGER},
+      </if>
+      <if test="point != null">
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="pointId != null">
+        point_id = #{pointId,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="pointDate != null">
+        point_date = #{pointDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.PointDetail">
+    update t_point_detail
+    set 
+      point_date = #{pointDate,jdbcType=VARCHAR},
+      account = #{account,jdbcType=INTEGER},
+      point = #{point,jdbcType=INTEGER},
+      point_id = #{pointId,jdbcType=INTEGER},
+      reason = #{reason,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

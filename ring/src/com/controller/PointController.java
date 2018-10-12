@@ -16,6 +16,7 @@ import com.common.CodeUtil;
 import com.common.entry.Grid;
 import com.common.entry.Message;
 import com.common.entry.Pagination;
+import com.model.PointDetail;
 import com.model.Points;
 import com.service.PointService;
 
@@ -53,14 +54,14 @@ public class PointController {
 		String id = request.getParameter("id");
 		String pageNo = request.getParameter("pageNumber");
 		String pageSize = request.getParameter("pageSize");
-	    Points point = new Points();
+	    PointDetail detail = new PointDetail();
 	    if(StringUtils.isNotBlank(id)){
-	    	point.setId(Integer.valueOf(id));
+	    	detail.setPointId(Integer.valueOf(id));
 	    }
 		Pagination page =  new Pagination(pageNo, pageSize) ;
 	    CodeUtil.initPagination(page);
-		List<Points> list = service.queryList(point , page );
-		int total = service.queryTotal(point );
+		List<PointDetail> list = service.queryDetialsById(detail , page );
+		int total = service.queryDetailsTotal(detail );
 		Grid grid = new Grid();
 		grid.setRows(list);
 		grid.setTotal((long)total);
