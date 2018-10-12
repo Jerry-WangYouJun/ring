@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2018-10-09 16:46:30
+Date: 2018-10-12 17:12:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -70,7 +70,7 @@ CREATE TABLE `t_dictionary` (
   `describ` varchar(20) DEFAULT NULL COMMENT '描述',
   `flag` varchar(2) DEFAULT '1' COMMENT '1:可用 0 ：不可用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_dictionary
@@ -88,6 +88,8 @@ INSERT INTO `t_dictionary` VALUES ('12', 'location', '地区', '3', '崂山区',
 INSERT INTO `t_dictionary` VALUES ('13', 'location', '地区', '4', '城阳区', '1');
 INSERT INTO `t_dictionary` VALUES ('14', 'remindType', '提醒类型', '1', '定时提醒', '1');
 INSERT INTO `t_dictionary` VALUES ('15', 'remindType', '提醒类型', '2', '提前提醒', '1');
+INSERT INTO `t_dictionary` VALUES ('16', 'flag', '积分是否冻结', '1', '有效', '1');
+INSERT INTO `t_dictionary` VALUES ('17', 'flag', '积分是否冻结', '0', '冻结', '1');
 
 -- ----------------------------
 -- Table structure for t_evaluate
@@ -192,16 +194,43 @@ DROP TABLE IF EXISTS `t_points`;
 CREATE TABLE `t_points` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cust_id` int(11) DEFAULT NULL COMMENT '客户id',
-  `point` int(11) NOT NULL COMMENT '积分',
-  `flag` varchar(1) DEFAULT '1' COMMENT '积分状态- 1：当前 0 ：过去 ',
+  `point` int(11) DEFAULT NULL COMMENT '积分',
+  `flag` varchar(1) DEFAULT '1' COMMENT '积分状态- 1：有效 0 ：冻结 ',
   `wave_point` int(11) DEFAULT NULL COMMENT '积分波动',
   `wave_reason` varchar(2) DEFAULT NULL COMMENT '积分波动原因',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_points
 -- ----------------------------
+INSERT INTO `t_points` VALUES ('1', '5', '100', '1', null, null);
+INSERT INTO `t_points` VALUES ('2', '3', '50', '1', null, null);
+
+-- ----------------------------
+-- Table structure for t_point_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `t_point_detail`;
+CREATE TABLE `t_point_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `account` int(11) DEFAULT NULL COMMENT '当前总积分',
+  `point` int(11) DEFAULT NULL,
+  `point_id` int(11) DEFAULT NULL,
+  `reason` varchar(50) DEFAULT NULL,
+  `point_date` datetime DEFAULT NULL COMMENT '添加时间',
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_point_detail
+-- ----------------------------
+INSERT INTO `t_point_detail` VALUES ('1', '100', '100', '1', '注册成功', '2018-10-17 16:00:11', null);
+INSERT INTO `t_point_detail` VALUES ('2', '101', '1', '1', '签到', '2018-10-10 16:28:20', null);
+INSERT INTO `t_point_detail` VALUES ('3', '105', '5', '1', '转发推荐', '2018-10-25 16:28:25', null);
+INSERT INTO `t_point_detail` VALUES ('4', '106', '1', '1', '评价得分', '2018-10-08 16:28:28', null);
+INSERT INTO `t_point_detail` VALUES ('5', '10000', '10000', '2', '首次充值', null, null);
+INSERT INTO `t_point_detail` VALUES ('6', '0', '-10000', '2', '约会爽约', null, null);
 
 -- ----------------------------
 -- Table structure for t_remind
