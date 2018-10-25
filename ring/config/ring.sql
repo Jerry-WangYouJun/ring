@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2018-10-12 17:12:21
+Date: 2018-10-25 16:52:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -51,12 +51,8 @@ CREATE TABLE `t_customer` (
 -- ----------------------------
 -- Records of t_customer
 -- ----------------------------
-INSERT INTO `t_customer` VALUES ('1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1', null, null, null, null, null, '1');
-INSERT INTO `t_customer` VALUES ('2', '0', null, null, null, '1', null, null, null, '0.00', null, '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `t_customer` VALUES ('3', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `t_customer` VALUES ('4', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `t_customer` VALUES ('5', '', '123', '123', '123', null, '2018-09-04', '123', '', null, null, '', '', '', '', '', '', '', '', '', '', '', '', '', '');
-INSERT INTO `t_customer` VALUES ('9', '', null, '', '', null, '2018-09-03', '', '', null, null, '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+INSERT INTO `t_customer` VALUES ('1', null, null, '蔡妍', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1', null, null, null, null, null, '1');
+INSERT INTO `t_customer` VALUES ('2', '0', null, '赵云', null, '1', null, null, null, '0.00', null, '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for t_dictionary
@@ -70,7 +66,7 @@ CREATE TABLE `t_dictionary` (
   `describ` varchar(20) DEFAULT NULL COMMENT '描述',
   `flag` varchar(2) DEFAULT '1' COMMENT '1:可用 0 ：不可用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_dictionary
@@ -90,6 +86,9 @@ INSERT INTO `t_dictionary` VALUES ('14', 'remindType', '提醒类型', '1', '定
 INSERT INTO `t_dictionary` VALUES ('15', 'remindType', '提醒类型', '2', '提前提醒', '1');
 INSERT INTO `t_dictionary` VALUES ('16', 'flag', '积分是否冻结', '1', '有效', '1');
 INSERT INTO `t_dictionary` VALUES ('17', 'flag', '积分是否冻结', '0', '冻结', '1');
+INSERT INTO `t_dictionary` VALUES ('18', 'inviteStates', '约会状态', '1', '已发出邀请', '1');
+INSERT INTO `t_dictionary` VALUES ('19', 'examine', '审核状态', '2', '冻结', '1');
+INSERT INTO `t_dictionary` VALUES ('20', 'examine', '审核状态', '3', '黑名单', '1');
 
 -- ----------------------------
 -- Table structure for t_evaluate
@@ -97,17 +96,20 @@ INSERT INTO `t_dictionary` VALUES ('17', 'flag', '积分是否冻结', '0', '冻
 DROP TABLE IF EXISTS `t_evaluate`;
 CREATE TABLE `t_evaluate` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dateing_id` int(11) DEFAULT NULL COMMENT '约会id',
   `from_id` int(11) DEFAULT NULL COMMENT '评价人id',
   `to_id` int(11) DEFAULT NULL COMMENT '被评价人id',
   `evaluate_msg` varchar(100) DEFAULT NULL COMMENT '评价内容',
   `evaluate_ids` varchar(50) DEFAULT NULL COMMENT '评价标签列表',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_evaluate
 -- ----------------------------
+INSERT INTO `t_evaluate` VALUES ('1', '1', '1', '2', '123', null, null);
+INSERT INTO `t_evaluate` VALUES ('2', '1', '2', '1', '1321', null, null);
 
 -- ----------------------------
 -- Table structure for t_examine
@@ -139,11 +141,12 @@ CREATE TABLE `t_invite` (
   `invite_states` varchar(1) DEFAULT NULL COMMENT '约会状态-关联字典表',
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_invite
 -- ----------------------------
+INSERT INTO `t_invite` VALUES ('1', '1', '2', '1', '2018-10-09 13:30:00', '1', '1');
 
 -- ----------------------------
 -- Table structure for t_location
@@ -165,7 +168,7 @@ CREATE TABLE `t_location` (
 -- ----------------------------
 -- Records of t_location
 -- ----------------------------
-INSERT INTO `t_location` VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1');
+INSERT INTO `t_location` VALUES ('1', '太原', '1', '1', '1', '1', '1', '1', '1');
 INSERT INTO `t_location` VALUES ('2', '111', '2', '123', '123', '123', '123', null, '123');
 
 -- ----------------------------
@@ -204,8 +207,8 @@ CREATE TABLE `t_points` (
 -- ----------------------------
 -- Records of t_points
 -- ----------------------------
-INSERT INTO `t_points` VALUES ('1', '5', '100', '1', null, null);
-INSERT INTO `t_points` VALUES ('2', '3', '50', '1', null, null);
+INSERT INTO `t_points` VALUES ('1', '1', '100', '1', null, null);
+INSERT INTO `t_points` VALUES ('2', '2', '50', '1', null, null);
 
 -- ----------------------------
 -- Table structure for t_point_detail
@@ -285,19 +288,4 @@ CREATE TABLE `t_user` (
 -- Records of t_user
 -- ----------------------------
 INSERT INTO `t_user` VALUES ('1', 'admin', '123456', 'admin', '1', '');
-INSERT INTO `t_user` VALUES ('2', 'wyj1', null, '王友君1', '1', '1231');
-INSERT INTO `t_user` VALUES ('4', '', null, '', null, '');
-INSERT INTO `t_user` VALUES ('5', '', null, '', null, '');
-INSERT INTO `t_user` VALUES ('6', '', null, '', null, '');
-INSERT INTO `t_user` VALUES ('7', '', null, '', null, '');
-INSERT INTO `t_user` VALUES ('8', '', null, '', null, '');
-INSERT INTO `t_user` VALUES ('9', '', null, '', null, '');
-INSERT INTO `t_user` VALUES ('10', '', null, '', null, '');
-INSERT INTO `t_user` VALUES ('11', '', null, '', null, '');
-INSERT INTO `t_user` VALUES ('12', '', null, '', null, '');
-INSERT INTO `t_user` VALUES ('13', '', null, '', null, '');
-INSERT INTO `t_user` VALUES ('14', '123', null, '123', '', '');
-INSERT INTO `t_user` VALUES ('15', '111', null, '1111', '', '1111');
-INSERT INTO `t_user` VALUES ('16', null, '123456', null, '', null);
-INSERT INTO `t_user` VALUES ('17', null, '123456', null, '', null);
-INSERT INTO `t_user` VALUES ('18', null, '123456', null, '', null);
+INSERT INTO `t_user` VALUES ('2', 'wyj1', '123456', '王友君1', '1', '1231');
