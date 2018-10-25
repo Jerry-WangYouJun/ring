@@ -83,8 +83,8 @@
                         <a href="#"> 系统管理 <i class="im-paragraph-justify"></i></a>
                         <ul class="nav sub">
                             <li>
-                            	<a href="#" class="ec-users" onclick='addTab("user","${pageContext.request.contextPath}/pages/user_list.jsp","账户信息")'>
-								 账户信息</a>
+                            	<a href="#" class="ec-users" onclick='addTab("user","${pageContext.request.contextPath}/pages/user_list.jsp","管理员信息")'>
+								 管理员信息</a>
                             </li>
                             <li>
                             	<a href="#" class="ec-location" onclick='addTab("location","${pageContext.request.contextPath}/pages/location_list.jsp","约会地点维护")'>
@@ -107,7 +107,10 @@
                     	 	 <a href="#" class="im-coin" onclick='addTab("point","${pageContext.request.contextPath}/pages/point_list.jsp","会员积分信息")'> 会员积分信息 </a>
                     </li>
                     <li>
-                    	 	 <a href="#" class="im-heart2" onclick='addTab("heart","${pageContext.request.contextPath}/pages/user_list.jsp","约会信息")'> 约会信息 </a>
+                    	 	 <a href="#" class="im-heart2" onclick='addTab("heart","${pageContext.request.contextPath}/pages/dateing_list.jsp","约会信息")'> 约会信息 </a>
+                    </li>
+                     <li>
+                    	 	 <a href="#" class="st-tag" onclick='addTab("evaluate","${pageContext.request.contextPath}/pages/evaluate_list.jsp","会员评价信息")'> 会员评价信息 </a>
                     </li>
                 </ul>
             </div>

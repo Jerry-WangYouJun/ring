@@ -1,7 +1,14 @@
 package com.model;
 
+/**
+ * 评价信息
+ * @author Administrator
+ *
+ */
 public class Evaluate {
     private Integer id;
+    
+    private Integer dateingId;
 
     private Integer fromId;
 
@@ -12,6 +19,9 @@ public class Evaluate {
     private String evaluateIds;
 
     private String remark;
+    
+    private Customer customerFrom ;
+    private Customer customerJoin;
 
     public Integer getId() {
         return id;
@@ -60,4 +70,29 @@ public class Evaluate {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
+
+	public Integer getDateingId() {
+		return dateingId;
+	}
+
+	public void setDateingId(Integer dateingId) {
+		this.dateingId = dateingId;
+	}
+
+	public Customer getCustomerFrom() {
+		return customerFrom;
+	}
+
+	public void setCustomerFrom(Customer customerFrom) {
+		this.customerFrom = customerFrom;
+	}
+
+	public Customer getCustomerJoin() {
+		return customerJoin;
+	}
+
+	public void setCustomerJoin(Customer customerJoin) {
+		this.customerJoin = customerJoin;
+	}
+    
 }

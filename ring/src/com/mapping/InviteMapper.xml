@@ -9,10 +9,50 @@
     <result column="invite_date" jdbcType="TIMESTAMP" property="inviteDate" />
     <result column="invite_states" jdbcType="VARCHAR" property="inviteStates" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <association property="customerFrom" column="from_id" javaType="com.model.Customer" select="selectCustomer"/>
+    <association property="customerJoin" column="join_id" javaType="com.model.Customer" select="selectCustomer"/>
+	<association property="pointLocation" column="point_id" javaType="com.model.Location" select="selectLocation"/>
+	
   </resultMap>
   <sql id="Base_Column_List">
     id, from_id, join_id, point_id, invite_date, invite_states, remark
   </sql>
+   <select id="selectCustomer" parameterType="java.lang.Integer" resultType="com.model.Customer">
+    select  * from t_customer
+    where id = #{id}
+  </select>
+  <select id="selectLocation" parameterType="java.lang.Integer" resultType="com.model.Location">
+    select  * from t_location
+    where id = #{id}
+  </select>
+  
+  <select id="queryByWhere" resultMap="BaseResultMap" >
+  	    select  <include refid="Base_Column_List" /> from t_invite where 1=1 
+  	    <if test="obj.id!=null and obj.id > 0">
+  	    	    and id = #{obj.id}
+  	    </if>
+  	    <if test="obj.fromId !=null and obj.fromId   > 0  ">
+  	    	 	and  from_id = #{obj.fromId}
+  	    </if>
+  	    <if test="obj.joinId!= null and obj.joinId   > 0  ">
+  	    	     and join_id = #{obj.joinId}
+  	    </if>
+  	     limit  #{page.start}, #{page.pageSize} 
+  </select>
+  
+  <select id="queryTotal"  resultType="java.lang.Integer">
+  	    select count(*) from t_invite where 1=1 
+  	    <if test="id!=null and id > 0">
+  	    	    and id = #{id}
+  	    </if>
+  	    <if test="fromId !=null and fromId   > 0  ">
+  	    	 	and  from_id = #{fromId}
+  	    </if>
+  	    <if test="joinId!= null and joinId   > 0  ">
+  	    	     and join_id = #{joinId}
+  	    </if>
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

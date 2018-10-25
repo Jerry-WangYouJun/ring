@@ -5,7 +5,7 @@
 <html id="a1">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>帐户管理</title>
+<title>会员管理</title>
 <style type="text/css">
 .panel-body {
 	padding: 0px !important;

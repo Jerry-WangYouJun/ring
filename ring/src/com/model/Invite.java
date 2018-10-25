@@ -16,6 +16,10 @@ public class Invite {
     private String inviteStates;
 
     private String remark;
+    
+    private Customer customerFrom ;
+    private Customer customerJoin;
+    private Location pointLocation;
 
     public Integer getId() {
         return id;
@@ -72,4 +76,31 @@ public class Invite {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
+
+	public Customer getCustomerFrom() {
+		return customerFrom;
+	}
+
+	public void setCustomerFrom(Customer customerFrom) {
+		this.customerFrom = customerFrom;
+	}
+
+	public Customer getCustomerJoin() {
+		return customerJoin;
+	}
+
+	public void setCustomerJoin(Customer customerJoin) {
+		this.customerJoin = customerJoin;
+	}
+
+	public Location getPointLocation() {
+		return pointLocation;
+	}
+
+	public void setPointLocation(Location pointLocation) {
+		this.pointLocation = pointLocation;
+	}
+
+    
+    
 }

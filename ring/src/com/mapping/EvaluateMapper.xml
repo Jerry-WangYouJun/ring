@@ -3,15 +3,56 @@
 <mapper namespace="com.dao.EvaluateMapper">
   <resultMap id="BaseResultMap" type="com.model.Evaluate">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dateing_id" jdbcType="INTEGER" property="dateingId" />
     <result column="from_id" jdbcType="INTEGER" property="fromId" />
     <result column="to_id" jdbcType="INTEGER" property="toId" />
     <result column="evaluate_msg" jdbcType="VARCHAR" property="evaluateMsg" />
     <result column="evaluate_ids" jdbcType="VARCHAR" property="evaluateIds" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+     <association property="customerFrom" column="from_id" javaType="com.model.Customer" select="selectCustomer"/>
+    <association property="customerJoin" column="to_id" javaType="com.model.Customer" select="selectCustomer"/>
   </resultMap>
   <sql id="Base_Column_List">
-    id, from_id, to_id, evaluate_msg, evaluate_ids, remark
+    id, from_id,dateing_id, to_id, evaluate_msg, evaluate_ids, remark
   </sql>
+  <select id="selectCustomer" parameterType="java.lang.Integer" resultType="com.model.Customer">
+    select  * from t_customer
+    where id = #{id}
+  </select>
+  
+  <select id="queryByWhere" resultMap="BaseResultMap" >
+  	    select  <include refid="Base_Column_List" /> from t_evaluate where 1=1 
+  	    <if test="obj.id!=null and obj.id > 0">
+  	    	    and id = #{obj.id}
+  	    </if>
+  	    <if test="obj.dateingId !=null and obj.dateingId   > 0  ">
+  	    	 	and  dateing_id = #{obj.dateingId}
+  	    </if>
+  	    <if test="obj.fromId !=null and obj.fromId   > 0  ">
+  	    	 	and  from_id = #{obj.fromId}
+  	    </if>
+  	    <if test="obj.toId!= null and obj.toId   > 0  ">
+  	    	     and to_id = #{obj.toId}
+  	    </if>
+  	     limit  #{page.start}, #{page.pageSize} 
+  </select>
+  
+  <select id="queryTotal"  resultType="java.lang.Integer">
+  	    select count(*) from t_evaluate where 1=1 
+  	    <if test="id!=null and id > 0">
+  	    	    and id = #{id}
+  	    </if>
+  	    <if test="dateingId !=null and dateingId   > 0  ">
+  	    	 	and  dateing_id = #{dateingId}
+  	    </if>
+  	    <if test="fromId !=null and fromId   > 0  ">
+  	    	 	and  from_id = #{fromId}
+  	    </if>
+  	    <if test="toId!= null and toId  > 0 ">
+  	    	     and to_id = #{toId}
+  	    </if>
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -23,10 +64,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.model.Evaluate">
-    insert into t_evaluate (id, from_id, to_id, 
+    insert into t_evaluate (id, dateing_id, from_id, to_id, 
       evaluate_msg, evaluate_ids, remark
       )
-    values (#{id,jdbcType=INTEGER}, #{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER},#{dateingId,jdbcType=INTEGER}, #{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER}, 
       #{evaluateMsg,jdbcType=VARCHAR}, #{evaluateIds,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
@@ -35,6 +76,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="dateingId != null">
+        dateing_id,
       </if>
       <if test="fromId != null">
         from_id,
@@ -56,6 +100,9 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
+       <if test="dateingId != null">
+        #{dateingId,jdbcType=INTEGER},
+      </if>
       <if test="fromId != null">
         #{fromId,jdbcType=INTEGER},
       </if>
@@ -76,6 +123,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.model.Evaluate">
     update t_evaluate
     <set>
+       <if test="dateingId != null">
+        dateing_id = #{dateingId,jdbcType=INTEGER},
+      </if>
       <if test="fromId != null">
         from_id = #{fromId,jdbcType=INTEGER},
       </if>
@@ -96,7 +146,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.model.Evaluate">
     update t_evaluate
-    set from_id = #{fromId,jdbcType=INTEGER},
+    set
+      dateing_id = #{dateingId,jdbcType=INTEGER}, 
+      from_id = #{fromId,jdbcType=INTEGER},
       to_id = #{toId,jdbcType=INTEGER},
       evaluate_msg = #{evaluateMsg,jdbcType=VARCHAR},
       evaluate_ids = #{evaluateIds,jdbcType=VARCHAR},

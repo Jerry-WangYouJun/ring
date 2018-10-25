@@ -5,7 +5,7 @@
 <html id="a1">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>会员积分信息</title>
+<title>会员约会信息</title>
 <style type="text/css">
   .panel-body {
     padding: 0px !important; 
@@ -20,7 +20,7 @@
 				  	    <table id="infoTable"> </table>
 					<div id="toolbar" class="btn-group">  
 			            <button id="btn_delete" type="button" class="btn btn-default" onclick="detailInfo()">  
-			            	<span class="glyphicon glyphicon-plus" aria-hidden="true" ></span> 积分记录
+			            	<span class="st-align-justify" aria-hidden="true" ></span> 评价信息
 			            </button>
 			        </div>  
 				  </div>
@@ -50,14 +50,14 @@
 			}
 			
 			$('#detailTable').bootstrapTable(
-					'refresh',{query: {id: selectRow.id}});
+					'refresh',{query: {dateingId: selectRow.id}});
 			$("#detailModal").modal("show");
 		}
 		
 		
 		$(function(){
 			    $('#infoTable').bootstrapTable({  
-			        url : '${basePath}/point/query', // 请求后台的URL（*）            
+			        url : '${basePath}/invite/query', // 请求后台的URL（*）            
 			        method : 'get', // 请求方式（*）  
 			        toolbar : '#toolbar', // 工具按钮用哪个容器  
 			        cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）  
@@ -78,13 +78,19 @@
 			        },{  
 			            field : 'id', visible: false 
 			        },{  
-			            field : 'customer.chName',   title : '客户名',  align: 'center',   valign: 'middle'  
+			            field : 'customerFrom.chName',   title : '邀请人',  align: 'center',   valign: 'middle'  
 			        },{  
-			            field : 'customer.nickName',   title : '昵称',  align: 'center',   valign: 'middle'  
+			            field : 'customerJoin.chName',   title : '应邀人',  align: 'center',   valign: 'middle'  
 			        },{  
-			            field : 'point',   title : '积分',  align: 'center',   valign: 'middle'
+			            field : 'inviteDate',   title : '约会时间',  align: 'center',   valign: 'middle',
+			            	//获取日期列的值进行转换
+			                formatter: function (value, row, index) {
+			                    return changeDateFormat(value)
+			                }
 			        },{  
-			            field : 'flag',   title : '是否有效',  align: 'center',   valign: 'middle'  ,
+			            field : 'pointLocation.locName',   title : '约会地点',  align: 'center',   valign: 'middle'
+			        },{  
+			            field : 'inviteStates',   title : '约会状态',  align: 'center',   valign: 'middle'  ,
 			            formatter : function(value, row, index, field) {
 							return getDicDescirb(value, field);
 						}
@@ -101,7 +107,7 @@
 			    
 			    
 			    $('#detailTable').bootstrapTable({  
-			        url : '${basePath}/point/queryDetail', // 请求后台的URL（*）            
+			        url : '${basePath}/invite/queryEvaluate', // 请求后台的URL（*）            
 			        method : 'get', // 请求方式（*）  
 			        cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）  
 			        sidePagination : "server", // 分页方式：client客户端分页，server服务端分页（*）  
@@ -119,13 +125,11 @@
 			        },{  
 			            field : 'id', visible: false 
 			        },{  
-			            field : 'account',   title : '当前积分',  align: 'center',   valign: 'middle'  
+			            field : 'customerFrom.chName',   title : '评价人',  align: 'center',   valign: 'middle'  
 			        },{  
-			            field : 'point',   title : '积分',  align: 'center',   valign: 'middle'
+			            field : 'customerJoin.chName',   title : '被评价人',  align: 'center',   valign: 'middle'
 			        },{  
-			            field : 'reason',   title : '积分来源',  align: 'center',   valign: 'middle'  
-			        },{  
-			            field : 'pointDate',   title : '更新时间',  align: 'center',   valign: 'middle'  
+			            field : 'evaluateMsg',   title : '评价',  align: 'center',   valign: 'middle'  
 			        }
 			        ],
 			        silent : true, // 刷新事件必须设置  
