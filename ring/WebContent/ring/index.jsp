@@ -59,6 +59,7 @@ $(document).ready(function(){
 		   <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 		        <ul class="nav navbar-nav nav_1">
+		       		<li><a href="${pageContext.request.contextPath}/web/dateInfo">我的约会</a></li>
 		            <li><a href="${pageContext.request.contextPath}/web/info">邀请记录</a></li>
 		            <li><a href="about.html">留言信息</a></li>
 		            <li class="last"><a href="contact.html">联系方式</a></li>

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +20,10 @@ import com.common.entry.Pagination;
 import com.model.Customer;
 import com.model.Evaluate;
 import com.model.Invite;
+import com.model.InviteDetail;
 import com.model.User;
 import com.service.CustomerService;
+import com.service.InviteDetailService;
 import com.service.InviteService;
 
 
@@ -30,6 +33,9 @@ public class InviteController {
 	 
 	@Autowired
 	InviteService service ;
+	
+	@Autowired
+	InviteDetailService detailService ;
 	
 	@Autowired
 	CustomerService custService;
@@ -107,13 +113,34 @@ public class InviteController {
 		return msg;
 	}
 	
+	@RequestMapping("/state")
+	public String  updateStates(Integer id  , String inviteStates , String remark){
+		Invite invite  = service.selectById(id);
+		//invite.setInviteStates(inviteStates);
+		if(StringUtils.isNotBlank(remark)){
+			invite.setRemark(remark);
+		}
+		service.update(invite);
+		if("3".equals(inviteStates)){
+			return "forward:/web/info";
+		}else{
+			return "forward:/web/dating?id=" + id;
+		}
+	}
+	
+	
 	@ResponseBody
 	@RequestMapping("/invite_edit")
-	public Message  editInvite(Invite invite , HttpServletRequest request ){
+	public Message  editInvite(Invite invite , HttpServletRequest request , String preDate , InviteDetail detail ){
 		Message msg = new Message();
 		try{
 			if(invite.getId() != null  &&  invite.getId() > 0){
-				service.update(invite);
+				Invite inviteTemp = service.selectById(invite.getId());
+				inviteTemp.setPointId(invite.getPointId());
+				service.update(inviteTemp);
+				InviteDetail detailTemp = detailService.selectById(invite.getId());
+				detailTemp.setPreDate(preDate);
+				detailService.update(detailTemp);
 			}else{
 				User user =  (User)request.getSession().getAttribute("webUser");
 				if(user.getId() > 0 ) {
@@ -121,12 +148,19 @@ public class InviteController {
 				}
 //				int num = service.queryTotal(invite);
 				Customer cust =  custService.selectById(Integer.valueOf(user.getRemark()));
-					if( !"9".equals(cust.getExamine())) {
+				Invite test = new Invite();
+				test.setFromId(Integer.valueOf(user.getRemark()));
+				test.setInviteStates("1");
+				int inviteTemp = service.queryTotal(test);
+					if( inviteTemp == 0) {
 						invite.setInviteDate(new Date());
 						invite.setInviteStates("1");
 						service.insert(invite);
-						cust.setExamine("9");
+						//cust.setExamine("9");
 						custService.update(cust);
+						detail.setInviteId(invite.getId());
+						detail.setUpdateTimes(0);
+						detailService.insert(detail);
 					}else {
 						msg.setSuccess(false);
 						msg.setMsg("操作失败：有其他邀约尚在进行" );

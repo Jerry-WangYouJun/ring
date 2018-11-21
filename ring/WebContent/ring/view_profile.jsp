@@ -317,7 +317,6 @@ $(document).ready(function(){
 					 </div>
 				</div>
 			</div>
-			<!-- /.modal-content -->
 		</div>
     	<div class="modal fade" id="detailModal"  role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">

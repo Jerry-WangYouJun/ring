@@ -11,18 +11,21 @@
 <script src="${basePath}/js/jquery-3.1.1.min.js"></script>
 <script src="${basePath}/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+	 function updateStates(id , states){
+		 var str = "";
+		 if(states == '3'){
+			 str = window.prompt("请输入拒绝的原因") 
+		 }
+		 window.location.href= "${basePath}/invite/state?id="+id+"&inviteStates=" + states +"&remark=" + str;
+	 }
+	 
+		function  addInvite(id){
+			//$("#addModal").modal("show");
 
-	    function getPrepay(){
-	    	 if('${info.flag}' == '1'){
-	    	  	  alert("此号码不支持充值，请换卡或联系管理员！");
-	    	  	  return false;
-	   		  }
-		    	if('${info.ICCID }' == ''){
-		    		  alert('无效的iccid，请点击【切换】按钮获得iccid');
-		    		  return false ;
-		    	}
-		    	window.location.href='${basePath}/card/xinfu_wechat_pay?iccid=${info.ICCID}';
-	    }
+			$("#addModal").modal({  
+			    remote: "${pageContext.request.contextPath}/invite/state?id="+id+"&inviteStates=2"
+			});
+		}
 </script>
 </head>
 <body>
@@ -30,29 +33,80 @@
 			<div class="row container">
 				<ul class="nav nav-tabs" role="tablist">
 					<li role="presentation" class="col-md-6 col-xs-6 active">
-						<a href="#home" role="tab" data-toggle="tab">留言信息</a>
+						<a href="#home" role="tab" data-toggle="tab">我是邀请人</a>
 					</li>
 					<li role="presentation" class="col-md-6 col-xs-6">
-						<a href="#profile" role="tab" data-toggle="tab">邀约记录</a>
+						<a href="#profile" role="tab" data-toggle="tab">我是受邀人</a>
 					</li>
 				</ul>
 
 				<div class="tab-content" style="margin-bottom: 93px;">
 					<div role="tabpanel" class="tab-pane active" id="home">
-						    <div>
-								<h3> 123123123</h3>
-								<p> 胜多负少  </p>
-								<hr />
-							</div>
+						    <c:forEach items="${inviteInfo }" var="invite">
+							    <div>
+									<h3> 受邀人：${invite.customerJoin.nickName } <a href="##">详细信息</a></h3>
+									<h3> 性别：
+										 <c:choose>
+										 	 <c:when test="${invite.customerJoin.sex eq '1'}">
+										 	 	  男
+										 	 </c:when>
+										 	 <c:when test="${invite.customerJoin.sex eq '0'}">
+										 	 	  女
+										 	 </c:when>
+										 </c:choose>
+									</h3>
+									<h3> 生日：${invite.customerJoin.birthday }</h3>
+									<p> 状态： 
+										<c:choose>
+										 	 <c:when test="${invite.inviteStates eq '1'}">
+										 	 	  未确认
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '2'}">
+										 	 	  已接收
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '3'}">
+										 	 	  已拒绝
+										 	 </c:when>
+										 </c:choose>
+									</p>
+									<hr />
+								</div>
+						    </c:forEach>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="profile">
-						<c:forEach items = "${info.packageList }" var = "p" >
+					     <c:forEach items="${invitedInfo }" var="invite">
 						    <div>
-								<h3> 挨打的</h3>
-								<p> 123123123 饿肚肚</p>
+								<h3> 邀请人：${invite.customerFrom.nickName } <a href="##">详细信息</a></h3>
+								<h3> 性别：
+									<c:choose>
+										 	 <c:when test="${invite.customerFrom.sex eq '1'}">
+										 	 	  男
+										 	 </c:when>
+										 	 <c:when test="${invite.customerFrom.sex eq '0'}">
+										 	 	  女
+										 	 </c:when>
+										 </c:choose>
+								</h3>
+								<h3> 生日: ${invite.customerFrom.birthday }</h3>
+									  
+								<p> 
+									<c:choose>
+										 	 <c:when test="${invite.inviteStates eq '1'}">
+										 	 	 <a href="###" onclick="addInvite('${invite.id}')">同意约请</a>
+								      			 <a href="##" onclick="updateStates('${invite.id}','3')">拒绝约请</a>
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '2'}">
+										 	 	  已接收
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '3'}">
+										 	 	  已拒绝
+										 	 </c:when>
+										 </c:choose>
+								 	  
+								</p>
 								<hr />
 							</div>
-						</c:forEach>
+					    </c:forEach>
 					</div>
 				</div> 
 			</div>
@@ -66,6 +120,14 @@
 				
 			</div>
 		</div>
-
+ 	<div class="modal fade" id="addModal"  role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="height: ">
+				<div class="modal-content">
+					<div class="modal-body">
+					 </div>
+				</div>
+			</div>
+		</div>
 </body>
 </html>

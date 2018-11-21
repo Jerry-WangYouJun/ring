@@ -40,6 +40,9 @@
   	    <if test="obj.joinId!= null and obj.joinId   > 0  ">
   	    	     and join_id = #{obj.joinId}
   	    </if>
+  	    <if test="obj.inviteStates!= null and obj.inviteStates != '' ">
+  	    	     and invite_states = #{obj.inviteStates}
+  	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
   
@@ -60,6 +63,9 @@
   	    <if test="joinId!= null and joinId   > 0  ">
   	    	     and join_id = #{joinId}
   	    </if>
+  	    <if test="inviteStates!= null and inviteStates != '' ">
+  	    	     and invite_states = #{inviteStates}
+  	    </if>
   </select>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -73,12 +79,15 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   
-  <delete id="refuseOther" parameterType="java.lang.Integer">
+  <update id="refuseOther" parameterType="java.lang.Integer">
     update t_invite set invite_states = '3', remark = '已接受其他邀请'
     where join_id = #{id,jdbcType=INTEGER} and  invite_states = '1' 
-  </delete>
+  </update>
   
-  <insert id="insert" parameterType="com.model.Invite">
+  <insert id="insert" parameterType="com.model.Invite"  keyProperty="id">
+  	 <selectKey keyProperty='id' resultType='int' order='AFTER'  >  
+        select LAST_INSERT_ID();  
+    </selectKey> 
     insert into t_invite (id, from_id, join_id, 
       point_id, invite_date, invite_states, 
       remark)

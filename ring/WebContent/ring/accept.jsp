@@ -74,7 +74,6 @@ $(document).ready(function(){
 						<input class="form-control" name="id" type="hidden" value="${inv.id }"></input>
 						<input class="form-control" name="joinId" type="hidden" value="${joinId }"></input>
 						<c:choose>
-							 
 							 <c:when test="${inv.inviteStates eq '2' }">	 
 							       <div class="form-group">
 									<label for="message-text" class="control-label">约会时段:${invite.remark }</label>
@@ -88,30 +87,43 @@ $(document).ready(function(){
 									</select>
 								</div>
 							 </c:when>
-							 <c:otherwise>
+							 <c:when test="${inv.inviteStates eq '1' }">	 
 								<div class="form-group">
+								
 									<label for="message-text" class="control-label">约会时段:</label>
-									<select  class="form-control"  id="remark" name="confirmLoc" placeholder="必填" required>
+										<select  class="form-control"  id="confirmLoc" name="detail.confirmLoc" disabled="disabled"  placeholder="必填" required>
 											 <c:forEach items="${times}" var ="val">
 											 	    <option value="${val }">${val }</option>
 											 </c:forEach>
 										</select>
-									<!-- <div class='input-group date' id='datetimepicker1'>
-										<input type='text' class="form-control" readonly name="inviteDate"
-											id="inviteDate" placeholder="必填" required/> <span class="input-group-addon"> <span
-											class="glyphicon glyphicon-calendar"></span>
-										</span>
-									</div> -->
 								</div>
 								<div class="form-group">
 									<label for="message-text" class="control-label">约会区域:</label> 
-									<select  class="form-control"   name="confirmDate" placeholder="必填" required>
+									<select  class="form-control"   name="detail.confirmDate" placeholder="必填" required  disabled="disabled">
 											  <c:forEach items="${locList}" var ="loca">
-											 	    <option >${loca}</option>
+											 	    <option >${loca.locName}</option>
 											 </c:forEach>
 									</select>
 								</div>
-							 </c:otherwise>
+								<div class="form-group" >
+							            <label for="message-text" class="control-label">约会时间：</label>  
+							            <!--指定 date标记-->  
+							            <div class='input-group date' id='datetimepicker1'  >  
+							                <input type='text' class="form-control"  name="preDate" />  
+							                <span class="input-group-addon" >  
+							                    <span class="glyphicon glyphicon-calendar"></span>  
+							                </span>  
+							            </div>   
+						        </div> 
+								<div class="form-group">
+									<label for="message-text" class="control-label">约会地点:</label> 
+									<select  class="form-control"   name="pointId" placeholder="必填" required>
+											  <c:forEach items="${locList}" var ="loca">
+											 	    <option value="${loca.id}">${loca.location} - ${loca.address}</option>
+											 </c:forEach>
+									</select>
+								</div>
+							</c:when>
 						</c:choose>
 						<div class="form-group">
 							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
