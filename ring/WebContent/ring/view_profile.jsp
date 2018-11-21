@@ -53,6 +53,7 @@ $(document).ready(function(){
 					success : function(data) {
 						if (data.success) {
 							alert(data.msg);
+							window.location.href="${pageContext.request.contextPath}/web/index";
 						} else {
 							alert(data.msg);
 						}

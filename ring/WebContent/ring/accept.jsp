@@ -74,7 +74,7 @@ $(document).ready(function(){
 						<input class="form-control" name="id" type="hidden" value="${inv.id }"></input>
 						<input class="form-control" name="joinId" type="hidden" value="${joinId }"></input>
 						<c:choose>
-							 <c:when test="${inv.inviteStates eq '2' }">	 
+							 <c:when test="${inv.inviteStates eq '1' }">	 
 							       <div class="form-group">
 									<label for="message-text" class="control-label">约会时段:${invite.remark }</label>
 								</div>
@@ -87,7 +87,7 @@ $(document).ready(function(){
 									</select>
 								</div>
 							 </c:when>
-							 <c:when test="${inv.inviteStates eq '1' }">	 
+							 <c:when test="${inv.inviteStates eq '2' || inv.inviteStates eq '4'   }">	 
 								<div class="form-group">
 								
 									<label for="message-text" class="control-label">约会时段:</label>

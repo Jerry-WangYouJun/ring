@@ -29,4 +29,5 @@ public interface InviteMapper {
 	public void refuseOther(Integer joinId);
 
 	List<Invite> queryInviteByCustId(Integer id);
+	List<Invite> queryDateingByCustId(Integer id);
 }

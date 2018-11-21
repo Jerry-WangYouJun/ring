@@ -22,6 +22,9 @@
 			            <button id="btn_delete" type="button" class="btn btn-default" onclick="detailInfo()">  
 			            	<span class="st-align-justify" aria-hidden="true" ></span> 评价信息
 			            </button>
+			             <button id="btn_delete" type="button" class="btn btn-default" onclick="updateInfo()">  
+			            		<span class="st-align-justify" aria-hidden="true" ></span> 评价信息
+			            </button>
 			        </div>  
 				  </div>
 			</div>
@@ -54,6 +57,37 @@
 			$("#detailModal").modal("show");
 		}
 		
+		function updateInfo(){
+			var selectRow =  $("#infoTable").bootstrapTable('getSelections')[0];
+			if($("#infoTable").bootstrapTable('getSelections').length  == 0){
+				 alert("请选择一条记录！");
+				 return false;
+			}
+			if(selectRow.inviteStates != '6'){
+				 alert("只有发出申请的约会才能取消");
+			}
+			var path = "${pageContext.request.contextPath}/invite/invite_state";
+			$.ajax({
+				url : path,
+				type : 'post',
+				data : {inviteStates:'7' , id:selectRow.id},
+				dataType : 'json',
+				success : function(data) {
+					if (data.success) {
+						alert(data.msg);
+						$("#infoTable").bootstrapTable("refresh");
+						closeModel();
+					} else {
+						alert(data.msg);
+					}
+		
+				},
+				error : function(transport) {
+					alert("系统产生错误,请联系管理员!");
+				}
+			});
+		
+		}
 		
 		$(function(){
 			    $('#infoTable').bootstrapTable({  

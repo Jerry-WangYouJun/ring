@@ -110,6 +110,9 @@
                     	 	 <a href="#" class="im-heart2" onclick='addTab("heart","${pageContext.request.contextPath}/pages/dateing_list.jsp","约会信息")'> 约会信息 </a>
                     </li>
                     <li>
+                    	 	 <a href="#" class="im-heart2" onclick='addTab("heart","${pageContext.request.contextPath}/pages/dateing_list.jsp","约会信息")'> 约会取消申请 </a>
+                    </li>
+                    <li>
                     	 	 <a href="#" class="im-mail2" onclick='addTab("message","${pageContext.request.contextPath}/pages/message_list.jsp","留言信息")'> 留言信息 </a>
                     </li>
                      <li>

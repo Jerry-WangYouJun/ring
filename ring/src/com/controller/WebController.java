@@ -131,6 +131,24 @@ public class WebController {
 		return "forward:/ring/info.jsp";
 	}
 	
+	@RequestMapping("/dateinfo")
+	public String dateinfo( HttpSession session  , HttpServletRequest request  ) {
+		Customer  cust =  (Customer) session.getAttribute("customer");
+		List<Invite> inviteList = inviteService.queryDateingByCustId(cust.getId());
+		List<Invite> inviteInfo = new ArrayList<>();
+		List<Invite> invitedInfo = new ArrayList<>();
+		for(Invite invite : inviteList){
+			 if(cust.getId().equals( invite.getFromId())){
+				 inviteInfo.add(invite);
+			 }else{
+				 invitedInfo.add(invite);
+			 }
+		}
+		request.setAttribute("inviteInfo", inviteInfo);
+		request.setAttribute("invitedInfo", invitedInfo);
+		return "forward:/ring/info.jsp";
+	}
+	
 	/**
 	 * 受邀人同意邀约申请，选择约会时间地点
 	 * @param request

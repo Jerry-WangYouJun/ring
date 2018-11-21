@@ -116,18 +116,25 @@ public class InviteController {
 	@RequestMapping("/state")
 	public String  updateStates(Integer id  , String inviteStates , String remark){
 		Invite invite  = service.selectById(id);
-		//invite.setInviteStates(inviteStates);
+		invite.setInviteStates(inviteStates);
 		if(StringUtils.isNotBlank(remark)){
 			invite.setRemark(remark);
 		}
 		service.update(invite);
-		if("3".equals(inviteStates)){
-			return "forward:/web/info";
-		}else{
-			return "forward:/web/dating?id=" + id;
-		}
+		return "forward:/web/index";
 	}
 	
+	@ResponseBody
+	@RequestMapping("/invite_state")
+	public Message  invite_state(Integer id , String inviteStates   ){
+		Message msg = new Message();
+		Invite invite = service.selectById(id);
+		invite.setInviteStates(inviteStates);
+		service.update(invite);
+		msg.setMsg("修改成功");
+		msg.setSuccess(true);
+		return msg ;
+	}
 	
 	@ResponseBody
 	@RequestMapping("/invite_edit")
@@ -137,8 +144,17 @@ public class InviteController {
 			if(invite.getId() != null  &&  invite.getId() > 0){
 				Invite inviteTemp = service.selectById(invite.getId());
 				inviteTemp.setPointId(invite.getPointId());
-				service.update(inviteTemp);
 				InviteDetail detailTemp = detailService.selectById(invite.getId());
+				if("4".equals(inviteTemp.getInviteStates())  ) {
+					 if(detailTemp.getUpdateTimes() < 2) {
+						  detailTemp.setUpdateTimes(detailTemp.getUpdateTimes() + 1);
+					 }else {
+						 msg.setSuccess(false);
+						 msg.setMsg("操作失败：已经修改过两次约会信息，不能继续修改" );
+						 return msg ;
+					 }
+				}
+				service.update(inviteTemp);
 				detailTemp.setPreDate(preDate);
 				detailService.update(detailTemp);
 			}else{

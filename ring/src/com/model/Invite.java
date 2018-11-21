@@ -20,6 +20,7 @@ public class Invite {
     private Customer customerFrom ;
     private Customer customerJoin;
     private Location pointLocation;
+    private InviteDetail detail;
 
     public Integer getId() {
         return id;
@@ -101,6 +102,12 @@ public class Invite {
 		this.pointLocation = pointLocation;
 	}
 
-    
+	public InviteDetail getDetail() {
+		return detail;
+	}
+
+	public void setDetail(InviteDetail detail) {
+		this.detail = detail;
+	}
     
 }

@@ -13,17 +13,17 @@
 <script type="text/javascript">
 	 function updateStates(id , states){
 		 var str = "";
-		 if(states == '3'){
+		 if(states == '3' || states =='5'){
 			 str = window.prompt("请输入拒绝的原因") 
 		 }
 		 window.location.href= "${basePath}/invite/state?id="+id+"&inviteStates=" + states +"&remark=" + str;
 	 }
 	 
-		function  addInvite(id){
+		function  addInvite(id , states){
 			//$("#addModal").modal("show");
 
 			$("#addModal").modal({  
-			    remote: "${pageContext.request.contextPath}/invite/state?id="+id+"&inviteStates=2"
+			    remote: "${pageContext.request.contextPath}/invite/state?id="+id+"&inviteStates=" + states
 			});
 		}
 </script>
@@ -62,10 +62,21 @@
 										 	 	  未确认
 										 	 </c:when>
 										 	 <c:when test="${invite.inviteStates eq '2'}">
-										 	 	  已接收
+										 	 	  已接受
+										 	 	   <a href="##" onclick="updateStates('${invite.id}','4')">确定约会</a>
+										 	 	   <a href="##" onclick="updateStates('${invite.id}','5')">取消取消</a>
 										 	 </c:when>
 										 	 <c:when test="${invite.inviteStates eq '3'}">
-										 	 	  已拒绝
+										 	 	  已拒绝   原因：${invite.remark }
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '4'}">
+										 	 	  准备约会，约会时间：${invite.detail.preDate}
+										 	 	  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
+										 	 	  <a href="##" onclick="addInvite('${invite.id}','4')">修改约会地点</a>
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '6'}">
+										 	 	  系统审核中
+										 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">申请取消约会</a>
 										 	 </c:when>
 										 </c:choose>
 									</p>
@@ -92,14 +103,23 @@
 								<p> 
 									<c:choose>
 										 	 <c:when test="${invite.inviteStates eq '1'}">
-										 	 	 <a href="###" onclick="addInvite('${invite.id}')">同意约请</a>
+										 	 	 <a href="###" onclick="addInvite('${invite.id}','2')">同意约请</a>
 								      			 <a href="##" onclick="updateStates('${invite.id}','3')">拒绝约请</a>
 										 	 </c:when>
 										 	 <c:when test="${invite.inviteStates eq '2'}">
-										 	 	  已接收
+										 	 	  已接受
 										 	 </c:when>
 										 	 <c:when test="${invite.inviteStates eq '3'}">
-										 	 	  已拒绝
+										 	 	  已拒绝  原因：${invite.remark }
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '4'}">
+										 	 	  准备约会，约会时间：${invite.detail.preDate}
+										 	 	  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
+										 	 	  <a href="##" onclick="addInvite('${invite.id}','4')">修改约会地点</a>
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '6'}">
+										 	 	  系统审核中
+										 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">申请取消约会</a>
 										 	 </c:when>
 										 </c:choose>
 								 	  

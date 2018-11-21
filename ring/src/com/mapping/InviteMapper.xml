@@ -12,7 +12,7 @@
     <association property="customerFrom" column="from_id" javaType="com.model.Customer" select="selectCustomer"/>
     <association property="customerJoin" column="join_id" javaType="com.model.Customer" select="selectCustomer"/>
 	<association property="pointLocation" column="point_id" javaType="com.model.Location" select="selectLocation"/>
-	
+	<association property="detail" column="id" javaType="com.model.InviteDetail" select="selectDetail"/>
   </resultMap>
   <sql id="Base_Column_List">
     id, from_id, join_id, point_id, invite_date, invite_states, remark
@@ -25,9 +25,18 @@
     select  * from t_location
     where id = #{id}
   </select>
+   <select id="selectDetail" parameterType="java.lang.Integer" resultType="com.model.InviteDetail">
+    select  * from t_invite_detail
+    where invite_id = #{id}
+  </select>
   <select id="queryInviteByCustId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select  <include refid="Base_Column_List" />  from t_invite
-    where from_id = #{id} or join_id = #{id}
+    where ( from_id = #{id} or join_id = #{id} )  and invite_states  in ('1' , '2' , '3' , '5')
+  </select>
+  
+   <select id="queryDateingByCustId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />  from t_invite
+    where ( from_id = #{id} or join_id = #{id} )  and invite_states not in  ('1' , '2' , '3' , '5')
   </select>
   <select id="queryByWhere" resultMap="BaseResultMap" >
   	    select  <include refid="Base_Column_List" /> from t_invite where 1=1 
