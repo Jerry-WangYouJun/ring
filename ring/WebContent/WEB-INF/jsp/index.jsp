@@ -109,6 +109,9 @@
                     <li>
                     	 	 <a href="#" class="im-heart2" onclick='addTab("heart","${pageContext.request.contextPath}/pages/dateing_list.jsp","约会信息")'> 约会信息 </a>
                     </li>
+                    <li>
+                    	 	 <a href="#" class="im-mail2" onclick='addTab("message","${pageContext.request.contextPath}/pages/message_list.jsp","留言信息")'> 留言信息 </a>
+                    </li>
                      <li>
                     	 	 <a href="#" class="st-tag" onclick='addTab("evaluate","${pageContext.request.contextPath}/pages/evaluate_list.jsp","会员评价信息")'> 会员评价信息 </a>
                     </li>
