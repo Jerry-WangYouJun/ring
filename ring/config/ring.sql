@@ -11,7 +11,7 @@
  Target Server Version : 50719
  File Encoding         : utf-8
 
- Date: 11/21/2018 10:27:55 AM
+ Date: 11/21/2018 13:35:03 PM
 */
 
 SET NAMES utf8;
@@ -55,7 +55,7 @@ CREATE TABLE `t_customer` (
 --  Records of `t_customer`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_customer` VALUES ('1', null, null, '蔡妍', '蔡文姬', '3', '2000-06-06', '', '', null, null, '0', '', '1', '2', '', '', '', '1', '', '', '', '', '', '1', null), ('2', '9', null, '赵云', '赵子龙', '1', '2000-05-30', '1231', '12312', '110.00', '11.00', '0', '0', '2', '2', '教师', '1', '1', '123456789', '', '', '奥术大师大多', '奥术大师多', '', '', null), ('10', '1', null, '123', '123', '1', '2018-11-08', '', '', null, null, '0', '', '1', '1', '', '', '', '', '', '', '', '', '', '', null), ('11', null, null, '孙尚香', '1111', '3', '2018-11-13', '123123', '', null, null, '0', '', '2', '1', '', '', '', '', '', '', '大叔大婶大所', '123123123231', '123 123', '123123', 'hometown:1,addtress:0,height:1,weight:0,hometown:0,hometown:0,addtress:0,height:1'), ('12', null, null, '孙尚香2', '1111', '3', '2018-10-29', '111111', '12312', null, null, '1', '', '2', '2', '', '', '', '', '', '111111', '', '', '', '', 'hometown:1,addtress:0'), ('13', null, null, '张郃', '123', '1', '2018-11-21', '1231', '123', '111.00', null, '2', '', '2', '1', '', '', '', '', '', '', '', '', '', '', 'hometown:1,addtress:1,height:0,weight:1,marriage:1,children:1,degree:1,houseStatus:0,industry:1,income:1,qq:1,telephone:1,email:1,referee:1');
+INSERT INTO `t_customer` VALUES ('1', null, null, '蔡妍', '蔡文姬', '3', '2000-06-06', '', '', null, null, '0', '', '1', '2', '', '', '', '1', '', '', '', '', '', '1', null), ('2', '9', null, '赵云', '赵子龙', '1', '2000-05-30', '1231', '12312', '110.00', '11.00', '0', '0', '2', '2', '教师', '1', '1', '123456789', '', '', '奥术大师大多', '奥术大师多', '', '', null), ('10', '1', null, '123', '123', '1', '2018-11-08', '', '', null, null, '0', '', '1', '1', '', '', '', '', '', '', '', '', '', '', null), ('11', '9', null, '孙尚香', '1111', '3', '2018-11-13', '123123', '', null, null, '0', '', '2', '1', '', '', '', '', '', '', '大叔大婶大所', '123123123231', '123 123', '123123', 'hometown:1,addtress:0,height:1,weight:0,hometown:0,hometown:0,addtress:0,height:1'), ('12', null, null, '孙尚香2', '1111', '3', '2018-10-29', '111111', '12312', null, null, '1', '', '2', '2', '', '', '', '', '', '111111', '', '', '', '', 'hometown:1,addtress:0'), ('13', null, null, '张郃', '123', '1', '2018-11-21', '1231', '123', '111.00', null, '2', '', '2', '1', '', '', '', '', '', '', '', '', '', '', 'hometown:1,addtress:1,height:0,weight:1,marriage:1,children:1,degree:1,houseStatus:0,industry:1,income:1,qq:1,telephone:1,email:1,referee:1');
 COMMIT;
 
 -- ----------------------------
@@ -127,14 +127,28 @@ CREATE TABLE `t_invite` (
   `invite_states` varchar(1) DEFAULT NULL COMMENT '约会状态-关联字典表 1邀请 2 同意 3 拒绝 4 邀请方发出时间地点 5应邀确认 6 邀约结束 7 A评价  8 B评价  9 取消 0 爽约',
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_invite`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_invite` VALUES ('1', '1', '2', '1', '2018-10-09 13:30:00', '1', '1'), ('2', '1', '10', null, '2018-11-08 16:41:57', '3', null), ('3', '1', '10', null, '2018-11-08 16:45:15', '3', null), ('4', '10', '1', null, '2018-11-08 16:58:50', '3', null), ('5', '1', '10', null, '2018-11-08 18:46:49', '3', null), ('6', '1', '10', null, '2018-11-08 18:50:04', '3', null), ('7', '1', '10', null, '2018-11-08 18:53:26', '1', null), ('8', '19', null, null, '2018-11-10 15:41:00', '1', '周六,太原'), ('9', '2', '1', null, '2018-11-10 15:50:59', '2', '周六,太原');
+INSERT INTO `t_invite` VALUES ('1', '1', '2', '1', '2018-10-09 13:30:00', '3', '1'), ('2', '1', '10', null, '2018-11-08 16:41:57', '3', null), ('3', '1', '10', null, '2018-11-08 16:45:15', '3', null), ('4', '10', '1', null, '2018-11-08 16:58:50', '3', null), ('5', '1', '10', null, '2018-11-08 18:46:49', '3', null), ('6', '1', '10', null, '2018-11-08 18:50:04', '3', null), ('7', '1', '10', null, '2018-11-08 18:53:26', '3', null), ('8', '19', null, null, '2018-11-10 15:41:00', '3', '周六,太原'), ('9', '2', '1', null, '2018-11-10 15:50:59', '3', '周六,太原'), ('10', '2', '11', null, '2018-11-21 10:50:56', '2', '周六,太原'), ('11', '11', '13', null, '2018-11-21 10:58:33', '1', '周六,太原');
 COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_invite_detail`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_invite_detail`;
+CREATE TABLE `t_invite_detail` (
+  `id` int(11) NOT NULL,
+  `invite_id` int(11) DEFAULT NULL,
+  `pre_date` datetime DEFAULT NULL COMMENT '预约时间',
+  `confirm_date` varchar(30) DEFAULT NULL COMMENT '邀请时间',
+  `confirm_loc` varchar(10) DEFAULT NULL COMMENT '邀请人活动范围',
+  `update_times` datetime DEFAULT NULL COMMENT '修改次数  不能超过2次',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_location`
@@ -271,13 +285,13 @@ CREATE TABLE `t_user` (
   `role` varchar(5) DEFAULT NULL,
   `remark` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_user` VALUES ('1', 'admin', '123456', 'admin', '1', '1'), ('2', 'wyj1', '123456', '王友君1', '1', '10'), ('19', 'zy', '123456', '赵云', '2', '2');
+INSERT INTO `t_user` VALUES ('1', 'admin', '123456', 'admin', '1', '1'), ('2', 'wyj1', '123456', '王友君1', '1', '10'), ('19', 'zy', '123456', '赵云', '2', '2'), ('20', 'ssx', '123', '孙尚香', '2', '11');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
