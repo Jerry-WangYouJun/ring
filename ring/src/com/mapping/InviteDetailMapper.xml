@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.InviteDetailMapper">
+  <resultMap id="BaseResultMap" type="com.model.InviteDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="invite_id" jdbcType="INTEGER" property="inviteId" />
+    <result column="pre_date" jdbcType="TIMESTAMP" property="preDate" />
+    <result column="confirm_date" jdbcType="VARCHAR" property="confirmDate" />
+    <result column="confirm_loc" jdbcType="VARCHAR" property="confirmLoc" />
+    <result column="update_times" jdbcType="INTEGER" property="updateTimes" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, invite_id, pre_date, confirm_date, confirm_loc, update_times
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_invite_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+   <select id="selectByInviteId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_invite_detail
+    where invite_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_invite_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.InviteDetail">
+    insert into t_invite_detail (id, invite_id, pre_date, 
+      confirm_date, confirm_loc, update_times
+      )
+    values (#{id,jdbcType=INTEGER}, #{inviteId,jdbcType=INTEGER}, #{preDate,jdbcType=TIMESTAMP}, 
+      #{confirmDate,jdbcType=VARCHAR}, #{confirmLoc,jdbcType=VARCHAR}, #{updateTimes,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.InviteDetail">
+    insert into t_invite_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="inviteId != null">
+        invite_id,
+      </if>
+      <if test="preDate != null">
+        pre_date,
+      </if>
+      <if test="confirmDate != null">
+        confirm_date,
+      </if>
+      <if test="confirmLoc != null">
+        confirm_loc,
+      </if>
+      <if test="updateTimes != null">
+        update_times,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="inviteId != null">
+        #{inviteId,jdbcType=INTEGER},
+      </if>
+      <if test="preDate != null">
+        #{preDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmDate != null">
+        #{confirmDate,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmLoc != null">
+        #{confirmLoc,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimes != null">
+        #{updateTimes,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.InviteDetail">
+    update t_invite_detail
+    <set>
+      <if test="inviteId != null">
+        invite_id = #{inviteId,jdbcType=INTEGER},
+      </if>
+      <if test="preDate != null">
+        pre_date = #{preDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmDate != null">
+        confirm_date = #{confirmDate,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmLoc != null">
+        confirm_loc = #{confirmLoc,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTimes != null">
+        update_times = #{updateTimes,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.InviteDetail">
+    update t_invite_detail
+    set invite_id = #{inviteId,jdbcType=INTEGER},
+      pre_date = #{preDate,jdbcType=TIMESTAMP},
+      confirm_date = #{confirmDate,jdbcType=VARCHAR},
+      confirm_loc = #{confirmLoc,jdbcType=VARCHAR},
+      update_times = #{updateTimes,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
