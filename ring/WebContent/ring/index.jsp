@@ -42,27 +42,13 @@ $(document).ready(function(){
     <!--<div class="navbar navbar-inverse-blue navbar-fixed-top">-->
       <div class="navbar-inner navbar-inner_1">
         <div class="container">
-           <div class="navigation">
-             <nav id="colorNav">
-			   <ul>
-				<li class="green">
-					<a href="#" class="icon-home"></a>
-					<ul>
-						<li><a href="login.html">登录</a></li>
-					    <li><a href="register.html">注册</a></li>
-					    <li><a href="index.html">登出</a></li>
-					</ul>
-				</li>
-			   </ul>
-             </nav>
-           </div>
            <a class="brand" href="index.html"><img src="${pageContext.request.contextPath}/ring/images/logo.png" alt="logo"></a>
            <div class="pull-right">
           	<nav class="navbar nav_bottom" role="navigation">
  
 		 <!-- Brand and toggle get grouped for better mobile display -->
 		  <div class="navbar-header nav_2">
-		      <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">Menu
+		      <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">我的
 		        <span class="sr-only">Toggle navigation</span>
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
@@ -73,27 +59,8 @@ $(document).ready(function(){
 		   <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 		        <ul class="nav navbar-nav nav_1">
-		            <li><a href="index.html">主页</a></li>
-		            <li><a href="about.html">关于我们</a></li>
-		    		<li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">约会信息<span class="caret"></span></a>
-		              <ul class="dropdown-menu" role="menu">
-		                <li><a href="###" onclick="inviteInfo()">约会邀请</a></li>
-		                <li><a href="###" onclick="setPoint()">约会记录</a></li>
-		                <li><a href="viewed-not_contacted.html">浏览过的</a></li>
-		                <li><a href="members.html">推荐会员</a></li>
-		              </ul>
-		            </li>
-		            <li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">我的消息<span class="caret"></span></a>
-		              <ul class="dropdown-menu" role="menu">
-		                <li><a href="inbox.html">新消息</a></li>
-		                <li><a href="inbox.html">已查看</a></li>
-		                <li><a href="inbox.html">已接受</a></li>
-		                <li><a href="sent.html">已发送</a></li>
-		                <li><a href="upgrade.html">会员续费</a></li>
-		              </ul>
-		            </li>
+		            <li><a href="${pageContext.request.contextPath}/web/info">邀请记录</a></li>
+		            <li><a href="about.html">留言信息</a></li>
 		            <li class="last"><a href="contact.html">联系方式</a></li>
 		        </ul>
 		     </div><!-- /.navbar-collapse -->
@@ -115,8 +82,7 @@ $(document).ready(function(){
 			<i class="fa fa-heart grey-heart"></i>
 			<span class="grey-line"></span>
         </div>
-        <ul id="flexiselDemo3">
-        		
+        <ul id="">
         		<c:forEach items="${list}" var ="customer">
 		      <li><div class="col_1"><a href="${pageContext.request.contextPath}/web/customer?id=${customer.id}">
 				<img src="${pageContext.request.contextPath}/ring/images/p1.jpg" alt="" class="hover-animation image-zoom-in img-responsive"/>

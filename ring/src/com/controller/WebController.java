@@ -102,4 +102,12 @@ public class WebController {
 		request.setAttribute("inv", invite2);
 		return "forward:/ring/dating.jsp";
 	}
+	
+	@RequestMapping("/info")
+	public String info( HttpSession session  , HttpServletRequest request  ) {
+		Customer  cust =  (Customer) session.getAttribute("customer");
+		List<Invite> inviteList = inviteService.queryInviteByCustId(cust.getId());
+		request.setAttribute("inviteList", inviteList);
+		return "forward:/ring/info.jsp";
+	}
 }

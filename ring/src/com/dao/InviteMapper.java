@@ -27,4 +27,6 @@ public interface InviteMapper {
 	public int queryTotal(Invite record);
 
 	public void refuseOther(Integer joinId);
+
+	List<Invite> queryInviteByCustId(Integer id);
 }

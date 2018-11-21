@@ -69,82 +69,8 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<!-- ============================  Navigation Start =========================== -->
- <div class="navbar navbar-inverse-blue navbar">
-    <!--<div class="navbar navbar-inverse-blue navbar-fixed-top">-->
-      <div class="navbar-inner navbar-inner_1">
-        <div class="container">
-           <div class="navigation">
-             <nav id="colorNav">
-			   <ul>
-				<li class="green">
-					<a href="#" class="icon-home"></a>
-					<ul>
-						<li><a href="login.html">登录</a></li>
-					    <li><a href="register.html">注册</a></li>
-					    <li><a href="index.html">登出</a></li>
-					</ul>
-				</li>
-			   </ul>
-             </nav>
-           </div>
-           <a class="brand" href="index.html"><img src="${pageContext.request.contextPath}/ring/images/logo.png" alt="logo"></a>
-           <div class="pull-right">
-          	<nav class="navbar nav_bottom" role="navigation">
- 
-		 <!-- Brand and toggle get grouped for better mobile display -->
-		  <div class="navbar-header nav_2">
-		      <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">Menu
-		        <span class="sr-only">Toggle navigation</span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </button>
-		      <a class="navbar-brand" href="#"></a>
-		   </div> 
-		   <!-- Collect the nav links, forms, and other content for toggling -->
-		    <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-		        <ul class="nav navbar-nav nav_1">
-		            <li><a href="index.html">主页</a></li>
-		            <li><a href="about.html">关于我们</a></li>
-		    		<li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">约会信息<span class="caret"></span></a>
-		              <ul class="dropdown-menu" role="menu">
-		                <li><a href="###" onclick="inviteInfo()">约会邀请</a></li>
-		                <li><a href="###" onclick="setPoint()">约会记录</a></li>
-		                <li><a href="viewed-not_contacted.html">浏览过的</a></li>
-		                <li><a href="members.html">推荐会员</a></li>
-		              </ul>
-		            </li>
-		            <li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">我的消息<span class="caret"></span></a>
-		              <ul class="dropdown-menu" role="menu">
-		                <li><a href="inbox.html">新消息</a></li>
-		                <li><a href="inbox.html">已查看</a></li>
-		                <li><a href="inbox.html">已接受</a></li>
-		                <li><a href="sent.html">已发送</a></li>
-		                <li><a href="upgrade.html">会员续费</a></li>
-		              </ul>
-		            </li>
-		            <li class="last"><a href="contact.html">联系方式</a></li>
-		        </ul>
-		     </div><!-- /.navbar-collapse -->
-		    </nav>
-		   </div> <!-- end pull-right -->
-          <div class="clearfix"> </div>
-        </div> <!-- end container -->
-      </div> <!-- end navbar-inner -->
-    </div> <!-- end navbar-inverse-blue -->
-<!-- ============================  Navigation End ============================ -->
 <div class="grid_3">
   <div class="container">
-   <div class="breadcrumb1">
-     <ul>
-        <a href="index.html"><i class="fa fa-home home_1"></i></a>
-        <span class="divider">&nbsp;|&nbsp;</span>
-        <li class="current-page">View Profile</li>
-     </ul>
-   </div>
    <div class="profile">
    	 <div class="col-md-12 profile_left">
    	 	<h2>Profile Id : ${cust.id }</h2>
@@ -376,10 +302,6 @@ $(document).ready(function(){
 		  </div>
 	   </div>
    	 </div>
-   	 <ul class="login_details">
-			      <li>已经是会员? <a href="login.html">登录</a></li>
-			      <li>还不是会员? <a href="register.html">注册</a></li>
-			    </ul>
        <div class="clearfix"> </div>
     </div>
   </div>
@@ -387,42 +309,6 @@ $(document).ready(function(){
 <div class="map">
 
 </div>
-<div class="footer">
-    	<div class="container">
-    		<div class="col-md-4 col_2">
-    			<h4>关于我们</h4>
-    			<p>"无名指之约。。。"</p>
-    		</div>
-    		<div class="col-md-2 col_2">
-    			<h4>帮助 & 支持</h4>
-    			<ul class="footer_links">
-    				<li><a href="contact.html">联系我们</a></li>
-    				<li><a href="faq.html">常见问题</a></li>
-    			</ul>
-    		</div>
-    		<div class="col-md-2 col_2">
-    			<h4>合作单位</h4>
-    			<ul class="footer_links">
-    				<li><a href="privacy.html">Privacy Policy</a></li>
-    				<li><a href="terms.html">Terms and Conditions</a></li>
-    				<li><a href="services.html">Services</a></li>
-    			</ul>
-    		</div>
-    		<div class="col-md-2 col_2">
-    			<h4>分享</h4>
-    			<ul class="footer_social">
-				  <li><a href="#"><i class="fa fa-facebook fa1"> </i></a></li>
-				  <li><a href="#"><i class="fa fa-twitter fa1"> </i></a></li>
-				  <li><a href="#"><i class="fa fa-google-plus fa1"> </i></a></li>
-				  <li><a href="#"><i class="fa fa-youtube fa1"> </i></a></li>
-			    </ul>
-    		</div>
-    		<div class="clearfix"> </div>
-    		<div class="copy">
-		      <p>Copyright &copy; 2018.Company name All rights reserved.</p>
-	        </div>
-    	</div>
-    </div>
     <div class="modal fade" id="addModal"  role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog" style="height: ">

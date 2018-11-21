@@ -68,6 +68,11 @@ public class InviteService {
 		return mapper.queryByCustId(invite, page);
 	}
 
+	public List<Invite> queryInviteByCustId(Integer id) {
+		// TODO Auto-generated method stub
+		return mapper.queryInviteByCustId(id);
+	}
+
 
 
 }

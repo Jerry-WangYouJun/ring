@@ -25,7 +25,10 @@
     select  * from t_location
     where id = #{id}
   </select>
-  
+  <select id="queryInviteByCustId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />  from t_invite
+    where from_id = #{id} or join_id = #{id}
+  </select>
   <select id="queryByWhere" resultMap="BaseResultMap" >
   	    select  <include refid="Base_Column_List" /> from t_invite where 1=1 
   	    <if test="obj.id!=null and obj.id > 0">
