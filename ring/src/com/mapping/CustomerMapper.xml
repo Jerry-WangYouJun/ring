@@ -27,11 +27,12 @@
     <result column="declaration" jdbcType="VARCHAR" property="declaration" />
     <result column="ask" jdbcType="VARCHAR" property="ask" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="flag" jdbcType="VARCHAR" property="flag" />
   </resultMap>
   <sql id="Base_Column_List">
     id, examine, head_image, ch_name, nick_name, sex, birthday, hometown, addtress, height, 
     weight, marriage, children, degree, house_status, industry, income, qq, telephone, 
-    email, referee, introduction, declaration, ask, remark
+    email, referee, introduction, declaration, ask, remark,flag
   </sql>
   
   <select id="queryByWhere" resultMap="BaseResultMap" >
@@ -47,6 +48,9 @@
   	    </if>
   	    <if test="obj.sex!= null and obj.sex != '' ">
   	    	     and sex = #{obj.sex}
+  	    </if>
+  	    <if test="obj.webSex!= null and obj.webSex != '' ">
+  	    	     and sex != #{obj.webSex}
   	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
@@ -86,7 +90,7 @@
       industry, income, qq, 
       telephone, email, referee, 
       introduction, declaration, ask, 
-      remark)
+      remark, flag)
     values (#{id,jdbcType=INTEGER}, #{examine,jdbcType=VARCHAR}, #{headImage,jdbcType=INTEGER}, 
       #{chName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=DATE}, #{hometown,jdbcType=VARCHAR}, #{addtress,jdbcType=VARCHAR}, 
@@ -95,7 +99,7 @@
       #{industry,jdbcType=VARCHAR}, #{income,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{referee,jdbcType=VARCHAR}, 
       #{introduction,jdbcType=VARCHAR}, #{declaration,jdbcType=VARCHAR}, #{ask,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR})
+      #{remark,jdbcType=VARCHAR} , #{flag,jdbcType=VARCHAR} )
   </insert>
   <insert id="insertSelective" parameterType="com.model.Customer">
     insert into t_customer
@@ -175,6 +179,9 @@
       <if test="remark != null">
         remark,
       </if>
+      <if test="flag != null">
+        flag,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -251,6 +258,9 @@
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -329,6 +339,9 @@
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -357,7 +370,8 @@
       introduction = #{introduction,jdbcType=VARCHAR},
       declaration = #{declaration,jdbcType=VARCHAR},
       ask = #{ask,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

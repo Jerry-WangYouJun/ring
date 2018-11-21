@@ -40,6 +40,12 @@
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
   
+  <select id="queryByCustId" resultMap="BaseResultMap" >
+  	    select  <include refid="Base_Column_List" /> from t_invite where 1=1 
+  	    	 and   join_id = #{obj.joinId} and invite_states  =  #{obj.inviteStates}
+  	     limit  #{page.start}, #{page.pageSize} 
+  </select>
+  
   <select id="queryTotal"  resultType="java.lang.Integer">
   	    select count(*) from t_invite where 1=1 
   	    <if test="id!=null and id > 0">
@@ -63,6 +69,12 @@
     delete from t_invite
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  
+  <delete id="refuseOther" parameterType="java.lang.Integer">
+    update t_invite set invite_states = '3', remark = '已接受其他邀请'
+    where join_id = #{id,jdbcType=INTEGER} and  invite_states = '1' 
+  </delete>
+  
   <insert id="insert" parameterType="com.model.Invite">
     insert into t_invite (id, from_id, join_id, 
       point_id, invite_date, invite_states, 

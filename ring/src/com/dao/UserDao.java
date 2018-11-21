@@ -27,6 +27,7 @@ public class UserDao {
 					user.setUserNo(rs.getString("user_no"));
 					user.setUserName(rs.getString("user_name"));
 					user.setRole(rs.getString("role"));
+					user.setRemark(rs.getString("remark"));
 				 return null ;
 			}
 		});

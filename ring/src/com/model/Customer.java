@@ -14,6 +14,7 @@ public class Customer {
 
     private String sex;
 
+    private String webSex;
    
     private String birthday;
 
@@ -52,6 +53,10 @@ public class Customer {
     private String ask;
 
     private String remark;
+    
+    private String flag ;
+    
+    private String flagTemp ;
 
     public Integer getId() {
         return id;
@@ -252,4 +257,30 @@ public class Customer {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
+
+	public String getWebSex() {
+		return webSex;
+	}
+
+	public void setWebSex(String webSex) {
+		this.webSex = webSex;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
+	public String getFlagTemp() {
+		return flagTemp;
+	}
+
+	public void setFlagTemp(String flagTemp) {
+		this.flagTemp = flagTemp;
+	}
+    
+    
 }

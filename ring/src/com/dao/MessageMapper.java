@@ -1,5 +1,10 @@
 package com.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.common.entry.Pagination;
 import com.model.Message;
 
 public interface MessageMapper {
@@ -14,4 +19,8 @@ public interface MessageMapper {
     int updateByPrimaryKeySelective(Message record);
 
     int updateByPrimaryKey(Message record);
+    
+ public List<Message> queryByWhere(@Param("obj")Message record, @Param("page")Pagination page);
+    
+   	public int queryTotal(Message record);
 }

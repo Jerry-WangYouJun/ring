@@ -88,6 +88,12 @@ public class DictionaryController {
 	}
 	
 	@ResponseBody
+	@RequestMapping("/dicMap")
+	public Map getDicList() {
+		return dicService.getDicMap();
+	}
+	
+	@ResponseBody
 	@RequestMapping("/dic_unique")
 	public Message  uniqueDictionary( String name ){
 		Message msg = new Message();

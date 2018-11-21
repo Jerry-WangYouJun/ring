@@ -16,6 +16,9 @@ public class Message {
     private Integer followId;
 
     private String remark;
+    
+    private Customer customerFrom ;
+    private Customer customerJoin;
 
     public Integer getId() {
         return id;
@@ -72,4 +75,21 @@ public class Message {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
+
+	public Customer getCustomerFrom() {
+		return customerFrom;
+	}
+
+	public void setCustomerFrom(Customer customerFrom) {
+		this.customerFrom = customerFrom;
+	}
+
+	public Customer getCustomerJoin() {
+		return customerJoin;
+	}
+
+	public void setCustomerJoin(Customer customerJoin) {
+		this.customerJoin = customerJoin;
+	}
+    
 }

@@ -1,8 +1,6 @@
 package com.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +41,11 @@ public class CustomerService {
 	public int checkUnique(String customerNo) {
 		//TODO
 		return 0;
+	}
+
+	public Customer selectById(Integer id) {
+		// TODO Auto-generated method stub
+		return mapper.selectByPrimaryKey(id);
 	}
 
 	 	 

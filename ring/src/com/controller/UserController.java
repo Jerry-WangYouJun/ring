@@ -147,7 +147,7 @@ public class UserController {
 	public String checkUser(User user , HttpServletRequest request , HttpSession session){
 		user = service.checkUser(user);
 		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
-		if(user != null ){
+		if(user.getId() != null  && user.getId()>0){
 			session.setAttribute("user", user);
 			session.setAttribute("dic",   JSONObject.fromObject(dicMap));
 			return "index" ;

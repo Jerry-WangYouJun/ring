@@ -23,6 +23,8 @@ public interface InviteMapper {
     int updateByPrimaryKey(Invite record);
     
     public List<Invite> queryByWhere(@Param("obj")Invite dic, @Param("page")Pagination page);
-    
+    public List<Invite> queryByCustId(@Param("obj")Invite dic, @Param("page")Pagination page);
 	public int queryTotal(Invite record);
+
+	public void refuseOther(Integer joinId);
 }

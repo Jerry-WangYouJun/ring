@@ -52,6 +52,7 @@ public class CustomerController {
 	public Message  editCustomer(Customer customer ){
 		Message msg = new Message();
 		try{
+			 customer.setFlag(customer.getFlagTemp());
 			if(customer.getId() != null  &&  customer.getId() > 0){
 				service.update(customer);
 			}else{

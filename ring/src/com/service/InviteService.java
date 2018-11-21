@@ -55,6 +55,19 @@ public class InviteService {
 		return evaluteMapper.queryTotal(evaluate);
 	}
 
+	public Invite selectById(Integer id) {
+		// TODO Auto-generated method stub
+		return mapper.selectByPrimaryKey(id);
+	}
+
+	public void refuseOther(Integer joinId) {
+		mapper.refuseOther(joinId);
+	}
+
+	public List<Invite> queryByCustId(Invite invite, Pagination page) {
+		return mapper.queryByCustId(invite, page);
+	}
+
 
 
 }
