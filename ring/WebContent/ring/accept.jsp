@@ -56,16 +56,26 @@ $(document).ready(function(){
 		$('#datetimepicker1').datetimepicker({  
 			minView: "month",
 			format: 'yyyy-mm-dd hh:00',
-		    todayBtn: true,//显示今日按钮
+		    todayBtn: false,//显示今日按钮
 		    autoclose: true,
 		    language:"zh-CN",
 		    clearBtn: true ,
-		    autoclose: true,
+		    startDate: new Date(),
 		    minView: 1
 		});
-		$('#datetimepicker1').datetimepicker('setDaysOfWeekDisabled', [0,6]);
+		
 	}
 });
+
+		$(function(){
+			 var str = "${inv.detail.confirmDate}";
+			 var strArr = str.split(",");
+			 for(var s in strArr){
+				 console.info(strArr[s]);
+				 $("#inlineCheckbox" + strArr[s]).attr("checked", 'checked');
+			 }
+			 $('#datetimepicker1').datetimepicker('setDaysOfWeekDisabled', strArr);
+		})
 </script>
 </head>
 <body id="a2">
@@ -80,12 +90,28 @@ $(document).ready(function(){
 							 <c:when test="${inv.inviteStates eq '1' || inv.inviteStates eq '4'   }">	 
 								<div class="form-group">
 								
-									<label for="message-text" class="control-label" >约会时段:</label>
-										<select  class="form-control"  id="confirmLoc" name="detail.confirmLoc" disabled="disabled"  placeholder="必填" required>
-											 <c:forEach items="${times}" var ="val">
-											 	    <option value="${val }">${val }</option>
-											 </c:forEach>
-										</select>
+									<label for="message-text" class="control-label" >约会时段:</label><br/>
+										<label class="checkbox-inline" style="margin-left: 10px;">
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox1" value="1"> 周一
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox2" value="2"> 周二
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox3" value="3"> 周三
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox4" value="4"> 周四
+										</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="confirmDate" id="inlineCheckbox5" value="5"> 周五
+									</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="confirmDate" id="inlineCheckbox6" value="6"> 周六
+									</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="confirmDate" id="inlineCheckbox0" value="0"> 周日
+									</label>
 								</div>
 								<div class="form-group">
 									<label for="message-text" class="control-label">约会区域:</label> 

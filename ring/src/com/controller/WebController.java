@@ -86,8 +86,6 @@ public class WebController {
 	@RequestMapping("/inviteInit")
 	public String invite(HttpServletRequest request , Invite invite ) {
 		List<Location> locList= locService.queryList(new Location(), new Pagination());
-		String[] time = {"周六","周日","周一~五下班","其他时间"};
-		request.setAttribute("times", Arrays.asList(time));
 		List<String> loc = new ArrayList<>();
 		for (Location  obj : locList) {
 			 if(!loc.contains(obj.getAddress())) {

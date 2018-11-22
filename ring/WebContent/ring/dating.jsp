@@ -100,28 +100,26 @@ $(document).ready(function(){
 									<div>
 										<label for="message-text" class="control-label">约会时段:</label>
 									</div>
-									<div>
-										<label class="checkbox-inline">
-											<input type="checkbox" id="inlineCheckbox1" value="option1"> 周一
+										<label class="checkbox-inline" style="margin-left: 10px;">
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox1" value="1"> 周一
 										</label>
 										<label class="checkbox-inline">
-											<input type="checkbox" id="inlineCheckbox2" value="option2"> 周二
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox2" value="2"> 周二
 										</label>
 										<label class="checkbox-inline">
-											<input type="checkbox" id="inlineCheckbox3" value="option3"> 周三
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox3" value="3"> 周三
 										</label>
 										<label class="checkbox-inline">
-											<input type="checkbox" id="inlineCheckbox1" value="option1"> 周四
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox1" value="4"> 周四
 										</label>
-									</div>
 									<label class="checkbox-inline">
-										<input type="checkbox" id="inlineCheckbox2" value="option2"> 周五
+										<input type="checkbox" name="confirmDate" id="inlineCheckbox2" value="5"> 周五
 									</label>
 									<label class="checkbox-inline">
-										<input type="checkbox" id="inlineCheckbox3" value="option3"> 周六
+										<input type="checkbox" name="confirmDate" id="inlineCheckbox3" value="6"> 周六
 									</label>
 									<label class="checkbox-inline">
-										<input type="checkbox" id="inlineCheckbox3" value="option3"> 周日
+										<input type="checkbox" name="confirmDate" id="inlineCheckbox3" value="7"> 周日
 									</label>
 									
 									<!-- <div class='input-group date' id='datetimepicker1'>
@@ -133,7 +131,7 @@ $(document).ready(function(){
 								</div>
 								<div class="form-group">
 									<label for="message-text" class="control-label">约会区域:</label> 
-									<select  class="form-control"   name="confirmDate" placeholder="必填" required>
+									<select  class="form-control"   name="confirmLoc" placeholder="必填" required>
 											  <c:forEach items="${locList}" var ="loca">
 											 	    <option >${loca}</option>
 											 </c:forEach>
@@ -172,6 +170,7 @@ $(document).ready(function(){
 				if (data.success) {
 					alert(data.msg);
 					$("#infoTable").bootstrapTable("refresh");
+					window.location.href="${pageContext.request.contextPath}/web/info";
 				} else {
 					alert(data.msg);
 				}
