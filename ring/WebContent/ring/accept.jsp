@@ -12,6 +12,8 @@
 <script src="${pageContext.request.contextPath}/js/validate/messages_zh.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+<script src="${pageContext.request.contextPath}/js/bootstrap-select.min.js"></script>
+<link href="${pageContext.request.contextPath}/css/bootstrap-select.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-theme.min.css">
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-table.min.css" />  
@@ -61,6 +63,7 @@ $(document).ready(function(){
 		    autoclose: true,
 		    minView: 1
 		});
+		$('#datetimepicker1').datetimepicker('setDaysOfWeekDisabled', [0,6]);
 	}
 });
 </script>
@@ -74,23 +77,10 @@ $(document).ready(function(){
 						<input class="form-control" name="id" type="hidden" value="${inv.id }"></input>
 						<input class="form-control" name="joinId" type="hidden" value="${joinId }"></input>
 						<c:choose>
-							 <c:when test="${inv.inviteStates eq '1' }">	 
-							       <div class="form-group">
-									<label for="message-text" class="control-label">约会时段:${invite.remark }</label>
-								</div>
-								<div class="form-group">
-									<label for="message-text" class="control-label">约会区域:</label> 
-									<select  class="form-control"   name="remark" placeholder="必填" required>
-											  <c:forEach items="${locList}" var ="loca">
-											 	    <option >${loca}</option>
-											 </c:forEach>
-									</select>
-								</div>
-							 </c:when>
-							 <c:when test="${inv.inviteStates eq '2' || inv.inviteStates eq '4'   }">	 
+							 <c:when test="${inv.inviteStates eq '1' || inv.inviteStates eq '4'   }">	 
 								<div class="form-group">
 								
-									<label for="message-text" class="control-label">约会时段:</label>
+									<label for="message-text" class="control-label" >约会时段:</label>
 										<select  class="form-control"  id="confirmLoc" name="detail.confirmLoc" disabled="disabled"  placeholder="必填" required>
 											 <c:forEach items="${times}" var ="val">
 											 	    <option value="${val }">${val }</option>
@@ -116,7 +106,7 @@ $(document).ready(function(){
 							            </div>   
 						        </div> 
 								<div class="form-group">
-									<label for="message-text" class="control-label">约会地点:</label> 
+		 							<label for="message-text" class="control-label">约会地点:</label> 
 									<select  class="form-control"   name="pointId" placeholder="必填" required>
 											  <c:forEach items="${locList}" var ="loca">
 											 	    <option value="${loca.id}">${loca.location} - ${loca.address}</option>
@@ -124,6 +114,31 @@ $(document).ready(function(){
 									</select>
 								</div>
 							</c:when>
+							 <c:otherwise >	 
+							       <div class="form-group">
+									<label for="message-text" class="control-label">约会时段:${invite.remark }</label>
+									<select  class="form-control selectpicker"   name="detail.confirmDate" placeholder="必填" required  disabled="disabled">
+											  <c:forEach items="${locList}" var ="loca">
+											 	    <option >${loca.locName}</option>
+											 </c:forEach>
+									</select>
+									<select class="selectpicker">
+									    <option value="1">广东省</option>
+									    <option value="2">广西省</option>
+									    <option value="3">福建省</option>
+									    <option value="4">湖南省</option>
+									    <option value="5">山东省</option>                            
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="message-text" class="control-label">约会区域:</label> 
+									<select  class="form-control"   name="remark" placeholder="必填" required>
+											  <c:forEach items="${locList}" var ="loca">
+											 	    <option >${loca}</option>
+											 </c:forEach>
+									</select>
+								</div>
+							 </c:otherwise>
 						</c:choose>
 						<div class="form-group">
 							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -155,7 +170,7 @@ $(document).ready(function(){
 			success : function(data) {
 				if (data.success) {
 					alert(data.msg);
-					$("#infoTable").bootstrapTable("refresh");
+					window.location.href="${pageContext.request.contextPath}/web/info";
 				} else {
 					alert(data.msg);
 				}

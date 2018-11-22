@@ -56,6 +56,8 @@
 										 </c:choose>
 									</h3>
 									<h3> 生日：${invite.customerJoin.birthday }</h3>
+									<h3> 约会时间范围：${invite.detail.confirmDate } </h3>
+									<h3> 约会地点范围：${invite.detail.confirmLoc }  </h3>	  
 									<p> 状态： 
 										<c:choose>
 										 	 <c:when test="${invite.inviteStates eq '1'}">
@@ -64,7 +66,7 @@
 										 	 <c:when test="${invite.inviteStates eq '2'}">
 										 	 	  已接受
 										 	 	   <a href="##" onclick="updateStates('${invite.id}','4')">确定约会</a>
-										 	 	   <a href="##" onclick="updateStates('${invite.id}','5')">取消取消</a>
+										 	 	   <a href="##" onclick="updateStates('${invite.id}','5')">取消约会</a>
 										 	 </c:when>
 										 	 <c:when test="${invite.inviteStates eq '3'}">
 										 	 	  已拒绝   原因：${invite.remark }
@@ -99,7 +101,8 @@
 										 </c:choose>
 								</h3>
 								<h3> 生日: ${invite.customerFrom.birthday }</h3>
-									  
+								<h3> 约会时间范围：${invite.detail.confirmDate } </h3>
+								<h3> 约会地点范围：${invite.detail.confirmLoc }  </h3>	  
 								<p> 
 									<c:choose>
 										 	 <c:when test="${invite.inviteStates eq '1'}">

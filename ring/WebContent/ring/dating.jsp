@@ -13,7 +13,9 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-theme.min.css">
+<link href="${pageContext.request.contextPath}/css/bootstrap-select.min.css" rel="stylesheet" />
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
+<script src="${pageContext.request.contextPath}/js/bootstrap-select.min.js"></script>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-table.min.css" />  
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table-zh-CN.js"></script>
@@ -38,6 +40,7 @@
 }
 </style>
 <script>
+
 $(document).ready(function(){
     $(".dropdown").hover(            
         function() {
@@ -62,6 +65,10 @@ $(document).ready(function(){
 		    minView: 1
 		});
 	}
+    
+    $(".selectpicker").selectpicker({  
+        noneSelectedText : '请选择'//默认显示内容  
+    });  
 });
 </script>
 </head>
@@ -90,12 +97,33 @@ $(document).ready(function(){
 							 </c:when>
 							 <c:otherwise>
 								<div class="form-group">
-									<label for="message-text" class="control-label">约会时段:</label>
-									<select  class="form-control"  id="remark" name="confirmLoc" placeholder="必填" required>
-											 <c:forEach items="${times}" var ="val">
-											 	    <option value="${val }">${val }</option>
-											 </c:forEach>
-										</select>
+									<div>
+										<label for="message-text" class="control-label">约会时段:</label>
+									</div>
+									<div>
+										<label class="checkbox-inline">
+											<input type="checkbox" id="inlineCheckbox1" value="option1"> 周一
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" id="inlineCheckbox2" value="option2"> 周二
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" id="inlineCheckbox3" value="option3"> 周三
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" id="inlineCheckbox1" value="option1"> 周四
+										</label>
+									</div>
+									<label class="checkbox-inline">
+										<input type="checkbox" id="inlineCheckbox2" value="option2"> 周五
+									</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" id="inlineCheckbox3" value="option3"> 周六
+									</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" id="inlineCheckbox3" value="option3"> 周日
+									</label>
+									
 									<!-- <div class='input-group date' id='datetimepicker1'>
 										<input type='text' class="form-control" readonly name="inviteDate"
 											id="inviteDate" placeholder="必填" required/> <span class="input-group-addon"> <span

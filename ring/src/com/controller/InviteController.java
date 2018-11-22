@@ -116,12 +116,20 @@ public class InviteController {
 	@RequestMapping("/state")
 	public String  updateStates(Integer id  , String inviteStates , String remark){
 		Invite invite  = service.selectById(id);
-		invite.setInviteStates(inviteStates);
+		if(!"2".equals(inviteStates)){
+			invite.setInviteStates(inviteStates);
+		}
 		if(StringUtils.isNotBlank(remark)){
 			invite.setRemark(remark);
 		}
 		service.update(invite);
-		return "forward:/web/index";
+		if("3".equals(inviteStates)){
+			return "forward:/web/info";
+		}else if("2".equals(inviteStates) || "4".equals(inviteStates) ){
+			return "forward:/web/dating?id=" + id;
+		}else{
+			return "forward:/web/info";
+		}
 	}
 	
 	@ResponseBody
@@ -153,6 +161,9 @@ public class InviteController {
 						 msg.setMsg("操作失败：已经修改过两次约会信息，不能继续修改" );
 						 return msg ;
 					 }
+				}
+				if("1".equals(inviteTemp.getInviteStates())  ) {
+					inviteTemp.setInviteStates("2");
 				}
 				service.update(inviteTemp);
 				detailTemp.setPreDate(preDate);
