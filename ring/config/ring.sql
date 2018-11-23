@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2018-11-21 17:28:53
+Date: 2018-11-23 17:11:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -150,10 +150,10 @@ CREATE TABLE `t_invite` (
   `join_id` int(11) DEFAULT NULL COMMENT '受邀人id',
   `point_id` int(11) DEFAULT NULL COMMENT '约会地点id',
   `invite_date` datetime DEFAULT NULL COMMENT '约会时间',
-  `invite_states` varchar(2) DEFAULT NULL COMMENT '约会状态-关联字典表 1邀请 2 同意 3 拒绝 4 邀请方发出时间地点 5应邀确认 6 邀约结束 7 A评价  8 B评价  9 取消 0 爽约',
+  `invite_states` varchar(2) DEFAULT NULL COMMENT '约会状态-关联字典表 1邀请 2 同意 3 拒绝 4 邀请方发出时间地点 5应邀确认 6 申请取消 7 已结束  8 驳回取消  9 取消 0 爽约',
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_invite
@@ -168,10 +168,11 @@ INSERT INTO `t_invite` VALUES ('7', '1', '10', null, '2018-11-08 18:53:26', '3',
 INSERT INTO `t_invite` VALUES ('8', '19', null, null, '2018-11-10 15:41:00', '3', '周六,太原');
 INSERT INTO `t_invite` VALUES ('9', '2', '1', null, '2018-11-10 15:50:59', '3', '周六,太原');
 INSERT INTO `t_invite` VALUES ('10', '2', '11', null, '2018-11-21 10:50:56', '3', '周六,太原');
-INSERT INTO `t_invite` VALUES ('11', '11', '13', null, '2018-11-21 10:58:33', '3', '周六,太原');
-INSERT INTO `t_invite` VALUES ('13', '11', '2', null, '2018-11-21 14:47:57', '3', null);
-INSERT INTO `t_invite` VALUES ('14', '11', '2', null, '2018-11-21 15:15:30', '3', null);
-INSERT INTO `t_invite` VALUES ('15', '2', '11', '1', null, '1', null);
+INSERT INTO `t_invite` VALUES ('11', '11', '13', null, '2018-11-21 10:58:33', '9', '周六,太原');
+INSERT INTO `t_invite` VALUES ('13', '11', '2', null, '2018-11-21 14:47:57', '6', null);
+INSERT INTO `t_invite` VALUES ('14', '11', '2', null, '2018-11-21 15:15:30', '8', null);
+INSERT INTO `t_invite` VALUES ('15', '2', '11', '2', null, '9', '12323');
+INSERT INTO `t_invite` VALUES ('22', '2', '11', '1', '2018-11-23 09:58:58', '7', '时间不合适');
 
 -- ----------------------------
 -- Table structure for t_invite_detail
@@ -182,19 +183,23 @@ CREATE TABLE `t_invite_detail` (
   `invite_id` int(11) DEFAULT NULL,
   `pre_date` datetime DEFAULT NULL COMMENT '预约时间',
   `confirm_date` varchar(30) DEFAULT NULL COMMENT '邀请时间',
+  `confirm_time` varchar(10) DEFAULT NULL,
   `confirm_loc` varchar(10) DEFAULT NULL COMMENT '邀请人活动范围',
-  `update_times` int(11) DEFAULT NULL COMMENT '修改次数  不能超过2次',
+  `update_times` int(11) DEFAULT '0' COMMENT '修改次数  不能超过2次',
+  `update_time_join` int(11) DEFAULT '0',
+  `sign_from` varchar(1) DEFAULT NULL COMMENT '0未签到 1签到 2 店家确认签到',
+  `sign_join` varchar(1) DEFAULT NULL COMMENT '0未签到 1签到 2 店家确认签到',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_invite_detail
 -- ----------------------------
-INSERT INTO `t_invite_detail` VALUES ('1', '13', null, '太原', '周六', '0');
-INSERT INTO `t_invite_detail` VALUES ('2', '14', null, '太原', '周六', '0');
-INSERT INTO `t_invite_detail` VALUES ('3', '15', '2018-11-05 05:00:00', '太原', '周六', '0');
-INSERT INTO `t_invite_detail` VALUES ('4', '16', null, '123', '周一~五下班', '0');
-INSERT INTO `t_invite_detail` VALUES ('5', '17', null, null, null, '0');
+INSERT INTO `t_invite_detail` VALUES ('1', '13', null, '太原', null, '周六', '0', null, null, null);
+INSERT INTO `t_invite_detail` VALUES ('2', '14', null, '太原', null, '周六', '0', null, null, null);
+INSERT INTO `t_invite_detail` VALUES ('3', '15', '2018-10-30 09:00:00', '太原', null, '周六', '0', null, null, null);
+INSERT INTO `t_invite_detail` VALUES ('4', '16', null, '123', null, '周一~五下班', '0', null, null, null);
+INSERT INTO `t_invite_detail` VALUES ('7', '22', '2018-11-24 11:00:00', '1,4', '10-12', '1', '1', '0', '1', '1');
 
 -- ----------------------------
 -- Table structure for t_location
@@ -322,6 +327,28 @@ CREATE TABLE `t_sign` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for t_sign_type
+-- ----------------------------
+DROP TABLE IF EXISTS `t_sign_type`;
+CREATE TABLE `t_sign_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sign` varchar(20) DEFAULT NULL,
+  `color` varchar(20) DEFAULT NULL,
+  `sex` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_sign_type
+-- ----------------------------
+INSERT INTO `t_sign_type` VALUES ('1', '阳光', 'label-default', '1');
+INSERT INTO `t_sign_type` VALUES ('2', '帅气', 'label-primary', '1');
+INSERT INTO `t_sign_type` VALUES ('3', '高大', 'label-success', '1');
+INSERT INTO `t_sign_type` VALUES ('4', '娇小', 'label-info', '0');
+INSERT INTO `t_sign_type` VALUES ('5', '温柔', 'label-warning', '0');
+INSERT INTO `t_sign_type` VALUES ('6', '高挑', 'abel-danger', '0');
+
+-- ----------------------------
 -- Table structure for t_user
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user`;
@@ -338,7 +365,7 @@ CREATE TABLE `t_user` (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('1', 'admin', '123456', 'admin', '1', '1');
-INSERT INTO `t_user` VALUES ('2', 'wyj1', '123456', '王友君1', '1', '10');
+INSERT INTO `t_user` VALUES ('1', 'admin', '123', 'admin', '1', '1');
+INSERT INTO `t_user` VALUES ('2', 'wyj', '123', '王友君1', '1', '10');
 INSERT INTO `t_user` VALUES ('19', 'zy', '123', '赵云', '2', '2');
 INSERT INTO `t_user` VALUES ('20', 'ssx', '123', '孙尚香', '2', '11');
