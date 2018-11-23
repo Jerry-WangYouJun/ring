@@ -1,7 +1,8 @@
-<!DOCTYPE HTML>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Marital Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -31,8 +32,7 @@ $(document).ready(function(){
 });
 	 
 function webLogin(){
-	var path = "http://localhost:80/ring/web/login";
-	alert(path)
+	var path = "${pageContext.request.contextPath}/web/login";
 	$.ajax({
 		url : path,
 		type : 'post',
@@ -40,7 +40,7 @@ function webLogin(){
 		dataType : 'json',
 		success : function(data) {
 			if (data.success) {
-				location.href="http://localhost:80/ring/web/index";
+				location.href="${pageContext.request.contextPath}/web/index";
 			} else {
 				
 			}
@@ -54,8 +54,6 @@ function webLogin(){
 </script>
 </head>
 <body>
-<!-- ============================  Navigation Start =========================== -->
-<!-- ============================  Navigation End ============================ -->
 <div class="grid_3">
   <div class="container">
    <div class="breadcrumb1">
@@ -87,4 +85,4 @@ function webLogin(){
   </div>
 </div>
 </body>
-</html>	
+</html>
