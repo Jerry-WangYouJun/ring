@@ -56,13 +56,14 @@ $(document).ready(function(){
     if($('#datetimepicker1')[0] != undefined){
 		$('#datetimepicker1').datetimepicker({  
 			minView: "month",
-			format: 'yyyy-mm-dd hh:00',
+			format: 'hh:00',
 		    todayBtn: true,//显示今日按钮
 		    autoclose: true,
 		    language:"zh-CN",
 		    clearBtn: true ,
 		    autoclose: true,
-		    minView: 1
+		    minView: 1 ,
+		    startView : 1
 		});
 	}
     
@@ -80,26 +81,11 @@ $(document).ready(function(){
 	     <form id="dataForm">
 						<input class="form-control" name="id" type="hidden" value="${inv.id }"></input>
 						<input class="form-control" name="joinId" type="hidden" value="${joinId }"></input>
-						<c:choose>
-							 
-							 <c:when test="${inv.inviteStates eq '2' }">	 
-							       <div class="form-group">
-									<label for="message-text" class="control-label">约会时段:${invite.remark }</label>
-								</div>
-								<div class="form-group">
-									<label for="message-text" class="control-label">约会区域:</label> 
-									<select  class="form-control"   name="remark" placeholder="必填" required>
-											  <c:forEach items="${locList}" var ="loca">
-											 	    <option >${loca}</option>
-											 </c:forEach>
-									</select>
-								</div>
-							 </c:when>
-							 <c:otherwise>
 								<div class="form-group">
 									<div>
 										<label for="message-text" class="control-label">约会时段:</label>
 									</div>
+									<div>
 										<label class="checkbox-inline" style="margin-left: 10px;">
 											<input type="checkbox" name="confirmDate" id="inlineCheckbox1" value="1"> 周一
 										</label>
@@ -110,25 +96,38 @@ $(document).ready(function(){
 											<input type="checkbox" name="confirmDate" id="inlineCheckbox3" value="3"> 周三
 										</label>
 										<label class="checkbox-inline">
-											<input type="checkbox" name="confirmDate" id="inlineCheckbox1" value="4"> 周四
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox4" value="4"> 周四
 										</label>
-									<label class="checkbox-inline">
-										<input type="checkbox" name="confirmDate" id="inlineCheckbox2" value="5"> 周五
-									</label>
-									<label class="checkbox-inline">
-										<input type="checkbox" name="confirmDate" id="inlineCheckbox3" value="6"> 周六
-									</label>
-									<label class="checkbox-inline">
-										<input type="checkbox" name="confirmDate" id="inlineCheckbox3" value="7"> 周日
-									</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox5" value="5"> 周五
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox6" value="6"> 周六
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox0" value="7"> 周日
+										</label>
+									</div>
 									
-									<!-- <div class='input-group date' id='datetimepicker1'>
-										<input type='text' class="form-control" readonly name="inviteDate"
-											id="inviteDate" placeholder="必填" required/> <span class="input-group-addon"> <span
-											class="glyphicon glyphicon-calendar"></span>
-										</span>
-									</div> -->
 								</div>
+								<div class="form-group" >
+							            <label for="message-text" class="control-label">约会时间：</label>  
+							            <!--指定 date标记-->  
+							           <select  class="form-control"   name="confirmTime" >
+													<option value="10">10:00-12:00</option>
+													<option value="11">13:00-17:00</option>
+													<option value="12">18:00-19:00</option>
+											 	    <option value="1">10:00-11:00</option>
+													<option value="2">11:00-12:00</option>
+													<option value="3">12:00-13:00</option>
+													<option value="4">13:00-14:00</option>
+													<option value="5">14:00-15:00</option>
+													<option value="6">15:00-16:00</option>
+													<option value="7">16:00-17:00</option>
+													<option value="8">17:00-18:00</option>
+													<option value="9">18:00-19:00</option>
+										</select>
+						        </div> 
 								<div class="form-group">
 									<label for="message-text" class="control-label">约会区域:</label> 
 									<select  class="form-control"   name="confirmLoc" placeholder="必填" required>
@@ -137,8 +136,6 @@ $(document).ready(function(){
 											 </c:forEach>
 									</select>
 								</div>
-							 </c:otherwise>
-						</c:choose>
 						<div class="form-group">
 							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 							<button type="button" class="btn btn-primary" onclick="subInfo()">提交</button>

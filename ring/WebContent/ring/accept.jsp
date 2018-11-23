@@ -62,6 +62,21 @@ $(document).ready(function(){
 		    clearBtn: true ,
 		    startDate: new Date(),
 		    minView: 1
+		}).on('changeDate', function(ev){
+		   var hour =  $("#confirmTime").val();
+		   var select = ev.date.getHours();
+		   var flag = true
+		   console.info(select);
+		   console.info(hour)
+		   if(hour != select){
+			    if( !(hour == '10-12' && select > 9 && select < 12) && !( hour == '13-17' && select > 12 && select < 17)){
+			    	flag = false ;
+			    }
+		   }
+		   if(!flag){
+			   alert("选择的时间与邀请人的时间冲突，请重新选择")
+			  $("#preDate").val("");
+		   }
 		});
 		
 	}
@@ -70,11 +85,18 @@ $(document).ready(function(){
 		$(function(){
 			 var str = "${inv.detail.confirmDate}";
 			 var strArr = str.split(",");
-			 for(var s in strArr){
-				 console.info(strArr[s]);
-				 $("#inlineCheckbox" + strArr[s]).attr("checked", 'checked');
+			 var disableArr = new Array();
+			 for(var i = 0 ; i < 7 ; i ++){
+				 for(var s in strArr){
+					 $("#inlineCheckbox" + strArr[s]).attr("checked", 'checked');
+					 if(s == i ){
+						  continue;
+					 }
+				 }
+				 disableArr.push(i)
 			 }
 			 $('#datetimepicker1').datetimepicker('setDaysOfWeekDisabled', strArr);
+			 $("#confirmTime").val('${inv.detail.confirmTime}');
 		})
 </script>
 </head>
@@ -88,31 +110,48 @@ $(document).ready(function(){
 						<input class="form-control" name="joinId" type="hidden" value="${joinId }"></input>
 						<c:choose>
 							 <c:when test="${inv.inviteStates eq '1' || inv.inviteStates eq '4'   }">	 
-								<div class="form-group">
+								<div class="form-group" >
 								
-									<label for="message-text" class="control-label" >约会时段:</label><br/>
+									<label for="message-text" class="control-label" >请选择邀约日期范围:</label><br/>
 										<label class="checkbox-inline" style="margin-left: 10px;">
-											<input type="checkbox" name="confirmDate" id="inlineCheckbox1" value="1"> 周一
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox1" value="1" disabled="disabled"> 周一
 										</label>
 										<label class="checkbox-inline">
-											<input type="checkbox" name="confirmDate" id="inlineCheckbox2" value="2"> 周二
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox2" value="2" disabled="disabled"> 周二
 										</label>
 										<label class="checkbox-inline">
-											<input type="checkbox" name="confirmDate" id="inlineCheckbox3" value="3"> 周三
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox3" value="3" disabled="disabled"> 周三
 										</label>
 										<label class="checkbox-inline">
-											<input type="checkbox" name="confirmDate" id="inlineCheckbox4" value="4"> 周四
+											<input type="checkbox" name="confirmDate" id="inlineCheckbox4" value="4" disabled="disabled"> 周四
 										</label>
 									<label class="checkbox-inline">
-										<input type="checkbox" name="confirmDate" id="inlineCheckbox5" value="5"> 周五
+										<input type="checkbox" name="confirmDate" id="inlineCheckbox5" value="5" disabled="disabled"> 周五
 									</label>
 									<label class="checkbox-inline">
-										<input type="checkbox" name="confirmDate" id="inlineCheckbox6" value="6"> 周六
+										<input type="checkbox" name="confirmDate" id="inlineCheckbox6" value="6" disabled="disabled"> 周六
 									</label>
 									<label class="checkbox-inline">
-										<input type="checkbox" name="confirmDate" id="inlineCheckbox0" value="0"> 周日
+										<input type="checkbox" name="confirmDate" id="inlineCheckbox0" value="0" disabled="disabled"> 周日
 									</label>
 								</div>
+								<div class="form-group" >
+							            <label for="message-text" class="control-label">合适时间：</label>  
+							            <!--指定 date标记-->  
+							           <select  class="form-control"   name="confirmTime" id="confirmTime" disabled="disabled">
+													<option value="10-12">10:00-12:00</option>
+													<option value="13-17">13:00-17:00</option>
+											 	    <option value="10">10:00-11:00</option>
+													<option value="11">11:00-12:00</option>
+													<option value="12">12:00-13:00</option>
+													<option value="13">13:00-14:00</option>
+													<option value="14">14:00-15:00</option>
+													<option value="15">15:00-16:00</option>
+													<option value="16">16:00-17:00</option>
+													<option value="17">17:00-18:00</option>
+													<option value="18">18:00-19:00</option>
+										</select>
+						        </div> 
 								<div class="form-group">
 									<label for="message-text" class="control-label">约会区域:</label> 
 									<select  class="form-control"   name="detail.confirmDate" placeholder="必填" required  disabled="disabled">
@@ -125,7 +164,7 @@ $(document).ready(function(){
 							            <label for="message-text" class="control-label">约会时间：</label>  
 							            <!--指定 date标记-->  
 							            <div class='input-group date' id='datetimepicker1'  >  
-							                <input type='text' class="form-control"  name="preDate" />  
+							                <input type='text' class="form-control"  name="preDate" id="preDate"/>  
 							                <span class="input-group-addon" >  
 							                    <span class="glyphicon glyphicon-calendar"></span>  
 							                </span>  
@@ -196,7 +235,11 @@ $(document).ready(function(){
 			success : function(data) {
 				if (data.success) {
 					alert(data.msg);
-					window.location.href="${pageContext.request.contextPath}/web/info";
+					if("${inv.inviteStates}" == "4"){
+						window.location.href="${pageContext.request.contextPath}/web/dateinfo";
+					}else{
+						window.location.href="${pageContext.request.contextPath}/web/info";
+					}
 				} else {
 					alert(data.msg);
 				}
@@ -217,7 +260,6 @@ $(document).ready(function(){
 			success : function(data) {
 				var htmlStr = "";
 				for( var  s in data.rows ){
-				console.info(data.rows[s].id);
 				htmlStr += "<option value="+data.rows[s].id+">"+data.rows[s].locName+"</option>"
 				 }
 				 $("#pointId").append(htmlStr); 

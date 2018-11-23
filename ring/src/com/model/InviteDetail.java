@@ -1,6 +1,5 @@
 package com.model;
 
-import java.util.Date;
 
 public class InviteDetail {
     private Integer id;
@@ -10,10 +9,17 @@ public class InviteDetail {
     private String preDate;
 
     private String confirmDate;
+    
+    private String confirmTime;
 
     private String confirmLoc;
 
     private Integer updateTimes;
+    
+    private Integer updateTimeJoin;
+    
+    private String  signFrom ;
+    private String  signJoin;
 
     public Integer getId() {
         return id;
@@ -62,4 +68,36 @@ public class InviteDetail {
     public void setUpdateTimes(Integer updateTimes) {
         this.updateTimes = updateTimes;
     }
+
+	public String getConfirmTime() {
+		return confirmTime;
+	}
+
+	public void setConfirmTime(String confirmTime) {
+		this.confirmTime = confirmTime;
+	}
+
+	public Integer getUpdateTimeJoin() {
+		return updateTimeJoin;
+	}
+
+	public void setUpdateTimeJoin(Integer updateTimeJoin) {
+		this.updateTimeJoin = updateTimeJoin;
+	}
+
+	public String getSignFrom() {
+		return signFrom;
+	}
+
+	public void setSignFrom(String signFrom) {
+		this.signFrom = signFrom;
+	}
+
+	public String getSignJoin() {
+		return signJoin;
+	}
+
+	public void setSignJoin(String signJoin) {
+		this.signJoin = signJoin;
+	}
 }

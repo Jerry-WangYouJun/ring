@@ -26,6 +26,37 @@
 			    remote: "${pageContext.request.contextPath}/invite/state?id="+id+"&inviteStates=" + states
 			});
 		}
+		function  updateDating(id , states){
+			if(confirm("只有一次修改约会信息的机会，确定修改？")){
+				$("#addModal").modal({  
+				    remote: "${pageContext.request.contextPath}/invite/update?id="+id+"&inviteStates=" + states
+				});
+			 }
+		}
+		
+		function signUp(){
+			var path = "${pageContext.request.contextPath}/invite/signUp?id=${inviteId}";
+			$.ajax({
+				url : path,
+				type : 'post',
+				dataType : 'json',
+				success : function(data) {
+					if (data.success) {
+						alert(data.msg);
+					} else {
+						alert(data.msg);
+					}
+		
+				},
+				error : function(transport) {
+					alert("系统产生错误,请联系管理员!");
+				}
+			});
+		}
+		
+		function evaluateDate(id){
+			 window.location.href="${pageContext.request.contextPath}/ring/evaluate.jsp"
+		}
 </script>
 </head>
 <body>
@@ -74,11 +105,18 @@
 										 	 <c:when test="${invite.inviteStates eq '4'}">
 										 	 	  准备约会，约会时间：${invite.detail.preDate}
 										 	 	  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
-										 	 	  <a href="##" onclick="addInvite('${invite.id}','4')">修改约会地点</a>
+										 	 	  <a href="##" onclick="updateDating('${invite.id}','4')">修改约会地点</a>
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '5'}">
+										 	 	  已取消：${invite.remark}
 										 	 </c:when>
 										 	 <c:when test="${invite.inviteStates eq '6'}">
 										 	 	  系统审核中
 										 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">申请取消约会</a>
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '7'}">
+										 	 	  约会已结束
+										 	 	  <a class="btn btn-default" href="###" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
 										 	 </c:when>
 										 </c:choose>
 									</p>
@@ -117,12 +155,18 @@
 										 	 </c:when>
 										 	 <c:when test="${invite.inviteStates eq '4'}">
 										 	 	  准备约会，约会时间：${invite.detail.preDate}
-										 	 	  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
-										 	 	  <a href="##" onclick="addInvite('${invite.id}','4')">修改约会地点</a>
+										 	 	 约会地点：${invite.pointLocation.location},${invite.pointLocation.address},${invite.pointLocation.locName}
+										 	 	<div>  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
+										 	 	   	<a href="##" onclick="updateDating('${invite.id}','4')">修改约会地点</a>
+										 	 	 </div>
 										 	 </c:when>
 										 	 <c:when test="${invite.inviteStates eq '6'}">
 										 	 	  系统审核中
 										 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">申请取消约会</a>
+										 	 </c:when>
+										 	<c:when test="${invite.inviteStates eq '7'}">
+										 	 	  约会已结束
+										 	 	  <a class="btn btn-default" href="##" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
 										 	 </c:when>
 										 </c:choose>
 								 	  
@@ -135,7 +179,7 @@
 			</div>
 			<div class="row dingwei" >
 				<p class="text-center">
-					<button type="button" class="btn btn-primary btn-lg  col-xs-6" style="border: none;" onclick=" getPrepay()">充值续费</button>
+					<button type="button" class="btn btn-primary btn-lg  col-xs-6" style="border: none;" onclick="signUp()">约会签到</button>
 				</p>
 				<p class="text-center">
 					<a href="${basePath}/card/search?iccid=${info.ICCID}">历史续费查询</a>

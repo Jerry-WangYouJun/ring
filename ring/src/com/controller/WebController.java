@@ -141,6 +141,9 @@ public class WebController {
 			 }else{
 				 invitedInfo.add(invite);
 			 }
+			 if("4".equals(invite.getInviteStates())){
+				 request.setAttribute("inviteId", invite.getId());
+			 }
 		}
 		request.setAttribute("inviteInfo", inviteInfo);
 		request.setAttribute("invitedInfo", invitedInfo);
@@ -157,8 +160,6 @@ public class WebController {
 	public String dating(HttpServletRequest request , Integer id ) {
 		Invite invite  = inviteService.selectById(id);
 		InviteDetail detail = inviteDetaiService.selectById(invite.getId());
-		String[] time = {"周六","周日","周一~五下班","其他时间"};
-		request.setAttribute("times", Arrays.asList(time));
 		Location loc = new Location();
 		loc.setLocName(detail.getConfirmLoc());
 		List<Location> locList = locService.queryList(loc, new Pagination());

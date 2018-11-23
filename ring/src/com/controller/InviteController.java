@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,6 +114,15 @@ public class InviteController {
 		return msg;
 	}
 	
+	@RequestMapping("/update")
+	public String  updateInfo(Integer id  , String inviteStates ){
+		Invite invite  = service.selectById(id);
+		if(!"2".equals(inviteStates)){
+			invite.setInviteStates(inviteStates);
+		}
+		return "forward:/web/dating?id=" + id;
+	}
+	
 	@RequestMapping("/state")
 	public String  updateStates(Integer id  , String inviteStates , String remark){
 		Invite invite  = service.selectById(id);
@@ -125,8 +135,10 @@ public class InviteController {
 		service.update(invite);
 		if("3".equals(inviteStates)){
 			return "forward:/web/info";
-		}else if("2".equals(inviteStates) || "4".equals(inviteStates) ){
+		}else if("2".equals(inviteStates)){
 			return "forward:/web/dating?id=" + id;
+		}else if("4".equals(inviteStates) || "6".equals(inviteStates) ){
+			return "forward:/web/dateinfo";
 		}else{
 			return "forward:/web/info";
 		}
@@ -139,14 +151,35 @@ public class InviteController {
 		Invite invite = service.selectById(id);
 		invite.setInviteStates(inviteStates);
 		service.update(invite);
-		msg.setMsg("修改成功");
+		msg.setMsg("操作成功");
+		msg.setSuccess(true);
+		return msg ;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/signUp")
+	public Message  signUp( HttpSession session ,Integer id  ){
+		Customer  cust =  (Customer) session.getAttribute("customer");
+		Message msg = new Message();
+		Invite invite = service.selectById(id);
+		if( cust.getId().equals(invite.getFromId()) ) {
+			invite.getDetail().setSignFrom("1");
+		 }else if(cust.getId().equals(invite.getJoinId())) {
+			 invite.getDetail().setSignJoin("1");
+		 }
+		detailService.update(invite.getDetail());
+		if("1".equals(invite.getDetail().getSignFrom()) && "1".equals(invite.getDetail().getSignJoin())){
+			 invite.setInviteStates("7");
+			 service.update(invite);
+		}
+		msg.setMsg("签到成功");
 		msg.setSuccess(true);
 		return msg ;
 	}
 	
 	@ResponseBody
 	@RequestMapping("/invite_edit")
-	public Message  editInvite(Invite invite , HttpServletRequest request , String preDate , InviteDetail detail ){
+	public Message  editInvite(Invite invite , HttpServletRequest request , String preDate , InviteDetail detail, HttpSession session   ){
 		Message msg = new Message();
 		try{
 			if(invite.getId() != null  &&  invite.getId() > 0){
@@ -154,11 +187,14 @@ public class InviteController {
 				inviteTemp.setPointId(invite.getPointId());
 				InviteDetail detailTemp = detailService.selectById(invite.getId());
 				if("4".equals(inviteTemp.getInviteStates())  ) {
-					 if(detailTemp.getUpdateTimes() < 2) {
+					Customer  cust =  (Customer) session.getAttribute("customer");
+					 if( cust.getId().equals(inviteTemp.getFromId())&&detailTemp.getUpdateTimes() <1 ) {
 						  detailTemp.setUpdateTimes(detailTemp.getUpdateTimes() + 1);
+					 }else if((cust.getId().equals(inviteTemp.getJoinId())&&detailTemp.getUpdateTimeJoin() <1) ){
+						 detailTemp.setUpdateTimes(detailTemp.getUpdateTimeJoin()+1);
 					 }else {
 						 msg.setSuccess(false);
-						 msg.setMsg("操作失败：已经修改过两次约会信息，不能继续修改" );
+						 msg.setMsg("操作失败：对不起您只有一次修改约会地点的机会。" );
 						 return msg ;
 					 }
 				}

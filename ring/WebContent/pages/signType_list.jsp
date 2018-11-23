@@ -19,76 +19,19 @@
 				  <div class="panel-body" id="a3" style="display:block">
 				  	    <table id="infoTable"> </table>
 					<div id="toolbar" class="btn-group">  
-			            <button id="btn_delete" type="button" class="btn btn-default" onclick="detailInfo()">  
-			            	<span class="st-align-justify" aria-hidden="true" ></span> 评价信息
-			            </button>
 			        </div>  
 				  </div>
 			</div>
 		</div>
 		
-		<div class="modal fade" id="detailModal"  role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog" style="height: ">
-				<div class="modal-content">
-					<div class="modal-body">
-						 <table id="detailTable"> </table>
-					 </div>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
 		<!-- /.modal -->
 </body>
 <script type="text/javascript">
 		
-		function detailInfo() {
-			var selectRow =  $("#infoTable").bootstrapTable('getSelections')[0];
-			if($("#infoTable").bootstrapTable('getSelections').length  == 0){
-				 alert("请选择一条记录！");
-				 return false;
-			}
-			
-			$('#detailTable').bootstrapTable(
-					'refresh',{query: {dateingId: selectRow.id}});
-			$("#detailModal").modal("show");
-		}
-		
-		function updateInfo(){
-			var selectRow =  $("#infoTable").bootstrapTable('getSelections')[0];
-			if($("#infoTable").bootstrapTable('getSelections').length  == 0){
-				 alert("请选择一条记录！");
-				 return false;
-			}
-			if(selectRow.inviteStates != '6'){
-				 alert("只有发出申请的约会才能取消");
-			}
-			var path = "${pageContext.request.contextPath}/invite/invite_state";
-			$.ajax({
-				url : path,
-				type : 'post',
-				data : {inviteStates:'7' , id:selectRow.id},
-				dataType : 'json',
-				success : function(data) {
-					if (data.success) {
-						alert(data.msg);
-						$("#infoTable").bootstrapTable("refresh");
-						closeModel();
-					} else {
-						alert(data.msg);
-					}
-		
-				},
-				error : function(transport) {
-					alert("系统产生错误,请联系管理员!");
-				}
-			});
-		
-		}
 		
 		$(function(){
 			    $('#infoTable').bootstrapTable({  
-			        url : '${basePath}/invite/query', // 请求后台的URL（*）            
+			        url : '${basePath}/invite/query?inviteStates=6', // 请求后台的URL（*）            
 			        method : 'get', // 请求方式（*）  
 			        toolbar : '#toolbar', // 工具按钮用哪个容器  
 			        cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）  
@@ -136,35 +79,6 @@
 			        silent : true, // 刷新事件必须设置  
 			    });  
 			    
-			    
-			    $('#detailTable').bootstrapTable({  
-			        url : '${basePath}/invite/queryEvaluate', // 请求后台的URL（*）            
-			        method : 'get', // 请求方式（*）  
-			        cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）  
-			        sidePagination : "server", // 分页方式：client客户端分页，server服务端分页（*）  
-			        pagination : true, // 是否显示分页（*）  
-			        pageNumber: 1,    //如果设置了分页，首页页码  
-			        pageSize: 10,                       //每页的记录行数（*）  
-			        pageList: [10,30,50],        //可供选择的每页的行数（*）  
-			        queryParamsType:'',
-			        singleSelect    : true,   
-			        clickToSelect : true, // 是否启用点击选中行  
-			        showToggle : false, // 是否显示详细视图和列表视图的切换按钮  
-			        
-			        columns : [ {  
-			            checkbox : true 
-			        },{  
-			            field : 'id', visible: false 
-			        },{  
-			            field : 'customerFrom.chName',   title : '评价人',  align: 'center',   valign: 'middle'  
-			        },{  
-			            field : 'customerJoin.chName',   title : '被评价人',  align: 'center',   valign: 'middle'
-			        },{  
-			            field : 'evaluateMsg',   title : '评价',  align: 'center',   valign: 'middle'  
-			        }
-			        ],
-			        silent : true, // 刷新事件必须设置  
-			    });  
 			    
 		});
 		
