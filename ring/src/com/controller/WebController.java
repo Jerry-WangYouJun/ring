@@ -2,9 +2,12 @@ package com.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +19,14 @@ import com.common.entry.Message;
 import com.common.entry.Pagination;
 import com.dao.EvaluateMapper;
 import com.model.Customer;
+import com.model.Dictionary;
 import com.model.Evaluate;
 import com.model.Invite;
 import com.model.InviteDetail;
 import com.model.Location;
 import com.model.User;
 import com.service.CustomerService;
+import com.service.DictionaryService;
 import com.service.InviteDetailService;
 import com.service.InviteService;
 import com.service.LocationService;
@@ -44,24 +49,24 @@ public class WebController {
 	InviteDetailService inviteDetaiService;
 	@Autowired
 	EvaluateMapper evaluateMapper;
+	@Autowired
+	DictionaryService dicService;
 	
-	@ResponseBody
 	@RequestMapping("/login")
-	public Message login( HttpSession session , User user) {
+	public String login( HttpSession session , User user) {
 		user = service.checkUser(user);
-		Message msg = new Message();
-		if(user.getId() != null  && user.getId()>0) {
 			session.setAttribute("webUser", user);
 			Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
 			session.setAttribute("customer", cust);
-			msg.setSuccess(true);
-			msg.setMsg("登陆成功");
-			return msg;
-		}else {
-			msg.setSuccess(false);
-			msg.setMsg("用户名或密码错误");
-			return msg;
-		}
+			return "forward:/web/index";
+	}
+	
+	@RequestMapping("/register")
+	public String register(HttpServletRequest  request , HttpSession session ,String openId ) {
+		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
+		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
+		session.setAttribute("openId", openId);
+		return "forward:/ring/register.jsp";
 	}
 	
 	@RequestMapping("/index")

@@ -181,9 +181,6 @@
 				<p class="text-center">
 					<button type="button" class="btn btn-primary btn-lg  col-xs-6" style="border: none;" onclick="signUp()">约会签到</button>
 				</p>
-				<p class="text-center">
-					<a href="${basePath}/card/search?iccid=${info.ICCID}">历史续费查询</a>
-				</p>
 				
 			</div>
 		</div>

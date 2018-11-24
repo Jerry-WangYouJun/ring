@@ -5,12 +5,12 @@ public class WxPayConfig {
 	/**
 	 * 公众账号ID
 	 */
-	public static String appid = "wx6bc15833d2f20323";
+	public static String appid = "wx1b12c0a79e8e36d1";
 	
 	/**
 	 * 
 	 */
-	public static String appsecret = "a85b9eb571de303f6e2bae33c1c608e9";
+	public static String appsecret = "f8f07ff50716ef0b3b255f7e4fc57563";
 	
 	/**
 	 * 商户号（mch_id）

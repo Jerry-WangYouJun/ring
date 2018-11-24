@@ -31,7 +31,8 @@ $(document).ready(function(){
   <div class="container">
    <div class="services">
    	  <div class="col-sm-6 login_left">
-	    <form id="dataForm">
+	    <form id="dataForm">openId
+	    				<input class="form-control " name="openId" type="hidden" value="${openId}"></input>
 						<input class="form-control " name="id" type="hidden"></input>
 						<input class="form-control " name="flag" id="flag" type="hidden"></input>
 						<div class="form-group" >
@@ -263,6 +264,33 @@ $(document).ready(function(){
 <script type="text/javascript">
 	function subInfo() {
 		subInfoAll("customer");
+	}
+	
+	function subInfoAll(name) {
+		
+		if(!$("#dataForm").validate().form()){
+			return false ; 
+		}
+		var path = "${pageContext.request.contextPath}/"+name+"/"+name+"_edit";
+		$.ajax({
+			url : path,
+			type : 'post',
+			data : $("#dataForm").serialize(),
+			dataType : 'json',
+			success : function(data) {
+				if (data.success) {
+					alert(data.msg);
+					$("#infoTable").bootstrapTable("refresh");
+					window.location.href="/web/login?userNo=${openId}&pwd=123";
+				} else {
+					alert(data.msg);
+				}
+	
+			},
+			error : function(transport) {
+				alert("系统产生错误,请联系管理员!");
+			}
+		});
 	}
 	
 	$(function(){

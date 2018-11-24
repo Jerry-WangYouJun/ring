@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="examine" jdbcType="VARCHAR" property="examine" />
     <result column="head_image" jdbcType="INTEGER" property="headImage" />
+    <result column="openId" jdbcType="VARCHAR" property="openId" />
     <result column="ch_name" jdbcType="VARCHAR" property="chName" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
@@ -32,7 +33,7 @@
   <sql id="Base_Column_List">
     id, examine, head_image, ch_name, nick_name, sex, birthday, hometown, addtress, height, 
     weight, marriage, children, degree, house_status, industry, income, qq, telephone, 
-    email, referee, introduction, declaration, ask, remark,flag
+    email, referee, introduction, declaration, ask, remark,flag , openId
   </sql>
   
   <select id="queryByWhere" resultMap="BaseResultMap" >
@@ -52,6 +53,9 @@
   	    <if test="obj.webSex!= null and obj.webSex != '' ">
   	    	     and sex != #{obj.webSex}
   	    </if>
+  	     <if test="obj.openId!= null and obj.openId != '' ">
+  	    	     and openId = #{obj.openId}
+  	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
   
@@ -69,6 +73,7 @@
   	    <if test="sex!= null and sex != '' ">
   	    	     and sex = #{sex}
   	    </if>
+  	    
   </select>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -81,7 +86,10 @@
     delete from t_customer
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.model.Customer">
+  <insert id="insert" parameterType="com.model.Customer" keyProperty="id">
+  	<selectKey keyProperty='id' resultType='int' order='AFTER'  >  
+        select LAST_INSERT_ID();  
+    </selectKey> 
     insert into t_customer (id, examine, head_image, 
       ch_name, nick_name, sex, 
       birthday, hometown, addtress, 
@@ -90,7 +98,7 @@
       industry, income, qq, 
       telephone, email, referee, 
       introduction, declaration, ask, 
-      remark, flag)
+      remark, flag , openId)
     values (#{id,jdbcType=INTEGER}, #{examine,jdbcType=VARCHAR}, #{headImage,jdbcType=INTEGER}, 
       #{chName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=DATE}, #{hometown,jdbcType=VARCHAR}, #{addtress,jdbcType=VARCHAR}, 
@@ -99,7 +107,7 @@
       #{industry,jdbcType=VARCHAR}, #{income,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{referee,jdbcType=VARCHAR}, 
       #{introduction,jdbcType=VARCHAR}, #{declaration,jdbcType=VARCHAR}, #{ask,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR} , #{flag,jdbcType=VARCHAR} )
+      #{remark,jdbcType=VARCHAR} , #{flag,jdbcType=VARCHAR} , #{openId,jdbcType=VARCHAR} )
   </insert>
   <insert id="insertSelective" parameterType="com.model.Customer">
     insert into t_customer
@@ -371,7 +379,8 @@
       declaration = #{declaration,jdbcType=VARCHAR},
       ask = #{ask,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
-      flag = #{flag,jdbcType=VARCHAR}
+      flag = #{flag,jdbcType=VARCHAR},
+      openId = #{openId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

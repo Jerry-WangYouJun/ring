@@ -5,6 +5,8 @@ public class Customer {
     private Integer id;
 
     private String examine;
+    
+    private String openId;
 
     private Integer headImage;
 
@@ -280,6 +282,14 @@ public class Customer {
 
 	public void setFlagTemp(String flagTemp) {
 		this.flagTemp = flagTemp;
+	}
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
 	}
     
     

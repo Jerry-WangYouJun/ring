@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.CodeUtil;
+import com.common.StringUtils;
 import com.common.entry.Grid;
 import com.common.entry.Message;
 import com.common.entry.Pagination;
 import com.model.Customer;
+import com.model.User;
 import com.service.CustomerService;
+import com.service.UserService;
 
 
 @Controller
@@ -24,6 +27,8 @@ public class CustomerController {
 	 
 	@Autowired
 	CustomerService service ;
+	@Autowired
+	UserService userService;
 	
 	@ResponseBody
 	@RequestMapping("/query")
@@ -57,6 +62,15 @@ public class CustomerController {
 				service.update(customer);
 			}else{
 				service.insert(customer);
+				if(StringUtils.isNotEmpty(customer.getOpenId())){
+					User user = new User();
+					user.setUserNo(customer.getOpenId());
+					user.setPwd("123");
+					user.setRemark(customer.getId()+"");
+					user.setUserName(customer.getChName());
+					user.setRole("2");
+					userService.insert(user);
+				}
 			}
 			msg.setSuccess(true);
 			msg.setMsg("操作成功");
