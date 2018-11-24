@@ -1,7 +1,6 @@
 package com.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.entry.Message;
 import com.common.entry.Pagination;
+import com.dao.EvaluateMapper;
 import com.model.Customer;
+import com.model.Evaluate;
 import com.model.Invite;
 import com.model.InviteDetail;
 import com.model.Location;
@@ -41,6 +42,8 @@ public class WebController {
 	InviteService inviteService;
 	@Autowired
 	InviteDetailService inviteDetaiService;
+	@Autowired
+	EvaluateMapper evaluateMapper;
 	
 	@ResponseBody
 	@RequestMapping("/login")
@@ -168,5 +171,27 @@ public class WebController {
 		request.setAttribute("detail", detail);
 		request.setAttribute("locList", locList);
 		return "forward:/ring/accept.jsp";
+	}
+	
+	@RequestMapping("/evaluate")
+	public String evaluate( HttpSession session  , Integer id  , HttpServletRequest request) {
+		Customer  cust =  (Customer) session.getAttribute("customer");
+		Invite invite  = inviteService.selectById(id);
+		Integer custId =  0;
+		if(cust.getId().equals( invite.getFromId())){
+			custId = invite.getJoinId();
+		 }else{
+			 custId = invite.getFromId();
+		 }
+		Customer evaluateCust = custService.selectById(custId);
+		request.setAttribute("evaluateCust", evaluateCust);
+		request.setAttribute("invite", invite);
+		return "forward:/ring/evaluate.jsp";
+	}
+	
+	@RequestMapping("/evaluateAdd")
+	public String evaluateAdd(Evaluate evaluate  ) {
+		evaluateMapper.insert(evaluate);
+		return "forward:/web/dateinfo";
 	}
 }

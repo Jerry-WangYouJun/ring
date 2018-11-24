@@ -55,7 +55,7 @@
 		}
 		
 		function evaluateDate(id){
-			 window.location.href="${pageContext.request.contextPath}/ring/evaluate.jsp"
+			 window.location.href="${pageContext.request.contextPath}/web/evaluate?id=" + id ;
 		}
 </script>
 </head>
