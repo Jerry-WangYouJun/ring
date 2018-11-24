@@ -1,26 +1,27 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 127.0.0.1
-Source Server Version : 50528
+Source Server         : localhost_3306
+Source Server Version : 50130
 Source Host           : localhost:3306
 Source Database       : ring
 
 Target Server Type    : MYSQL
-Target Server Version : 50528
+Target Server Version : 50130
 File Encoding         : 65001
 
-Date: 2018-11-23 17:11:30
+Date: 2018-11-24 15:00:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for t_customer
+-- Table structure for `t_customer`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_customer`;
 CREATE TABLE `t_customer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `openId` varchar(30) DEFAULT NULL,
   `examine` varchar(1) DEFAULT '0' COMMENT '审核状态-关联字典表  0 默认未审核  9 ： 约会中   ',
   `head_image` int(11) DEFAULT NULL COMMENT '头像表',
   `ch_name` varchar(30) DEFAULT NULL COMMENT '中文名',
@@ -47,20 +48,24 @@ CREATE TABLE `t_customer` (
   `remark` varchar(200) DEFAULT NULL COMMENT '备注',
   `flag` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_customer
 -- ----------------------------
-INSERT INTO `t_customer` VALUES ('1', null, null, '蔡妍', '蔡文姬', '0', '2000-06-06', '', '', null, null, '0', '', '1', '2', '', '', '', '1', '', '', '', '', '', '1', null);
-INSERT INTO `t_customer` VALUES ('2', '1', null, '赵云', '赵子龙', '1', '2000-05-30', '1231', '12312', '110.00', '11.00', '0', '0', '2', '2', '教师', '1', '1', '123456789', '', '', '奥术大师大多', '奥术大师多', '', '', null);
-INSERT INTO `t_customer` VALUES ('10', '1', null, '123', '123', '1', '2018-11-08', '', '', null, null, '0', '', '1', '1', '', '', '', '', '', '', '', '', '', '', null);
-INSERT INTO `t_customer` VALUES ('11', '1', null, '孙尚香', '1111', '0', '2018-11-13', '123123', '', null, null, '0', '', '2', '1', '', '', '', '', '', '', '大叔大婶大所', '123123123231', '123 123', '123123', 'hometown:1,addtress:0,height:1,weight:0,hometown:0,hometown:0,addtress:0,height:1');
-INSERT INTO `t_customer` VALUES ('12', null, null, '孙尚香2', '1111', '0', '2018-10-29', '111111', '12312', null, null, '1', '', '2', '2', '', '', '', '', '', '111111', '', '', '', '', 'hometown:1,addtress:0');
-INSERT INTO `t_customer` VALUES ('13', null, null, '张郃', '123', '1', '2018-11-21', '1231', '123', '111.00', null, '2', '', '2', '1', '', '', '', '', '', '', '', '', '', '', 'hometown:1,addtress:1,height:0,weight:1,marriage:1,children:1,degree:1,houseStatus:0,industry:1,income:1,qq:1,telephone:1,email:1,referee:1');
+INSERT INTO `t_customer` VALUES ('1', null, null, null, '蔡妍', '蔡文姬', '0', '2000-06-06', '', '', null, null, '0', '', '1', '2', '', '', '', '1', '', '', '', '', '', '1', null);
+INSERT INTO `t_customer` VALUES ('2', null, '1', null, '赵云', '赵子龙', '1', '2000-05-30', '1231', '12312', '110.00', '11.00', '0', '0', '2', '2', '教师', '1', '1', '123456789', '', '', '奥术大师大多', '奥术大师多', '', '', null);
+INSERT INTO `t_customer` VALUES ('10', null, '1', null, '123', '123', '1', '2018-11-08', '', '', null, null, '0', '', '1', '1', '', '', '', '', '', '', '', '', '', '', null);
+INSERT INTO `t_customer` VALUES ('11', null, '1', null, '孙尚香', '1111', '0', '2018-11-13', '123123', '', null, null, '0', '', '2', '1', '', '', '', '', '', '', '大叔大婶大所', '123123123231', '123 123', '123123', 'hometown:1,addtress:0,height:1,weight:0,hometown:0,hometown:0,addtress:0,height:1');
+INSERT INTO `t_customer` VALUES ('12', null, null, null, '孙尚香2', '1111', '0', '2018-10-29', '111111', '12312', null, null, '1', '', '2', '2', '', '', '', '', '', '111111', '', '', '', '', 'hometown:1,addtress:0');
+INSERT INTO `t_customer` VALUES ('13', null, null, null, '张郃', '123', '1', '2018-11-21', '1231', '123', '111.00', null, '2', '', '2', '1', '', '', '', '', '', '', '', '', '', '', 'hometown:1,addtress:1,height:0,weight:1,marriage:1,children:1,degree:1,houseStatus:0,industry:1,income:1,qq:1,telephone:1,email:1,referee:1');
+INSERT INTO `t_customer` VALUES ('14', null, null, null, '挺大的个', '全额太尴尬', '1', '2018-11-27', '', '', null, null, '0', '', '1', '1', '', '', '', '', '', '', '', '', '', '', 'hometown:1,addtress:1,height:1,weight:1,marriage:1,children:1,degree:1,houseStatus:1,industry:1,income:1,qq:1,telephone:1,email:1,referee:1');
+INSERT INTO `t_customer` VALUES ('15', '', null, null, '娃儿', '13rt', '3', '2018-11-12', '', '', null, null, '0', '', '1', '1', '', '', '', '', '', '', '', '', '', '', 'hometown:1,addtress:1,height:1,weight:1,marriage:1,children:1,degree:1,houseStatus:1,industry:1,income:1,qq:1,telephone:1,email:1,referee:1');
+INSERT INTO `t_customer` VALUES ('16', '', null, null, '请问额', '阿尔', '1', '2018-10-29', '', '', null, null, '0', '', '1', '1', '', '', '', '', '', '', '', '', '', '', 'hometown:1,addtress:1,height:1,weight:1,marriage:1,children:1,degree:1,houseStatus:1,industry:1,income:1,qq:1,telephone:1,email:1,referee:1');
+INSERT INTO `t_customer` VALUES ('17', 'oD4sW53wND1Rdpo3eUhEQ4rhXtg4', null, null, 'fghh', 'fghh', '1', '2018-11-13', '', '', null, null, '0', '', '1', '1', '', '', '', '', '', '', '', '', '', '', 'hometown:1,addtress:1,height:1,weight:1,marriage:1,children:1,degree:1,houseStatus:1,industry:1,income:1,qq:1,telephone:1,email:1,referee:1');
 
 -- ----------------------------
--- Table structure for t_dictionary
+-- Table structure for `t_dictionary`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_dictionary`;
 CREATE TABLE `t_dictionary` (
@@ -103,7 +108,7 @@ INSERT INTO `t_dictionary` VALUES ('26', 'inviteStates', '邀约状态', '3', '�
 INSERT INTO `t_dictionary` VALUES ('27', 'examine', '审核状态', '0', '待审核', '1');
 
 -- ----------------------------
--- Table structure for t_evaluate
+-- Table structure for `t_evaluate`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_evaluate`;
 CREATE TABLE `t_evaluate` (
@@ -124,7 +129,7 @@ INSERT INTO `t_evaluate` VALUES ('1', '1', '1', '2', '123', null, null);
 INSERT INTO `t_evaluate` VALUES ('2', '1', '2', '1', '1321', null, null);
 
 -- ----------------------------
--- Table structure for t_examine
+-- Table structure for `t_examine`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_examine`;
 CREATE TABLE `t_examine` (
@@ -141,7 +146,7 @@ CREATE TABLE `t_examine` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for t_invite
+-- Table structure for `t_invite`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_invite`;
 CREATE TABLE `t_invite` (
@@ -153,7 +158,7 @@ CREATE TABLE `t_invite` (
   `invite_states` varchar(2) DEFAULT NULL COMMENT '约会状态-关联字典表 1邀请 2 同意 3 拒绝 4 邀请方发出时间地点 5应邀确认 6 申请取消 7 已结束  8 驳回取消  9 取消 0 爽约',
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_invite
@@ -169,13 +174,14 @@ INSERT INTO `t_invite` VALUES ('8', '19', null, null, '2018-11-10 15:41:00', '3'
 INSERT INTO `t_invite` VALUES ('9', '2', '1', null, '2018-11-10 15:50:59', '3', '周六,太原');
 INSERT INTO `t_invite` VALUES ('10', '2', '11', null, '2018-11-21 10:50:56', '3', '周六,太原');
 INSERT INTO `t_invite` VALUES ('11', '11', '13', null, '2018-11-21 10:58:33', '9', '周六,太原');
-INSERT INTO `t_invite` VALUES ('13', '11', '2', null, '2018-11-21 14:47:57', '6', null);
+INSERT INTO `t_invite` VALUES ('13', '11', '2', null, '2018-11-21 14:47:57', '4', null);
 INSERT INTO `t_invite` VALUES ('14', '11', '2', null, '2018-11-21 15:15:30', '8', null);
 INSERT INTO `t_invite` VALUES ('15', '2', '11', '2', null, '9', '12323');
 INSERT INTO `t_invite` VALUES ('22', '2', '11', '1', '2018-11-23 09:58:58', '7', '时间不合适');
+INSERT INTO `t_invite` VALUES ('23', '17', '1', null, '2018-11-24 14:54:23', '1', null);
 
 -- ----------------------------
--- Table structure for t_invite_detail
+-- Table structure for `t_invite_detail`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_invite_detail`;
 CREATE TABLE `t_invite_detail` (
@@ -190,7 +196,7 @@ CREATE TABLE `t_invite_detail` (
   `sign_from` varchar(1) DEFAULT NULL COMMENT '0未签到 1签到 2 店家确认签到',
   `sign_join` varchar(1) DEFAULT NULL COMMENT '0未签到 1签到 2 店家确认签到',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_invite_detail
@@ -200,9 +206,10 @@ INSERT INTO `t_invite_detail` VALUES ('2', '14', null, '太原', null, '周六',
 INSERT INTO `t_invite_detail` VALUES ('3', '15', '2018-10-30 09:00:00', '太原', null, '周六', '0', null, null, null);
 INSERT INTO `t_invite_detail` VALUES ('4', '16', null, '123', null, '周一~五下班', '0', null, null, null);
 INSERT INTO `t_invite_detail` VALUES ('7', '22', '2018-11-24 11:00:00', '1,4', '10-12', '1', '1', '0', '1', '1');
+INSERT INTO `t_invite_detail` VALUES ('8', '23', null, '1,6,7', '11', '123', '0', null, null, null);
 
 -- ----------------------------
--- Table structure for t_location
+-- Table structure for `t_location`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_location`;
 CREATE TABLE `t_location` (
@@ -225,7 +232,7 @@ INSERT INTO `t_location` VALUES ('1', '太原', '1', '1', '1', '1', '1', '1', '1
 INSERT INTO `t_location` VALUES ('2', '111', '2', '123', '123', '123', '123', null, '123');
 
 -- ----------------------------
--- Table structure for t_message
+-- Table structure for `t_message`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_message`;
 CREATE TABLE `t_message` (
@@ -245,7 +252,7 @@ CREATE TABLE `t_message` (
 INSERT INTO `t_message` VALUES ('1', '1', '2', '1111', '2018-11-29 23:43:44', null, null);
 
 -- ----------------------------
--- Table structure for t_points
+-- Table structure for `t_points`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_points`;
 CREATE TABLE `t_points` (
@@ -265,7 +272,7 @@ INSERT INTO `t_points` VALUES ('1', '1', '107', '1', null, null);
 INSERT INTO `t_points` VALUES ('2', '2', '0', '1', null, null);
 
 -- ----------------------------
--- Table structure for t_point_detail
+-- Table structure for `t_point_detail`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_point_detail`;
 CREATE TABLE `t_point_detail` (
@@ -290,7 +297,7 @@ INSERT INTO `t_point_detail` VALUES ('5', '10000', '10000', '2', '首次充值',
 INSERT INTO `t_point_detail` VALUES ('6', '0', '-10000', '2', '约会爽约', null, null);
 
 -- ----------------------------
--- Table structure for t_remind
+-- Table structure for `t_remind`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_remind`;
 CREATE TABLE `t_remind` (
@@ -310,7 +317,7 @@ INSERT INTO `t_remind` VALUES ('1', '穿着提醒', '10', '注意穿着得体，
 INSERT INTO `t_remind` VALUES ('2', '时间提醒', '10', '马上就要约会啦，不要误了时间', '2', '');
 
 -- ----------------------------
--- Table structure for t_sign
+-- Table structure for `t_sign`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sign`;
 CREATE TABLE `t_sign` (
@@ -327,7 +334,7 @@ CREATE TABLE `t_sign` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for t_sign_type
+-- Table structure for `t_sign_type`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sign_type`;
 CREATE TABLE `t_sign_type` (
@@ -349,18 +356,18 @@ INSERT INTO `t_sign_type` VALUES ('5', '温柔', 'label-warning', '0');
 INSERT INTO `t_sign_type` VALUES ('6', '高挑', 'abel-danger', '0');
 
 -- ----------------------------
--- Table structure for t_user
+-- Table structure for `t_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_no` varchar(20) DEFAULT NULL COMMENT '客户账号 存储公众号openId',
+  `user_no` varchar(50) DEFAULT NULL COMMENT '客户账号 存储公众号openId',
   `pwd` varchar(20) DEFAULT NULL,
   `user_name` varchar(20) DEFAULT NULL,
   `role` varchar(5) DEFAULT NULL,
   `remark` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user
@@ -369,3 +376,4 @@ INSERT INTO `t_user` VALUES ('1', 'admin', '123', 'admin', '1', '1');
 INSERT INTO `t_user` VALUES ('2', 'wyj', '123', '王友君1', '1', '10');
 INSERT INTO `t_user` VALUES ('19', 'zy', '123', '赵云', '2', '2');
 INSERT INTO `t_user` VALUES ('20', 'ssx', '123', '孙尚香', '2', '11');
+INSERT INTO `t_user` VALUES ('21', 'oD4sW53wND1Rdpo3eUhEQ4rhXtg4', '123', 'fghh', '2', '17');
