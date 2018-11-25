@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.common.DateUtils;
 import com.model.Customer;
+import com.model.InviteDetail;
 import com.model.Location;
 import com.pay.msg.Template;
 import com.pay.msg.TemplateParam;
@@ -13,7 +14,7 @@ public class NoticeUtil {
 	
 	static String registerSuccess = "d8w35wAWCN9cCxpcVZmtDPVWgERECjKJG6ItCZiBkYM";
 	
-	static String inviteInit = "uRAO2lglk5z47xROoFFBOzUAIw-QLg8gVjpHRT90X14";
+	static String inviteInit = "SpEZI4pB8MhHFo-1zeIJd8od0ooIlMt1UafnQxUbTZw";
 	
 	static String inviteConfirm = "_X4HhFarcwEb95SFkIZQaG8SKZ-vYeh6U09-4E4vz-E";
 	
@@ -51,18 +52,19 @@ public class NoticeUtil {
 	 * @param customer
 	 * @return
 	 */
-	public static Template inviteInit(Customer customer , String joinOpenID) {
+	public static Template inviteInit(InviteDetail detail , String joinOpenID) {
 		 Template tem=new Template();  
 	        tem.setTemplateId(inviteInit);  
 	        tem.setTopColor("#000000");  
 	        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
 	        paras.add(new TemplateParam("first","您有新的约会邀请","#333"));  
-	        paras.add(new TemplateParam("keyword1", DateUtils.getToday(),"#333"));
-	        paras.add(new TemplateParam("keyword2",customer.getChName(),"#333"));
-	        paras.add(new TemplateParam("keyword3","微信","#333"));
-	        paras.add(new TemplateParam("remark","点击查看详情","#333"));  
+	        paras.add(new TemplateParam("keyword1", "等待确认","#333"));
+	        paras.add(new TemplateParam("keyword2","原来是你","#333"));
+	        paras.add(new TemplateParam("keyword3", "待定","#333"));
+	        paras.add(new TemplateParam("keyword4",detail.getConfirmLoc(),"#333"));
+	        paras.add(new TemplateParam("remark","点击查看详情并选择具体约会时间地点","#333"));  
 	        tem.setTemplateParamList(paras);  
-	        tem.setToUser(customer.getOpenId());//用户openid
+	        tem.setToUser(joinOpenID);//用户openid
 	        //设置超链接
 	        tem.setUrl("http://localhost/web/info");  
 	        return tem;
