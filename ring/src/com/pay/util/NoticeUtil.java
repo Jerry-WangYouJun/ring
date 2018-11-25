@@ -1,6 +1,7 @@
 package com.pay.util;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.common.DateUtils;
@@ -21,7 +22,7 @@ public class NoticeUtil {
 	static String inviteRefuse = "lhB85KT6SNdvYct8ltjb1Q-mxlB5ljdDtpQO1jzdoiQ";
 	
 	static String inviteAccept = "rLBm4XmI2JOKebMEvVFzrF8HjzeLj5QkXYhi21aHGC8";
-	
+	static String inviteUpdate = "G6gzlxHwCEptgbtxhX5_QVVohfUEGQ-KWpOMjR3yEt0";
 	/**
 	 * 注册成功
 	 * @param customer
@@ -135,6 +136,25 @@ public class NoticeUtil {
 	        //设置超链接
 	        tem.setUrl("http://localhost/web/info");  
 	        return tem;
+	}
+	
+	public static Template inviteUpdate(Location location  ,  Customer customer , Date date) {
+		Template tem=new Template();  
+        tem.setTemplateId(inviteUpdate);  
+        tem.setTopColor("#000000");  
+        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
+        paras.add(new TemplateParam("first","您约会有信息发生变化，时间地点如下","#333"));  
+        paras.add(new TemplateParam("keyword1", customer.getNickName(),"#333"));
+        paras.add(new TemplateParam("keyword2", location.getLocName(),"#333"));
+        paras.add(new TemplateParam("keyword3", location.getAddress(),"#333"));
+        paras.add(new TemplateParam("keyword4", DateUtils.formatDate("yyyy年MM月dd日HH:00", date) ,"#333"));
+        paras.add(new TemplateParam("keyword5", "场所及相关服务","#333"));
+        paras.add(new TemplateParam("remark","点击查看详情","#333"));  
+        tem.setTemplateParamList(paras);  
+        tem.setToUser(customer.getOpenId());//用户openid
+        //设置超链接
+        tem.setUrl("http://localhost/web/info");  
+        return tem;
 	}
 
 }

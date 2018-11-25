@@ -165,9 +165,9 @@ public class InviteController {
 			Location loc =locService.selectById(invite.getPointId());
 			Customer  cust =  (Customer) session.getAttribute("customer");
 			if( cust.getId().equals(invite.getFromId()) ) {
-				WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, invite.getCustomerJoin()));
+				WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, invite.getCustomerJoin() , invite.getInviteDate()));
 			 }else if(cust.getId().equals(invite.getJoinId())) {
-				 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, invite.getCustomerFrom()));
+				 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, invite.getCustomerFrom() ,invite.getInviteDate()));
 			 }
 			return "forward:/web/info";
 		}

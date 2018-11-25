@@ -84,13 +84,13 @@ $(document).ready(function(){
 			<span class="grey-line"></span>
         </div>
         <ul id="">
-        		<c:forEach items="${list}" var ="customer">
-		      <li><div class="col_1"><a href="${pageContext.request.contextPath}/web/customer?id=${customer.id}">
+        		<c:forEach items="${list}" var ="customerJoin">
+		      <li><div class="col_1"><a href="${pageContext.request.contextPath}/web/customer?id=${customerJoin.id}">
 				<img src="${pageContext.request.contextPath}/ring/images/p1.jpg" alt="" class="hover-animation image-zoom-in img-responsive"/>
 	             <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
 	                <div class="center-middle">详细信息</div>
 	             </div>
-	             <h3><span class="m_3">无名指ID : MI-${customer.id}</span><br>${customer.birthday }, ${customer.industry }, ${customer.addtress }<br>${customer.declaration }</h3></a></div>
+	             <h3><span class="m_3">无名指ID : MI-${customerJoin.id}</span><br>${customerJoin.birthday }, ${customerJoin.industry }, ${customerJoin.addtress }<br>${customerJoin.declaration }</h3></a></div>
 	          </li>
         		</c:forEach>
 	    </ul>
