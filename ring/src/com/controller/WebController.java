@@ -7,8 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import net.sf.json.JSONObject;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +29,8 @@ import com.service.InviteDetailService;
 import com.service.InviteService;
 import com.service.LocationService;
 import com.service.UserService;
+
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/web")
@@ -59,6 +59,25 @@ public class WebController {
 			Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
 			session.setAttribute("customer", cust);
 			return "forward:/web/index";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/webLogin")
+	public Message webLogin( HttpSession session , User user) {
+		user = service.checkUser(user);
+		Message msg = new Message();
+		if(user.getId() != null  && user.getId()>0) {
+			session.setAttribute("webUser", user);
+			Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
+			session.setAttribute("customer", cust);
+			msg.setSuccess(true);
+			msg.setMsg("登陆成功");
+			return msg;
+		}else {
+			msg.setSuccess(false);
+			msg.setMsg("用户名或密码错误");
+			return msg;
+		}
 	}
 	
 	@RequestMapping("/register")

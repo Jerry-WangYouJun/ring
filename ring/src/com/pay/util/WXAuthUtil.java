@@ -28,7 +28,7 @@ public class WXAuthUtil {
 		      jsonObject =JSONObject.fromObject(result);
 		    }
 		    return jsonObject;
-		  }
+	}
 		
 	public static  String getAccessToken() throws ClientProtocolException, IOException{  
         String requestUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
@@ -40,11 +40,11 @@ public class WXAuthUtil {
         
         String access_token = jsonObject.getString("access_token");
     
-    return access_token;
+        return access_token;
       
-}
+	}
 	
-public static JSONObject  sendTemplateMsg(Template template) throws ClientProtocolException, IOException{  
+	public static JSONObject  sendTemplateMsg(Template template) throws ClientProtocolException, IOException{  
         
         //获取token
         String token = getAccessToken();

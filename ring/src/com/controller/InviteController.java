@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,10 +24,16 @@ import com.model.Customer;
 import com.model.Evaluate;
 import com.model.Invite;
 import com.model.InviteDetail;
+import com.model.Location;
 import com.model.User;
+import com.pay.util.NoticeUtil;
+import com.pay.util.WXAuthUtil;
 import com.service.CustomerService;
 import com.service.InviteDetailService;
 import com.service.InviteService;
+import com.service.LocationService;
+
+import net.sf.json.JSONObject;
 
 
 @Controller
@@ -40,6 +48,9 @@ public class InviteController {
 	
 	@Autowired
 	CustomerService custService;
+	
+	@Autowired
+	LocationService locService ;
 	
 	@ResponseBody
 	@RequestMapping("/query")
@@ -124,7 +135,7 @@ public class InviteController {
 	}
 	
 	@RequestMapping("/state")
-	public String  updateStates(Integer id  , String inviteStates , String remark){
+	public String  updateStates(Integer id  , String inviteStates , String remark) throws ClientProtocolException, IOException{
 		Invite invite  = service.selectById(id);
 		if(!"2".equals(inviteStates)){
 			invite.setInviteStates(inviteStates);
@@ -134,11 +145,21 @@ public class InviteController {
 		}
 		service.update(invite);
 		if("3".equals(inviteStates)){
+			 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteRefuse(remark, invite.getCustomerFrom()));
+		        System.out.println(jsonObject);
 			return "forward:/web/info";
 		}else if("2".equals(inviteStates)){
 			return "forward:/web/dating?id=" + id;
 		}else if("4".equals(inviteStates) || "6".equals(inviteStates) ){
+			if("4".equals(inviteStates)) {
+				 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(invite.getPointLocation(), invite.getCustomerFrom()));
+				 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(invite.getPointLocation(), invite.getCustomerJoin()));
+			}
 			return "forward:/web/dateinfo";
+		}if("5".equals(inviteStates)){
+			 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteRefuse(remark, invite.getCustomerJoin()));
+		        System.out.println(jsonObject);
+			return "forward:/web/info";
 		}else{
 			return "forward:/web/info";
 		}
@@ -204,12 +225,15 @@ public class InviteController {
 				service.update(inviteTemp);
 				detailTemp.setPreDate(preDate);
 				detailService.update(detailTemp);
+				if("2".equals(inviteTemp.getInviteStates())) {
+					 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(inviteTemp.getPointLocation(), inviteTemp.getCustomerFrom()));
+					 System.out.println(jsonObject);
+				}
 			}else{
 				User user =  (User)request.getSession().getAttribute("webUser");
 				if(user.getId() > 0 ) {
 					invite.setFromId(Integer.valueOf(user.getRemark()));
 				}
-//				int num = service.queryTotal(invite);
 				Customer cust =  custService.selectById(Integer.valueOf(user.getRemark()));
 				Invite test = new Invite();
 				test.setFromId(Integer.valueOf(user.getRemark()));
@@ -219,11 +243,14 @@ public class InviteController {
 						invite.setInviteDate(new Date());
 						invite.setInviteStates("1");
 						service.insert(invite);
-						//cust.setExamine("9");
 						custService.update(cust);
 						detail.setInviteId(invite.getId());
 						detail.setUpdateTimes(0);
+						detail.setUpdateTimeJoin(0);
 						detailService.insert(detail);
+						Customer custJoin = custService.selectById(invite.getJoinId());
+						JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteInit(cust, custJoin.getOpenId()));
+					    System.out.println(jsonObject);
 					}else {
 						msg.setSuccess(false);
 						msg.setMsg("操作失败：有其他邀约尚在进行" );

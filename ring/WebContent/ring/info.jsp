@@ -158,6 +158,7 @@
 										 	 	 约会地点：${invite.pointLocation.location},${invite.pointLocation.address},${invite.pointLocation.locName}
 										 	 	<div>  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
 										 	 	   	<a href="##" onclick="updateDating('${invite.id}','4')">修改约会地点</a>
+										 	 	   	<a href="##" onclick="updateDating('${invite.id}','0')">约会爽约</a>
 										 	 	 </div>
 										 	 </c:when>
 										 	 <c:when test="${invite.inviteStates eq '6'}">

@@ -20,7 +20,9 @@ public class LocationService {
 	public List<Location> queryList(Location location, Pagination page) {
 		return mapper.queryByWhere(location , page);
 	}
-	
+	public Location selectById(Integer id ) {
+		return mapper.selectByPrimaryKey(id);
+	}
 	public void insert(Location location) {
 		mapper.insert(location);
 	}

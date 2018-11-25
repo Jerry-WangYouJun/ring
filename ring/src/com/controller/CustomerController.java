@@ -23,6 +23,7 @@ import com.model.Customer;
 import com.model.User;
 import com.pay.msg.Template;
 import com.pay.msg.TemplateParam;
+import com.pay.util.NoticeUtil;
 import com.pay.util.WXAuthUtil;
 import com.service.CustomerService;
 import com.service.UserService;
@@ -77,23 +78,7 @@ public class CustomerController {
 					user.setUserName(customer.getChName());
 					user.setRole("2");
 					userService.insert(user);
-					String tplId = "d8w35wAWCN9cCxpcVZmtDPVWgERECjKJG6ItCZiBkYM";
-			        Template tem=new Template();  
-			        tem.setTemplateId(tplId);  
-			        tem.setTopColor("#000000");  
-			                  
-			        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
-			        paras.add(new TemplateParam("first","注册成功。","#333"));  
-			        paras.add(new TemplateParam("keyword1",customer.getChName(),"#333"));
-			        paras.add(new TemplateParam("keyword2", DateUtils.getToday(),"#333"));
-			        paras.add(new TemplateParam("keyword3","微信","#333"));
-			        paras.add(new TemplateParam("remark","感谢你对无名指之约的支持!!!","#333"));  
-			                  
-			        tem.setTemplateParamList(paras);  
-			        tem.setToUser(customer.getOpenId());//用户openid
-			        //设置超链接
-			        tem.setUrl("http://localhost/web/index");  
-			        JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(tem);
+			        JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.registerSuccess(customer));
 			        System.out.println(jsonObject);
 				}
 			}
