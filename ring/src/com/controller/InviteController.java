@@ -249,7 +249,7 @@ public class InviteController {
 						detail.setUpdateTimeJoin(0);
 						detailService.insert(detail);
 						Customer custJoin = custService.selectById(invite.getJoinId());
-						JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteInit(cust, custJoin.getOpenId()));
+						JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteInit(detail, custJoin.getOpenId()));
 					    System.out.println(jsonObject);
 					}else {
 						msg.setSuccess(false);
