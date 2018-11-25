@@ -141,6 +141,7 @@ public class InviteController {
 			invite.setInviteStates(inviteStates);
 		}
 		if(StringUtils.isNotBlank(remark)){
+			remark = new String(remark.getBytes("ISO-8859-1"),"UTF-8");
 			invite.setRemark(remark);
 		}
 		service.update(invite);

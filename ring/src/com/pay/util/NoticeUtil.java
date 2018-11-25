@@ -125,7 +125,7 @@ public class NoticeUtil {
 	        tem.setTemplateId(inviteAccept);  
 	        tem.setTopColor("#000000");  
 	        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
-	        paras.add(new TemplateParam("first","您发起的约会邀约对方已经同意，时间地点如下","#333"));  
+	        paras.add(new TemplateParam("first","您约会已经确定，时间地点如下","#333"));  
 	        paras.add(new TemplateParam("keyword1", location.getLocName(),"#333"));
 	        paras.add(new TemplateParam("keyword2", location.getManager(),"#333"));
 	        paras.add(new TemplateParam("keyword3", location.getTelephone(),"#333"));
