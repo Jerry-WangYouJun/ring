@@ -32,7 +32,7 @@ $(document).ready(function(){
 });
 	 
 function webLogin(){
-	var path = "${pageContext.request.contextPath}/web/webLogin";
+	var path = "${pageContext.request.contextPath}/web/login";
 	$.ajax({
 		url : path,
 		type : 'post',
