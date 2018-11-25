@@ -135,7 +135,7 @@ public class InviteController {
 	}
 	
 	@RequestMapping("/state")
-	public String  updateStates(Integer id  , String inviteStates , String remark) throws ClientProtocolException, IOException{
+	public String  updateStates(Integer id  , String inviteStates , String remark ,HttpSession session) throws ClientProtocolException, IOException{
 		Invite invite  = service.selectById(id);
 		if(!"2".equals(inviteStates)){
 			invite.setInviteStates(inviteStates);
@@ -162,6 +162,13 @@ public class InviteController {
 		        System.out.println(jsonObject);
 			return "forward:/web/info";
 		}else{
+			Location loc =locService.selectById(invite.getPointId());
+			Customer  cust =  (Customer) session.getAttribute("customer");
+			if( cust.getId().equals(invite.getFromId()) ) {
+				WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, invite.getCustomerJoin()));
+			 }else if(cust.getId().equals(invite.getJoinId())) {
+				 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, invite.getCustomerFrom()));
+			 }
 			return "forward:/web/info";
 		}
 	}
