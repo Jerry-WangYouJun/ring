@@ -214,13 +214,13 @@ public class InviteController {
 			if(invite.getId() != null  &&  invite.getId() > 0){
 				Invite inviteTemp = service.selectById(invite.getId());
 				inviteTemp.setPointId(invite.getPointId());
-				InviteDetail detailTemp = detailService.selectById(invite.getId());
+				InviteDetail detailTemp = detailService.selectById(inviteTemp.getId());
 				if("4".equals(inviteTemp.getInviteStates())  ) {
 					Customer  cust =  (Customer) session.getAttribute("customer");
 					 if( cust.getId().equals(inviteTemp.getFromId())&&detailTemp.getUpdateTimes() <1 ) {
 						  detailTemp.setUpdateTimes(detailTemp.getUpdateTimes() + 1);
 					 }else if((cust.getId().equals(inviteTemp.getJoinId())&&detailTemp.getUpdateTimeJoin() <1) ){
-						 detailTemp.setUpdateTimes(detailTemp.getUpdateTimeJoin()+1);
+						 detailTemp.setUpdateTimeJoin(detailTemp.getUpdateTimeJoin()+1);
 					 }else {
 						 msg.setSuccess(false);
 						 msg.setMsg("操作失败：对不起您只有一次修改约会地点的机会。" );
@@ -236,6 +236,15 @@ public class InviteController {
 				if("2".equals(inviteTemp.getInviteStates())) {
 					 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(inviteTemp.getPointLocation(), inviteTemp.getCustomerFrom()));
 					 System.out.println(jsonObject);
+				}
+				if("4".equals(inviteTemp.getInviteStates())) {
+					 Location loc =locService.selectById(invite.getPointId());
+					 Customer  cust =  (Customer) session.getAttribute("customer");
+					 if( cust.getId().equals(invite.getFromId()) ) {
+						 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, inviteTemp.getCustomerJoin() , inviteTemp.getInviteDate()));
+					 }else if(cust.getId().equals(invite.getJoinId())) {
+						 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, inviteTemp.getCustomerFrom() ,inviteTemp.getInviteDate()));
+					 }
 				}
 			}else{
 				User user =  (User)request.getSession().getAttribute("webUser");
