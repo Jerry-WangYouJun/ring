@@ -11,6 +11,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import com.pay.config.WxPayConfig;
+import com.pay.msg.Template;
+
 public class WXAuthUtil {
 	public static JSONObject doGetJson(String url) throws ClientProtocolException, IOException {
 		    JSONObject jsonObject =null;
@@ -27,4 +30,35 @@ public class WXAuthUtil {
 		    return jsonObject;
 		  }
 		
+	public static  String getAccessToken() throws ClientProtocolException, IOException{  
+        String requestUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+        
+        requestUrl=requestUrl.replace("APPID", WxPayConfig.appid);  
+        requestUrl=requestUrl.replace("APPSECRET", WxPayConfig.appsecret);
+        
+        JSONObject jsonObject = WXAuthUtil.doGetJson(requestUrl); 
+        
+        String access_token = jsonObject.getString("access_token");
+    
+    return access_token;
+      
+}
+	
+public static JSONObject  sendTemplateMsg(Template template) throws ClientProtocolException, IOException{  
+        
+        //获取token
+        String token = getAccessToken();
+          
+        String requestUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
+        
+        requestUrl=requestUrl.replace("ACCESS_TOKEN", token);  
+        
+        System.out.println(template.toJSON());
+        //发送模板消息,返回json格式结果
+        JSONObject jsonObject =CommonUtil.httpsRequest(requestUrl, "POST", template.toJSON());
+        
+        return jsonObject;
+          
+          
+    }
 }

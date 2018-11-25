@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,8 @@ import com.common.entry.Message;
 import com.common.entry.Pagination;
 import com.model.Dictionary;
 import com.model.User;
+import com.pay.msg.Template;
+import com.pay.msg.TemplateParam;
 import com.service.DictionaryService;
 import com.service.UserService;
 
