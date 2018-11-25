@@ -115,8 +115,8 @@ public class WebController {
 		List<Location> locList= locService.queryList(new Location(), new Pagination());
 		List<String> loc = new ArrayList<>();
 		for (Location  obj : locList) {
-			 if(!loc.contains(obj.getAddress())) {
-				  loc.add(obj.getAddress());
+			 if(!loc.contains(obj.getLocation())) {
+				  loc.add(obj.getLocation());
 			 }
 		}
 		request.setAttribute("joinId", invite.getJoinId());
