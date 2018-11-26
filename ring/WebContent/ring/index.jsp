@@ -20,6 +20,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
 <!----font-Awesome----->
 <link href="${pageContext.request.contextPath}/ring/css/font-awesome.css" rel="stylesheet"> 
+<link href="assets/css/icons.css" rel="stylesheet" />
+        <!-- jQueryUI -->
+        <link href="${pageContext.request.contextPath}/ring/assets/css/sprflat-theme/jquery.ui.all.css" rel="stylesheet" />
+        <!-- Bootstrap stylesheets (included template modifications) -->
+        <link href="${pageContext.request.contextPath}/ring/assets/css/bootstrap.css" rel="stylesheet" />
+        <!-- Plugins stylesheets (all plugin custom css) -->
+        <link href="${pageContext.request.contextPath}/ring/assets/css/plugins.css" rel="stylesheet" />
+        <!-- Main stylesheets (template main css file) -->
+        <link href="${pageContext.request.contextPath}/ring/assets/css/main.css" rel="stylesheet" />
+        <!-- Custom stylesheets ( Put your own changes here ) -->
+        <link href="${pageContext.request.contextPath}/ring/assets/css/custom.css" rel="stylesheet" />
 <!----font-Awesome----->
 <script>
 $(document).ready(function(){
@@ -37,6 +48,24 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
+<div id="header" class="header-fixed">
+            <div class="container-fluid">
+                <div class="navbar">
+                    <nav class="top-nav" role="navigation">
+                        <ul class="nav navbar-nav ">
+                                    <li><a href="profile.html"><i class="st-user"></i> 我的约会</a>
+                                    </li>
+                                    <li><a href="file.html"><i class="st-cloud"></i> 我的邀约</a>
+                                    </li>
+                                    <li><a href="profile.html"><i class="st-user"></i> 我的收藏</a>
+                                    </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Start #header-area -->
+            </div>
+            <!-- Start .header-inner -->
+        </div>
 <!-- ============================  Navigation Start =========================== -->
  <div class="navbar navbar-inverse-blue navbar">
     <!--<div class="navbar navbar-inverse-blue navbar-fixed-top">-->
