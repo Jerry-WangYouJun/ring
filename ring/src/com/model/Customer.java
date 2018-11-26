@@ -21,6 +21,8 @@ public class Customer {
     private String birthday;
 
     private String hometown;
+    
+    private String loca;
 
     private String addtress;
 
@@ -59,6 +61,13 @@ public class Customer {
     private String flag ;
     
     private String flagTemp ;
+    
+    private Integer age ;
+    
+    private Integer ageFrom ;
+    private Integer ageTo ;
+    private Double heightFrom;
+    private Double heightTo;
 
     public Integer getId() {
         return id;
@@ -291,6 +300,53 @@ public class Customer {
 	public void setOpenId(String openId) {
 		this.openId = openId;
 	}
-    
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Integer getAgeFrom() {
+		return ageFrom;
+	}
+
+	public void setAgeFrom(Integer ageFrom) {
+		this.ageFrom = ageFrom;
+	}
+
+	public Integer getAgeTo() {
+		return ageTo;
+	}
+
+	public void setAgeTo(Integer ageTo) {
+		this.ageTo = ageTo;
+	}
+
+	public Double getHeightFrom() {
+		return heightFrom;
+	}
+
+	public void setHeightFrom(Double heightFrom) {
+		this.heightFrom = heightFrom;
+	}
+
+	public Double getHeightTo() {
+		return heightTo;
+	}
+
+	public void setHeightTo(Double heightTo) {
+		this.heightTo = heightTo;
+	}
+
+	public String getLoca() {
+		return loca;
+	}
+
+	public void setLoca(String loca) {
+		this.loca = loca;
+	}
     
 }

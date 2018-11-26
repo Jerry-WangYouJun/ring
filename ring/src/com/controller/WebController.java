@@ -89,16 +89,15 @@ public class WebController {
 	}
 	
 	@RequestMapping("/index")
-	public String index(HttpServletRequest  request  ) {
+	public String index(HttpServletRequest  request  , Customer custQuery) {
 		User  user = (User)request.getSession().getAttribute("webUser");
-		Customer cust = new Customer();
 		List<Customer> list  = new ArrayList<>();
 		
 		if(StringUtils.isNotBlank(user.getRemark())) {
 			Customer c =  custService.selectById(Integer.valueOf(user.getRemark()));
-			cust.setWebSex(c.getSex());
+			custQuery.setWebSex(c.getSex());
 		}
-		list= custService.queryList(cust, new Pagination());
+		list= custService.queryList(custQuery, new Pagination());
 		request.setAttribute("list", list);
 		return "forward:/ring/index.jsp";
 	}

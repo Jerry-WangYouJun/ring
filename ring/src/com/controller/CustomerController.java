@@ -1,12 +1,9 @@
 package com.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,19 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.CodeUtil;
-import com.common.DateUtils;
 import com.common.StringUtils;
 import com.common.entry.Grid;
 import com.common.entry.Message;
 import com.common.entry.Pagination;
 import com.model.Customer;
 import com.model.User;
-import com.pay.msg.Template;
-import com.pay.msg.TemplateParam;
 import com.pay.util.NoticeUtil;
 import com.pay.util.WXAuthUtil;
 import com.service.CustomerService;
 import com.service.UserService;
+
+import net.sf.json.JSONObject;
 
 
 @Controller

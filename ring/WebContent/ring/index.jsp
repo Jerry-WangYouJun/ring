@@ -5,11 +5,8 @@
 <html>
 <head>
 <title>Home</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Marital Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link href="${pageContext.request.contextPath}/ring/css/bootstrap-3.1.1.min.css" rel='stylesheet' type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="${pageContext.request.contextPath}/ring/js/jquery.min.js"></script>
@@ -48,46 +45,31 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<div id="header" class="header-fixed">
+   <div id="header" class="header-fixed">
             <div class="container-fluid">
                 <div class="navbar">
-                    <nav class="top-nav" role="navigation">
+                    <nav class="top-nav pull-right" role="navigation">
                         <ul class="nav navbar-nav ">
-                                    <li><a href="profile.html"><i class="st-user"></i> 我的约会</a>
+                                    <li><a href="${pageContext.request.contextPath}/web/dateinfo"><i class="st-user"></i> 我的约会</a>
                                     </li>
-                                    <li><a href="file.html"><i class="st-cloud"></i> 我的邀约</a>
+                                    <li><a href="${pageContext.request.contextPath}/web/info"><i class="st-cloud"></i> 我的邀约</a>
                                     </li>
-                                    <li><a href="profile.html"><i class="st-user"></i> 我的收藏</a>
+                                    <li><a href="profile.html"><i class="st-user"></i> 我的关注</a>
                                     </li>
                         </ul>
                     </nav>
                 </div>
-                <!-- Start #header-area -->
             </div>
-            <!-- Start .header-inner -->
-        </div>
+        </div> 
 <!-- ============================  Navigation Start =========================== -->
- <div class="navbar navbar-inverse-blue navbar">
+ <%-- <div class="navbar navbar-inverse-blue navbar">
     <!--<div class="navbar navbar-inverse-blue navbar-fixed-top">-->
       <div class="navbar-inner navbar-inner_1">
         <div class="container">
-           <a class="brand" href="index.html"><img src="${pageContext.request.contextPath}/ring/images/logo.png" alt="logo"></a>
            <div class="pull-right">
-          	<nav class="navbar nav_bottom" role="navigation">
- 
-		 <!-- Brand and toggle get grouped for better mobile display -->
-		  <div class="navbar-header nav_2">
-		      <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">我的
-		        <span class="sr-only">Toggle navigation</span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </button>
-		      <a class="navbar-brand" href="#"></a>
-		   </div> 
-		   <!-- Collect the nav links, forms, and other content for toggling -->
-		    <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-		        <ul class="nav navbar-nav nav_1">
+          	<nav class="navbar" >
+		    <div class="top-nav" role="navigation">
+		        <ul class="nav navbar-nav">
 		       		<li><a href="${pageContext.request.contextPath}/web/dateinfo">我的约会</a></li>
 		            <li><a href="${pageContext.request.contextPath}/web/info">邀请记录</a></li>
 		            <li><a href="about.html">留言信息</a></li>
@@ -99,10 +81,80 @@ $(document).ready(function(){
           <div class="clearfix"> </div>
         </div> <!-- end container -->
       </div> <!-- end navbar-inner -->
-    </div> <!-- end navbar-inverse-blue -->
+    </div> <!-- end navbar-inverse-blue --> --%>
 <!-- ============================  Navigation End ============================ -->
-<div class="banner">
-  </div> 
+<!-- Page start here ( usual with .row ) -->
+                    <div class="row" style="margin-top:50px" >
+                        <!-- Start .row -->
+                        <div class="col-lg-12">
+                            <!-- Start col-lg-12 -->
+                            <div class="panel panel-default toggle">
+                                <!-- Start .panel -->
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">按条件查询</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <form class=" group-border hover-stripped" role="form" action="${pageContext.request.contextPath}/web/index" method="post">
+                                        <div class="form-group " >
+                                            <label class="col-lg-2 col-md-2 col-xs-12 control-label">年龄</label>
+                                            <div class="col-lg-5 col-md-5 col-xs-5 mb10">
+                                                <input type="text" class="form-control"  name="ageFrom">
+                                            </div>
+                                            <div class="col-lg-5 col-md-5 col-xs-2 mb10" >
+                                               至
+                                            </div>
+                                            <div class="col-lg-5 col-md-5 col-xs-5 mb10">
+                                                <input type="text" class="form-control"  name="ageTo">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 col-md-2 col-xs-12 control-label">身高</label>
+                                            <div class="col-lg-5 col-md-5 col-xs-5 mb10">
+                                                <input type="text" class="form-control" name="heightFrom">
+                                            </div>
+                                            <div class="col-lg-5 col-md-5 col-xs-2 mb10">
+                                               至
+                                            </div>
+                                            <div class="col-lg-5 col-md-5 col-xs-5 mb10">
+                                                <input type="text" class="form-control"  name="heightTo">
+                                            </div>
+                                        </div>
+                                        <!-- End .form-group  -->
+                                        <div class="form-group">
+                                            <label class="col-lg-2 col-md-2 col-sm-12 control-label">活动范围</label>
+                                            <div class="col-lg-10 col-md-10 mb10" >
+                                                <select name="loca" class="form-control col-xs-5 mb10" >
+                                               	   <option value="">请选择</option>
+                                                	   <option value="1">青岛</option>
+                                                	   <option value="2">省内</option>
+                                                	   <option value="3">国内</option>
+                                                	   <option value="4">国外</option>
+                                                </select>
+                                                 <select name="addtress" class="form-control col-xs-5 mb10" >
+                                                	  	<option value="">请选择</option>
+                                                	   <option value="1">市南</option>
+                                                	   <option value="2">市北</option>
+                                                	   <option value="3">李沧</option>
+                                                	   <option value="4">崂山</option>
+                                                	   <option value="5">即墨</option>
+                                                	   <option value="6">其他</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                         <div class="form-group">
+                                         
+                                                <button class="btn btn-lg btn-purple btn-block"  >Go!</button>
+                                            </div>
+                                        <!-- End .form-group  -->
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- End .panel -->
+                        </div>
+                        <!-- End col-lg-12 -->
+                    </div>
+                    <!-- End .row -->
+
 <div class="grid_1">
       <div class="container">
       	<h1>会员列表</h1>

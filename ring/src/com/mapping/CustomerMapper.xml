@@ -29,15 +29,20 @@
     <result column="ask" jdbcType="VARCHAR" property="ask" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="flag" jdbcType="VARCHAR" property="flag" />
+    <result column="loca" jdbcType="VARCHAR" property="loca" />
+    <result column="age" jdbcType="INTEGER" property="age" />
   </resultMap>
   <sql id="Base_Column_List">
     id, examine, head_image, ch_name, nick_name, sex, birthday, hometown, addtress, height, 
     weight, marriage, children, degree, house_status, industry, income, qq, telephone, 
-    email, referee, introduction, declaration, ask, remark,flag , openId
+    email, referee, introduction, declaration, ask, remark,flag , openId ,age , loca
   </sql>
   
   <select id="queryByWhere" resultMap="BaseResultMap" >
   	    select  <include refid="Base_Column_List" /> from t_customer where 1=1 
+  	    <if test="obj.id!=null and obj.id > 0">
+  	    	    and id = #{obj.id}
+  	    </if>
   	    <if test="obj.id!=null and obj.id > 0">
   	    	    and id = #{obj.id}
   	    </if>
@@ -56,6 +61,24 @@
   	     <if test="obj.openId!= null and obj.openId != '' ">
   	    	     and openId = #{obj.openId}
   	    </if>
+  	    <if test="obj.loca!= null and obj.loca != '' ">
+  	    	     and loca = #{obj.loca}
+  	    </if>
+  	     <if test="obj.addtress!= null and obj.addtress != '' ">
+  	    	     and addtress = #{obj.addtress}
+  	    </if>
+  	    <if test="obj.ageFrom!=null and obj.ageFrom > 0">
+  	    	    and age  >= #{obj.ageFrom}
+  	    </if>
+  	    <if test="obj.ageTo !=null and obj.ageTo > 0">
+  	    	    and age  &lt;= #{obj.ageTo}
+  	    </if>
+  	    <if test="obj.heightFrom!=null and obj.heightFrom > 0">
+  	    	    and height  >= #{obj.heightFrom}
+  	    </if>
+  	    <if test="obj.heightTo !=null and obj.heightTo > 0">
+  	    	    and height  &lt;= #{obj.heightTo}
+  	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
   
@@ -73,7 +96,24 @@
   	    <if test="sex!= null and sex != '' ">
   	    	     and sex = #{sex}
   	    </if>
-  	    
+  	    <if test="loca!= null and loca != '' ">
+  	    	     and loca = #{loca}
+  	    </if>
+  	     <if test="address!= null and address != '' ">
+  	    	     and address = #{address}
+  	    </if>
+  	    <if test="ageFrom!=null and ageFrom > 0">
+  	    	    and age  >= #{ageFrom}
+  	    </if>
+  	    <if test="ageTo !=null and ageTo > 0">
+  	    	    and age  &lt;= #{ageTo}
+  	    </if>
+  	    <if test="heightFrom!=null and heightFrom > 0">
+  	    	    and height  >= #{heightFrom}
+  	    </if>
+  	    <if test="heightTo !=null and heightTo > 0">
+  	    	    and height  &lt;= #{heightTo}
+  	    </if>
   </select>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -98,7 +138,7 @@
       industry, income, qq, 
       telephone, email, referee, 
       introduction, declaration, ask, 
-      remark, flag , openId)
+      remark, flag , openId , age , loca)
     values (#{id,jdbcType=INTEGER}, #{examine,jdbcType=VARCHAR}, #{headImage,jdbcType=INTEGER}, 
       #{chName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=DATE}, #{hometown,jdbcType=VARCHAR}, #{addtress,jdbcType=VARCHAR}, 
@@ -107,252 +147,9 @@
       #{industry,jdbcType=VARCHAR}, #{income,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{referee,jdbcType=VARCHAR}, 
       #{introduction,jdbcType=VARCHAR}, #{declaration,jdbcType=VARCHAR}, #{ask,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR} , #{flag,jdbcType=VARCHAR} , #{openId,jdbcType=VARCHAR} )
+      #{remark,jdbcType=VARCHAR} , #{flag,jdbcType=VARCHAR} , #{openId,jdbcType=VARCHAR} ,
+       #{age,jdbcType=INTEGER} , #{loca,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.model.Customer">
-    insert into t_customer
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="examine != null">
-        examine,
-      </if>
-      <if test="headImage != null">
-        head_image,
-      </if>
-      <if test="chName != null">
-        ch_name,
-      </if>
-      <if test="nickName != null">
-        nick_name,
-      </if>
-      <if test="sex != null">
-        sex,
-      </if>
-      <if test="birthday != null">
-        birthday,
-      </if>
-      <if test="hometown != null">
-        hometown,
-      </if>
-      <if test="addtress != null">
-        addtress,
-      </if>
-      <if test="height != null">
-        height,
-      </if>
-      <if test="weight != null">
-        weight,
-      </if>
-      <if test="marriage != null">
-        marriage,
-      </if>
-      <if test="children != null">
-        children,
-      </if>
-      <if test="degree != null">
-        degree,
-      </if>
-      <if test="houseStatus != null">
-        house_status,
-      </if>
-      <if test="industry != null">
-        industry,
-      </if>
-      <if test="income != null">
-        income,
-      </if>
-      <if test="qq != null">
-        qq,
-      </if>
-      <if test="telephone != null">
-        telephone,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="referee != null">
-        referee,
-      </if>
-      <if test="introduction != null">
-        introduction,
-      </if>
-      <if test="declaration != null">
-        declaration,
-      </if>
-      <if test="ask != null">
-        ask,
-      </if>
-      <if test="remark != null">
-        remark,
-      </if>
-      <if test="flag != null">
-        flag,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="examine != null">
-        #{examine,jdbcType=VARCHAR},
-      </if>
-      <if test="headImage != null">
-        #{headImage,jdbcType=INTEGER},
-      </if>
-      <if test="chName != null">
-        #{chName,jdbcType=VARCHAR},
-      </if>
-      <if test="nickName != null">
-        #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="birthday != null">
-        #{birthday,jdbcType=DATE},
-      </if>
-      <if test="hometown != null">
-        #{hometown,jdbcType=VARCHAR},
-      </if>
-      <if test="addtress != null">
-        #{addtress,jdbcType=VARCHAR},
-      </if>
-      <if test="height != null">
-        #{height,jdbcType=DOUBLE},
-      </if>
-      <if test="weight != null">
-        #{weight,jdbcType=DOUBLE},
-      </if>
-      <if test="marriage != null">
-        #{marriage,jdbcType=VARCHAR},
-      </if>
-      <if test="children != null">
-        #{children,jdbcType=VARCHAR},
-      </if>
-      <if test="degree != null">
-        #{degree,jdbcType=VARCHAR},
-      </if>
-      <if test="houseStatus != null">
-        #{houseStatus,jdbcType=VARCHAR},
-      </if>
-      <if test="industry != null">
-        #{industry,jdbcType=VARCHAR},
-      </if>
-      <if test="income != null">
-        #{income,jdbcType=VARCHAR},
-      </if>
-      <if test="qq != null">
-        #{qq,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
-        #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="referee != null">
-        #{referee,jdbcType=VARCHAR},
-      </if>
-      <if test="introduction != null">
-        #{introduction,jdbcType=VARCHAR},
-      </if>
-      <if test="declaration != null">
-        #{declaration,jdbcType=VARCHAR},
-      </if>
-      <if test="ask != null">
-        #{ask,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="flag != null">
-        #{flag,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.model.Customer">
-    update t_customer
-    <set>
-      <if test="examine != null">
-        examine = #{examine,jdbcType=VARCHAR},
-      </if>
-      <if test="headImage != null">
-        head_image = #{headImage,jdbcType=INTEGER},
-      </if>
-      <if test="chName != null">
-        ch_name = #{chName,jdbcType=VARCHAR},
-      </if>
-      <if test="nickName != null">
-        nick_name = #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="birthday != null">
-        birthday = #{birthday,jdbcType=DATE},
-      </if>
-      <if test="hometown != null">
-        hometown = #{hometown,jdbcType=VARCHAR},
-      </if>
-      <if test="addtress != null">
-        addtress = #{addtress,jdbcType=VARCHAR},
-      </if>
-      <if test="height != null">
-        height = #{height,jdbcType=DOUBLE},
-      </if>
-      <if test="weight != null">
-        weight = #{weight,jdbcType=DOUBLE},
-      </if>
-      <if test="marriage != null">
-        marriage = #{marriage,jdbcType=VARCHAR},
-      </if>
-      <if test="children != null">
-        children = #{children,jdbcType=VARCHAR},
-      </if>
-      <if test="degree != null">
-        degree = #{degree,jdbcType=VARCHAR},
-      </if>
-      <if test="houseStatus != null">
-        house_status = #{houseStatus,jdbcType=VARCHAR},
-      </if>
-      <if test="industry != null">
-        industry = #{industry,jdbcType=VARCHAR},
-      </if>
-      <if test="income != null">
-        income = #{income,jdbcType=VARCHAR},
-      </if>
-      <if test="qq != null">
-        qq = #{qq,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
-        telephone = #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="referee != null">
-        referee = #{referee,jdbcType=VARCHAR},
-      </if>
-      <if test="introduction != null">
-        introduction = #{introduction,jdbcType=VARCHAR},
-      </if>
-      <if test="declaration != null">
-        declaration = #{declaration,jdbcType=VARCHAR},
-      </if>
-      <if test="ask != null">
-        ask = #{ask,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="flag != null">
-        flag = #{flag,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
   <update id="updateByPrimaryKey" parameterType="com.model.Customer">
     update t_customer
     set examine = #{examine,jdbcType=VARCHAR},
@@ -380,7 +177,9 @@
       ask = #{ask,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       flag = #{flag,jdbcType=VARCHAR},
-      openId = #{openId,jdbcType=VARCHAR}
+      openId = #{openId,jdbcType=VARCHAR} ,
+      loca = #{loca,jdbcType=VARCHAR} ,
+      age = #{age,jdbcType=INTEGER} 
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
