@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -66,15 +67,33 @@ $(document).ready(function(){
 		 }
 	 }
 	 
+	 $(function(){
+		 var dic = eval('(${dic})');
+		 var marriageVal = "${cust.marriage }";
+		 var arr = dic.marriage;
+		$(".dicValue").each(function(){
+			 var field  = $(this).attr("name")
+			 var value =  $(this).attr("value");
+			 if(dic[field][value]!= undefined){
+				 $(this).text(dic[field][value]["describ"]);
+			 }
+		})
+	 });
 	 
 </script>
 </head>
 <body>
-<div class="grid_3">
-  <div class="container">
+
+  <div class="container" style="margin-top:20px">
    <div class="profile">
    	 <div class="col-md-12 profile_left">
-   	 	<h2>Profile Id : ${cust.id }</h2>
+   	 <c:if test="${cust.sex eq 1}">
+   	 		<h2>会员ID : M0532${cust.id }</h2>
+   	 </c:if>
+   	  <c:if test="${cust.sex eq 0}">
+   	 		<h2>会员ID : F0532${cust.id }</h2>
+   	 </c:if>
+   	 	
    	 	<div class="col_3">
    	        <div class="col-sm-4 row_2">
 				<div class="flexslider">
@@ -91,34 +110,6 @@ $(document).ready(function(){
 			<div class="col-sm-8 row_1">
 				<table class="table_working_hours">
 		        	<tbody>
-		        		<tr class="opened_1">
-							<td class="day_label">年龄 / 身高 :</td>
-							<td class="day_value">28, ${cust.height }cm</td>
-						</tr>
-					    <tr class="opened">
-							<td class="day_label">上次登录 :</td>
-							<td class="day_value">4 小时</td>
-						</tr>
-					    <tr class="opened">
-							<td class="day_label">宗教信仰 :</td>
-							<td class="day_value">无</td>
-						</tr>
-					    <tr class="opened">
-							<td class="day_label">婚姻状况:</td>
-							<td class="day_value">${cust.marriage }</td>
-						</tr>
-					    <tr class="opened">
-							<td class="day_label">所在地 :</td>
-							<td class="day_value">${cust.addtress}</td>
-						</tr>
-					    <tr class="closed">
-							<td class="day_label">职业 :</td>
-							<td class="day_value closed"><span>${cust.industry }</span></td>
-						</tr>
-					    <tr class="closed">
-							<td class="day_label">学历 :</td>
-							<td class="day_value closed"><span>${cust.degree }</span></td>
-						</tr>
 				    </tbody>
 				</table>
 				
@@ -149,9 +140,29 @@ $(document).ready(function(){
 									<td class="day_label">昵称 :</td>
 									<td class="day_value">${cust.nickName }</td>
 								</tr>
-							    <tr class="opened">
+								 <tr class="opened">
 									<td class="day_label">生日 :</td>
 									<td class="day_value">${cust.birthday }</td>
+								</tr>
+								<tr class="opened_1">
+									<td class="day_label">年龄  :</td>
+									<td class="day_value"> ${cust.age }</td>
+								</tr>
+							    <tr class="opened">
+									<td class="day_label">婚姻状况:</td>
+									<td class="day_value dicValue"  name="marriage" value="${cust.marriage }"></td>
+								</tr>
+							    <tr class="opened">
+									<td class="day_label">所在地 :</td>
+									<td class="day_value dicValue"  name="addtress" value="${cust.addtress}"></td>
+								</tr>
+							    <tr class="closed">
+									<td class="day_label">职业 :</td>
+									<td class="day_value closed"><span>${cust.industry }</span></td>
+								</tr>
+							    <tr class="closed">
+									<td class="day_label">学历 :</td>
+									<td class="day_value closed"><span class="dicValue" name="degree" value="${cust.degree }"></span></td>
 								</tr>
 							    <tr class="opened">
 									<td class="day_label">家乡 :</td>
@@ -159,73 +170,45 @@ $(document).ready(function(){
 								</tr>
 							    <tr class="opened">
 									<td class="day_label">身高/体重 :</td>
-									<td class="day_value">${cust.height }kg, ${cust.weight }cm</td>
+									<td class="day_value">${cust.height }cm, ${cust.weight }kg</td>
 								</tr>
-							    <tr class="opened">
-									<td class="day_label">婚姻状态 :</td>
-									<td class="day_value closed"><span>${cust.marriage }</span></td>
-								</tr>
-							    <tr class="opened">
-									<td class="day_label">爱情宣言:</td>
-									<td class="day_value closed"><span>${cust.declaration }</span></td>
-								</tr>
-						    </tbody>
-				          </table>
-				         </div>
-				         <div class="col-md-6 basic_1-left">
-				          <table class="table_working_hours">
-				        	<tbody>
-				        		<tr class="opened_1">
-									<td class="day_label">年龄 :</td>
-									<td class="day_value">28 Yrs</td>
-								</tr>
-							    <tr class="opened">
+								<tr class="opened">
 									<td class="day_label">祖籍 :</td>
 									<td class="day_value">${cust.hometown }</td>
 								</tr>
 							    <tr class="opened">
 									<td class="day_label">子女 :</td>
-									<td class="day_value">${cust.children }/人</td>
-								</tr>
-							    <tr class="opened">
-									<td class="day_label">学历 :</td>
-									<td class="day_value">${cust.degree }</td>
-								</tr>
-							    <tr class="opened">
-									<td class="day_label">住房状态 :</td>
-									<td class="day_value">${cust.houseStatus }</td>
-								</tr>
-							    <tr class="closed">
-									<td class="day_label">烟/酒 :</td>
-									<td class="day_value closed"><span>${cust.marriage }No</span></td>
+									<td class="day_value " ><span name="children"  class = "dicValue" value="${cust.children }"></span>/人</td>
 								</tr>
 						    </tbody>
-				        </table>
-				        </div>
-				        <div class="clearfix"> </div>
-				    </div>
-				    <div class="basic_1">
-				    	<h3>学历 & 工作</h3>
-				    	<div class="basic_1-left">
-				    	  <table class="table_working_hours">
-				        	<tbody>
-				        			<tr class="opened">
-									<td class="day_label">学历   :</td>
-									<td class="day_value">${cust.degree }</td>
-								</tr>
-				        			<tr class="opened">
-									<td class="day_label">工作内容 :</td>
-									<td class="day_value">${cust.industry }</td>
-								</tr>
-							    <tr class="opened">
-									<td class="day_label">月收入 :</td>
-									<td class="day_value closed"><span>income</span></td>
-								</tr>
-							 </tbody>
 				          </table>
 				         </div>
-				         <div class="clearfix"> </div>
+				        <div class="clearfix"> </div>
 				    </div>
+				    <c:if test="${webUser.role eq '3' }">
+					    <div class="basic_1">
+					    	<h3> 工作&住房状态</h3>
+					    	<div class="basic_1-left">
+					    	  <table class="table_working_hours">
+					        	<tbody>
+					        		<tr class="opened">
+										<td class="day_label">工作内容 :</td>
+										<td class="day_value">${cust.industry }</td>
+									</tr>
+								    <tr class="opened">
+										<td class="day_label">月收入 :</td>
+										<td class="day_value "><span class="dicValue" name="income"  value="${cust.income }"></span></td>
+									</tr>
+									<tr class="opened">
+										<td class="day_label">住房状态 :</td>
+										<td class="day_value dicValue"  name="houseStatus" value="${cust.houseStatus }"></td>
+									</tr>
+								 </tbody>
+					          </table>
+					         </div>
+					         <div class="clearfix"> </div>
+					    </div>
+				    </c:if>
 				  </div>
 				  <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
 				    <div class="basic_3">
@@ -383,7 +366,7 @@ $(document).ready(function(){
 	}
 	function inviteInfo(){
 		$('#inviteTable').bootstrapTable(
-				'refresh',{query: {joinId: ${webUser.remark }}});
+				'refresh',{query: {joinId: "${webUser.remark }"}});
 		$("#inviteModal").modal("show");
 	}
 	function closeModel() {

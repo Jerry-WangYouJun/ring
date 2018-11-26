@@ -89,7 +89,9 @@ public class WebController {
 	}
 	
 	@RequestMapping("/index")
-	public String index(HttpServletRequest  request  , Customer custQuery) {
+	public String index(HttpServletRequest  request  ,HttpSession session , Customer custQuery) {
+		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
+		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
 		User  user = (User)request.getSession().getAttribute("webUser");
 		List<Customer> list  = new ArrayList<>();
 		

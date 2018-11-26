@@ -75,7 +75,7 @@
 					<div role="tabpanel" class="tab-pane active" id="home">
 						    <c:forEach items="${inviteInfo }" var="invite">
 							    <div>
-									<h3> 受邀人：${invite.customerJoin.nickName } <a href="##">详细信息</a></h3>
+									<h3> 受邀人：${invite.customerJoin.nickName } <a href="${pageContext.request.contextPath}/web/customer?id=${invite.joinId}">详细信息</a></h3>
 									<h3> 性别：
 										 <c:choose>
 										 	 <c:when test="${invite.customerJoin.sex eq '1'}">
@@ -127,7 +127,7 @@
 					<div role="tabpanel" class="tab-pane" id="profile">
 					     <c:forEach items="${invitedInfo }" var="invite">
 						    <div>
-								<h3> 邀请人：${invite.customerFrom.nickName } <a href="##">详细信息</a></h3>
+								<h3> 邀请人：${invite.customerFrom.nickName } <a href="${pageContext.request.contextPath}/web/customer?id=${invite.fromId}">详细信息</a></h3>
 								<h3> 性别：
 									<c:choose>
 										 	 <c:when test="${invite.customerFrom.sex eq '1'}">
