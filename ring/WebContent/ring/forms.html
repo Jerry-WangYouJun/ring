@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Forms</title>
+        <!-- Mobile specific metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Force IE9 to render in normal mode -->
+        <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+        <meta name="author" content="SuggeElson" />
+        <meta name="description" content=""
+        />
+        <meta name="keywords" content=""
+        />
+        <meta name="application-name" content="sprFlat admin template" />
+        <!-- Import google fonts - Heading first/ text second -->
+        
+        <!--[if lt IE 9]>
+
+<![endif]-->
+        <!-- Css files -->
+        <!-- Icons -->
+        <link href="assets/css/icons.css" rel="stylesheet" />
+        <!-- jQueryUI -->
+        <link href="assets/css/sprflat-theme/jquery.ui.all.css" rel="stylesheet" />
+        <!-- Bootstrap stylesheets (included template modifications) -->
+        <link href="assets/css/bootstrap.css" rel="stylesheet" />
+        <!-- Plugins stylesheets (all plugin custom css) -->
+        <link href="assets/css/plugins.css" rel="stylesheet" />
+        <!-- Main stylesheets (template main css file) -->
+        <link href="assets/css/main.css" rel="stylesheet" />
+        <!-- Custom stylesheets ( Put your own changes here ) -->
+        <link href="assets/css/custom.css" rel="stylesheet" />
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/img/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/img/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/img/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/img/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="icon" href="assets/img/ico/favicon.ico" type="image/png">
+        <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+        <meta name="msapplication-TileColor" content="#3399cc" />
+    </head>
+    <body>
+            <!-- Start .content-wrapper -->
+            <div class="content-wrapper">
+                <div class="outlet">
+                    <!-- Start .outlet -->
+                    <!-- Page start here ( usual with .row ) -->
+                    <div class="row">
+                        <!-- Start .row -->
+                        <div class="col-lg-12">
+                            <!-- Start col-lg-12 -->
+                            <div class="panel panel-default toggle">
+                                <!-- Start .panel -->
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Form fields</h3>
+                                </div>
+                                <div class="panel-body">
+					   	 <form id="dataForm">
+					    				<input class="form-control " name="openId" type="hidden" value="${openId}"></input>
+										<input class="form-control " name="id" type="hidden"></input>
+										<input class="form-control " name="flag" id="flag" type="hidden"></input>
+										<div class="form-group" >
+											<label for="message-text" class="control-label">姓名:</label> <input
+												type="text" class="form-control" name="chName" id="chName" placeholder="必填" required>
+										</div>
+										<div class="form-group">
+											<label for="message-text" class="control-label">昵称:</label> <input
+												type="text" class="form-control" name="nickName" id="nickName" placeholder="必填" required>
+										</div>
+										<div class="form-group">
+											<label for="message-text" class="control-label">性别:</label> <select 
+												class="form-control dicSelect" id="sex" name="sex" placeholder="必填" required>
+											</select>
+										</div>
+										<div class="form-group">
+											<label for="message-text" class="control-label">生日:</label>
+											<div class='input-group date' id='datetimepicker1'>
+												<input type='text' class="form-control" readonly name="birthday"
+													id="birthday" placeholder="必填" required/> <span class="input-group-addon"> <span
+													class="glyphicon glyphicon-calendar"></span>
+												</span>
+											</div>
+										</div>
+										<div class="form-group  col-xs-8">
+											<label for="message-text" class="control-label">家乡:</label> <input
+												type="text" class="form-control" name="hometown" >
+										</div>
+										<div class="form-group  col-xs-4">
+											<label for="message-text" class="control-label">是否显示:</label> 
+											<select 
+													class="form-control "  name="flagTemp"  id="hometown">
+													<option value="hometown:1" > 显示 </option>
+													<option value="hometown:0" selected="selected"> 不显示 </option>
+											</select>
+										</div>
+										<div class="form-group col-xs-8">
+											<label for="message-text" class="control-label">现住址:</label> <input
+												type="text" class="form-control" name="addtress">
+										</div>
+										<div class="form-group  col-xs-4">
+											<label for="message-text" class="control-label">是否显示:</label> 
+											<select 
+													class="form-control "  name="flagTemp"   id="addtress">
+													<option value="addtress:1" > 显示 </option>
+													<option value="addtress:0"> 不显示 </option>
+											</select>
+										</div>
+										<div class="form-group col-xs-8">
+											<label for="message-text" class="control-label">身高:</label> <input
+												type="text" class="form-control" name="height">
+										</div>
+										<div class="form-group  col-xs-4">
+											<label for="message-text" class="control-label">是否显示:</label> 
+											<select 
+													class="form-control "  name="flagTemp"  id="height" >
+													<option value="height:1" > 显示 </option>
+													<option value="height:0"> 不显示 </option>
+											</select>
+										</div>
+										<div class="form-group col-xs-8">
+											<label for="message-text" class="control-label">体重:</label> <input
+												type="text" class="form-control" name="weight" >
+										</div>
+										<div class="form-group  col-xs-4">
+											<label for="message-text" class="control-label">是否显示:</label> 
+											<select 
+													class="form-control "  name="flagTemp" id="weight">
+													<option value="weight:1" > 显示 </option>
+													<option value="weight:0"> 不显示 </option>
+											</select>
+										</div>
+										<div class="form-group col-xs-8">
+											<label for="message-text" class="control-label">婚姻状况:</label> 
+												<select  class="form-control dicSelect"  name="marriage" placeholder="必填" required>
+													 
+												</select>
+										</div>
+										<div class="form-group  col-xs-4">
+											<label for="message-text" class="control-label">是否显示:</label> 
+											<select 
+													class="form-control "  name="flagTemp"  id="marriage" >
+													<option value="marriage:1" > 显示 </option>
+													<option value="marriage:0"> 不显示 </option>
+											</select>
+										</div>
+										<div class="form-group col-xs-8">
+											<label for="message-text" class="control-label">子女:</label> <input
+												type="text" class="form-control" name="children" >
+										</div>
+										<div class="form-group  col-xs-4">
+											<label for="message-text" class="control-label">是否显示:</label> 
+											<select 
+													class="form-control "  name="flagTemp" id="children" >
+													<option value="children:1" > 显示 </option>
+													<option value="children:0"> 不显示 </option>
+											</select>
+										</div>
+										<div class="form-group col-xs-8">
+											<label for="message-text" class="control-label">学历:</label> 
+												<select  class="form-control dicSelect" name="degree" placeholder="必填" required>
+													 
+												</select>
+										</div>
+										<div class="form-group  col-xs-4">
+											<label for="message-text" class="control-label">是否显示:</label> 
+											<select 
+													class="form-control "  name="flagTemp"  id="degree"  >
+													<option value="degree:1" > 显示 </option>
+													<option value="degree:0"> 不显示 </option>
+											</select>
+										</div>
+										<div class="form-group col-xs-8">
+											<label for="message-text" class="control-label">住房状态:</label>
+												<select  class="form-control dicSelect"  name="houseStatus" placeholder="必填" required>
+													 
+												</select>
+										</div>
+										<div class="form-group  col-xs-4">
+											<label for="message-text" class="control-label">是否显示:</label> 
+											<select 
+													class="form-control "  name="flagTemp" id="houseStatus" >
+													<option value="houseStatus:1" > 显示 </option>
+													<option value="houseStatus:0"> 不显示 </option>
+											</select>
+										</div>
+										<div class="form-group col-xs-8">
+											<label for="message-text" class="control-label">从事行业:</label> <input
+												type="text" class="form-control" name="industry" >
+												
+										</div>
+										<div class="form-group  col-xs-4">
+											<label for="message-text" class="control-label">是否显示:</label> 
+											<select 
+													class="form-control "  name="flagTemp" id="industry">
+													<option value="industry:1" > 显示 </option>
+													<option value="industry:0"> 不显示 </option>
+											</select>
+										</div>
+										<div class="form-group col-xs-8">
+											<label for="message-text" class="control-label">月收入:</label> <input
+												type="text" class="form-control" name="income" >
+										</div>
+										<div class="form-group  col-xs-4">
+											<label for="message-text" class="control-label">是否显示:</label> 
+											<select 
+													class="form-control "  name="flagTemp" id="income">
+													<option value="income:1" > 显示 </option>
+													<option value="income:0"> 不显示 </option>
+											</select>
+										</div>
+										<div class="form-group col-xs-8">
+											<label for="message-text" class="control-label">qq号:</label> <input
+												type="text" class="form-control" name="qq" >
+										</div>
+										<div class="form-group  col-xs-4">
+											<label for="message-text" class="control-label">是否显示:</label> 
+											<select 
+													class="form-control "  name="flagTemp" id="qq">
+													<option value="qq:1" > 显示 </option>
+													<option value="qq:0"> 不显示 </option>
+											</select>
+										</div>
+										<div class="form-group col-xs-8">
+											<label for="message-text" class="control-label">联系电话:</label> <input
+												type="text" class="form-control" name="telephone" >
+										</div>
+										<div class="form-group  col-xs-4">
+											<label for="message-text" class="control-label">是否显示:</label> 
+											<select 
+													class="form-control "  name="flagTemp" id="telephone">
+													<option value="telephone:1" > 显示 </option>
+													<option value="telephone:0"> 不显示 </option>
+											</select>
+										</div>
+										<div class="form-group col-xs-8">
+											<label for="message-text" class="control-label">邮箱:</label> <input
+												type="text" class="form-control" name="email">
+										</div>
+										<div class="form-group  col-xs-4">
+											<label for="message-text" class="control-label">是否显示:</label> 
+											<select 
+													class="form-control "  name="flagTemp"  id="email">
+													<option value="email:1" > 显示 </option>
+													<option value="email:0"> 不显示 </option>
+											</select>
+										</div>
+										<div class="form-group col-xs-8">
+											<label for="message-text" class="control-label">推荐人:</label> <input
+												type="text" class="form-control" name="referee" >
+										</div>
+										<div class="form-group  col-xs-4">
+											<label for="message-text" class="control-label">是否显示:</label> 
+											<select 
+													class="form-control "  name="flagTemp" id="referee">
+													<option value="referee:1" > 显示 </option>
+													<option value="referee:0"> 不显示 </option>
+											</select>
+										</div>
+										<div class="form-group ">
+											<label for="message-text" class="control-label">自我介绍:</label> <input
+												type="text" class="form-control" name="introduction"
+												id="introduction">
+										</div>
+										<div class="form-group">
+											<label for="message-text" class="control-label">爱情宣言:</label> <input
+												type="text" class="form-control" name="declaration"
+												id="declaration">
+										</div>
+										<div class="form-group">
+											<label for="message-text" class="control-label">择偶要求:</label> <input
+												type="text" class="form-control" name="ask" id="ask">
+										</div>
+										<div class="form-group">
+											<label for="message-text" class="control-label">备注:</label> <input
+												type="text" class="form-control" name="remark" id="remark">
+										</div>
+										<div class="form-group">
+											 <button type="button" class="btn btn-default" >关闭</button>
+											<button type="button" class="btn btn-primary" onclick="subInfo()">提交</button>
+										</div>
+									</form>
+                                </div>
+                            </div>
+                            <!-- End .panel -->
+                        </div>
+                        <!-- End col-lg-12 -->
+                    </div>
+                    <!-- End .row -->
+                    <!-- Page End here -->
+                </div>
+                <!-- End .outlet -->
+            </div>
+        <!-- Javascripts -->
+        <!-- Load pace first -->
+        <script src="assets/plugins/core/pace/pace.min.js"></script>
+        <!-- Important javascript libs(put in all pages) -->
+        <script src="assets/js/jquery-1.8.3.min.js"></script>
+        <script>
+        window.jQuery || document.write('<script src="assets/js/libs/jquery-2.1.1.min.js">\x3C/script>')
+        </script>
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script>
+        window.jQuery || document.write('<script src="assets/js/libs/jquery-ui-1.10.4.min.js">\x3C/script>')
+        </script>
+        <!--[if lt IE 9]>
+  <script type="text/javascript" src="assets/js/libs/excanvas.min.js"></script>
+  <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <script type="text/javascript" src="assets/js/libs/respond.min.js"></script>
+<![endif]-->
+        <!-- Bootstrap plugins -->
+        <script src="assets/js/bootstrap/bootstrap.js"></script>
+        <!-- Core plugins ( not remove ever) -->
+        <!-- Handle responsive view functions -->
+        <script src="assets/js/jRespond.min.js"></script>
+        <!-- Custom scroll for sidebars,tables and etc. -->
+        <script src="assets/plugins/core/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="assets/plugins/core/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+        <!-- Resize text area in most pages -->
+        <script src="assets/plugins/forms/autosize/jquery.autosize.js"></script>
+        <!-- Proivde quick search for many widgets -->
+        <script src="assets/plugins/core/quicksearch/jquery.quicksearch.js"></script>
+        <!-- Bootbox confirm dialog for reset postion on panels -->
+        <script src="assets/plugins/ui/bootbox/bootbox.js"></script>
+        <!-- Other plugins ( load only nessesary plugins for every page) -->
+        <script src="assets/plugins/core/moment/moment.min.js"></script>
+        <script src="assets/plugins/charts/sparklines/jquery.sparkline.js"></script>
+        <script src="assets/plugins/charts/pie-chart/jquery.easy-pie-chart.js"></script>
+        <script src="assets/plugins/forms/icheck/jquery.icheck.js"></script>
+        <script src="assets/plugins/forms/tags/jquery.tagsinput.min.js"></script>
+        <script src="assets/plugins/forms/tinymce/tinymce.min.js"></script>
+        <script src="assets/plugins/forms/switch/jquery.onoff.min.js"></script>
+        <script src="assets/plugins/forms/maxlength/bootstrap-maxlength.js"></script>
+        <script src="assets/plugins/forms/bootstrap-filestyle/bootstrap-filestyle.js"></script>
+        <script src="assets/plugins/forms/color-picker/spectrum.js"></script>
+        <script src="assets/plugins/forms/daterangepicker/daterangepicker.js"></script>
+        <script src="assets/plugins/forms/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+        <script src="assets/plugins/forms/globalize/globalize.js"></script>
+        <script src="assets/plugins/forms/maskedinput/jquery.maskedinput.js"></script>
+        <script src="assets/plugins/forms/select2/select2.js"></script>
+        <script src="assets/plugins/forms/dual-list-box/jquery.bootstrap-duallistbox.js"></script>
+        <script src="assets/plugins/forms/password/jquery-passy.js"></script>
+        <script src="assets/plugins/forms/checkall/jquery.checkAll.js"></script>
+        <script src="assets/plugins/misc/highlight/highlight.pack.js"></script>
+        <script src="assets/plugins/misc/countTo/jquery.countTo.js"></script>
+        <script src="assets/js/jquery.sprFlat.js"></script>
+        <script src="assets/js/app.js"></script>
+        <script src="assets/js/pages/forms.js"></script>
+    </body>
+</html>
