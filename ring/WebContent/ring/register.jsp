@@ -5,6 +5,7 @@
 <html id="a1">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>会员管理</title>
 <style type="text/css">
 .panel-body {
@@ -30,8 +31,8 @@ $(document).ready(function(){
 	<div class="grid_3">
   <div class="container">
    <div class="services">
-   	  <div class="col-sm-6 login_left">
-	    <form id="dataForm">openId
+   	  <div class="col-sm-12 col-xs-12 login_left">
+	    <form id="dataForm">
 	    				<input class="form-control " name="openId" type="hidden" value="${openId}"></input>
 						<input class="form-control " name="id" type="hidden"></input>
 						<input class="form-control " name="flag" id="flag" type="hidden"></input>
