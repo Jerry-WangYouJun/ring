@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.common.entry.Pagination;
 import com.dao.CustomerMapper;
+import com.dao.FocusMapper;
 import com.model.Customer;
+import com.model.Focus;
 
 @Service
 public class CustomerService {
@@ -15,6 +17,9 @@ public class CustomerService {
 	
 	@Autowired
 	CustomerMapper mapper;
+	
+	@Autowired
+	FocusMapper focusMapper;
 
 
 	public List<Customer> queryList(Customer customer, Pagination page) {
@@ -48,6 +53,15 @@ public class CustomerService {
 		return mapper.selectByPrimaryKey(id);
 	}
 
-	 	 
+	public List<Focus> queryFocusByWhere(Focus focus , Pagination pagination){
+		return focusMapper.queryByWhere(focus, pagination);
+	}
 	
+	public Integer insertFocus(Focus focus ) {
+		 return focusMapper.insert(focus);
+	}
+	
+	public Integer deleteFocus(Integer id) {
+		return focusMapper.deleteByPrimaryKey(id);
+	}
 }	 
