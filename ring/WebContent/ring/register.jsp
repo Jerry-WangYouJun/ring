@@ -223,7 +223,7 @@ $(document).ready(function(){
 		 $("select:not(.dicSelect)").each(function(){
 			 var idStr = this.id;
 			 $("#" + idStr).val(idStr+":1")
-	}); 
+		 }); 
 	});
 </script>
 

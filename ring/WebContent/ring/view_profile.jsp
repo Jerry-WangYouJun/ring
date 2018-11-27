@@ -11,8 +11,7 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-easyui-1.4/jquery.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-table.min.css" />  
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table.js"></script>
@@ -23,10 +22,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script> 
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js"></script> 
 
+<link href="${pageContext.request.contextPath}/ring/assets/css/icons.css" rel='stylesheet' type='text/css' />
 <!-- Custom Theme files -->
 <link href="${pageContext.request.contextPath}/ring/css/style.css" rel='stylesheet' type='text/css' />
 <!----font-Awesome----->
 <link href="${pageContext.request.contextPath}/ring/css/font-awesome.css" rel="stylesheet"> 
+<link href="${pageContext.request.contextPath}/ring/assets/css/plugins.css" rel="stylesheet" />
+        <!-- Main stylesheets (template main css file) -->
+        <link href="${pageContext.request.contextPath}/ring/assets/css/main.css" rel="stylesheet" />
+        <!-- Custom stylesheets ( Put your own changes here ) -->
+        <link href="${pageContext.request.contextPath}/ring/assets/css/custom.css" rel="stylesheet" />
 <!----font-Awesome----->
 <script>
 		 var status = '${cust.examine }'
@@ -67,6 +72,18 @@ $(document).ready(function(){
 		 }
 	 }
 	 
+	 function updateFocus(state ){
+		  var id = "${cust.id}"
+		  window.location.href="${pageContext.request.contextPath}/customer/insertFocus?toId=" + id;
+		  
+	 }
+	 
+	 function deleteFocus(id ){
+		  var toId = "${cust.id}"
+		  window.location.href="${pageContext.request.contextPath}/customer/deleteFocus?id=" + id + "&toId="+ toId;
+		  
+	 }
+	 
 	 $(function(){
 		 var dic = eval('(${dic})');
 		 var marriageVal = "${cust.marriage }";
@@ -83,9 +100,9 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-
-  <div class="container" style="margin-top:20px">
-   <div class="profile">
+${focus }
+<%@include file="/ring/header.jsp"%>
+   <div class="profile" style="margin-top:50px">
    	 <div class="col-md-12 profile_left">
    	 <c:if test="${cust.sex eq 1}">
    	 		<h2>会员ID : M0532${cust.id }</h2>
@@ -104,9 +121,15 @@ $(document).ready(function(){
 					 </ul>
 				  </div>
 			</div>
-			<div style="margin: 30px"> <a href="##" onclick="detailInfo()">留言</a>
-			 <a href="###" onclick="addInvite(${cust.id})">邀约</a> 
-			 <a href="">点赞</a> </div>
+			<button type="button" class="btn btn-default " onclick="detailInfo()"> 留言</button>
+			<button type="button" class="btn btn-default " onclick="addInvite(${cust.id})">  邀约</button>
+			<c:if test="${focusId eq 0 }">
+				<button type="button" class="btn btn-default " onclick="updateFocus('0')"><i class="im-heart2"></i>  关注</button>
+			</c:if>
+			<c:if test="${ focusId > 0 }">
+				<button type="button" class="btn  btn-success" onclick="deleteFocus(${focusId})"><i class="im-heart"></i>  已关注</button>
+			</c:if>
+			<div style="margin: 30px"> 
 			<div class="col-sm-8 row_1">
 				<table class="table_working_hours">
 		        	<tbody>

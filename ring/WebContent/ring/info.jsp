@@ -10,6 +10,9 @@
 <link rel="stylesheet" href="${basePath}/css/style.css" />
 <script src="${basePath}/js/jquery-3.1.1.min.js"></script>
 <script src="${basePath}/js/bootstrap.min.js"></script>
+ <link href="${pageContext.request.contextPath}/ring/assets/css/main.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/ring/assets/css/custom.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/ring/assets/css/icons.css" rel="stylesheet" />
 <script type="text/javascript">
 	 function updateStates(id , states){
 		 var str = "";
@@ -60,7 +63,8 @@
 </script>
 </head>
 <body>
-		<div class="container-fluid">
+<%@include file="/ring/header.jsp"%>
+		<div class="container-fluid"  style="margin-top:50px">
 			<div class="row container">
 				<ul class="nav nav-tabs" role="tablist">
 					<li role="presentation" class="col-md-6 col-xs-6 active">

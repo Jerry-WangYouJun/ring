@@ -12,6 +12,23 @@
 <script src="${basePath}/js/jquery-3.1.1.min.js"></script>
 <script src="${basePath}/ring/assets/js/bootstrap/bootstrap.js"></script>
 <script type="text/javascript">
+		$(function(){
+			 $(".dicSelect").each(function(){
+				     var field = this.name ;
+			    	 var htmlStr = "";
+				     if (dic.hasOwnProperty(field)) {
+						 for( var keyValue in dic[field] ){
+							   htmlStr += "<option value="+keyValue+">"+dic[field][keyValue].describ+"</option>"
+						 }
+					  } 
+				     $(this).append(htmlStr);
+			 });
+			 
+			 $("#late").val("${evaluate.late}");
+			 $("#next").val("${evaluate.next}");
+			 $("#talk").val("${evaluate.talk}");
+			 $("#compare").val("${evaluate.compare}");
+		});
 	 function updateStates(id , states){
 		 var str = "";
 		 if(states == '3' || states =='5'){
@@ -61,6 +78,7 @@
 </script>
 </head>
 <body>
+
 		<div class="container-fluid">
 			 <div class="row">
                         <div class="">
@@ -116,15 +134,40 @@
                                     <input type="hidden" name="dateingId" value="${invite.id }">
                                      <input type="hidden" name="toId" value="${evaluateCust.id}">
                                      <input type="hidden" name="evaluateIds" id="evaluateIds" >
+                                     <input type="hidden" name="id" value="${evaluate.id }">
                                         <div class="form-group">
                                             <label class="control-label mt10">添加标签</label>
                                              <input type="text" class="form-control col-lg-6 col-md-6"  id="tagA"  onchange="addTags()">
 	                                        <div class="tags" >
 					                        </div>
                                         </div>
+                                         <div class="form-group">
+                                            <label class="control-label">是否发生迟到</label>
+                                           		<select 
+													class="form-control dicSelect" id="late" name="late" >
+												</select>
+                                        </div>
+                                         <div class="form-group">
+                                            <label class="control-label">对方实际情况与系统描述相符情况</label>
+                                            <select 
+													class="form-control dicSelect" id="compare" name="compare" >
+												</select>
+                                        </div>
+                                         <div class="form-group">
+                                            <label class="control-label">互动中，对方反馈积极程度</label>
+                                           	<select 
+													class="form-control dicSelect" id="talk" name="talk" >
+												</select>
+                                        </div>
+                                         <div class="form-group">
+                                            <label class="control-label">是否愿意再次与对方见面</label>
+                                            <select  
+													class="form-control dicSelect" id="next" name="next" >
+												</select>
                                         <div class="form-group">
                                             <label class="control-label">评价</label>
-                                            <textarea class="form-control" rows="3"></textarea>
+                                            <textarea class="form-control" rows="3" name="evaluateMsg"></textarea>
+                                        </div>
                                         </div>
                                         <!-- End .form-group  -->
                                         <div class="form-group">

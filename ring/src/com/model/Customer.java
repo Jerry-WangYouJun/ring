@@ -1,5 +1,6 @@
 package com.model;
 
+import java.util.List;
 
 public class Customer {
     private Integer id;
@@ -68,6 +69,8 @@ public class Customer {
     private Integer ageTo ;
     private Double heightFrom;
     private Double heightTo;
+    
+    List<Focus> focus  ;
 
     public Integer getId() {
         return id;
@@ -348,5 +351,12 @@ public class Customer {
 	public void setLoca(String loca) {
 		this.loca = loca;
 	}
-    
+
+	public List<Focus> getFocus() {
+		return focus;
+	}
+
+	public void setFocus(List<Focus> focus) {
+		this.focus = focus;
+	}
 }

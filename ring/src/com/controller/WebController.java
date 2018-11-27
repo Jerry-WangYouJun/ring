@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.common.entry.Message;
 import com.common.entry.Pagination;
 import com.dao.EvaluateMapper;
+import com.dao.UserDao;
 import com.model.Customer;
 import com.model.Dictionary;
 import com.model.Evaluate;
+import com.model.Focus;
 import com.model.Invite;
 import com.model.InviteDetail;
 import com.model.Location;
@@ -51,6 +53,8 @@ public class WebController {
 	EvaluateMapper evaluateMapper;
 	@Autowired
 	DictionaryService dicService;
+	@Autowired
+	UserDao  dao ;
 	
 	@RequestMapping("/login")
 	public String login( HttpSession session , User user) {
@@ -104,10 +108,36 @@ public class WebController {
 		return "forward:/ring/index.jsp";
 	}
 	
+	@RequestMapping("/myFocus")
+	public String myFocus(HttpServletRequest  request  ,HttpSession session ) {
+		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
+		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
+		User  user = (User)request.getSession().getAttribute("webUser");
+		Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
+		List<Focus>  list = cust.getFocus();
+		List<Customer> customerList = new ArrayList<>();
+		for(Focus f : list) {
+			Customer c = custService.selectById(f.getToId());
+			customerList.add(c);
+		}
+		request.setAttribute("list", customerList);
+		return "forward:/ring/focus.jsp";
+	}
+	
 	@RequestMapping("/customer")
 	public String customer(HttpServletRequest  request , Integer id ) {
 		Customer cust = custService.selectById(id);
 		request.setAttribute("cust", cust);
+		Customer custLogin = (Customer)request.getSession().getAttribute("customer");
+		Focus focus = new Focus();
+		focus.setFromId(custLogin.getId());
+		focus.setToId(id);
+		List<Focus> focusList = custService.queryFocusByWhere(focus, new Pagination());
+		if(focusList != null &&  focusList.size() > 0) {
+			request.setAttribute("focusId", focusList.get(0).getId()  );
+		}else {
+			request.setAttribute("focusId", 0  );
+		}
 		return "forward:/ring/view_profile.jsp";
 	}
 	
@@ -208,15 +238,26 @@ public class WebController {
 		 }else{
 			 custId = invite.getFromId();
 		 }
+		Evaluate ev = new Evaluate();
+		ev.setDateingId(id);
+		List<Evaluate> list= evaluateMapper.queryByWhere(ev, new Pagination());
+		if(list != null && list.size() > 0) {
+			ev = list.get(0);
+		}
 		Customer evaluateCust = custService.selectById(custId);
 		request.setAttribute("evaluateCust", evaluateCust);
 		request.setAttribute("invite", invite);
+		request.setAttribute("evaluate", ev);
 		return "forward:/ring/evaluate.jsp";
 	}
 	
 	@RequestMapping("/evaluateAdd")
 	public String evaluateAdd(Evaluate evaluate  ) {
-		evaluateMapper.insert(evaluate);
+		if(evaluate.getId() != null && evaluate.getId() > 0) {
+			evaluateMapper.updateByPrimaryKey(evaluate);
+		}else {
+			evaluateMapper.insert(evaluate);
+		}
 		return "forward:/web/dateinfo";
 	}
 }

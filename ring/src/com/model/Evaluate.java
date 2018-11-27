@@ -17,6 +17,12 @@ public class Evaluate {
     private String evaluateMsg;
 
     private String evaluateIds;
+    
+    private String compare ;
+    
+    private String next ;
+    private String talk;
+    private String late;
 
     private String remark;
     
@@ -94,5 +100,38 @@ public class Evaluate {
 	public void setCustomerJoin(Customer customerJoin) {
 		this.customerJoin = customerJoin;
 	}
+
+	public String getCompare() {
+		return compare;
+	}
+
+	public void setCompare(String compare) {
+		this.compare = compare;
+	}
+
+	public String getNext() {
+		return next;
+	}
+
+	public void setNext(String next) {
+		this.next = next;
+	}
+
+	public String getTalk() {
+		return talk;
+	}
+
+	public void setTalk(String talk) {
+		this.talk = talk;
+	}
+
+	public String getLate() {
+		return late;
+	}
+
+	public void setLate(String late) {
+		this.late = late;
+	}
     
+	
 }

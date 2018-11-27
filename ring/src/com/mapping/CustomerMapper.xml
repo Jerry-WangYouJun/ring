@@ -31,13 +31,23 @@
     <result column="flag" jdbcType="VARCHAR" property="flag" />
     <result column="loca" jdbcType="VARCHAR" property="loca" />
     <result column="age" jdbcType="INTEGER" property="age" />
+    <collection property="focus" ofType="com.model.Focus" select="getFocus" column="id">
+		</collection>
   </resultMap>
   <sql id="Base_Column_List">
     id, examine, head_image, ch_name, nick_name, sex, birthday, hometown, addtress, height, 
     weight, marriage, children, degree, house_status, industry, income, qq, telephone, 
     email, referee, introduction, declaration, ask, remark,flag , openId ,age , loca
   </sql>
-  
+  <select id="getFocus" parameterType="int" resultType="com.model.Focus">
+		select 
+			s.id,
+			s. from_id as fromId,
+			s.to_id as toId
+		from t_focus s
+		where from_id = #{id}
+	</select>
+	
   <select id="queryByWhere" resultMap="BaseResultMap" >
   	    select  <include refid="Base_Column_List" /> from t_customer where 1=1 
   	    <if test="obj.id!=null and obj.id > 0">

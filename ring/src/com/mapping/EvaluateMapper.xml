@@ -9,11 +9,16 @@
     <result column="evaluate_msg" jdbcType="VARCHAR" property="evaluateMsg" />
     <result column="evaluate_ids" jdbcType="VARCHAR" property="evaluateIds" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    
+    <result column="compare" jdbcType="VARCHAR" property="compare" />
+    <result column="late" jdbcType="VARCHAR" property="late" />
+    <result column="talk" jdbcType="VARCHAR" property="talk" />
+    <result column="next" jdbcType="VARCHAR" property="next" />
      <association property="customerFrom" column="from_id" javaType="com.model.Customer" select="selectCustomer"/>
     <association property="customerJoin" column="to_id" javaType="com.model.Customer" select="selectCustomer"/>
   </resultMap>
   <sql id="Base_Column_List">
-    id, from_id,dateing_id, to_id, evaluate_msg, evaluate_ids, remark
+    id, from_id,dateing_id, to_id, evaluate_msg, evaluate_ids, remark ,compare,late,talk,next
   </sql>
   <select id="selectCustomer" parameterType="java.lang.Integer" resultType="com.model.Customer">
     select  * from t_customer
@@ -65,10 +70,11 @@
   </delete>
   <insert id="insert" parameterType="com.model.Evaluate">
     insert into t_evaluate (id, dateing_id, from_id, to_id, 
-      evaluate_msg, evaluate_ids, remark
+      evaluate_msg, evaluate_ids, remark ,compare,late,talk,next
       )
     values (#{id,jdbcType=INTEGER},#{dateingId,jdbcType=INTEGER}, #{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER}, 
-      #{evaluateMsg,jdbcType=VARCHAR}, #{evaluateIds,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      #{evaluateMsg,jdbcType=VARCHAR}, #{evaluateIds,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR} ,
+      #{compare,jdbcType=VARCHAR}, #{late,jdbcType=VARCHAR}, #{talk,jdbcType=VARCHAR} , #{next,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.model.Evaluate">
@@ -152,7 +158,11 @@
       to_id = #{toId,jdbcType=INTEGER},
       evaluate_msg = #{evaluateMsg,jdbcType=VARCHAR},
       evaluate_ids = #{evaluateIds,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR} ,
+      compare = #{compare,jdbcType=VARCHAR}, 
+      next = #{next,jdbcType=VARCHAR}, 
+      talk = #{talk,jdbcType=VARCHAR} ,
+      late = #{late,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

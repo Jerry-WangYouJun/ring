@@ -17,7 +17,7 @@
 <link href='https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
 <!----font-Awesome----->
 <link href="${pageContext.request.contextPath}/ring/css/font-awesome.css" rel="stylesheet"> 
-<link href="assets/css/icons.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/ring/assets/css/icons.css" rel="stylesheet" />
         <!-- jQueryUI -->
         <link href="${pageContext.request.contextPath}/ring/assets/css/sprflat-theme/jquery.ui.all.css" rel="stylesheet" />
         <!-- Bootstrap stylesheets (included template modifications) -->
@@ -45,45 +45,8 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-   <div id="header" class="header-fixed">
-            <div class="container-fluid">
-                <div class="navbar">
-                    <nav class="top-nav pull-right" role="navigation">
-                        <ul class="nav navbar-nav ">
-                                    <li><a href="${pageContext.request.contextPath}/web/dateinfo"><i class="st-user"></i> 我的约会</a>
-                                    </li>
-                                    <li><a href="${pageContext.request.contextPath}/web/info"><i class="st-cloud"></i> 我的邀约</a>
-                                    </li>
-                                    <li><a href="profile.html"><i class="st-user"></i> 我的关注</a>
-                                    </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div> 
+   <%@include file="/ring/header.jsp"%>
 <!-- ============================  Navigation Start =========================== -->
- <%-- <div class="navbar navbar-inverse-blue navbar">
-    <!--<div class="navbar navbar-inverse-blue navbar-fixed-top">-->
-      <div class="navbar-inner navbar-inner_1">
-        <div class="container">
-           <div class="pull-right">
-          	<nav class="navbar" >
-		    <div class="top-nav" role="navigation">
-		        <ul class="nav navbar-nav">
-		       		<li><a href="${pageContext.request.contextPath}/web/dateinfo">我的约会</a></li>
-		            <li><a href="${pageContext.request.contextPath}/web/info">邀请记录</a></li>
-		            <li><a href="about.html">留言信息</a></li>
-		            <li class="last"><a href="contact.html">联系方式</a></li>
-		        </ul>
-		     </div><!-- /.navbar-collapse -->
-		    </nav>
-		   </div> <!-- end pull-right -->
-          <div class="clearfix"> </div>
-        </div> <!-- end container -->
-      </div> <!-- end navbar-inner -->
-    </div> <!-- end navbar-inverse-blue --> --%>
-<!-- ============================  Navigation End ============================ -->
-<!-- Page start here ( usual with .row ) -->
                     <div class="row" style="margin-top:50px" >
                         <!-- Start .row -->
                         <div class="col-lg-12">

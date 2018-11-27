@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import com.common.entry.Grid;
 import com.common.entry.Message;
 import com.common.entry.Pagination;
 import com.model.Customer;
+import com.model.Focus;
 import com.model.User;
 import com.pay.util.NoticeUtil;
 import com.pay.util.WXAuthUtil;
@@ -121,6 +123,20 @@ public class CustomerController {
 			 return msg ;
 		} 
 		return msg;
+	}
+	
+	@RequestMapping("/insertFocus")
+	public String insertFocus(Focus focus ,HttpServletRequest request ,HttpSession session ) {
+		 Customer cust = (Customer)session.getAttribute("customer");
+		 focus.setFromId(cust.getId());
+		 service.insertFocus(focus);
+		 return "forward:/web/customer?id=" + focus.getToId();
+	}
+	
+	@RequestMapping("/deleteFocus")
+	public String deleteFocus(Focus focus ) {
+		 service.deleteFocus(focus.getId());
+		 return "forward:/web/customer?id=" + focus.getToId();
 	}
 	
 }
