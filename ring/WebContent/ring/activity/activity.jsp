@@ -1,0 +1,187 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@include file="/common.jsp"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html id="a1">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="stylesheet" href="${basePath}/css/style.css" />
+ <link href="${pageContext.request.contextPath}/ring/assets/css/main.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/ring/assets/css/custom.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/ring/assets/css/icons.css" rel="stylesheet" />
+    <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/ueditor/ueditor.all.min.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/ueditor/lang/zh-cn/zh-cn.js"></script>
+<title>新建活动</title>
+<style type="text/css">
+.panel-body {
+	padding: 0px !important;
+}
+</style>
+<script>
+$(document).ready(function(){
+    $(".dropdown").hover(            
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+            $(this).toggleClass('open');        
+        },
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+            $(this).toggleClass('open');       
+        }
+    );
+});
+</script>
+</head>
+<body id="a2">
+<%@include file="/ring/activity/header.jsp"%>
+	<div class="grid_3" style="margin-top:70px">
+  <div class="container">
+   <div class="services">
+   	  <div class="col-sm-12 col-xs-12 login_left">
+	    <form id="dataForm">
+						<input class="form-control " name="id" type="hidden"></input>
+						<input class="form-control " name="tags" id="tags" type="hidden"></input>
+						<div class="form-group" >
+							<label for="message-text" class="control-label">活动名称:</label> <input
+								type="text" class="form-control" name="actName" id="actName" placeholder="必填" required>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">活动时间:</label> 
+							 <div class='input-group date' id='datetimepicker2'>
+								<input type='text' class="form-control" readonly name="actDate"
+									id="actDate" placeholder="必填" required/> <span class="input-group-addon"> <span
+									class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">活动地点:</label> <input
+								type="text" class="form-control required" name="actLoca" id="actLoca" placeholder="必填" >
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">具体地址:</label> <input
+								type="text" class="form-control required" name="actAddress" id="actAddress" placeholder="必填" >
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">费用(元):</label> <input
+								type="text" class="form-control number" name="money" id="money" placeholder="必填" >
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">主办方:</label>
+								<select  class="form-control dicSelect"  name="admin" placeholder="必填" required>
+								</select>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">活动形式:</label> 
+							<select  class="form-control dicSelect"  name="actForm" placeholder="必填" required>
+									 
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">标签:</label>
+                                     <div class="tags" >
+	                       		 	 </div>
+								<div class="form-group">
+                                        <label class="control-label mt10">添加标签</label>
+                                         <input type="text" class="form-control col-lg-6 col-md-6"  id="tagA"  onchange="addTags()">
+                                </div>
+						</div>
+						
+						<script id="editor" type="text/plain" ></script>
+						<div class="form-group">
+							<label for="message-text" class="control-label">备注:</label> <input
+								type="text" class="form-control" name="remark" id="remark">
+						</div>
+						<div class="form-group">
+							 <button type="button" class="btn btn-default" >关闭</button>
+							<button type="button" class="btn btn-primary" onclick="subInfo()">提交</button>
+						</div>
+					</form>
+	  </div>
+	  <div class="clearfix"> </div>
+   </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+	var ue = UE.getEditor('editor');
+	
+	function subInfo() {
+		subInfoAll("act");
+	}
+	
+	function subInfoAll(name) {
+		
+		if(!$("#dataForm").validate().form()){
+			return false ; 
+		}
+		var path = "${pageContext.request.contextPath}/"+name+"/"+name+"_edit";
+		$.ajax({
+			url : path,
+			type : 'post',
+			data : $("#dataForm").serialize(),
+			dataType : 'json',
+			success : function(data) {
+				if (data.success) {
+					alert(data.msg);
+					$("#infoTable").bootstrapTable("refresh");
+					window.location.href="/act/index";
+				} else {
+					alert(data.msg);
+				}
+	
+			},
+			error : function(transport) {
+				alert("系统产生错误,请联系管理员!");
+			}
+		});
+	}
+	
+	$(function(){
+		 
+		 $(".dicSelect").each(function(){
+			     var field = this.name ;
+		    	 var htmlStr = "";
+			     if (dic.hasOwnProperty(field)) {
+					 for( var keyValue in dic[field] ){
+						   htmlStr += "<option value="+keyValue+">"+dic[field][keyValue].describ+"</option>"
+					 }
+				  } 
+			     $(this).append(htmlStr);
+		 });
+		 
+		 if($('#datetimepicker2')[0] != undefined){
+				$('#datetimepicker2').datetimepicker({  
+					minView: "month",
+					format: 'yyyy-mm-dd hh:00',
+				    todayBtn: false,//显示今日按钮
+				    autoclose: true,
+				    language:"zh-CN",
+				    clearBtn: true ,
+				    startDate: new Date(),
+				    minView: 1
+				});
+				
+			}
+	});
+	
+	function addTags(){
+		 var rand = parseInt(Math.random() * (4) + 1); 
+		 var  val = $("#tagA").val();
+		 var arr = ["primary","success","info","warning"];
+		 $("#tags").val($("#tags").val() + val + ",");
+		 $(".tags").append('<span class="badge badge-' +arr[rand] +'  mt10">'+ val+'<a href="####"  onclick="deleteTag(this)" class="mr5">X</a></span>');
+	 }
+	 function deleteTag(obj){
+		   $(obj).parent().remove();
+	 }
+</script>
+
+
+</html>

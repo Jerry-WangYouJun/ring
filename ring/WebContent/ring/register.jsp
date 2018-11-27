@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>会员管理</title>
+<title>会员注册</title>
 <style type="text/css">
 .panel-body {
 	padding: 0px !important;

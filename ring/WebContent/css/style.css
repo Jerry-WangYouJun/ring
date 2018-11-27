@@ -219,8 +219,8 @@ ul, ol {
 .dingwei {
 	position: fixed;
 	bottom: 0px;
-	left: 30px;
-	right: 30px;
+	left: 0px;
+	right: 0px;
 	background-color: #FFFFFF;
 	padding-top: 10px;
 }

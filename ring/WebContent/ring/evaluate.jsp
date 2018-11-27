@@ -155,7 +155,7 @@
                                         </div>
                                          <div class="form-group">
                                             <label class="control-label">互动中，对方反馈积极程度</label>
-                                           	<select 
+                                           	    <select 
 													class="form-control dicSelect" id="talk" name="talk" >
 												</select>
                                         </div>

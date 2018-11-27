@@ -66,8 +66,6 @@ $(document).ready(function(){
 		   var hour =  $("#confirmTime").val();
 		   var select = ev.date.getHours();
 		   var flag = true
-		   console.info(select);
-		   console.info(hour)
 		   if(hour != select){
 			    if( !(hour == '10-12' && select > 9 && select < 12) && !( hour == '13-17' && select > 12 && select < 17)){
 			    	flag = false ;

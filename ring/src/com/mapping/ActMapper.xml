@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ActMapper">
+  <resultMap id="BaseResultMap" type="com.model.Act">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cust_id" jdbcType="INTEGER" property="custId" />
+    <result column="act_name" jdbcType="VARCHAR" property="actName" />
+    <result column="act_loca" jdbcType="VARCHAR" property="actLoca" />
+    <result column="act_address" jdbcType="VARCHAR" property="actAddress" />
+    <result column="admin" jdbcType="VARCHAR" property="admin" />
+    <result column="act_form" jdbcType="VARCHAR" property="actForm" />
+    <result column="tags" jdbcType="VARCHAR" property="tags" />
+    <result column="editorValue" jdbcType="VARCHAR" property="editorValue" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="act_date" jdbcType="TIMESTAMP" property="actDate" />
+    <result column="act_state" jdbcType="VARCHAR" property="actState" />
+     <association property="customer" column="cust_id" javaType="com.model.Customer" select="selectCustomer"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, act_name, act_loca, act_address, admin, act_form, tags, editorValue, money , act_date , act_state,cust_id
+  </sql>
+  
+   <select id="selectCustomer" parameterType="java.lang.Integer" resultType="com.model.Customer">
+    select  * from t_customer
+    where id = #{id}
+  </select>
+  
+  <select id="queryByWhere" resultMap="BaseResultMap" >
+  	    select  <include refid="Base_Column_List" /> from t_act where 1=1 
+  	     <if test="obj.id!=null and obj.id > 0">
+  	    	    and id = #{obj.id}
+  	    </if>
+  	    <if test="obj.custId!=null and obj.custId > 0">
+  	    	    and cust_id = #{obj.custId}
+  	    </if>
+  	    <if test="obj.actName!=null and obj.actName != ''">
+  	    	    and act_name  like  #{obj.actName}
+  	    </if>
+  	    <if test="obj.actForm !=null and obj.actForm != '' ">
+  	    	 	and  act_form like #{obj.actForm}
+  	    </if>
+  	    <if test="obj.actLoca!= null and obj.actLoca != '' ">
+  	    	     and act_loca like #{obj.actLoca}
+  	    </if>
+  	     limit  #{page.start}, #{page.pageSize} 
+  </select>
+  
+  <select id="queryTotal"  resultType="java.lang.Integer">
+  	    select count(*) from t_act where 1=1 
+  	    <if test="id!=null and id > 0">
+  	    	    and id = #{id}
+  	    </if>
+  	    <if test="custId!=null and custId > 0">
+  	    	    and cust_id = #{custId}
+  	    </if>
+  	     <if test="actName!=null and actName != ''">
+  	    	    and act_name  like  #{actName}
+  	    </if>
+  	    <if test="actForm !=null and actForm != '' ">
+  	    	 	and  act_form like #{actForm}
+  	    </if>
+  	    <if test="actLoca!= null and actLoca != '' ">
+  	    	     and act_loca like #{actLoca}
+  	    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_act
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_act
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.Act">
+    insert into t_act (id, act_name, act_loca, 
+      act_address, admin, act_form, 
+      tags, editorValue, money ,act_date , act_state , cust_id)
+    values (#{id,jdbcType=INTEGER}, #{actName,jdbcType=VARCHAR}, #{actLoca,jdbcType=VARCHAR}, 
+      #{actAddress,jdbcType=VARCHAR}, #{admin,jdbcType=VARCHAR}, #{actForm,jdbcType=VARCHAR}, 
+      #{tags,jdbcType=VARCHAR}, #{editorValue,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE} ,
+      #{actDate,jdbcType=TIMESTAMP}, #{actState,jdbcType=VARCHAR},#{custId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.Act">
+    insert into t_act
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="actName != null">
+        act_name,
+      </if>
+      <if test="actLoca != null">
+        act_loca,
+      </if>
+      <if test="actAddress != null">
+        act_address,
+      </if>
+      <if test="admin != null">
+        admin,
+      </if>
+      <if test="actForm != null">
+        act_form,
+      </if>
+      <if test="tags != null">
+        tags,
+      </if>
+      <if test="editorValue != null">
+        editorValue,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="actName != null">
+        #{actName,jdbcType=VARCHAR},
+      </if>
+      <if test="actLoca != null">
+        #{actLoca,jdbcType=VARCHAR},
+      </if>
+      <if test="actAddress != null">
+        #{actAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="admin != null">
+        #{admin,jdbcType=VARCHAR},
+      </if>
+      <if test="actForm != null">
+        #{actForm,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null">
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="editorValue != null">
+        #{editorValue,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Act">
+    update t_act
+    <set>
+      <if test="actName != null">
+        act_name = #{actName,jdbcType=VARCHAR},
+      </if>
+      <if test="actLoca != null">
+        act_loca = #{actLoca,jdbcType=VARCHAR},
+      </if>
+      <if test="actAddress != null">
+        act_address = #{actAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="admin != null">
+        admin = #{admin,jdbcType=VARCHAR},
+      </if>
+      <if test="actForm != null">
+        act_form = #{actForm,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null">
+        tags = #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="editorValue != null">
+        editorValue = #{editorValue,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Act">
+    update t_act
+    set act_name = #{actName,jdbcType=VARCHAR},
+      act_loca = #{actLoca,jdbcType=VARCHAR},
+      act_address = #{actAddress,jdbcType=VARCHAR},
+      admin = #{admin,jdbcType=VARCHAR},
+      act_form = #{actForm,jdbcType=VARCHAR},
+      tags = #{tags,jdbcType=VARCHAR},
+      editorValue = #{editorValue,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DOUBLE},
+      act_ate = #{actDate,jdbcType=TIMESTAMP},
+      act_state = #{actState,jdbcType=VARCHAR},
+      cust_id = #{custId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
