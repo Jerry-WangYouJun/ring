@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.common.StringUtils;
 import com.common.entry.Pagination;
 import com.model.Customer;
+import com.model.Dictionary;
+import com.model.User;
 import com.pay.config.WxPayConfig;
 import com.pay.util.CommonUtil;
 import com.pay.util.OrderUtils;
@@ -37,6 +39,7 @@ import com.pay.util.WXAuthUtil;
 import com.pay.util.WeixinPayUtil;
 import com.service.CustomerService;
 import com.service.DictionaryService;
+import com.service.UserService;
 
 /**
  * 微信支付Controller
@@ -52,6 +55,8 @@ public class WeixinPayController {
 	CustomerService custService;
 	@Autowired
 	DictionaryService dicService;
+	@Autowired
+	UserService userService ;
 	
 	
 	private static String baseUrl = "http://www.ringfingerdating.cn";
@@ -108,10 +113,14 @@ public class WeixinPayController {
 		return null;
 	}
 	
+	
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request, HttpServletResponse response){
+		String action = request.getParameter("action");
+		String id = request.getParameter("id");
 		//授权后要跳转的链接
-		String backUri = baseUrl + "/wx/check";
+		//邀约传web   活动传act   文章传article
+		String backUri = baseUrl + "/wx/check?action=" + action + "&id=" + id;
 		//URLEncoder.encode 后可以在backUri 的url里面获取传递的所有参数
 		backUri = URLEncoder.encode(backUri);
 		//scope 参数视各自需求而定，这里用scope=snsapi_base 不弹出授权页面直接授权目的只获取统一支付接口的openid
@@ -190,12 +199,27 @@ public class WeixinPayController {
 		                System.out.println("头像-----"+userInfo.getString("headimgurl"));
 		                Customer customer = new Customer();
 		                customer.setOpenId(userInfo.getString("openid"));
-		       List<Customer> cust = custService.queryList(customer, new Pagination());
-		if(cust ==null || cust.size() ==0){
-			return "forward:/web/register?openId=" + customer.getOpenId();
-		}else{
-				return "forward:/web/login?userNo=" + customer.getOpenId() + "&pwd=123";
-		}
+		       List<Customer> custList = custService.queryList(customer, new Pagination());
+		       if(custList ==null || custList.size() ==0){
+					return "forward:/web/register?openId=" + customer.getOpenId();
+				}else {
+					User user = new User();
+					user.setUserNo(customer.getOpenId());
+					user.setPwd("123");
+					user = userService.checkUser(user);
+					request.getSession().setAttribute("webUser", user);
+					Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
+					request.getSession().setAttribute("customer", cust);
+					Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
+					request.getSession().setAttribute("dic",   JSONObject.fromObject(dicMap));
+				}
+		       String action = request.getParameter("action");
+		       String id = request.getParameter("id");
+		    	   if(StringUtils.isNotEmpty(id)) {
+		    		   return "forward:/" +action + "/detail?id=" + id ;
+		    	   }else{
+		    		   return "forward:/" +action + "/index" ;
+		    	   }
 		
 	}
 	@RequestMapping("/toPay")

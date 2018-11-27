@@ -118,6 +118,9 @@
                      <li>
                     	 	 <a href="#" class="st-tag" onclick='addTab("evaluate","${pageContext.request.contextPath}/pages/evaluate_list.jsp","会员评价信息")'> 会员评价信息 </a>
                     </li>
+                    <li>
+                    	 	 <a href="#" class="st-tag" onclick='addTab("act","${pageContext.request.contextPath}/pages/act_list.jsp","活动信息")'> 活动信息 </a>
+                    </li>
                 </ul>
             </div>
             <!-- End .sidebar-inner -->

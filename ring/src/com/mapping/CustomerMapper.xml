@@ -109,8 +109,8 @@
   	    <if test="loca!= null and loca != '' ">
   	    	     and loca = #{loca}
   	    </if>
-  	     <if test="address!= null and address != '' ">
-  	    	     and address = #{address}
+  	     <if test="addtress!= null and addtress  != '' ">
+  	    	     and addtress = #{addtress}
   	    </if>
   	    <if test="ageFrom!=null and ageFrom > 0">
   	    	    and age  >= #{ageFrom}

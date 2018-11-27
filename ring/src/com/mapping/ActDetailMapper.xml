@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ActDetailMapper">
+  <resultMap id="BaseResultMap" type="com.model.ActDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="act_id" jdbcType="INTEGER" property="actId" />
+    <result column="cust_id" jdbcType="INTEGER" property="custId" />
+    <result column="detail_state" jdbcType="VARCHAR" property="detailState" />
+     <association property="act" column="act_id" javaType="com.model.Act" select="selectAct"/>
+    <association property="customer" column="cust_id" javaType="com.model.Customer" select="selectCustomer"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, act_id, cust_id, detail_state
+  </sql>
+   <select id="selectAct" parameterType="java.lang.Integer" resultType="com.model.Act">
+    select  * from t_act
+    where id = #{id}
+  </select>
+  <select id="selectCustomer" parameterType="java.lang.Integer" resultType="com.model.Customer">
+    select  * from t_customer
+    where id = #{id}
+  </select>
+  
+  <select id="queryByWhere" resultMap="BaseResultMap" >
+  	    select  <include refid="Base_Column_List" /> from t_act_detail where 1=1 
+  	    <if test="obj.id!=null and obj.id > 0">
+  	    	    and id = #{obj.id}
+  	    </if>
+  	    <if test=" obj.detailState !=null and obj.detailState   != '' ">
+  	    	 	and  detail_tate = #{obj.detailState}
+  	    </if>
+  	    <if test="obj.actId !=null and obj.actId   > 0  ">
+  	    	 	and  act_id = #{obj.actId}
+  	    </if>
+  	    <if test="obj.custId!= null and obj.custId   > 0  ">
+  	    	     and cust_id = #{obj.custId}
+  	    </if>
+  	     limit  #{page.start}, #{page.pageSize} 
+  </select>
+  
+  <select id="queryTotal"  resultType="java.lang.Integer">
+  	    select count(*) from t_act_detail where 1=1 
+  	    <if test="id!=null and id > 0">
+  	    	    and id = #{id}
+  	    </if>
+  	    <if test="detailState !=null and detailState  != '' ">
+  	    	 	and  detail_state = #{detailState}
+  	    </if>
+  	    <if test="actId !=null and actId   > 0  ">
+  	    	 	and  act_id = #{actId}
+  	    </if>
+  	    <if test="custId!= null and custId  > 0 ">
+  	    	     and cust_id = #{custId}
+  	    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_act_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_act_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.ActDetail">
+    insert into t_act_detail (id, act_id, cust_id, 
+      detail_state
+      )
+    values (#{id,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER}, #{custId,jdbcType=INTEGER}, 
+      #{detailState,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.model.ActDetail">
+    update t_act_detail
+    set
+      act_id = #{actId,jdbcType=INTEGER},
+      cust_id = #{custId,jdbcType=INTEGER},
+      detail_state = #{detailState,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

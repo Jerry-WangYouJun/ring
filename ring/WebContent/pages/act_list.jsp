@@ -5,7 +5,7 @@
 <html id="a1">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>会员评价查看</title>
+<title>活动查看</title>
 <style type="text/css">
 .panel-body {
 	padding: 0px !important;
@@ -22,7 +22,7 @@
 				<div id="toolbar" class="btn-group">
 					<button id="btn_delete" type="button" class="btn btn-default"
 						onclick="detailInfo()">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>评价历史
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>参与人员详情
 					</button>
 				</div>
 			</div>
@@ -57,7 +57,7 @@ function detailInfo() {
 
 	$(function() {
 		$('#infoTable').bootstrapTable({
-			url : '${basePath}/customer/query', // 请求后台的URL（*）            
+			url : '${basePath}/act/query', // 请求后台的URL（*）            
 			method : 'get', // 请求方式（*）  
 			toolbar : '#toolbar', // 工具按钮用哪个容器  
 			cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）  
@@ -79,46 +79,62 @@ function detailInfo() {
 				field : 'id',
 				visible : false
 			}, {
-				field : 'chName',
-				title : '会员名',
+				field : 'custName',
+				title : '创建人',
+				align : 'center',
+				valign : 'middle',
+				formatter : function(value, row, index, field) {
+					return row.customer.chName;
+				}
+			}, {
+				field : 'actName',
+				title : '活动名称',
 				align : 'center',
 				valign : 'middle'
 			}, {
-				field : 'nickName',
-				title : '会员昵称',
+				field : 'actDate',
+				title : '活动时间',
 				align : 'center',
 				valign : 'middle'
 			}, {
-				field : 'sex',
-				title : '性别',
+				field : 'actLoca',
+				title : '活动地点',
+				align : 'center',
+				valign : 'middle'
+			}, {
+				field : 'actAddress',
+				title : '详细地址',
+				align : 'center',
+				valign : 'middle'
+			}, {
+				field : 'admin',
+				title : '主办方',
 				align : 'center',
 				valign : 'middle',
 				formatter : function(value, row, index, field) {
 					return getDicDescirb(value, field);
 				}
 			}, {
-				field : 'birthday',
-				title : '生日',
+				field : 'money',
+				title : '费用',
 				align : 'center',
 				valign : 'middle'
 			}, {
-				field : 'telephone',
-				title : '联系电话',
-				align : 'center',
-				valign : 'middle'
-			}, {
-				field : 'examine',
-				title : '审核状态',
+				field : 'actForm',
+				title : '互动形式',
 				align : 'center',
 				valign : 'middle',
 				formatter : function(value, row, index, field) {
 					return getDicDescirb(value, field);
 				}
 			}, {
-				field : 'remark',
-				title : '备注',
+				field : 'actState',
+				title : '活动状态',
 				align : 'center',
-				valign : 'middle'
+				valign : 'middle',
+				formatter : function(value, row, index, field) {
+					return getDicDescirb(value, field);
+				}
 			} ],
 			silent : true, // 刷新事件必须设置  
 		});
@@ -146,39 +162,7 @@ function detailInfo() {
 		            field : 'customerFrom.chName',   title : '评价人',  align: 'center',   valign: 'middle'  
 		        },{  
 		            field : 'evaluateMsg',   title : '评价',  align: 'center',   valign: 'middle'  
-		        },{
-					field : 'compare',
-					title : '与系统是否符合',
-					align : 'center',
-					valign : 'middle',
-					formatter : function(value, row, index, field) {
-						return getDicDescirb(value, field);
-					}
-				},{
-					field : 'talk',
-					title : '是否健谈',
-					align : 'center',
-					valign : 'middle',
-					formatter : function(value, row, index, field) {
-						return getDicDescirb(value, field);
-					}
-				},{
-					field : 'late',
-					title : '是否迟到',
-					align : 'center',
-					valign : 'middle',
-					formatter : function(value, row, index, field) {
-						return getDicDescirb(value, field);
-					}
-				},{
-					field : 'next',
-					title : '是否愿意继续约会',
-					align : 'center',
-					valign : 'middle',
-					formatter : function(value, row, index, field) {
-						return getDicDescirb(value, field);
-					}
-				}
+		        }
 		        ],
 		        silent : true, // 刷新事件必须设置  
 		    }); 

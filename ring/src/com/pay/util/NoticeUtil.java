@@ -44,7 +44,7 @@ public class NoticeUtil {
 	        tem.setTemplateParamList(paras);  
 	        tem.setToUser(customer.getOpenId());//用户openid
 	        //设置超链接
-	        tem.setUrl("http://www.ringfingerdating.cn/wx/login");  
+	        tem.setUrl("http://www.ringfingerdating.cn/wx/login?action=web");  
 	        return tem;
 	}
 	
@@ -67,7 +67,7 @@ public class NoticeUtil {
 	        tem.setTemplateParamList(paras);  
 	        tem.setToUser(joinOpenID);//用户openid
 	        //设置超链接
-	        tem.setUrl("http://www.ringfingerdating.cn/wx/login");  
+	        tem.setUrl("http://www.ringfingerdating.cn/wx/login?action=web&id=" + detail.getInviteId());  
 	        return tem;
 	}
 	/**

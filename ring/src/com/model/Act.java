@@ -26,6 +26,7 @@ public class Act {
     private String actDate;
     
     private Customer customer;
+    private ActDetail detail;
     public Integer getId() {
         return id;
     }
@@ -128,6 +129,14 @@ public class Act {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+
+	public ActDetail getDetail() {
+		return detail;
+	}
+
+	public void setDetail(ActDetail detail) {
+		this.detail = detail;
 	}
     
 }

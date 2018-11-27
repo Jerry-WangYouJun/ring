@@ -67,7 +67,9 @@ public class CustomerController {
 			if(customer.getId() != null  &&  customer.getId() > 0){
 				service.update(customer);
 			}else{
+				customer.setExamine("0");
 				service.insert(customer);
+				
 				if(StringUtils.isNotEmpty(customer.getOpenId())){
 					User user = new User();
 					user.setUserNo(customer.getOpenId());

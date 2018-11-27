@@ -69,7 +69,7 @@
 						 	 <c:forEach items="${actList }" var="actinfo">
 						 	 		<div class="panel panel-default" onclick="actDetail('${actinfo.id }')">
 									 	<div class="panel-head ">
-										 	 <img  src="${pageContext.request.contextPath}/ring/images/p1.jpg" style="width:100%;"/>
+										 	 <img  src="${pageContext.request.contextPath}/ring/images/p1.jpg" style="width:100%;height: 200px"/>
 									 	</div>
 							 	 		<div class=" col-md-9 panel-body" style="background-color: #e4e9eb">
                                                 <div class="profile-name">
@@ -79,7 +79,7 @@
                                                         </li>
                                                         <li> <h3>活动名称：${actinfo.actName }</h3> </li>
                                                         <li> <h3>时间：${actinfo.actDate }</h3> </li>
-                                                        <li> <h3>主办方：${actinfo.admin }</h3> </li>
+                                                        <li> <h3 class="dicValue"  name="admin" value="${actinfo.admin}">主办方：</h3> </li>
                                                         <li> <h3>活动地点：${actinfo.actLoca }</h3> </li>
                                                         <li>  <h3 class="dicValue"  name="actForm" value="${actinfo.actForm }">活动形式：</h3> </li>
                                                     </ul>
@@ -93,12 +93,12 @@
 				</div> 
 			</div>
 			<div>
-				<div class="dingwei2 pull-right">
+			<!-- <div class="dingwei2 pull-right">
 					  <button class="btn btn-primary  btn-circle" onclick="addActivity()">新建 </button>
-				</div>
-				<div class="row dingwei page-top " >
+				</div> -->
+ 			<div class="row dingwei page-top " >
 						<a type="button" class="text-center  col-xs-6" style="margin-bottom: 10px" onclick="signUp()"><i class="im-home"></i>活动主页</a>
-						<a type="button" class="text-center  col-xs-6" style="border: none;" onclick="signUp()"><i class="ec-user"></i>我的</a>
+						<a type="button" class="text-center  col-xs-6" style="border: none;" onclick="addActivity()"><i class="ec-user"></i>新建</a>
 				</div>
 			</div>
 		</div>

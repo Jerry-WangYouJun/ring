@@ -131,7 +131,7 @@ $(document).ready(function(){
 				if (data.success) {
 					alert(data.msg);
 					$("#infoTable").bootstrapTable("refresh");
-					window.location.href="/act/index";
+					window.location.href="${pageContext.request.contextPath}/act/index";
 				} else {
 					alert(data.msg);
 				}

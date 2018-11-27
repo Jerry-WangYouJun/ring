@@ -94,8 +94,8 @@ public class WebController {
 	
 	@RequestMapping("/index")
 	public String index(HttpServletRequest  request  ,HttpSession session , Customer custQuery) {
-		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
-		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
+//		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
+//		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
 		User  user = (User)request.getSession().getAttribute("webUser");
 		List<Customer> list  = new ArrayList<>();
 		
@@ -259,5 +259,12 @@ public class WebController {
 			evaluateMapper.insert(evaluate);
 		}
 		return "forward:/web/dateinfo";
+	}
+	
+	@RequestMapping("/detail")
+	public String detail(Integer id , HttpServletRequest request ) {
+		Invite invite = inviteService.selectById(id);
+		request.setAttribute("invite", invite);
+		return "forward:/ring/detail.jsp";
 	}
 }
