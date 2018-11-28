@@ -130,8 +130,8 @@ public class ActController {
 	
 	@RequestMapping("/index")
 	public String actIndex(HttpServletRequest  request , HttpSession session ,String openId ) {
-//		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
-//		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
+		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
+		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
 		List<Act> actList = service.queryByWhere(new Act(), new Pagination());
 		request.setAttribute("actList", actList);
 		return "forward:/ring/activity/main.jsp";

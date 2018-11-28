@@ -23795,7 +23795,7 @@ UE.plugin.register('autoupload', function (){
 
         /* 插入loading的占位符 */
         me.execCommand('inserthtml', loadingHtml);
-
+         alert(fileType)
         /* 判断后端配置是否没有加载成功 */
         if (!me.getOpt(filetype + 'ActionName')) {
             errorHandler(me.getLang('autoupload.errorLoadConfig'));
@@ -24480,7 +24480,6 @@ UE.plugin.register('simpleupload', function (){
             btnIframeDoc = (btnIframe.contentDocument || btnIframe.contentWindow.document);
             btnIframeBody = btnIframeDoc.body;
             wrapper = btnIframeDoc.createElement('div');
-
             wrapper.innerHTML = '<form id="edui_form_' + timestrap + '" target="edui_iframe_' + timestrap + '" method="POST" enctype="multipart/form-data" action="' + me.getOpt('serverUrl') + '" ' +
             'style="' + btnStyle + '">' +
             '<input id="edui_input_' + timestrap + '" type="file" accept="image/*" name="' + me.options.imageFieldName + '" ' +

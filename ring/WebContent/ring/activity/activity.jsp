@@ -44,7 +44,7 @@ $(document).ready(function(){
   <div class="container">
    <div class="services">
    	  <div class="col-sm-12 col-xs-12 login_left">
-	    <form id="dataForm">
+	    <form id="dataForm" enctype="multipart/form-data">
 						<input class="form-control " name="id" type="hidden"></input>
 						<input class="form-control " name="tags" id="tags" type="hidden"></input>
 						<div class="form-group" >
@@ -92,8 +92,11 @@ $(document).ready(function(){
                                          <input type="text" class="form-control col-lg-6 col-md-6"  id="tagA"  onchange="addTags()">
                                 </div>
 						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">活动内容:</label>
+							<script id="editor" type="text/plain" ></script>
+						</div>
 						
-						<script id="editor" type="text/plain" ></script>
 						<div class="form-group">
 							<label for="message-text" class="control-label">备注:</label> <input
 								type="text" class="form-control" name="remark" id="remark">
@@ -110,7 +113,22 @@ $(document).ready(function(){
 </div>
 </body>
 <script type="text/javascript">
-	var ue = UE.getEditor('editor');
+
+	var wid = $("#tagA").parent().width();
+	var ue = UE.getEditor('editor',{
+		//这里可以选择自己需要的工具按钮名称,此处仅选择如下五个
+		toolbars:[['simpleupload','Source', 'Undo', 'Redo','Bold','test']],
+		initialFrameWidth: wid
+		});
+	
+	UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+	UE.Editor.prototype.getActionUrl = function(action){
+		if(action == 'upload/images'){
+			return '${basePath}/upload/images';
+		}else{
+			return this._bkGetActionUrl.call(this, action);
+		}
+	}
 	
 	function subInfo() {
 		subInfoAll("act");

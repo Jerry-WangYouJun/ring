@@ -40,7 +40,7 @@ function webLogin(){
 		dataType : 'json',
 		success : function(data) {
 			if (data.success) {
-				location.href="${pageContext.request.contextPath}/web/index";
+				location.href="${pageContext.request.contextPath}/act/index";
 			} else {
 				
 			}
