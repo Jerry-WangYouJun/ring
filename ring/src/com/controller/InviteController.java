@@ -146,28 +146,28 @@ public class InviteController {
 		}
 		service.update(invite);
 		if("3".equals(inviteStates)){
-			 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteRefuse(remark, invite.getCustomerFrom()));
+			 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteRefuse(remark, invite.getCustomerFrom(),invite.getId()));
 		        System.out.println(jsonObject);
 			return "forward:/web/info";
 		}else if("2".equals(inviteStates)){
 			return "forward:/web/dating?id=" + id;
 		}else if("4".equals(inviteStates) || "6".equals(inviteStates) ){
 			if("4".equals(inviteStates)) {
-				 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(invite.getPointLocation(), invite.getCustomerFrom()));
-				 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(invite.getPointLocation(), invite.getCustomerJoin()));
+				 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(invite.getPointLocation(), invite.getCustomerFrom(),invite.getId()));
+				 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(invite.getPointLocation(), invite.getCustomerJoin(),invite.getId()));
 			}
 			return "forward:/web/dateinfo";
 		}if("5".equals(inviteStates)){
-			 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteRefuse(remark, invite.getCustomerJoin()));
+			 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteRefuse(remark, invite.getCustomerJoin(),invite.getId()));
 		        System.out.println(jsonObject);
 			return "forward:/web/info";
 		}else{
 			Location loc =locService.selectById(invite.getPointId());
 			Customer  cust =  (Customer) session.getAttribute("customer");
 			if( cust.getId().equals(invite.getFromId()) ) {
-				WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, invite.getCustomerJoin() , invite.getInviteDate()));
+				WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, invite.getCustomerJoin() , invite.getInviteDate(),invite.getId()));
 			 }else if(cust.getId().equals(invite.getJoinId())) {
-				 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, invite.getCustomerFrom() ,invite.getInviteDate()));
+				 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, invite.getCustomerFrom() ,invite.getInviteDate(),invite.getId()));
 			 }
 			return "forward:/web/info";
 		}
@@ -234,16 +234,16 @@ public class InviteController {
 				detailTemp.setPreDate(preDate);
 				detailService.update(detailTemp);
 				if("2".equals(inviteTemp.getInviteStates())) {
-					 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(inviteTemp.getPointLocation(), inviteTemp.getCustomerFrom()));
+					 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteConfirm(inviteTemp.getCustomerJoin(),inviteTemp.getCustomerFrom().getOpenId(),invite.getId()));
 					 System.out.println(jsonObject);
 				}
 				if("4".equals(inviteTemp.getInviteStates())) {
 					 Location loc =locService.selectById(invite.getPointId());
 					 Customer  cust =  (Customer) session.getAttribute("customer");
 					 if( cust.getId().equals(invite.getFromId()) ) {
-						 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, inviteTemp.getCustomerJoin() , inviteTemp.getInviteDate()));
+						 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, inviteTemp.getCustomerJoin() , inviteTemp.getInviteDate(),invite.getId()));
 					 }else if(cust.getId().equals(invite.getJoinId())) {
-						 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, inviteTemp.getCustomerFrom() ,inviteTemp.getInviteDate()));
+						 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, inviteTemp.getCustomerFrom() ,inviteTemp.getInviteDate(),invite.getId()));
 					 }
 				}
 			}else{

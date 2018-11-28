@@ -59,10 +59,51 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		  window.location.href="${pageContext.request.contextPath}/act/addDetail?actId=" + actId;
 	 }
 	 
-	 function updateAct(id , state ){
-		  window.location.href="${pageContext.request.contextPath}/act/updateDetail?state=" + state + "&id="  + id ;
-		  
+	 function updateStates(id , states){
+		 var str = "";
+		 if(states == '3' || states =='5'){
+			 str = window.prompt("请输入拒绝的原因") 
+		 }
+		 window.location.href= "${basePath}/invite/state?id="+id+"&inviteStates=" + states +"&remark=" + str;
 	 }
+	 
+		function  addInvite(id , states){
+			//$("#addModal").modal("show");
+			$("#addModal").modal({  
+			    remote: "${pageContext.request.contextPath}/invite/state?id="+id+"&inviteStates=" + states
+			});
+		}
+		function  updateDating(id , states){
+			if(confirm("只有一次修改约会信息的机会，确定修改？")){
+				$("#addModal").modal({  
+				    remote: "${pageContext.request.contextPath}/invite/update?id="+id+"&inviteStates=" + states
+				});
+			 }
+		}
+		
+		function signUp(){
+			var path = "${pageContext.request.contextPath}/invite/signUp?id=${inviteId}";
+			$.ajax({
+				url : path,
+				type : 'post',
+				dataType : 'json',
+				success : function(data) {
+					if (data.success) {
+						alert(data.msg);
+					} else {
+						alert(data.msg);
+					}
+		
+				},
+				error : function(transport) {
+					alert("系统产生错误,请联系管理员!");
+				}
+			});
+		}
+		
+		function evaluateDate(id){
+			 window.location.href="${pageContext.request.contextPath}/web/evaluate?id=" + id ;
+		}
 	 
 	 $(function(){
 		 var dic = eval('(${dic})');
@@ -81,10 +122,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 <body>
 
-<%@include file="/ring/activity/header.jsp"%>
+<%@include file="/ring/header.jsp"%>
    <div class="profile" style="margin-top:70px">
    	 <div class="col-md-12 profile_left">
-   	 		<h2>活动名称 : ${act.actName }</h2>
    	 	
    	 	<div class="col_3">
    	        <div class="col-sm-4 row_2">
@@ -96,34 +136,69 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					 </ul>
 				  </div>
 			</div>
-			<c:choose>
-				<c:when test="${act.actState == '0' || act.actState == null}">
-					  活动待审核
-				</c:when>
-					 <c:when test="${ empty act.detail   }">
-						<button type="button" class="btn btn-default " onclick="addDetail('${act.id}')"> 报名 </button>
-					 </c:when>
-					 <c:otherwise>
-					 		<c:if test="${  act.detail.detailState eq '0'}">
-									<button type="button" class="btn btn-default " onclick="updateAct('${act.detail.id}','1')"> 报名 </button>
-							</c:if>
-							<c:if test="${  act.detail.detailState eq '1'}">
-									<i class="im-heart"></i> 已申请待审核 
-									<button type="button" class="btn  btn-success" onclick="updateAct('${act.detail.id}','0')"> 取消申请 </button>
-							</c:if>
-				 			<c:if test="${  act.detail.detailState eq '2'}">
-				 			  	  已加入
-									<button type="button" class="btn  btn-success" onclick="updateAct('${act.detail.id}','4')"> 退出活动 </button>
-							</c:if>
-							<c:if test="${  act.detail.detailState eq '3'}">
-									 已缴费
-							</c:if>
-							<c:if test="${  act.detail.detailState eq '5'}">
-										已结束
-									<button type="button" class="btn  btn-success" >写感想 </button>
-							</c:if>
-					 </c:otherwise>
-			</c:choose>
+			<c:if test="${customer.id eq invite.customerJoin.id }">
+					<c:choose>
+										 	 <c:when test="${invite.inviteStates eq '1'}">
+										 	 	 <a href="###" onclick="addInvite('${invite.id}','2')">同意约请</a>
+								      			 <a href="##" onclick="updateStates('${invite.id}','3')">拒绝约请</a>
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '2'}">
+										 	 	  已接受
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '3'}">
+										 	 	  已拒绝  原因：${invite.remark }
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '4'}">
+										 	 	  准备约会，约会时间：${invite.detail.preDate}
+										 	 	 约会地点：${invite.pointLocation.location},${invite.pointLocation.address},${invite.pointLocation.locName}
+										 	 	<div>  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
+										 	 	   	<a href="##" onclick="updateDating('${invite.id}','4')">修改约会地点</a>
+										 	 	   	<a href="##" onclick="updateDating('${invite.id}','0')">约会爽约</a>
+										 	 	 </div>
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '6'}">
+										 	 	  系统审核中
+										 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">申请取消约会</a>
+										 	 </c:when>
+										 	<c:when test="${invite.inviteStates eq '7'}">
+										 	 	  约会已结束
+										 	 	  <a class="btn btn-default" href="##" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
+										 	 </c:when>
+										 </c:choose>
+			</c:if>
+			
+			
+			<c:if test="${customer.id eq invite.customerFrom.id }">
+				  	<c:choose>
+										 	 <c:when test="${invite.inviteStates eq '1'}">
+										 	 	  未确认
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '2'}">
+										 	 	  已接受
+										 	 	   <a href="##" onclick="updateStates('${invite.id}','4')">确定约会</a>
+										 	 	   <a href="##" onclick="updateStates('${invite.id}','5')">取消约会</a>
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '3'}">
+										 	 	  已拒绝   原因：${invite.remark }
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '4'}">
+										 	 	  准备约会，约会时间：${invite.detail.preDate}
+										 	 	  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
+										 	 	  <a href="##" onclick="updateDating('${invite.id}','4')">修改约会地点</a>
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '5'}">
+										 	 	  已取消：${invite.remark}
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '6'}">
+										 	 	  系统审核中
+										 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">申请取消约会</a>
+										 	 </c:when>
+										 	 <c:when test="${invite.inviteStates eq '7'}">
+										 	 	  约会已结束
+										 	 	  <a class="btn btn-default" href="###" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
+										 	 </c:when>
+										 </c:choose>
+			</c:if>
 			<div style="margin: 30px"> 
 		<div class="col_4">
 		    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
@@ -212,42 +287,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<!-- /.modal-content -->
 	</div>
 	<script type="text/javascript">
-	function accInvite(){
-		var del = confirm("确认接收邀请，确认后将同时回绝其他邀请！");
-		if (!del) {
-			return false;
-		}
-		var selectObj = $("#inviteTable").bootstrapTable('getSelections')[0];
-		var id = selectObj.id;
-		var url = "${pageContext.request.contextPath}/invite/invite_status";
-		 $.ajax({
-				url : url,
-				type : 'post',
-				dataType : 'json',
-				data: {'id':id , inviteStates:2 } ,
-				success : function(data) {
-					$("#inviteModal").modal("hide");
-				},
-				error : function(transport) {
-					alert("系统产生错误,请联系管理员!");
-				}
-			}); 
-		 
-	}
 	var dic = "";
-	function detailInfo() {
-		$('#detailTable').bootstrapTable(
-				'refresh',{query: {dateingId: 1}});
-		$("#detailModal").modal("show");
-	}
-	
-	function  addInvite(id){
-		//$("#addModal").modal("show");
-
-		$("#addModal").modal({  
-		    remote: "${pageContext.request.contextPath}/web/inviteInit?joinId=" + id
-		});
-	}
 	
 	function getDicList(){
 		var url = "${pageContext.request.contextPath}/dic/dicMap";

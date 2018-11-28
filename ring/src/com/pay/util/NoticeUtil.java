@@ -44,7 +44,7 @@ public class NoticeUtil {
 	        tem.setTemplateParamList(paras);  
 	        tem.setToUser(customer.getOpenId());//用户openid
 	        //设置超链接
-	        tem.setUrl("http://www.ringfingerdating.cn/wx/login?action=web");  
+	        tem.setUrl("http://www.ringfingerdating.cn/wx/login" );  
 	        return tem;
 	}
 	
@@ -67,7 +67,7 @@ public class NoticeUtil {
 	        tem.setTemplateParamList(paras);  
 	        tem.setToUser(joinOpenID);//用户openid
 	        //设置超链接
-	        tem.setUrl("http://www.ringfingerdating.cn/wx/login?action=web&id=" + detail.getInviteId());  
+	        tem.setUrl("http://www.ringfingerdating.cn/wx/login/"+detail.getInviteId() );  
 	        return tem;
 	}
 	/**
@@ -76,7 +76,7 @@ public class NoticeUtil {
 	 * @param joinOpenID
 	 * @return
 	 */
-	public static Template inviteConfirm(Customer customer , String joinOpenID) {
+	public static Template inviteConfirm(Customer customer , String joinOpenID , Integer id ) {
 		 Template tem=new Template();  
 	        tem.setTemplateId(inviteConfirm);  
 	        tem.setTopColor("#000000");  
@@ -89,7 +89,7 @@ public class NoticeUtil {
 	        tem.setTemplateParamList(paras);  
 	        tem.setToUser(customer.getOpenId());//用户openid
 	        //设置超链接
-	        tem.setUrl("http://www.ringfingerdating.cn/wx/login");  
+	        tem.setUrl("http://www.ringfingerdating.cn/wx/login/"+id);  
 	        return tem;
 	}
 	/**
@@ -98,7 +98,7 @@ public class NoticeUtil {
 	 * @param customer
 	 * @return
 	 */
-	public static Template inviteRefuse( String reason  ,  Customer customer) {
+	public static Template inviteRefuse( String reason  ,  Customer customer , Integer id ) {
 		 Template tem=new Template();  
 	        tem.setTemplateId(inviteRefuse);  
 	        tem.setTopColor("#000000");  
@@ -110,7 +110,7 @@ public class NoticeUtil {
 	        tem.setTemplateParamList(paras);  
 	        tem.setToUser(customer.getOpenId());//用户openid
 	        //设置超链接
-	        tem.setUrl("http://www.ringfingerdating.cn/wx/login");  
+	        tem.setUrl("http://www.ringfingerdating.cn/wx/login/"+id);  
 	        return tem;
 	}
 	
@@ -121,7 +121,7 @@ public class NoticeUtil {
 	 * @param customer
 	 * @return
 	 */
-	public static Template inviteAccept(Location location  ,  Customer customer) {
+	public static Template inviteAccept(Location location  ,  Customer customer ,Integer id ) {
 		 Template tem=new Template();  
 	        tem.setTemplateId(inviteAccept);  
 	        tem.setTopColor("#000000");  
@@ -134,11 +134,11 @@ public class NoticeUtil {
 	        tem.setTemplateParamList(paras);  
 	        tem.setToUser(customer.getOpenId());//用户openid
 	        //设置超链接
-	        tem.setUrl("http://www.ringfingerdating.cn/wx/login");  
+	        tem.setUrl("http://www.ringfingerdating.cn/wx/login/"+id);  
 	        return tem;
 	}
 	
-	public static Template inviteUpdate(Location location  ,  Customer customer , Date date) {
+	public static Template inviteUpdate(Location location  ,  Customer customer , Date date , Integer id ) {
 		Template tem=new Template();  
         tem.setTemplateId(inviteUpdate);  
         tem.setTopColor("#000000");  
@@ -153,7 +153,7 @@ public class NoticeUtil {
         tem.setTemplateParamList(paras);  
         tem.setToUser(customer.getOpenId());//用户openid
         //设置超链接
-        tem.setUrl("http://www.ringfingerdating.cn/wx/login");  
+        tem.setUrl("http://www.ringfingerdating.cn/wx/login/" + id );  
         return tem;
 	}
 

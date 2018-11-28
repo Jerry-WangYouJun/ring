@@ -106,6 +106,7 @@ $(document).ready(function(){
 	     <form id="dataForm">
 						<input class="form-control" name="id" type="hidden" value="${inv.id }"></input>
 						<input class="form-control" name="joinId" type="hidden" value="${joinId }"></input>
+						${inv.inviteStates }
 						<c:choose>
 							 <c:when test="${inv.inviteStates eq '1' || inv.inviteStates eq '4'   }">	 
 								<div class="form-group" >

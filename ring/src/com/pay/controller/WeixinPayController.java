@@ -22,6 +22,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.common.StringUtils;
@@ -114,13 +115,11 @@ public class WeixinPayController {
 	}
 	
 	
-	@RequestMapping("/login")
-	public String login(HttpServletRequest request, HttpServletResponse response){
-		String action = request.getParameter("action");
-		String id = request.getParameter("id");
+	@RequestMapping("/login/{id}")
+	public String login(HttpServletRequest request, HttpServletResponse response , @PathVariable Integer id){
 		//授权后要跳转的链接
 		//邀约传web   活动传act   文章传article
-		String backUri = baseUrl + "/wx/check?action=" + action + "&id=" + id;
+		String backUri = baseUrl + "/wx/check/" + id ;
 		//URLEncoder.encode 后可以在backUri 的url里面获取传递的所有参数
 		backUri = URLEncoder.encode(backUri);
 		//scope 参数视各自需求而定，这里用scope=snsapi_base 不弹出授权页面直接授权目的只获取统一支付接口的openid
@@ -133,70 +132,26 @@ public class WeixinPayController {
 		return "redirect:"+url;
 	}
 	
-	@RequestMapping("/check")
-	public String checkUserType(HttpServletRequest request, HttpServletResponse response) throws ClientProtocolException, IOException{
-		        String code =request.getParameter("code");
-		      //第二步：通过code换取网页授权access_token
-		         String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+WxPayConfig.appid
-		                + "&secret="+WxPayConfig.appsecret
-		                + "&code="+code
-		                + "&grant_type=authorization_code";
+	@RequestMapping("/act/{id}")
+	public String act(HttpServletRequest request, HttpServletResponse response , @PathVariable Integer id){
+		//授权后要跳转的链接
+		//邀约传web   活动传act   文章传article
+		String backUri = baseUrl + "/wx/checkact/" + id ;
+		//URLEncoder.encode 后可以在backUri 的url里面获取传递的所有参数
+		backUri = URLEncoder.encode(backUri);
+		//scope 参数视各自需求而定，这里用scope=snsapi_base 不弹出授权页面直接授权目的只获取统一支付接口的openid
+		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
+				"appid=" + WxPayConfig.appid +
+				"&redirect_uri=" +
+				 backUri+
+				"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
+		System.out.println("url:" + url);
+		return "redirect:"+url;
+	}
 
-		        System.out.println("url:"+url);
-		        JSONObject jsonObject = WXAuthUtil.doGetJson(url);
-		        /*
-		         { "access_token":"ACCESS_TOKEN",
-		            "expires_in":7200,
-		            "refresh_token":"REFRESH_TOKEN",
-		            "openid":"OPENID",
-		            "scope":"SCOPE" 
-		           }
-		         */
-		        String openid = jsonObject.getString("openid");
-		        String access_token = jsonObject.getString("access_token");
-		        String refresh_token = jsonObject.getString("refresh_token");
-		        //第五步验证access_token是否失效；展示都不需要
-		        String chickUrl="https://api.weixin.qq.com/sns/auth?access_token="+access_token+"&openid="+openid;
-
-		        JSONObject chickuserInfo = WXAuthUtil.doGetJson(chickUrl);
-		        System.out.println(chickuserInfo.toString());
-		        if(!"0".equals(chickuserInfo.getString("errcode"))){
-		            // 第三步：刷新access_token（如果需要）-----暂时没有使用,参考文档https://mp.weixin.qq.com/wiki，
-		            String refreshTokenUrl="https://api.weixin.qq.com/sns/oauth2/refresh_token?appid="+openid+"&grant_type=refresh_token&refresh_token="+refresh_token;
-
-		            JSONObject refreshInfo = WXAuthUtil.doGetJson(chickUrl);
-		            /*
-		             * { "access_token":"ACCESS_TOKEN",
-		                "expires_in":7200,
-		                "refresh_token":"REFRESH_TOKEN",
-		                "openid":"OPENID",
-		                "scope":"SCOPE" }
-		             */
-		            System.out.println(refreshInfo.toString());
-		            access_token=refreshInfo.getString("access_token");
-		        }
-		               
-		               // 第四步：拉取用户信息(需scope为 snsapi_userinfo)
-		               String infoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="+access_token
-		                        + "&openid="+openid
-		                        + "&lang=zh_CN";
-		                System.out.println("infoUrl:"+infoUrl);
-		                JSONObject userInfo = WXAuthUtil.doGetJson(infoUrl);
-		                /*
-		                 {    "openid":" OPENID",
-		                    " nickname": NICKNAME,
-		                    "sex":"1",
-		                    "province":"PROVINCE"
-		                    "city":"CITY",
-		                    "country":"COUNTRY",
-		                    "headimgurl":    "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46",
-		                    "privilege":[ "PRIVILEGE1" "PRIVILEGE2"     ],
-		                    "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
-		                    }
-		                 */
-		                System.out.println("JSON-----"+userInfo.toString());
-		                System.out.println("名字-----"+userInfo.getString("nickname"));
-		                System.out.println("头像-----"+userInfo.getString("headimgurl"));
+	@RequestMapping("/check/{id}")
+	public String checkUserType(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer id) throws ClientProtocolException, IOException{
+			        JSONObject userInfo  = getUserInfo(request, response);
 		                Customer customer = new Customer();
 		                customer.setOpenId(userInfo.getString("openid"));
 		       List<Customer> custList = custService.queryList(customer, new Pagination());
@@ -213,15 +168,108 @@ public class WeixinPayController {
 					Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 					request.getSession().setAttribute("dic",   JSONObject.fromObject(dicMap));
 				}
-		       String action = request.getParameter("action");
-		       String id = request.getParameter("id");
-		    	   if(StringUtils.isNotEmpty(id)) {
-		    		   return "forward:/" +action + "/detail?id=" + id ;
+		    	   if( id != null && id != 0) {
+		    		   return "forward:/web/detail?id=" + id ;
 		    	   }else{
-		    		   return "forward:/" +action + "/index" ;
+		    		   return "forward:/web/index" ;
 		    	   }
 		
 	}
+	
+	@RequestMapping("/checkact/{id}")
+	public String checkact(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer id) throws ClientProtocolException, IOException{
+			        JSONObject userInfo  = getUserInfo(request, response);
+		                Customer customer = new Customer();
+		                customer.setOpenId(userInfo.getString("openid"));
+		       List<Customer> custList = custService.queryList(customer, new Pagination());
+		       if(custList ==null || custList.size() ==0){
+					return "forward:/web/register?openId=" + customer.getOpenId();
+				}else {
+					User user = new User();
+					user.setUserNo(customer.getOpenId());
+					user.setPwd("123");
+					user = userService.checkUser(user);
+					request.getSession().setAttribute("webUser", user);
+					Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
+					request.getSession().setAttribute("customer", cust);
+					Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
+					request.getSession().setAttribute("dic",   JSONObject.fromObject(dicMap));
+				}
+		    	   if( id != null && id != 0) {
+		    		   return "forward:/act/detail?id=" + id ;
+		    	   }else{
+		    		   return "forward:/act/index" ;
+		    	   }
+		
+	}
+	
+	public JSONObject getUserInfo(HttpServletRequest request, HttpServletResponse response) throws ClientProtocolException, IOException{
+		String code =request.getParameter("code");
+	      //第二步：通过code换取网页授权access_token
+	         String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+WxPayConfig.appid
+	                + "&secret="+WxPayConfig.appsecret
+	                + "&code="+code
+	                + "&grant_type=authorization_code";
+
+	        System.out.println("url:"+url);
+	        JSONObject jsonObject = WXAuthUtil.doGetJson(url);
+	        /*
+	         { "access_token":"ACCESS_TOKEN",
+	            "expires_in":7200,
+	            "refresh_token":"REFRESH_TOKEN",
+	            "openid":"OPENID",
+	            "scope":"SCOPE" 
+	           }
+	         */
+	        System.out.println(jsonObject);
+	        String openid = jsonObject.getString("openid");
+	        String access_token = jsonObject.getString("access_token");
+	        String refresh_token = jsonObject.getString("refresh_token");
+	        //第五步验证access_token是否失效；展示都不需要
+	        String chickUrl="https://api.weixin.qq.com/sns/auth?access_token="+access_token+"&openid="+openid;
+
+	        JSONObject chickuserInfo = WXAuthUtil.doGetJson(chickUrl);
+	        System.out.println(chickuserInfo.toString());
+	        if(!"0".equals(chickuserInfo.getString("errcode"))){
+	            // 第三步：刷新access_token（如果需要）-----暂时没有使用,参考文档https://mp.weixin.qq.com/wiki，
+	            String refreshTokenUrl="https://api.weixin.qq.com/sns/oauth2/refresh_token?appid="+openid+"&grant_type=refresh_token&refresh_token="+refresh_token;
+
+	            JSONObject refreshInfo = WXAuthUtil.doGetJson(chickUrl);
+	            /*
+	             * { "access_token":"ACCESS_TOKEN",
+	                "expires_in":7200,
+	                "refresh_token":"REFRESH_TOKEN",
+	                "openid":"OPENID",
+	                "scope":"SCOPE" }
+	             */
+	            System.out.println(refreshInfo.toString());
+	            access_token=refreshInfo.getString("access_token");
+	        }
+	               
+	               // 第四步：拉取用户信息(需scope为 snsapi_userinfo)
+	               String infoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="+access_token
+	                        + "&openid="+openid
+	                        + "&lang=zh_CN";
+	                System.out.println("infoUrl:"+infoUrl);
+	                JSONObject userInfo = WXAuthUtil.doGetJson(infoUrl);
+	                /*
+	                 {    "openid":" OPENID",
+	                    " nickname": NICKNAME,
+	                    "sex":"1",
+	                    "province":"PROVINCE"
+	                    "city":"CITY",
+	                    "country":"COUNTRY",
+	                    "headimgurl":    "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46",
+	                    "privilege":[ "PRIVILEGE1" "PRIVILEGE2"     ],
+	                    "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
+	                    }
+	                 */
+	                System.out.println("JSON-----"+userInfo.toString());
+	                System.out.println("名字-----"+userInfo.getString("nickname"));
+	                System.out.println("头像-----"+userInfo.getString("headimgurl"));
+	                return userInfo;
+	}
+	
 	@RequestMapping("/toPay")
 	public String toPay(HttpServletRequest request, HttpServletResponse response, Model model){
 		try {
