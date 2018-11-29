@@ -57,6 +57,21 @@
     padding-bottom: 10px;
 
 }
+
+.images_3_of_b {
+    width: 45.2%;
+    float: left;
+}
+
+.desc2 {
+    display: block;
+    float: left;
+    margin: 0% 0 2% 2.6%;
+}
+
+.span_3_of_b {
+    width: 52.2%;
+}
 </style>
 </head>
 <body>
@@ -67,24 +82,19 @@
 					<div role="tabpanel" class="tab-pane active" id="home">
 						 <h3>活动列表</h3>
 						 	 <c:forEach items="${actList }" var="actinfo">
-						 	 		<div class="panel panel-default" onclick="actDetail('${actinfo.id }')">
-									 	<div class="panel-head ">
-										 	 <img  src="${pageContext.request.contextPath}/ring/images/p1.jpg" style="width:100%;height: 200px"/>
-									 	</div>
-							 	 		<div class=" col-md-9 panel-body" style="background-color: #e4e9eb">
-                                                <div class="profile-name">
+						 	 		<div  onclick="actDetail('${actinfo.id }')" style="height: 220px">
+						 	 			<div class="images_3_of_b">
+										 	 <img  src="${pageContext.request.contextPath}/ring/images/p1.jpg" style="width:100%;height:auto;max-height: 200px;"/>
+						 	 			</div>
+									 	<div class="desc2 span_3_of_b">
                                                     <ul class="list-unstyled">
-                                                        <li>
-                                                            <h2>活动概要</h2>
-                                                        </li>
                                                         <li> <h3>活动名称：${actinfo.actName }</h3> </li>
                                                         <li> <h3>时间：${actinfo.actDate }</h3> </li>
                                                         <li> <h3 class="dicValue"  name="admin" value="${actinfo.admin}">主办方：</h3> </li>
                                                         <li> <h3>活动地点：${actinfo.actLoca }</h3> </li>
                                                         <li>  <h3 class="dicValue"  name="actForm" value="${actinfo.actForm }">活动形式：</h3> </li>
                                                     </ul>
-                                                </div>
-                                            </div>
+									 	</div>
 						 			</div>
 						 	 </c:forEach>
 					</div>

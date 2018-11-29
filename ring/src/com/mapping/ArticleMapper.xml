@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.model.Article">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cust_id" jdbcType="INTEGER" property="custId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="discrib" jdbcType="VARCHAR" property="discrib" />
+    <result column="editorValue" jdbcType="VARCHAR" property="editorvalue" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="article_img" jdbcType="VARCHAR" property="articleImg" />
+    <result column="article_state" jdbcType="VARCHAR" property="articleState" />
+    <result column="article_date" jdbcType="TIMESTAMP" property="articleDate" />
+    <result column="article_type" jdbcType="VARCHAR" property="articleType" />
+    <result column="article_tag" jdbcType="VARCHAR" property="articleTag" />
+    <result column="article_read" jdbcType="INTEGER" property="articleRead" />
+    <result column="article_transmit" jdbcType="INTEGER" property="articleTransmit" />
+    <result column="article_mark" jdbcType="INTEGER" property="articleMark" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cust_id ,  title, discrib, editorValue, author, article_img, article_state, article_date, 
+    article_type, article_tag, article_read, article_transmit, article_mark, remark
+  </sql>
+  
+  <select id="queryByWhere" resultMap="BaseResultMap" >
+  	    select  <include refid="Base_Column_List" /> from t_article where 1=1 
+  	     <if test="obj.id!=null and obj.id > 0">
+  	    	    and id = #{obj.id}
+  	    </if>
+  	    <if test="obj.custId!=null and obj.custId > 0">
+  	    	    and cust_id = #{obj.custId}
+  	    </if>
+  	    <if test="obj.title!=null and obj.title != ''">
+  	    	    and title  like  #{obj.title}
+  	    </if>
+  	    <if test="obj.author !=null and obj.author != '' ">
+  	    	 	and  author like #{obj.author}
+  	    </if>
+  	    <if test="obj.articleTag!= null and obj.articleTag != '' ">
+  	    	     and article_tag like #{obj.articleTag}
+  	    </if>
+  	    <if test="obj.articleType!= null and obj.articleType != '' ">
+  	    	     and article_type = #{obj.articleType}
+  	    </if>
+  	     limit  #{page.start}, #{page.pageSize} 
+  </select>
+  
+  <select id="queryTotal"  resultType="java.lang.Integer">
+  	    select count(*) from t_article where 1=1 
+  	    <if test="id!=null and id > 0">
+  	    	    and id = #{id}
+  	    </if>
+  	    <if test="custId!=null and custId > 0">
+  	    	    and cust_id = #{custId}
+  	    </if>
+  	    <if test="title!=null and title != ''">
+  	    	    and title  like  #{title}
+  	    </if>
+  	    <if test="author !=null and author != '' ">
+  	    	 	and  author like #{author}
+  	    </if>
+  	    <if test="articleTag!= null and articleTag != '' ">
+  	    	     and article_tag like #{articleTag}
+  	    </if>
+  	    <if test="articleType!= null and articleType != '' ">
+  	    	     and article_type = #{articleType}
+  	    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.Article">
+    insert into t_article (id,cust_id ,title, discrib, 
+      editorValue, author, article_img, 
+      article_state, article_date, article_type, 
+      article_tag, article_read, article_transmit, 
+      article_mark, remark)
+    values (#{id,jdbcType=INTEGER},#{custId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{discrib,jdbcType=VARCHAR}, 
+      #{editorvalue,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{articleImg,jdbcType=VARCHAR}, 
+      #{articleState,jdbcType=VARCHAR}, #{articleDate,jdbcType=TIMESTAMP}, #{articleType,jdbcType=VARCHAR}, 
+      #{articleTag,jdbcType=VARCHAR}, #{articleRead,jdbcType=INTEGER}, #{articleTransmit,jdbcType=INTEGER}, 
+      #{articleMark,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.model.Article">
+    update t_article
+    set title = #{title,jdbcType=VARCHAR},
+      discrib = #{discrib,jdbcType=VARCHAR},
+      editorValue = #{editorvalue,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      article_img = #{articleImg,jdbcType=VARCHAR},
+      article_state = #{articleState,jdbcType=VARCHAR},
+      article_date = #{articleDate,jdbcType=TIMESTAMP},
+      article_type = #{articleType,jdbcType=VARCHAR},
+      article_tag = #{articleTag,jdbcType=VARCHAR},
+      article_read = #{articleRead,jdbcType=INTEGER},
+      article_transmit = #{articleTransmit,jdbcType=INTEGER},
+      article_mark = #{articleMark,jdbcType=INTEGER},
+      cust_id = #{custId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
