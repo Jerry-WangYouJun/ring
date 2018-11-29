@@ -132,11 +132,12 @@ public class WeixinPayController {
 		return "redirect:"+url;
 	}
 	
-	@RequestMapping("/act/{id}")
-	public String act(HttpServletRequest request, HttpServletResponse response , @PathVariable Integer id){
+	@RequestMapping("/{action}/{id}")
+	public String act(HttpServletRequest request, HttpServletResponse response
+			, @PathVariable Integer id , @PathVariable String  action){
 		//授权后要跳转的链接
 		//邀约传web   活动传act   文章传article
-		String backUri = baseUrl + "/wx/checkact/" + id ;
+		String backUri = baseUrl + "/wx/checkact/" + action+ "/" + id  ;
 		//URLEncoder.encode 后可以在backUri 的url里面获取传递的所有参数
 		backUri = URLEncoder.encode(backUri);
 		//scope 参数视各自需求而定，这里用scope=snsapi_base 不弹出授权页面直接授权目的只获取统一支付接口的openid
@@ -176,8 +177,9 @@ public class WeixinPayController {
 		
 	}
 	
-	@RequestMapping("/checkact/{id}")
-	public String checkact(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer id) throws ClientProtocolException, IOException{
+	@RequestMapping("/checkact/${act}/{id}")
+	public String checkact(HttpServletRequest request, HttpServletResponse response
+			, @PathVariable Integer id , @PathVariable String action) throws ClientProtocolException, IOException{
 			        JSONObject userInfo  = getUserInfo(request, response);
 		                Customer customer = new Customer();
 		                customer.setOpenId(userInfo.getString("openid"));
@@ -196,9 +198,9 @@ public class WeixinPayController {
 					request.getSession().setAttribute("dic",   JSONObject.fromObject(dicMap));
 				}
 		    	   if( id != null && id != 0) {
-		    		   return "forward:/act/detail?id=" + id ;
+		    		   return "forward:/"+action+"/detail?id=" + id ;
 		    	   }else{
-		    		   return "forward:/act/index" ;
+		    		   return "forward:/"+action+"/index" ;
 		    	   }
 		
 	}
