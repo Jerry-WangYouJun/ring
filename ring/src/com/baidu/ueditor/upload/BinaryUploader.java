@@ -19,6 +19,7 @@ import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.lang.StringUtils;
 
 public class BinaryUploader {
 
@@ -78,7 +79,11 @@ public class BinaryUploader {
 	        		path="D:\\uploadFile\\";
 	        	}
 			String physicalPath = path+ savePath;
-
+			String img  = savePath.replace("/upload/", "");
+			if(request.getSession().getAttribute("articleImg") == null  || StringUtils.isBlank(request.getSession().getAttribute("articleImg").toString()))  {
+				savePath.replace("/upload/", "");
+				request.getSession().setAttribute("articleImg", img);
+			}
 			InputStream is = fileStream.openStream();
 			State storageState = StorageManager.saveFileByInputStream(is,
 					physicalPath, maxSize);

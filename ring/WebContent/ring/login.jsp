@@ -31,7 +31,7 @@ $(document).ready(function(){
     );
 });
 	 
-function webLogin(){
+function webLogin(msg){
 	var path = "${pageContext.request.contextPath}/web/webLogin";
 	$.ajax({
 		url : path,
@@ -40,7 +40,11 @@ function webLogin(){
 		dataType : 'json',
 		success : function(data) {
 			if (data.success) {
-				location.href="${pageContext.request.contextPath}/act/index";
+				if(msg ==  'act'){
+					location.href="${pageContext.request.contextPath}/act/index";
+				}else if(msg == 'article'){
+					location.href="${pageContext.request.contextPath}/article/index";
+				}
 			} else {
 				
 			}
@@ -75,7 +79,9 @@ function webLogin(){
 	      <input type="password" id="edit-pass" name="pwd" size="60" maxlength="128" class="form-text required">
 	    </div>
 	    <div class="form-actions">
-	    	<input type="button" id="edit-submit" name="op" onclick="webLogin()" value="登录" class="btn_1 submit">
+	    	<input type="button" id="date" name="op" onclick="webLogin('dating')" value="约会登录" class="btn_1 submit">
+	    	  	<input type="button" id="act" name="op" onclick="webLogin('act')" value="活动登录" class="btn_1 submit">
+	    	  	  	<input type="button" id="art" name="op" onclick="webLogin('article')" value="文章登录" class="btn_1 submit">
 	    	<a href="register.jsp">注册</a>
 	    </div>
 	   </form>

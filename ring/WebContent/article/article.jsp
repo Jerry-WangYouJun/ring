@@ -45,7 +45,8 @@ $(document).ready(function(){
    <div class="services">
    	  <div class="col-sm-12 col-xs-12 login_left">
 	    <form id="dataForm" enctype="multipart/form-data">
-						<input class="form-control " name="id" type="hidden"></input>
+						<input class="form-control" name="id" type="hidden"></input>
+						<input class="form-control" name="articleState" id="articleState" type="hidden">
 						<input class="form-control " name="articleTag" id="articleTag" type="hidden"></input>
 						<div class="form-group" >
 							<label for="message-text" class="control-label">文章名称:</label> <input
@@ -58,7 +59,7 @@ $(document).ready(function(){
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">文章类型:</label> 
-							<select  class="form-control dicSelect"  name="articleType" placeholder="必填" required>
+							<select  class="form-control dicSelect"  name="articleType" placeholder="必填" >
 									 
 							</select>
 						</div>
@@ -81,8 +82,8 @@ $(document).ready(function(){
 								type="text" class="form-control" name="remark" id="remark">
 						</div>
 						<div class="form-group">
-							 <button type="button" class="btn btn-default" >关闭</button>
-							<button type="button" class="btn btn-primary" onclick="subInfo()">提交</button>
+							 <button type="button" class="btn btn-default" onclick="subInfo('0')">关闭</button>
+							<button type="button" class="btn btn-primary" onclick="subInfo('1')">提交</button>
 						</div>
 					</form>
 	  </div>
@@ -96,28 +97,25 @@ $(document).ready(function(){
 	var wid = $("#tagA").parent().width();
 	var ue = UE.getEditor('editor',{
 		//这里可以选择自己需要的工具按钮名称,此处仅选择如下五个
-		toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|',
-                   'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
-                   'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
-                   'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+		toolbars:[['fullscreen',  'undo', 'redo', '|',
+                   'bold', 'italic', 'underline', 'fontborder', 'strikethrough','|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+                    'fontfamily', 'fontsize', '|',
                    'directionalityltr', 'directionalityrtl', 'indent', '|',
                    'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
-                   'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-                   'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
-                   'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
-                   'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
-                   'print', 'preview', 'searchreplace', 'drafts', 'help']],
+                   'link', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                   'simpleupload', 'insertimage', 'emotion', 'pagebreak', '|',
+                   'horizontal', 'date', 'time', 'spechars', '|',
+                    'help']],
 		initialFrameWidth: wid ,
 		maximumWords: 1000 
 		});
 	
-	function subInfo() {
-		alert(123);
-		subInfoAll("article");
+	function subInfo(state) {
+			$("#articleState").val(state);
+			subInfoAll("article"); 
 	}
 	
 	function subInfoAll(name) {
-		
 		if(!$("#dataForm").validate().form()){
 			return false ; 
 		}
@@ -131,7 +129,7 @@ $(document).ready(function(){
 				if (data.success) {
 					alert(data.msg);
 					$("#infoTable").bootstrapTable("refresh");
-					window.location.href="${pageContext.request.contextPath}/act/index";
+					window.location.href="${pageContext.request.contextPath}/article/index";
 				} else {
 					alert(data.msg);
 				}
@@ -176,8 +174,9 @@ $(document).ready(function(){
 		 var  val = $("#tagA").val();
 		 if(val != ""){
 			 var arr = ["primary","success","info","warning"];
-			 $("#tags").val($("#tags").val() + val + ",");
+			 $("#articleTag").val($("#articleTag").val() + val + ",");
 			 $(".tags").append('<span class="badge badge-' +arr[rand] +'  mt10">'+ val+'<a href="####"  onclick="deleteTag(this)" class="mr5">X</a></span>');
+			 $("#tagA").val("");
 		 }
 	 }
 	 function deleteTag(obj){

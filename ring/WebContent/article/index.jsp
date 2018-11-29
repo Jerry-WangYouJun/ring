@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,7 +16,6 @@
 <link href="assets/css/animate.min.css" rel="stylesheet">
 <link href="assets/css/owl.carousel.css" rel="stylesheet">
 <link href="assets/css/responsive.css" rel="stylesheet">
-
 <script src="assets/js/modernizr-2.8.3.min.js"></script>
 <script src="assets/js/jquery-2.1.0.min.js"></script>
 <script src="assets/js/jquery.magnific-popup.min.js"></script>
@@ -26,28 +26,54 @@
 <script type="text/javascript" src="assets/js/jquery.ajaxchimp.min.js"></script>
 <title>Insert title here</title>
 <script type="text/javascript">
-
-	 function addArticle(){
-		 window.location.href="${pageContext.request.contextPath}/article/article.jsp" ;
-	 }
+$(function(){
+	 var dic = eval('(${dic})');
+	 var arr = dic.marriage;
+	$(".dicValue").each(function(){
+		 var field  = $(this).attr("name")
+		 var value =  $(this).attr("value");
+		 if(dic[field][value]!= undefined){
+			 $(this).text(dic[field][value]["describ"]);
+		 }
+	})
+});
+	function addArticle() {
+		window.location.href = "${pageContext.request.contextPath}/article/article.jsp";
+	}
+	
+	
+	function myArticle(){
+		window.location.href = "${pageContext.request.contextPath}/article/myArticle";
+	}
+	
+	function getArticle(state){
+		window.location.href = "${pageContext.request.contextPath}/article/index?state=" + state;
+	}
+	
+	function detailArticle(id){
+		window.location.href = "${pageContext.request.contextPath}/article/detail?id=" + id;
+	}
 </script>
 </head>
 <body class="header-fixed-top">
 	<section>
 	<div class="search-page">
 		<!-- Start .search-page -->
-		<div class="col-lg-12 mt5 mb5 " >
-			<form class="form-inline search-page-form">
-					<div class="input-group pull-right">
-						<input type="text" class="form-control" value="搜索文章"
-							placeholder="search here ..."> <span
-							class="input-group-btn">
-							<button type="submit" class="btn btn-primary">
-								<i class="ec-search s16"></i>
-							</button>
-						</span>
-					</div>
+		<div class="col-lg-8 col-xs-8 mt5 mb5 ">
+			<form class="form-inline search-page-form" action="${pageContext.request.contextPath}/article/index" method="post">
+				<div class="input-group pull-right">
+					<input type="text" class="form-control" value="搜索文章"
+						placeholder="search here ..." name="title"> <span
+						class="input-group-btn">
+						<button type="submit" class="btn btn-primary">
+							<i class="ec-search s16"></i>
+						</button>
+					</span>
+				</div>
 			</form>
+		</div>
+		<div class="col-lg-4 col-xs-4 mt5 mb5 ">
+			<button type="button" class="btn btn-primary pull-center" onclick="myArticle()">我的文章</button>
 		</div>
 	</div>
 	</section>
@@ -68,7 +94,7 @@
 	</div>
 	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6" style="margin: 0 5">
 		<div class="tile-stats b brall mb5 gray-bg">
-			<a href="#">
+			<a href="###" onclick="getArticle('2')">
 				<div class="tile-stats-icon">
 					<i class="st-book2 color-white"></i>
 				</div>
@@ -83,7 +109,7 @@
 
 	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6" style="margin: 0 5">
 		<div class="tile-stats b brall mb5 dark-bg">
-			<a href="#">
+			<a href="###" onclick="getArticle('3')">
 				<div class="tile-stats-icon">
 					<i class="st-cube color-white"></i>
 				</div>
@@ -122,104 +148,47 @@
 
 			<div class="row">
 				<div class="latest-posts">
-					<div class="col-sm-6">
-						<div class="item">
-							<article class="post type-post">
-							<div class="post-top">
-								<div class="post-thumbnail">
-									<img src="images/blog/1.jpg" alt="post Image">
-								</div>
-								<!-- /.post-thumbnail -->
-								<div class="post-meta">
-									<div class="entry-meta">
-										<span class="entry-date"> <time datetime="2015-01-15">15
-											Jan 2015</time>
-										</span> <span class="author-name"> <a href="#">John Doe</a>
-										</span> <span class="post-tags">
-											<ul class="tag-list">
-												<li><a href="#">web-design</a></li>
-												<li><a href="#">html5</a></li>
-												<li><a href="#">css3</a></li>
-											</ul>
-										</span>
+					<c:forEach items="${articleList}" var="art">
+						<div class="col-sm-6">
+							<div class="item">
+								<article class="post type-post">
+								<div class="post-top">
+									<div class="post-thumbnail">
+										<img src="${pageContext.request.contextPath}/upload/${art.articleImg}" alt="post Image">
 									</div>
-									<!-- /.entry-meta -->
-								</div>
-								<!-- /.post-meta -->
-							</div>
-							<!-- /.post-top -->
-							<div class="post-content">
-								<h2 class="entry-title">
-									<a href="blog-single.html">Standard Blog post Title</a>
-								</h2>
-								<p class="entry-text">Class aptent taciti sociosqu ad litora
-									torquent per conubia nostra, per inceptos himenaeos. Mauris in
-									erat justo. Nullam ac urna eu felis dapibus condimentum sit
-									amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin
-									condimentum fermentum nunc. Etiam pharetra, erat sed fermentum
-									feugiat, velit mauris egestas quam, ut aliquam massa nisl quis
-									neque. Suspendisse in orci enim.</p>
-								<a class="btn" href="#"> <span class="btn-icon"><i
-										class="fa fa-arrow-circle-right"></i></span> Read More
-								</a>
-							</div>
-							<!-- /.post-content --> </article>
-						</div>
-						<!-- /.item -->
-					</div>
-					<div class="col-sm-6">
-						<div class="item">
-							<article class="post type-post">
-							<div class="post-top">
-								<div class="post-thumbnail">
-									<img src="images/blog/2.jpg" alt="post Image">
-								</div>
-								<!-- /.post-thumbnail -->
-								<div class="post-meta">
-									<div class="entry-meta">
-										<span class="entry-date"> <time datetime="2015-01-15">15
-											Jan 2015</time>
-										</span> <span class="author-name"> <a href="#">John Doe</a>
-										</span> <span class="post-tags">
-											<ul class="tag-list">
-												<li><a href="#">web-design</a></li>
-												<li><a href="#">html5</a></li>
-												<li><a href="#">css3</a></li>
-											</ul>
-										</span>
+									<!-- /.post-thumbnail -->
+									<div class="post-meta">
+										<div class="entry-meta">
+											<span class="entry-date"> <time datetime="2015-01-15">
+												${art.articleDate }</time>
+											</span> <span class="author-name"> <a href="#">${art.author }</a>
+											</span> <span class="post-tags">
+												<ul class="tag-list">
+													<li><a href="#">${art.articleTag }</a></li>
+												</ul>
+											</span>
+										</div>
 									</div>
-									<!-- /.entry-meta -->
 								</div>
-								<!-- /.post-meta -->
+								<div class="post-content">
+									<h2 class="entry-title">
+										<a href="blog-single.html">${art.title }</a>
+									</h2>
+									<p class="entry-text dicValue"  name="articleState" value="${art.articleState }"></p>
+									<p class="entry-text">${art.discrib }</p>
+									<a class="btn" href="###" onclick="detailArticle(${art.id })"> <span class="btn-icon"><i
+											class="fa fa-arrow-circle-right"></i></span> 详情
+									</a>
+								</div>
+								</article>
 							</div>
-							<!-- /.post-top -->
-							<div class="post-content">
-								<h2 class="entry-title">
-									<a href="blog-single.html">Standard Blog post Title</a>
-								</h2>
-								<p class="entry-text">Class aptent taciti sociosqu ad litora
-									torquent per conubia nostra, per inceptos himenaeos. Mauris in
-									erat justo. Nullam ac urna eu felis dapibus condimentum sit
-									amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin
-									condimentum fermentum nunc. Etiam pharetra, erat sed fermentum
-									feugiat, velit mauris egestas quam, ut aliquam massa nisl quis
-									neque. Suspendisse in orci enim.</p>
-								<a class="btn" href="#"> <span class="btn-icon"><i
-										class="fa fa-arrow-circle-right"></i></span> Read More
-								</a>
-							</div>
-							<!-- /.post-content --> </article>
 						</div>
-						<!-- /.item -->
-					</div>
+					</c:forEach>
 				</div>
-				<!-- /.latest-posts -->
 			</div>
-			<!-- /.row -->
 		</div>
-		<!-- /.post-area -->
 	</div>
-	<!-- /.container --> </section>
+	</section>
 
 </body>
 </html>

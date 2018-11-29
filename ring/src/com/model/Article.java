@@ -1,7 +1,5 @@
 package com.model;
 
-import java.util.Date;
-
 public class Article {
     private Integer id;
     
@@ -11,7 +9,7 @@ public class Article {
 
     private String discrib;
 
-    private String editorvalue;
+    private String editorValue;
 
     private String author;
 
@@ -19,7 +17,7 @@ public class Article {
 
     private String articleState;
 
-    private Date articleDate;
+    private String articleDate;
 
     private String articleType;
 
@@ -57,12 +55,12 @@ public class Article {
         this.discrib = discrib == null ? null : discrib.trim();
     }
 
-    public String getEditorvalue() {
-        return editorvalue;
+    public String getEditorValue() {
+        return editorValue;
     }
 
-    public void setEditorvalue(String editorvalue) {
-        this.editorvalue = editorvalue == null ? null : editorvalue.trim();
+    public void setEditorValue(String editorValue) {
+        this.editorValue = editorValue == null ? null : editorValue.trim();
     }
 
     public String getAuthor() {
@@ -89,11 +87,12 @@ public class Article {
         this.articleState = articleState == null ? null : articleState.trim();
     }
 
-    public Date getArticleDate() {
-        return articleDate;
+    public String getArticleDate() {
+    		
+        return articleDate.substring(0, 19);
     }
 
-    public void setArticleDate(Date articleDate) {
+    public void setArticleDate(String articleDate) {
         this.articleDate = articleDate;
     }
 

@@ -74,6 +74,8 @@ public class WebController {
 			session.setAttribute("webUser", user);
 			Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
 			session.setAttribute("customer", cust);
+			Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
+			session.setAttribute("dic",   JSONObject.fromObject(dicMap));
 			msg.setSuccess(true);
 			msg.setMsg("登陆成功");
 			return msg;

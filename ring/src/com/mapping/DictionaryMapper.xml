@@ -24,7 +24,7 @@
   	    <if test="obj.name!= null and obj.name != '' ">
   	    	     and name like #{obj.name}
   	    </if>
-  	     order by  name 
+  	     order by  col 
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
   

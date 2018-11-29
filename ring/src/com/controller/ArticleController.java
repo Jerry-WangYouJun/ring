@@ -1,6 +1,5 @@
 package com.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,23 +7,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.sf.json.JSONObject;
-
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.CodeUtil;
+import com.common.DateUtils;
 import com.common.entry.Grid;
 import com.common.entry.Message;
 import com.common.entry.Pagination;
 import com.dao.ArticleMapper;
+import com.dao.CustomerMapper;
 import com.model.Article;
 import com.model.Customer;
 import com.model.Dictionary;
 import com.model.User;
 import com.service.DictionaryService;
+
+import net.sf.json.JSONObject;
 
 
 @Controller
@@ -36,6 +38,9 @@ public class ArticleController {
 	
 	@Autowired
 	DictionaryService dicService;
+	
+	@Autowired
+	CustomerMapper custMapper;
 	
 	
 	@ResponseBody
@@ -58,19 +63,37 @@ public class ArticleController {
 	@RequestMapping("/article_edit")
 	public Message  editArticle(Article article , HttpServletRequest request ){
 		Message msg = new Message();
+		
 		try{
+			if(request.getSession().getAttribute("articleImg") != null ) {
+				String img = request.getSession().getAttribute("articleImg").toString() ;
+				if(StringUtils.isNotEmpty(img)) {
+					 article.setArticleImg(img);
+				}else {
+					 msg.setSuccess(false);
+					 msg.setMsg("操作失败：请在正文中添加图片作为封面");
+					 return msg ;
+				}
+			}else {
+				 msg.setSuccess(false);
+				 msg.setMsg("操作失败：请在正文中添加图片作为封面");
+				 return msg ;
+			}
+			
 			if(article.getId() != null  &&  article.getId() > 0){
 				service.updateByPrimaryKey(article);
 			}else{
 				User user = (User)request.getSession().getAttribute("webUser");
 				article.setCustId(Integer.valueOf(user.getRemark()));
 				if("1".equals(user.getRole())) {
-					article.setArticleState("1");
-				}else {
-					article.setArticleState("0");
+					article.setArticleState("2");
 				}
+				article.setArticleDate(DateUtils.getToday());
+				Customer cust = custMapper.selectByPrimaryKey(Integer.valueOf(user.getRemark()));
+				article.setAuthor(cust.getNickName());
 				service.insert(article);
 			}
+			request.getSession().removeAttribute("articleImg");
 			msg.setSuccess(true);
 			msg.setMsg("操作成功");
 		}catch(Exception e ){
@@ -128,9 +151,22 @@ public class ArticleController {
 	public String articleIndex(HttpServletRequest  request , HttpSession session ,String openId ) {
 		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
-		List<Article> articleList = service.queryByWhere(new Article(), new Pagination());
+		Article art = new Article();
+		User user = (User)session.getAttribute("webUser");
+		if(!"1".equals(user.getRole()) ){
+			art.setArticleState("2");
+		}
+		String state = request.getParameter("state");
+		if(StringUtils.isNotEmpty(state)) {
+			art.setArticleState(state);
+		}
+		String title = request.getParameter("title");
+		if(StringUtils.isNotEmpty(title)) {
+			art.setTitle(title);
+		}
+		List<Article> articleList = service.queryByWhere(art, new Pagination());
 		request.setAttribute("articleList", articleList);
-		return "forward:/ring/article/main.jsp";
+		return "forward:/article/index.jsp";
 	}
 	
 	@RequestMapping("/myArticle")
@@ -142,17 +178,22 @@ public class ArticleController {
 		article.setCustId(cust.getId());
 		List<Article> articleList = service.queryByWhere(article, new Pagination());
 		request.setAttribute("articleList", articleList);
-		return "forward:/ring/article/main.jsp";
+		return "forward:/article/index.jsp";
 	}
 
 	@RequestMapping("/detail")
 	public String articledetail(HttpServletRequest  request , HttpSession session ,Integer id ) {
 		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
-		Article article = service.selectByPrimaryKey(id);
-		User user = (User)session.getAttribute("webUser");
-		request.setAttribute("article", article);
-		return "forward:/ring/article/detail.jsp";
+		Article article = new Article();
+		Customer cust = (Customer)session.getAttribute("customer");
+		article.setCustId(cust.getId());
+		List<Article> articleList = service.queryByWhere(article, new Pagination());
+		request.setAttribute("articleList", articleList);
+		Article articleDetail = service.selectByPrimaryKey(id);
+		request.setAttribute("article", articleDetail);
+		request.setAttribute("articleList", articleList);
+		return "forward:/article/detail.jsp";
 	}
 	
 }

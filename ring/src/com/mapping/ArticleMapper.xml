@@ -6,7 +6,7 @@
     <result column="cust_id" jdbcType="INTEGER" property="custId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="discrib" jdbcType="VARCHAR" property="discrib" />
-    <result column="editorValue" jdbcType="VARCHAR" property="editorvalue" />
+    <result column="editorValue" jdbcType="VARCHAR" property="editorValue" />
     <result column="author" jdbcType="VARCHAR" property="author" />
     <result column="article_img" jdbcType="VARCHAR" property="articleImg" />
     <result column="article_state" jdbcType="VARCHAR" property="articleState" />
@@ -43,6 +43,18 @@
   	    <if test="obj.articleType!= null and obj.articleType != '' ">
   	    	     and article_type = #{obj.articleType}
   	    </if>
+  	     <if test="obj.articleState != null and obj.articleState != '' ">
+  	     	<if test="obj.articleState == '2'.toString() ">
+	  	    	     and article_state not in ('0' , '1')
+  	     	</if>
+  	     	<if test="obj.articleState == '3'.toString()">
+	  	    	     and article_state  = '3'
+  	     	</if>
+  	     	 <if test="obj.articleState == '4'.toString() ">
+	  	    	     and article_state = '4'
+  	     	</if>
+  	    </if>
+  	    order by article_state desc 
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
   
@@ -85,7 +97,7 @@
       article_tag, article_read, article_transmit, 
       article_mark, remark)
     values (#{id,jdbcType=INTEGER},#{custId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{discrib,jdbcType=VARCHAR}, 
-      #{editorvalue,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{articleImg,jdbcType=VARCHAR}, 
+      #{editorValue,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{articleImg,jdbcType=VARCHAR}, 
       #{articleState,jdbcType=VARCHAR}, #{articleDate,jdbcType=TIMESTAMP}, #{articleType,jdbcType=VARCHAR}, 
       #{articleTag,jdbcType=VARCHAR}, #{articleRead,jdbcType=INTEGER}, #{articleTransmit,jdbcType=INTEGER}, 
       #{articleMark,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
@@ -94,7 +106,7 @@
     update t_article
     set title = #{title,jdbcType=VARCHAR},
       discrib = #{discrib,jdbcType=VARCHAR},
-      editorValue = #{editorvalue,jdbcType=VARCHAR},
+      editorValue = #{editorValue,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
       article_img = #{articleImg,jdbcType=VARCHAR},
       article_state = #{articleState,jdbcType=VARCHAR},
