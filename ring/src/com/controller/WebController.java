@@ -100,6 +100,7 @@ public class WebController {
 			msg.setMsg("系统异常：" + e.getMessage());
 			e.printStackTrace();
 		}
+		return msg ;
 	}
 	
 	@RequestMapping("/register")

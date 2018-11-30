@@ -101,7 +101,7 @@ public class EmailSendService  {
         message.setSubject("无名指之约，内部会员关联验证码邮件", "UTF-8");
 
         // 5. Content: 邮件正文（可以使用html标签）（内容有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改发送内容）
-        message.setContent("此验证码有效期为2个小时，请尽快登陆公众号页面进行验证<hr>系统邮件请勿回复", "text/html;charset=UTF-8");
+        message.setContent("请尽快登陆公众号页面进行验证<hr>系统邮件请勿回复", "text/html;charset=UTF-8");
 
         // 6. 设置发件时间
         message.setSentDate(new Date());
