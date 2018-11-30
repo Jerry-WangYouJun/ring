@@ -194,8 +194,7 @@ $(document).ready(function(){
 			success : function(data) {
 				if (data.success) {
 					alert(data.msg);
-					$("#infoTable").bootstrapTable("refresh");
-					window.location.href="/web/login?userNo=${openId}&pwd=123";
+					window.location.href="${pageContext.request.contextPath}/web/login?userNo=${openId}&pwd=123";
 				} else {
 					alert(data.msg);
 				}
