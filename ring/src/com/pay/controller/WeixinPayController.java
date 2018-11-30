@@ -1,8 +1,10 @@
 package com.pay.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,8 +17,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONObject;
 
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +31,18 @@ import com.model.Customer;
 import com.model.Dictionary;
 import com.model.User;
 import com.pay.config.WxPayConfig;
+import com.pay.msgreply.XMLUtil;
 import com.pay.util.CommonUtil;
 import com.pay.util.OrderUtils;
 import com.pay.util.RequestHandler;
 import com.pay.util.Sha1Util;
-import com.pay.util.SignUtil;
 import com.pay.util.WXAuthUtil;
 import com.pay.util.WeixinPayUtil;
 import com.service.CustomerService;
 import com.service.DictionaryService;
 import com.service.UserService;
+
+import net.sf.json.JSONObject;
 
 /**
  * 微信支付Controller
@@ -69,20 +71,23 @@ public class WeixinPayController {
 	}
 	
 	@RequestMapping("/token")
-	public void getToken(HttpServletResponse response, String signature,
-			String timestamp, String nonce, String echostr) {
-		PrintWriter out;
-		try {
-			out = response.getWriter();
-			// 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
-			if (SignUtil.checkSignature(signature, timestamp, nonce)) {
-				out.print(echostr);
-			}
-			out.close();
-			out = null;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void getToken(HttpServletResponse response, HttpServletRequest request ,  String signature,
+			String timestamp, String nonce, String echostr) throws IOException {
+		//接受微信服务器发送过来的XML形式的消息
+        InputStream in=request.getInputStream();
+        BufferedReader reader=new BufferedReader(new InputStreamReader(in,"UTF-8"));
+        String sReqData="";
+        String itemStr="";//作为输出字符串的临时串，用于判断是否读取完毕
+        while((itemStr=reader.readLine())!=null){
+            sReqData+=itemStr;
+        }
+        in.close();
+        reader.close();
+
+        System.out.println("收到消息："+sReqData);
+        //防止中文乱码
+        response.setCharacterEncoding("UTF-8");
+        XMLUtil.replyMessage(sReqData,response.getWriter());
 	}
 	
 	/**
