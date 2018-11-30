@@ -13,16 +13,54 @@ import com.pay.msg.TemplateParam;
 
 public class NoticeUtil {
 	
+	//审核状态提醒 万能状态
+	static String examineState="nuCSH18YyXXkB6kRS05srOChuo67zkCP79sQRP8oI1s";
+	//会员资料审核提醒   审核失败
+	static String examine ="BTlpSvWdbbdGeRP5zREEdqHeeH-OELkmQzaO6oFl-dQ";
+	//注册成功通知
 	static String registerSuccess = "d8w35wAWCN9cCxpcVZmtDPVWgERECjKJG6ItCZiBkYM";
+	//邀请注册成功通知
+	static String inviteRegister="uRAO2lglk5z47xROoFFBOzUAIw-QLg8gVjpHRT90X14";
 	
+	//名片交换提醒   点赞时推送
+	static String infoExchange = "DltlRYvPQJd7vYSrADZyVwwSTehzRLs6CIjdK0OLk_k";
+	
+	//申请处理通知  - 邀约发起
 	static String inviteInit = "SpEZI4pB8MhHFo-1zeIJd8od0ooIlMt1UafnQxUbTZw";
-	
+	//邀请已接受通知
 	static String inviteConfirm = "_X4HhFarcwEb95SFkIZQaG8SKZ-vYeh6U09-4E4vz-E";
-	
+	//申请拒绝通知
 	static String inviteRefuse = "lhB85KT6SNdvYct8ltjb1Q-mxlB5ljdDtpQO1jzdoiQ";
-	
+	//同意邀请通知
 	static String inviteAccept = "rLBm4XmI2JOKebMEvVFzrF8HjzeLj5QkXYhi21aHGC8";
+	//预约修改成功提醒
 	static String inviteUpdate = "G6gzlxHwCEptgbtxhX5_QVVohfUEGQ-KWpOMjR3yEt0";
+	//签到成功通知
+	static String singIn = "FOH2WMFyoKN_k_ZZdTHAhqFYfoBenA238c_C2WbFrbU";
+	
+	//爽约提醒
+	static String standUp ="VtAv8KJGTl8JwOEuWJS0QOdssGwAwokhgoLroD9_IHI";
+	//客服服务投诉提醒   管理员接受客户举报
+	static String standUpReport = "iQWH4jXV8l-ZKtGKI5WHEgExbSQn1XbtgMvckNvHbrU";
+	
+	//报名成功
+	static String actSignUpAccess ="HbIIvAmBFe-vDtzHC7C4RE-0v7gCe_vPzaqPZg2bU4g";
+	//报名不通过通知
+	static String  singUpFailed = "cyRjxoAK0mxHIZUuqNhNVpsVM7kJS0wDYvSegz1_1JI";
+	//报名状态通知 -  万能+活动
+	static String  actState = "gCoFPhs6WejWFMelw_e3LEl4nMCCOzZO9B5BKKuZ6Po";
+	
+	//接收留言通知 - 客户留言通知
+	static String messageReceiveReport="xEh4C38LiPxKSKSmOOtlF3OfqssNjlefPWzsB1pTox8";
+	//留言提交成功通知
+	static String messageSend="ltZDxE9jEWoHx4SAJDx0JYHv3m65wBAl-woM5Zealvc";
+	
+	//积分变动提醒
+	static String pointUpdate ="IEHbFW5TDYZy-OXaYcEuY-4TkAUHnJTzCTcQe-8BeOQ";
+	//连续签到
+	static String singUpContinue="W7Cf_4cE--r0A5gCVCQb-xcy2IlDDcKFI8qrqpTSLOQ";
+	
+	
 	/**
 	 * 注册成功
 	 * @param customer
