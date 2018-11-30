@@ -25,6 +25,7 @@ import com.model.Invite;
 import com.model.InviteDetail;
 import com.model.Location;
 import com.model.User;
+import com.sendMail.EmailSendService;
 import com.service.CustomerService;
 import com.service.DictionaryService;
 import com.service.InviteDetailService;
@@ -53,6 +54,8 @@ public class WebController {
 	EvaluateMapper evaluateMapper;
 	@Autowired
 	DictionaryService dicService;
+	@Autowired
+	EmailSendService emailService;
 	@Autowired
 	UserDao  dao ;
 	
@@ -83,6 +86,19 @@ public class WebController {
 			msg.setSuccess(false);
 			msg.setMsg("用户名或密码错误");
 			return msg;
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/sendMail")
+	public Message sendMail( HttpSession session , String codeEmail ) {
+		Message msg = new Message();
+		try {
+			emailService.sendMail(codeEmail);
+		} catch (Exception e) {
+			msg.setSuccess(false);
+			msg.setMsg("系统异常：" + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
@@ -269,4 +285,6 @@ public class WebController {
 		request.setAttribute("invite", invite);
 		return "forward:/ring/detail.jsp";
 	}
+	
+	
 }

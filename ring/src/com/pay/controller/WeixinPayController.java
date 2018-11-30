@@ -63,6 +63,11 @@ public class WeixinPayController {
 	private static String baseUrl = "http://www.ringfingerdating.cn/ring";
 	Map<String,String>  excuteResultMap = new HashMap<>();
 	
+	@RequestMapping("/menu")
+	public void createMenu(){
+		
+	}
+	
 	@RequestMapping("/token")
 	public void getToken(HttpServletResponse response, String signature,
 			String timestamp, String nonce, String echostr) {
