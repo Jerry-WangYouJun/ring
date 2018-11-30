@@ -128,7 +128,6 @@ $(document).ready(function(){
 			success : function(data) {
 				if (data.success) {
 					alert(data.msg);
-					$("#infoTable").bootstrapTable("refresh");
 					window.location.href="${pageContext.request.contextPath}/article/index";
 				} else {
 					alert(data.msg);

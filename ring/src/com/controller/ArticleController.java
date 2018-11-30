@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -88,7 +89,7 @@ public class ArticleController {
 				if("1".equals(user.getRole())) {
 					article.setArticleState("2");
 				}
-				article.setArticleDate(DateUtils.getToday());
+				article.setArticleDate(DateUtils.formatDate("yyyy-MM-dd HH:mm", new Date()));
 				Customer cust = custMapper.selectByPrimaryKey(Integer.valueOf(user.getRemark()));
 				article.setAuthor(cust.getNickName());
 				service.insert(article);
