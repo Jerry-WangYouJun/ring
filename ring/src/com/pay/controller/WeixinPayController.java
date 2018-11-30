@@ -115,23 +115,6 @@ public class WeixinPayController {
 	}
 	
 	
-	@RequestMapping("/login/{id}")
-	public String login(HttpServletRequest request, HttpServletResponse response , @PathVariable Integer id){
-		//授权后要跳转的链接
-		//邀约传web   活动传act   文章传article
-		String backUri = baseUrl + "/wx/check/" + id ;
-		//URLEncoder.encode 后可以在backUri 的url里面获取传递的所有参数
-		backUri = URLEncoder.encode(backUri);
-		//scope 参数视各自需求而定，这里用scope=snsapi_base 不弹出授权页面直接授权目的只获取统一支付接口的openid
-		String url = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-				"appid=" + WxPayConfig.appid +
-				"&redirect_uri=" +
-				 backUri+
-				"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
-		System.out.println("url:" + url);
-		return "redirect:"+url;
-	}
-	
 	@RequestMapping("/index/{action}/{id}")
 	public String act(HttpServletRequest request, HttpServletResponse response
 			, @PathVariable Integer id , @PathVariable String  action){
@@ -150,32 +133,6 @@ public class WeixinPayController {
 		return "redirect:"+url;
 	}
 
-	@RequestMapping("/check/{id}")
-	public String checkUserType(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer id) throws ClientProtocolException, IOException{
-			        JSONObject userInfo  = getUserInfo(request, response);
-		                Customer customer = new Customer();
-		                customer.setOpenId(userInfo.getString("openid"));
-		       List<Customer> custList = custService.queryList(customer, new Pagination());
-		       if(custList ==null || custList.size() ==0){
-					return "forward:/web/register?openId=" + customer.getOpenId();
-				}else {
-					User user = new User();
-					user.setUserNo(customer.getOpenId());
-					user.setPwd("123");
-					user = userService.checkUser(user);
-					request.getSession().setAttribute("webUser", user);
-					Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
-					request.getSession().setAttribute("customer", cust);
-					Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
-					request.getSession().setAttribute("dic",   JSONObject.fromObject(dicMap));
-				}
-		    	   if( id != null && id != 0) {
-		    		   return "forward:/web/detail?id=" + id ;
-		    	   }else{
-		    		   return "forward:/web/index" ;
-		    	   }
-		
-	}
 	
 	@RequestMapping("/checkact/{action}/{id}")
 	public String checkact(HttpServletRequest request, HttpServletResponse response
@@ -183,25 +140,37 @@ public class WeixinPayController {
 			        JSONObject userInfo  = getUserInfo(request, response);
 		                Customer customer = new Customer();
 		                customer.setOpenId(userInfo.getString("openid"));
-		       List<Customer> custList = custService.queryList(customer, new Pagination());
-		       if(custList ==null || custList.size() ==0){
-					return "forward:/web/register?openId=" + customer.getOpenId();
-				}else {
-					User user = new User();
-					user.setUserNo(customer.getOpenId());
-					user.setPwd("123");
-					user = userService.checkUser(user);
-					request.getSession().setAttribute("webUser", user);
-					Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
-					request.getSession().setAttribute("customer", cust);
-					Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
-					request.getSession().setAttribute("dic",   JSONObject.fromObject(dicMap));
-				}
-		    	   if( id != null && id != 0) {
-		    		   return "forward:/"+action+"/detail?id=" + id ;
-		    	   }else{
-		    		   return "forward:/"+action+"/index" ;
-		    	   }
+		        String token_user_focus    = WXAuthUtil.getAccessToken();
+		        String infoUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token="+token_user_focus
+                        + "&openid="+customer.getOpenId()
+                        + "&lang=zh_CN";
+                System.out.println("infoUrl:"+infoUrl);
+		        JSONObject jsonObject = WXAuthUtil.doGetJson(infoUrl);
+		           if("0".equals(jsonObject.getString("subscribe"))){     
+		        	   System.out.println("没有关注");
+		        	   return "forward:/article/focus.jsp";
+		           }else{
+		        	   
+		        	   List<Customer> custList = custService.queryList(customer, new Pagination());
+		        	   if(custList ==null || custList.size() ==0){
+		        		   return "forward:/web/register?openId=" + customer.getOpenId();
+		        	   }else {
+		        		   User user = new User();
+		        		   user.setUserNo(customer.getOpenId());
+		        		   user.setPwd("123");
+		        		   user = userService.checkUser(user);
+		        		   request.getSession().setAttribute("webUser", user);
+		        		   Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
+		        		   request.getSession().setAttribute("customer", cust);
+		        		   Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
+		        		   request.getSession().setAttribute("dic",   JSONObject.fromObject(dicMap));
+		        	   }
+		        	   if( id != null && id != 0) {
+		        		   return "forward:/"+action+"/detail?id=" + id ;
+		        	   }else{
+		        		   return "forward:/"+action+"/index" ;
+		        	   }
+		           }
 		
 	}
 	

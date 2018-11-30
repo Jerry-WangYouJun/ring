@@ -48,7 +48,7 @@
       <section id="site-banner" class="site-banner text-center">
         <div class="container">
           <div class="">
-            <a href="./"><img src="images/logo.png" alt="Site Logo" style="max-width:200px;"></a>
+            <a href="./"><img src="${pageContext.request.contextPath}/article/images/logo.png" alt="Site Logo" style="max-width:200px;"></a>
           </div><!-- /.site-logo -->
         </div><!-- /.container -->
       </section><!-- /#site-banner -->
@@ -61,7 +61,7 @@
             <div class="col-sm-7 col-lg-7">
               <div class="navbar-header">
                 <div class="menu-logo">
-                   <img src="images/logo.png" alt="menu Logo" >
+                   <img src="${pageContext.request.contextPath}/article/images/logo.png" alt="menu Logo" >
                 </div><!-- /.menu-logo -->
               </div>
             </div>
@@ -82,7 +82,7 @@
                 <article class="post type-post">
                   <div class="post-top">
                     <div class="post-thumbnail">
-                      <img class="img-responsive" src="images/344.jpg" alt="post Image">
+                      <img class="img-responsive" src="${pageContext.request.contextPath}/article/images/344.jpg" alt="post Image">
                     </div><!-- /.post-thumbnail -->  
                   </div><!-- /.post-top -->
 					<div>
