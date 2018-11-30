@@ -6,24 +6,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="assets/css/bootstrap.css" rel="stylesheet">
-<link href="assets/css/bootstrap.min.css" rel="stylesheet">
-<link href="assets/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/magnific-popup.css">
-<link href="assets/css/style.css" rel="stylesheet">
-<link href="assets/css/icons.css" rel="stylesheet">
-<link href="assets/css/main.css" rel="stylesheet">
-<link href="assets/css/animate.min.css" rel="stylesheet">
-<link href="assets/css/owl.carousel.css" rel="stylesheet">
-<link href="assets/css/responsive.css" rel="stylesheet">
-<script src="assets/js/modernizr-2.8.3.min.js"></script>
-<script src="assets/js/jquery-2.1.0.min.js"></script>
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
-<script src="assets/js/gmap3.js"></script>
-<script src="assets/js/plugins.js"></script>
-<script src="assets/js/functions.js"></script>
-<script src="assets/js/wow.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery.ajaxchimp.min.js"></script>
+<link href="${pageContext.request.contextPath}/article/assets/css/bootstrap.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/article/assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/article/assets/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/article/assets/css/magnific-popup.css">
+<link href="${pageContext.request.contextPath}/article/assets/css/style.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/article/assets/css/icons.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/article/assets/css/main.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/article/assets/css/animate.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/article/assets/css/owl.carousel.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/article/assets/css/responsive.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath}/article/assets/js/modernizr-2.8.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/article/assets/js/jquery-2.1.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/article/assets/js/jquery.magnific-popup.min.js"></script>
+<script src="${pageContext.request.contextPath}/article/assets/js/gmap3.js"></script>
+<script src="${pageContext.request.contextPath}/article/assets/js/plugins.js"></script>
+<script src="${pageContext.request.contextPath}/article/assets/js/functions.js"></script>
+<script src="${pageContext.request.contextPath}/article/assets/js/wow.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/article/assets/js/jquery.ajaxchimp.min.js"></script>
 <title>Insert title here</title>
 <script type="text/javascript">
 $(function(){

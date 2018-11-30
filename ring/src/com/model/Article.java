@@ -89,7 +89,7 @@ public class Article {
 
     public String getArticleDate() {
     		
-        return articleDate.substring(0, 19);
+        return articleDate.length()>19 ?articleDate.substring(0, 19):articleDate;
     }
 
     public void setArticleDate(String articleDate) {

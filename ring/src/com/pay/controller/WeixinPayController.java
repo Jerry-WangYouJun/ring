@@ -60,7 +60,7 @@ public class WeixinPayController {
 	UserService userService ;
 	
 	
-	private static String baseUrl = "http://www.ringfingerdating.cn";
+	private static String baseUrl = "http://www.ringfingerdating.cn/ring";
 	Map<String,String>  excuteResultMap = new HashMap<>();
 	
 	@RequestMapping("/token")
@@ -132,7 +132,7 @@ public class WeixinPayController {
 		return "redirect:"+url;
 	}
 	
-	@RequestMapping("/{action}/{id}")
+	@RequestMapping("/index/{action}/{id}")
 	public String act(HttpServletRequest request, HttpServletResponse response
 			, @PathVariable Integer id , @PathVariable String  action){
 		//授权后要跳转的链接
@@ -177,7 +177,7 @@ public class WeixinPayController {
 		
 	}
 	
-	@RequestMapping("/checkact/${act}/{id}")
+	@RequestMapping("/checkact/{action}/{id}")
 	public String checkact(HttpServletRequest request, HttpServletResponse response
 			, @PathVariable Integer id , @PathVariable String action) throws ClientProtocolException, IOException{
 			        JSONObject userInfo  = getUserInfo(request, response);
