@@ -20,29 +20,36 @@ public class Customer {
     private String webSex;
    
     private String birthday;
+    private String birthday2;
 
     private String hometown;
+    private String hometown2;
     
     private String loca;
 
     private String addtress;
 
     private Double height;
+    private Double height2;
 
     private Double weight;
+    private Double weight2;
 
     private String marriage;
+    private String marriage2;
 
     private String children;
 
     private String degree;
+    private String degree2;
 
     private String houseStatus;
+    private String houseStatus2;
 
     private String industry;
 
     private String income;
-
+    private String income2;
     private String qq;
 
     private String telephone;
@@ -359,4 +366,69 @@ public class Customer {
 	public void setFocus(List<Focus> focus) {
 		this.focus = focus;
 	}
+
+	public String getBirthday2() {
+		return birthday2;
+	}
+
+	public void setBirthday2(String birthday2) {
+		this.birthday2 = birthday2;
+	}
+
+	public String getHometown2() {
+		return hometown2;
+	}
+
+	public void setHometown2(String hometown2) {
+		this.hometown2 = hometown2;
+	}
+
+	public Double getHeight2() {
+		return height2;
+	}
+
+	public void setHeight2(Double height2) {
+		this.height2 = height2;
+	}
+
+	public Double getWeight2() {
+		return weight2;
+	}
+
+	public void setWeight2(Double weight2) {
+		this.weight2 = weight2;
+	}
+
+	public String getMarriage2() {
+		return marriage2;
+	}
+
+	public void setMarriage2(String marriage2) {
+		this.marriage2 = marriage2;
+	}
+
+	public String getDegree2() {
+		return degree2;
+	}
+
+	public void setDegree2(String degree2) {
+		this.degree2 = degree2;
+	}
+
+	public String getHouseStatus2() {
+		return houseStatus2;
+	}
+
+	public void setHouseStatus2(String houseStatus2) {
+		this.houseStatus2 = houseStatus2;
+	}
+
+	public String getIncome2() {
+		return income2;
+	}
+
+	public void setIncome2(String income2) {
+		this.income2 = income2;
+	}
+	
 }

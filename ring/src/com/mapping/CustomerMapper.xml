@@ -10,16 +10,23 @@
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
+     <result column="birthday2" jdbcType="DATE" property="birthday2" />
     <result column="hometown" jdbcType="VARCHAR" property="hometown" />
     <result column="addtress" jdbcType="VARCHAR" property="addtress" />
     <result column="height" jdbcType="DOUBLE" property="height" />
     <result column="weight" jdbcType="DOUBLE" property="weight" />
     <result column="marriage" jdbcType="VARCHAR" property="marriage" />
+    <result column="height2" jdbcType="DOUBLE" property="height2" />
+    <result column="weight2" jdbcType="DOUBLE" property="weight2" />
+    <result column="marriage2" jdbcType="VARCHAR" property="marriage2" />
     <result column="children" jdbcType="VARCHAR" property="children" />
     <result column="degree" jdbcType="VARCHAR" property="degree" />
     <result column="house_status" jdbcType="VARCHAR" property="houseStatus" />
-    <result column="industry" jdbcType="VARCHAR" property="industry" />
     <result column="income" jdbcType="VARCHAR" property="income" />
+    <result column="degree2" jdbcType="VARCHAR" property="degree2" />
+    <result column="house_status2" jdbcType="VARCHAR" property="houseStatus2" />
+    <result column="income2" jdbcType="VARCHAR" property="income2" />
+    <result column="industry" jdbcType="VARCHAR" property="industry" />
     <result column="qq" jdbcType="VARCHAR" property="qq" />
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
@@ -35,8 +42,8 @@
 		</collection>
   </resultMap>
   <sql id="Base_Column_List">
-    id, examine, head_image, ch_name, nick_name, sex, birthday, hometown, addtress, height, 
-    weight, marriage, children, degree, house_status, industry, income, qq, telephone, 
+    id, examine, head_image, ch_name, nick_name, sex, birthday, birthday2,hometown,hometown2, addtress, height,height2, 
+    weight,weight2, marriage,marriage2, children, degree,degree2, house_status, house_status2,industry, income,income2 ,qq, telephone, 
     email, referee, introduction, declaration, ask, remark,flag , openId ,age , loca
   </sql>
   <select id="getFocus" parameterType="int" resultType="com.model.Focus">
@@ -74,8 +81,8 @@
   	    <if test="obj.loca!= null and obj.loca != '' ">
   	    	     and loca = #{obj.loca}
   	    </if>
-  	     <if test="obj.addtress!= null and obj.addtress != '' ">
-  	    	     and addtress = #{obj.addtress}
+  	     <if test="obj.email!= null and obj.email != '' ">
+  	    	     and email = #{obj.email}
   	    </if>
   	    <if test="obj.ageFrom!=null and obj.ageFrom > 0">
   	    	    and age  >= #{obj.ageFrom}
@@ -109,8 +116,8 @@
   	    <if test="loca!= null and loca != '' ">
   	    	     and loca = #{loca}
   	    </if>
-  	     <if test="addtress!= null and addtress  != '' ">
-  	    	     and addtress = #{addtress}
+  	     <if test="email null and email  != '' ">
+  	    	     and email = #{email}
   	    </if>
   	    <if test="ageFrom!=null and ageFrom > 0">
   	    	    and age  >= #{ageFrom}
@@ -148,7 +155,8 @@
       industry, income, qq, 
       telephone, email, referee, 
       introduction, declaration, ask, 
-      remark, flag , openId , age , loca)
+      remark, flag , openId , age , loca , birthday2,hometown2,height2,weight2,marriage2,
+      degree2 ,houseStatus2,income2)
     values (#{id,jdbcType=INTEGER}, #{examine,jdbcType=VARCHAR}, #{headImage,jdbcType=INTEGER}, 
       #{chName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=DATE}, #{hometown,jdbcType=VARCHAR}, #{addtress,jdbcType=VARCHAR}, 
@@ -158,7 +166,11 @@
       #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{referee,jdbcType=VARCHAR}, 
       #{introduction,jdbcType=VARCHAR}, #{declaration,jdbcType=VARCHAR}, #{ask,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR} , #{flag,jdbcType=VARCHAR} , #{openId,jdbcType=VARCHAR} ,
-       #{age,jdbcType=INTEGER} , #{loca,jdbcType=VARCHAR})
+       #{age,jdbcType=INTEGER} , #{loca,jdbcType=VARCHAR},
+       #{birthday2,jdbcType=DATE}, #{hometown2,jdbcType=VARCHAR}, 
+       #{height2,jdbcType=DOUBLE}, #{weight2,jdbcType=DOUBLE}, #{marriage2,jdbcType=VARCHAR}, 
+        #{degree2,jdbcType=VARCHAR}, #{houseStatus2,jdbcType=VARCHAR},  #{income2,jdbcType=VARCHAR}
+       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.model.Customer">
     update t_customer
@@ -169,15 +181,23 @@
       sex = #{sex,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=DATE},
       hometown = #{hometown,jdbcType=VARCHAR},
+      birthday2 = #{birthday2,jdbcType=DATE},
+      hometown2 = #{hometown2,jdbcType=VARCHAR},
       addtress = #{addtress,jdbcType=VARCHAR},
       height = #{height,jdbcType=DOUBLE},
       weight = #{weight,jdbcType=DOUBLE},
       marriage = #{marriage,jdbcType=VARCHAR},
+      height2 = #{height2,jdbcType=DOUBLE},
+      weight2 = #{weight2,jdbcType=DOUBLE},
+      marriage2 = #{marriage2,jdbcType=VARCHAR},
       children = #{children,jdbcType=VARCHAR},
       degree = #{degree,jdbcType=VARCHAR},
       house_status = #{houseStatus,jdbcType=VARCHAR},
+      degree2 = #{degree2,jdbcType=VARCHAR},
+      house_status2 = #{houseStatus2,jdbcType=VARCHAR},
       industry = #{industry,jdbcType=VARCHAR},
       income = #{income,jdbcType=VARCHAR},
+      income2 = #{income2,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
