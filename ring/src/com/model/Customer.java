@@ -77,6 +77,15 @@ public class Customer {
     private Double heightFrom;
     private Double heightTo;
     
+    private String economic ;
+    private String  looks; 
+    private String disposition;
+    private String  lifeRole; 
+    private String lifeType;
+    private String  nonType; 
+    private String other;
+    
+    
     List<Focus> focus  ;
 
     public Integer getId() {
@@ -429,6 +438,62 @@ public class Customer {
 
 	public void setIncome2(String income2) {
 		this.income2 = income2;
+	}
+
+	public String getEconomic() {
+		return economic;
+	}
+
+	public void setEconomic(String economic) {
+		this.economic = economic;
+	}
+
+	public String getLooks() {
+		return looks;
+	}
+
+	public void setLooks(String looks) {
+		this.looks = looks;
+	}
+
+	public String getDisposition() {
+		return disposition;
+	}
+
+	public void setDisposition(String disposition) {
+		this.disposition = disposition;
+	}
+
+	public String getLifeRole() {
+		return lifeRole;
+	}
+
+	public void setLifeRole(String lifeRole) {
+		this.lifeRole = lifeRole;
+	}
+
+	public String getLifeType() {
+		return lifeType;
+	}
+
+	public void setLifeType(String lifeType) {
+		this.lifeType = lifeType;
+	}
+
+	public String getNonType() {
+		return nonType;
+	}
+
+	public void setNonType(String nonType) {
+		this.nonType = nonType;
+	}
+
+	public String getOther() {
+		return other;
+	}
+
+	public void setOther(String other) {
+		this.other = other;
 	}
 	
 }

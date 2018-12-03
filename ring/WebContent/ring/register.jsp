@@ -72,7 +72,8 @@ $(function(){
 			<div class="services">
 				<div class="col-sm-12 col-xs-12 login_left">
 
-					<form id="dataForm">
+					<form id="dataForm"  class="form-horizontal" role="form"  enctype="multipart/form-data" 
+					   action="${basePath}/customer/customer_submit" method="post">
 						<input class="form-control " name="openId" type="hidden"
 							value="${openId}"></input> <input class="form-control " name="id"
 							type="hidden"></input> <input class="form-control " name="flag"
@@ -80,12 +81,12 @@ $(function(){
 						<div class="form-group">
 							<label for="message-text" class="control-label">姓名:</label> <input
 								type="text" class="form-control" name="chName" id="chName"
-								placeholder="必填" required>
+								placeholder="必填" required  onchange="check_unique('chName')">
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">昵称:</label> <input
 								type="text" class="form-control required" name="nickName"
-								id="nickName" placeholder="必填">
+								id="nickName" placeholder="必填"  onchange="check_unique('nickName')">
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">性别:</label> <select
@@ -93,6 +94,14 @@ $(function(){
 								placeholder="必填" required>
 							</select>
 						</div>
+						<div class="form-group">
+                            <label class="control-label">身份证正面图</label>
+                                <input type="file" name="upfile" id="upfile" class="form-control required" class="form-control" placeholder="请上传有效的身份证正面">
+                        </div>
+						<div class="form-group">
+                                 <label class="control-label">身份证反面图</label>
+                                 <input type="file" name="upfile2" id="upfile2" class="form-control required"  class="form-control" placeholder="请上传有效的身份证反面">
+                        </div  >
 						<div class="form-group">
 							<label for="message-text" class="control-label">生日:</label>
 							<div class='input-group date' id='datetimepicker1'>
@@ -109,11 +118,14 @@ $(function(){
 						</div>
 						
 						<div class="form-group">
-							<label for="message-text" class="control-label">现居:</label> <select
-								class="form-control dicSelect" name="loca" placeholder="必填"
-								required>
-
-							</select>
+							<label for="message-text" class="control-label">现居地:</label>
+							<div class="col-lg-12">
+								<div class="row">
+									<select id="cmbProvince" name="hometown" class="form-control col-lg-4" ></select>
+									<select id="cmbCity" name="hometown" class="form-control col-lg-4" ></select>
+									<select id="cmbArea" name="hometown" class="form-control col-lg-4" ></select>
+								</div>	
+							</div>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">经常活动区域:</label> <select
@@ -122,8 +134,6 @@ $(function(){
 
 							</select>
 						</div>
-						
-						
 						<div class="form-group">
 							<label for="message-text" class="control-label">身高(cm):</label> <input
 								type="text" class="form-control number" name="height">
@@ -168,8 +178,12 @@ $(function(){
 							</select>
 						</div> -->
 						<div class="form-group ">
-							<label for="message-text" class="control-label">从事行业:</label> <input
-								type="text" class="form-control" name="industry">
+							<label for="message-text" class="control-label">从事行业:</label> 
+								<select
+									class="form-control dicSelect" name="industry" placeholder="必填"
+										required>
+	
+								</select>
 
 						</div>
 						<div class="form-group ">
@@ -209,53 +223,47 @@ $(function(){
 							<label for="message-text" class="control-label">择偶要求:</label> 
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">生日:</label>
-							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' class="form-control" readonly name="birthday2"
-									id="birthday2"  /> <span
-									class="input-group-addon"> <span
-									class="glyphicon glyphicon-calendar"></span>
-								</span>
-							</div>
+							<label for="message-text" class="control-label">接受的年龄范围:</label>
+							<select
+									class="form-control dicSelect" name="birthday2" placeholder="必填"
+										required>
+	
+								</select>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">家乡:</label> <input
-								type="text" class="form-control" name="hometown2">
+							<label for="message-text" class="control-label">经济能力:</label> <input
+								type="text" class="form-control" name="economic">
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">身高(cm):</label> <input
-								type="text" class="form-control number" name="height2">
+							<label for="message-text" class="control-label">外貌:</label> <input
+								type="text" class="form-control number" name="looks">
 						</div>
 						<div class="form-group ">
-							<label for="message-text" class="control-label">体重(kg):</label> <input
-								type="text" class="form-control number" name="weight2">
+							<label for="message-text" class="control-label">性格:</label> <input
+								type="text" class="form-control number" name="disposition">
 						</div>
 						<div class="form-group ">
-							<label for="message-text" class="control-label">婚姻状况:</label> <select
-								class="form-control dicSelect" name="marriage2" placeholder="必填"
-								required>
-
+							<label for="message-text" class="control-label">期望对方将来的生活角色 :</label> <select
+								class="form-control dicSelect" name="lifeRole"
+								>
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">学历:</label> <select
-								class="form-control dicSelect" name="degree2" placeholder="必填"
-								required>
-
+							<label for="message-text" class="control-label">期望未来对象的类型:</label> <select
+								class="form-control dicSelect" name="lifeType" 
+								>
 							</select>
 						</div>
 						<div class="form-group ">
-							<label for="message-text" class="control-label">住房状态:</label> <select
-								class="form-control dicSelect" name="houseStatus2"
-								placeholder="必填" required>
-
+							<label for="message-text" class="control-label">不可接受的类型:</label> <select
+								class="form-control dicSelect" name="nonType"
+								placeholder="必填" >
 							</select>
 						</div>
 						<div class="form-group ">
-							<label for="message-text" class="control-label">月收入:</label> <select
-								class="form-control dicSelect" name="income2" placeholder="必填"
-								required>
-
+							<label for="message-text" class="control-label">其他:</label> <select
+								class="form-control dicSelect" name="other" 
+								>
 							</select>
 						</div>
 						<div class="form-group">
@@ -273,6 +281,7 @@ $(function(){
 	</div>
 </body>
 <script type="text/javascript">
+	addressInit('cmbProvince', 'cmbCity', 'cmbArea');
 	function subInfo() {
 		subInfoAll("customer");
 	}
@@ -284,25 +293,24 @@ $(function(){
 		}
 		var path = "${pageContext.request.contextPath}/" + name + "/" + name
 				+ "_edit";
-		$
-				.ajax({
-					url : path,
-					type : 'post',
+			$("#dataForm").ajaxSubmit({
+                       method: 'post',
 					data : $("#dataForm").serialize(),
-					dataType : 'json',
-					success : function(data) {
-						if (data.success) {
-							alert(data.msg);
-							window.location.href = "${pageContext.request.contextPath}/web/login?userNo=${openId}&pwd=123";
-						} else {
-							alert(data.msg);
-						}
+                       url: path,
+                       async: false,
+				success : function(data) {
+					if (data.success) {
+						alert(data.msg);
+						window.location.href = "${pageContext.request.contextPath}/web/login?userNo=${openId}&pwd=123";
+					} else {
+						alert(data.msg);
+					}
 
 					},
 					error : function(transport) {
 						alert("系统产生错误,请联系管理员!");
 					}
-				});
+				}); 
 	}
 
 	$(function() {
@@ -310,10 +318,10 @@ $(function(){
 		$(".dicSelect").each(
 				function() {
 					var field = this.name;
-					if(field.indexOf("2")>-1){
+/* 					if(field.indexOf("2")>-1){
 						field = field.replace(/2/,"");
 					}
-					var htmlStr = "";
+ */					var htmlStr = "";
 					if (dic.hasOwnProperty(field)) {
 						for ( var keyValue in dic[field]) {
 							htmlStr += "<option value="+keyValue+">"
@@ -329,6 +337,26 @@ $(function(){
 			$("#" + idStr).val(idStr + ":1")
 		});
 	});
+	
+	function check_unique(filed){
+		var  value = $("#"+filed).val();
+		var path="${basePath}/customer/customer_unique"
+		 $.ajax({
+			 url : path,
+				type : 'post',
+				data : { name:value  , colName :filed},
+				dataType : 'json',
+				success : function(data) {
+					if (!data.success)  {
+						alert(data.msg);
+						$("#"+filed).val("");
+					}
+				},
+				error : function(transport) {
+					alert("系统产生错误,请联系管理员!");
+				}
+		 })
+	}
 </script>
 
 

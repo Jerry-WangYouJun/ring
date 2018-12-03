@@ -25,6 +25,12 @@ public class Act {
     
     private String actDate;
     
+    private String acount ;
+    private String actEnd ;
+    private String payType;
+    private String payRange;
+    
+    
     private Customer customer;
     private ActDetail detail;
     public Integer getId() {
@@ -138,5 +144,38 @@ public class Act {
 	public void setDetail(ActDetail detail) {
 		this.detail = detail;
 	}
+
+	public String getAcount() {
+		return acount;
+	}
+
+	public void setAcount(String acount) {
+		this.acount = acount;
+	}
+
+	public String getActEnd() {
+		return actEnd;
+	}
+
+	public void setActEnd(String actEnd) {
+		this.actEnd = actEnd;
+	}
+
+	public String getPayType() {
+		return payType;
+	}
+
+	public void setPayType(String payType) {
+		this.payType = payType;
+	}
+
+	public String getPayRange() {
+		return payRange;
+	}
+
+	public void setPayRange(String payRange) {
+		this.payRange = payRange;
+	}
+	
     
 }

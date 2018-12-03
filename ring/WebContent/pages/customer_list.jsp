@@ -55,211 +55,133 @@
 					<h4 class="modal-title" id="myModalLabel">会员管理</h4>
 				</div>
 				<div class="modal-body">
-					<form id="dataForm">
-						<!-- <div class="form-group">
-							<label for="recipient-name" class="control-label">审核状态:</label> 
-								<select  class="form-control dicSelect"  id="examine" name="examine" placeholder="必填" required>
-									 
-								</select>
-						</div> -->
-						<input class="form-control " name="id" type="hidden"></input>
-						<input class="form-control " name="flag" id="flag" type="hidden"></input>
-						<div class="form-group" >
+					<form id="dataForm"  >
+						<input class="form-control " name="openId" type="hidden"
+							value="${openId}"></input> <input class="form-control " name="id"
+							type="hidden"></input> <input class="form-control " name="flag"
+							id="flag" type="hidden"></input>
+						<div class="form-group">
 							<label for="message-text" class="control-label">姓名:</label> <input
-								type="text" class="form-control" name="chName" id="chName" placeholder="必填" required>
+								type="text" class="form-control" name="chName" id="chName"
+								placeholder="必填" required>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">昵称:</label> <input
-								type="text" class="form-control" name="nickName" id="nickName" placeholder="必填" required>
+								type="text" class="form-control required" name="nickName"
+								id="nickName" placeholder="必填">
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">性别:</label> <select 
-								class="form-control dicSelect" id="sex" name="sex" placeholder="必填" required>
+							<label for="message-text" class="control-label">性别:</label> <select
+								class="form-control dicSelect" id="sex" name="sex"
+								placeholder="必填" required>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">生日:</label>
 							<div class='input-group date' id='datetimepicker1'>
 								<input type='text' class="form-control" readonly name="birthday"
-									id="birthday" placeholder="必填" required/> <span class="input-group-addon"> <span
+									id="birthday" placeholder="必填" required /> <span
+									class="input-group-addon"> <span
 									class="glyphicon glyphicon-calendar"></span>
 								</span>
 							</div>
 						</div>
-						<div class="form-group  col-xs-8">
+						<div class="form-group">
 							<label for="message-text" class="control-label">家乡:</label> <input
-								type="text" class="form-control" name="hometown" >
+								type="text" class="form-control" name="hometown">
 						</div>
-						<div class="form-group  col-xs-4">
-							<label for="message-text" class="control-label">是否显示:</label> 
-							<select 
-									class="form-control "  name="flagTemp"  id="hometown">
-									<option value="hometown:1" > 显示 </option>
-									<option value="hometown:0" selected="selected"> 不显示 </option>
+						
+						<div class="form-group">
+							<label for="message-text" class="control-label">现居地:</label>
+							<div class="col-lg-12">
+								<div class="row">
+									<select id="cmbProvince" name="hometown" class="form-control col-lg-4" ></select>
+									<select id="cmbCity" name="hometown" class="form-control col-lg-4" ></select>
+									<select id="cmbArea" name="hometown" class="form-control col-lg-4" ></select>
+								</div>	
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">经常活动区域:</label> <select
+								class="form-control dicSelect" name="addtress" placeholder="必填"
+								required>
+
 							</select>
 						</div>
-						<div class="form-group col-xs-8">
-							<label for="message-text" class="control-label">现住址:</label> <input
-								type="text" class="form-control" name="addtress">
+						<div class="form-group">
+							<label for="message-text" class="control-label">身高(cm):</label> <input
+								type="text" class="form-control number" name="height">
 						</div>
-						<div class="form-group  col-xs-4">
-							<label for="message-text" class="control-label">是否显示:</label> 
-							<select 
-									class="form-control "  name="flagTemp"   id="addtress">
-									<option value="addtress:1" > 显示 </option>
-									<option value="addtress:0"> 不显示 </option>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">体重(kg):</label> <input
+								type="text" class="form-control number" name="weight">
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">婚姻状况:</label> <select
+								class="form-control dicSelect" name="marriage" placeholder="必填"
+								required>
+
 							</select>
 						</div>
-						<div class="form-group col-xs-8">
-							<label for="message-text" class="control-label">身高:</label> <input
-								type="text" class="form-control" name="height">
-						</div>
-						<div class="form-group  col-xs-4">
-							<label for="message-text" class="control-label">是否显示:</label> 
-							<select 
-									class="form-control "  name="flagTemp"  id="height" >
-									<option value="height:1" > 显示 </option>
-									<option value="height:0"> 不显示 </option>
+						<div class="form-group">
+							<label for="message-text" class="control-label">子女:</label> <select
+								class="form-control dicSelect" name="children">
+
 							</select>
 						</div>
-						<div class="form-group col-xs-8">
-							<label for="message-text" class="control-label">体重:</label> <input
-								type="text" class="form-control" name="weight" >
-						</div>
-						<div class="form-group  col-xs-4">
-							<label for="message-text" class="control-label">是否显示:</label> 
-							<select 
-									class="form-control "  name="flagTemp" id="weight">
-									<option value="weight:1" > 显示 </option>
-									<option value="weight:0"> 不显示 </option>
+						<div class="form-group">
+							<label for="message-text" class="control-label">学历:</label> <select
+								class="form-control dicSelect" name="degree" placeholder="必填"
+								required>
+
 							</select>
 						</div>
-						<div class="form-group col-xs-8">
-							<label for="message-text" class="control-label">婚姻状况:</label> 
-								<select  class="form-control dicSelect"  name="marriage" placeholder="必填" required>
-									 
-								</select>
-						</div>
-						<div class="form-group  col-xs-4">
-							<label for="message-text" class="control-label">是否显示:</label> 
-							<select 
-									class="form-control "  name="flagTemp"  id="marriage" >
-									<option value="marriage:1" > 显示 </option>
-									<option value="marriage:0"> 不显示 </option>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">住房状态:</label> <select
+								class="form-control dicSelect" name="houseStatus"
+								placeholder="必填" required>
+
 							</select>
 						</div>
-						<div class="form-group col-xs-8">
-							<label for="message-text" class="control-label">子女:</label> <input
-								type="text" class="form-control" name="children" >
-						</div>
-						<div class="form-group  col-xs-4">
-							<label for="message-text" class="control-label">是否显示:</label> 
-							<select 
-									class="form-control "  name="flagTemp" id="children" >
-									<option value="children:1" > 显示 </option>
-									<option value="children:0"> 不显示 </option>
-							</select>
-						</div>
-						<div class="form-group col-xs-8">
-							<label for="message-text" class="control-label">学历:</label> 
-								<select  class="form-control dicSelect" name="degree" placeholder="必填" required>
-									 
-								</select>
-						</div>
-						<div class="form-group  col-xs-4">
-							<label for="message-text" class="control-label">是否显示:</label> 
-							<select 
-									class="form-control "  name="flagTemp"  id="degree"  >
-									<option value="degree:1" > 显示 </option>
-									<option value="degree:0"> 不显示 </option>
-							</select>
-						</div>
-						<div class="form-group col-xs-8">
-							<label for="message-text" class="control-label">住房状态:</label>
-								<select  class="form-control dicSelect"  name="houseStatus" placeholder="必填" required>
-									 
-								</select>
-						</div>
-						<div class="form-group  col-xs-4">
+						<!-- <div class="form-group  col-xs-4">
 							<label for="message-text" class="control-label">是否显示:</label> 
 							<select 
 									class="form-control "  name="flagTemp" id="houseStatus" >
 									<option value="houseStatus:1" > 显示 </option>
 									<option value="houseStatus:0"> 不显示 </option>
 							</select>
+						</div> -->
+						<div class="form-group ">
+							<label for="message-text" class="control-label">从事行业:</label> 
+								<select
+									class="form-control dicSelect" name="industry" placeholder="必填"
+										required>
+	
+								</select>
+
 						</div>
-						<div class="form-group col-xs-8">
-							<label for="message-text" class="control-label">从事行业:</label> <input
-								type="text" class="form-control" name="industry" >
-								
-						</div>
-						<div class="form-group  col-xs-4">
-							<label for="message-text" class="control-label">是否显示:</label> 
-							<select 
-									class="form-control "  name="flagTemp" id="industry">
-									<option value="industry:1" > 显示 </option>
-									<option value="industry:0"> 不显示 </option>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">月收入:</label> <select
+								class="form-control dicSelect" name="income" placeholder="必填"
+								required>
+
 							</select>
 						</div>
-						<div class="form-group col-xs-8">
-							<label for="message-text" class="control-label">月收入:</label> <input
-								type="text" class="form-control" name="income" >
-						</div>
-						<div class="form-group  col-xs-4">
-							<label for="message-text" class="control-label">是否显示:</label> 
-							<select 
-									class="form-control "  name="flagTemp" id="income">
-									<option value="income:1" > 显示 </option>
-									<option value="income:0"> 不显示 </option>
-							</select>
-						</div>
-						<div class="form-group col-xs-8">
+						<div class="form-group">
 							<label for="message-text" class="control-label">qq号:</label> <input
-								type="text" class="form-control" name="qq" >
+								type="text" class="form-control" name="qq">
 						</div>
-						<div class="form-group  col-xs-4">
-							<label for="message-text" class="control-label">是否显示:</label> 
-							<select 
-									class="form-control "  name="flagTemp" id="qq">
-									<option value="qq:1" > 显示 </option>
-									<option value="qq:0"> 不显示 </option>
-							</select>
-						</div>
-						<div class="form-group col-xs-8">
+						<div class="form-group ">
 							<label for="message-text" class="control-label">联系电话:</label> <input
-								type="text" class="form-control" name="telephone" >
+								type="text" class="form-control" name="telephone">
 						</div>
-						<div class="form-group  col-xs-4">
-							<label for="message-text" class="control-label">是否显示:</label> 
-							<select 
-									class="form-control "  name="flagTemp" id="telephone">
-									<option value="telephone:1" > 显示 </option>
-									<option value="telephone:0"> 不显示 </option>
-							</select>
-						</div>
-						<div class="form-group col-xs-8">
+						<div class="form-group ">
 							<label for="message-text" class="control-label">邮箱:</label> <input
-								type="text" class="form-control" name="email">
+								type="text" class="form-control email" name="email">
 						</div>
-						<div class="form-group  col-xs-4">
-							<label for="message-text" class="control-label">是否显示:</label> 
-							<select 
-									class="form-control "  name="flagTemp"  id="email">
-									<option value="email:1" > 显示 </option>
-									<option value="email:0"> 不显示 </option>
-							</select>
-						</div>
-						<div class="form-group col-xs-8">
+						<div class="form-group ">
 							<label for="message-text" class="control-label">推荐人:</label> <input
-								type="text" class="form-control" name="referee" >
-						</div>
-						<div class="form-group  col-xs-4">
-							<label for="message-text" class="control-label">是否显示:</label> 
-							<select 
-									class="form-control "  name="flagTemp" id="referee">
-									<option value="referee:1" > 显示 </option>
-									<option value="referee:0"> 不显示 </option>
-							</select>
+								type="text" class="form-control" name="referee">
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">自我介绍:</label> <input
@@ -272,12 +194,58 @@
 								id="declaration">
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">择偶要求:</label> <input
-								type="text" class="form-control" name="ask" id="ask">
+							<label for="message-text" class="control-label">择偶要求:</label> 
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">接受的年龄范围:</label>
+							<select
+									class="form-control dicSelect" name="birthday2" placeholder="必填"
+										required>
+	
+								</select>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">经济能力:</label> <input
+								type="text" class="form-control" name="economic">
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">外貌:</label> <input
+								type="text" class="form-control number" name="looks">
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">性格:</label> <input
+								type="text" class="form-control number" name="disposition">
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">期望对方将来的生活角色 :</label> <select
+								class="form-control dicSelect" name="lifeRole"
+								>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">期望未来对象的类型:</label> <select
+								class="form-control dicSelect" name="lifeType" 
+								>
+							</select>
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">不可接受的类型:</label> <select
+								class="form-control dicSelect" name="nonType"
+								placeholder="必填" >
+							</select>
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">其他:</label> <select
+								class="form-control dicSelect" name="other" 
+								>
+							</select>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">备注:</label> <input
 								type="text" class="form-control" name="remark" id="remark">
+						</div>
+						<div class="form-group">
+							<button type="button" class="btn btn-primary" onclick="subInfo()">提交</button>
 						</div>
 					</form>
 				</div>
@@ -292,6 +260,7 @@
 	</div>
 </body>
 <script type="text/javascript">
+	addressInit('cmbProvince', 'cmbCity', 'cmbArea');
 	function subInfo() {
 		subInfoAll("customer");
 	}

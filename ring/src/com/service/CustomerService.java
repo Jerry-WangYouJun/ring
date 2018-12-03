@@ -43,9 +43,15 @@ public class CustomerService {
 		return mapper.queryTotal(customer);
 	}
 
-	public int checkUnique(String customerNo) {
-		//TODO
-		return 0;
+	public int checkUnique(String customerNo , String colName) {
+		Customer cust = new Customer();
+		if("chName".equals(colName)){
+			cust.setChName(customerNo);
+		}
+		if("nickName".equals(colName)){
+			cust.setNickName(customerNo);
+		}
+		return mapper.queryTotal(cust);
 	}
 
 	public Customer selectById(Integer id) {

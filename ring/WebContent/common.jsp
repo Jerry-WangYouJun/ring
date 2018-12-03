@@ -8,7 +8,7 @@
 <script src="${basePath}/js/validate/jquery.validate.min.js"></script>
 <script src="${basePath}/js/validate/jquery.metadata.js"></script>
 <script src="${basePath}/js/validate/messages_zh.js"></script>
-
+<script src="${basePath}/js/base.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-theme.min.css">
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 

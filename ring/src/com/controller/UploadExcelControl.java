@@ -2,58 +2,36 @@ package com.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.baidu.ueditor.ActionEnter;
 import com.common.CodeUtil;
 import com.common.DateUtils;
-import com.common.StringCommons;
 import com.model.Image;
 
 @Controller
-@RequestMapping("/upload")
+@RequestMapping("/up")
 public class UploadExcelControl {
 
-	public static void main(String[] args) {
-		Format format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		System.out.println(format.format(new Date(System.currentTimeMillis())));
-	}
-
 	
-	@RequestMapping(value = "uploadInit", method = { RequestMethod.GET,
-			RequestMethod.POST })
-	public String  uploadInit(HttpSession session ){
-		String roleId =  session.getAttribute("roleid").toString();
-		if(!(StringCommons.ROLE_ADMIN.equals(roleId) )){
-			   return "unicom/agent";
-		}
-		 return "main";
-	}
-	
-	@RequestMapping(value = "forward", method = { RequestMethod.GET,
-			RequestMethod.POST })
-	public String  forwardInit(){
-		 return "forwardData";
+	@RequestMapping("/test")
+	public void test(){
+		 System.out.println("1231231");
 	}
 	
 	@RequestMapping("/images")
-	public void instVipAjax(Image image, HttpServletRequest request , HttpServletResponse response ,
+	public void instVipAjax( HttpServletRequest request , HttpServletResponse response ,
 			MultipartFile upfile) {
+		response.setContentType("application/json");
 		PrintWriter out;
 		JSONObject json = new JSONObject();
 		try {
@@ -67,6 +45,7 @@ public class UploadExcelControl {
 					out.close();
 					return;
 				}
+				Image image = new Image();
 				image.setIname(name);
 				CodeUtil.SaveFileFromInputStream(upfile ,image);
 			out = response.getWriter();

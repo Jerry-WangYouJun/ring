@@ -6,6 +6,18 @@ public class Image {
 	  private String iname ;
 	  private Integer type;
 	  private String contect;
+	  
+	  
+	  
+	public Image() {
+		super();
+	}
+	
+	public Image(String iname) {
+		super();
+		this.iname = iname;
+	}
+
 	public Integer getId() {
 		return id;
 	}

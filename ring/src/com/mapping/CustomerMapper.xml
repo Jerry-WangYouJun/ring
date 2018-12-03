@@ -38,13 +38,21 @@
     <result column="flag" jdbcType="VARCHAR" property="flag" />
     <result column="loca" jdbcType="VARCHAR" property="loca" />
     <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="economic" jdbcType="VARCHAR" property="economic" />
+    <result column="looks" jdbcType="VARCHAR" property="looks" />
+    <result column="disposition" jdbcType="VARCHAR" property="disposition" />
+    <result column="life_role" jdbcType="VARCHAR" property="lifeRole" />
+    <result column="life_type" jdbcType="VARCHAR" property="lifeType" />
+    <result column="non_type" jdbcType="VARCHAR" property="nonType" />
+    <result column="other" jdbcType="INTEGER" property="other" />
     <collection property="focus" ofType="com.model.Focus" select="getFocus" column="id">
 		</collection>
   </resultMap>
   <sql id="Base_Column_List">
     id, examine, head_image, ch_name, nick_name, sex, birthday, birthday2,hometown,hometown2, addtress, height,height2, 
     weight,weight2, marriage,marriage2, children, degree,degree2, house_status, house_status2,industry, income,income2 ,qq, telephone, 
-    email, referee, introduction, declaration, ask, remark,flag , openId ,age , loca
+    email, referee, introduction, declaration, ask, remark,flag , openId ,age , loca,economic,looks,disposition,life_role,life_type,
+    non_type,other
   </sql>
   <select id="getFocus" parameterType="int" resultType="com.model.Focus">
 		select 
@@ -156,7 +164,8 @@
       telephone, email, referee, 
       introduction, declaration, ask, 
       remark, flag , openId , age , loca , birthday2,hometown2,height2,weight2,marriage2,
-      degree2 ,house_status2,income2)
+      degree2 ,house_status2,income2 ,economic,looks,disposition,life_role,life_type,
+   		 non_type,other)
     values (#{id,jdbcType=INTEGER}, #{examine,jdbcType=VARCHAR}, #{headImage,jdbcType=INTEGER}, 
       #{chName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=DATE}, #{hometown,jdbcType=VARCHAR}, #{addtress,jdbcType=VARCHAR}, 
@@ -169,7 +178,9 @@
        #{age,jdbcType=INTEGER} , #{loca,jdbcType=VARCHAR},
        #{birthday2,jdbcType=VARCHAR}, #{hometown2,jdbcType=VARCHAR}, 
        #{height2,jdbcType=DOUBLE}, #{weight2,jdbcType=DOUBLE}, #{marriage2,jdbcType=VARCHAR}, 
-        #{degree2,jdbcType=VARCHAR}, #{houseStatus2,jdbcType=VARCHAR},  #{income2,jdbcType=VARCHAR}
+        #{degree2,jdbcType=VARCHAR}, #{houseStatus2,jdbcType=VARCHAR},  #{income2,jdbcType=VARCHAR},
+        #{economic,jdbcType=VARCHAR}, #{looks,jdbcType=VARCHAR},  #{disposition,jdbcType=VARCHAR},
+        #{lifeRole,jdbcType=VARCHAR} ,#{lifeType,jdbcType=VARCHAR} , #{nonType,jdbcType=VARCHAR},  #{other,jdbcType=VARCHAR}
        )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.model.Customer">
@@ -209,7 +220,14 @@
       flag = #{flag,jdbcType=VARCHAR},
       openId = #{openId,jdbcType=VARCHAR} ,
       loca = #{loca,jdbcType=VARCHAR} ,
-      age = #{age,jdbcType=INTEGER} 
+      age = #{age,jdbcType=INTEGER} ,
+      economic =   #{economic,jdbcType=VARCHAR}, 
+       looks= #{looks,jdbcType=VARCHAR},  
+      disposition=  #{disposition,jdbcType=VARCHAR},
+      life_role = #{lifeRole,jdbcType=VARCHAR} ,
+      life_type =  #{lifeType,jdbcType=VARCHAR} , 
+       non_nype = #{nonType,jdbcType=VARCHAR},  
+        other= #{other,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

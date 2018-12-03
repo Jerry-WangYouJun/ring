@@ -82,7 +82,7 @@ function webLogin(msg){
 	    	<input type="button" id="date" name="op" onclick="webLogin('dating')" value="约会登录" class="btn_1 submit">
 	    	  	<input type="button" id="act" name="op" onclick="webLogin('act')" value="活动登录" class="btn_1 submit">
 	    	  	  	<input type="button" id="art" name="op" onclick="webLogin('article')" value="文章登录" class="btn_1 submit">
-	    	<a href="register.jsp">注册</a>
+	    	<a href="${pageContext.request.contextPath}/web/register">注册</a>
 	    </div>
 	   </form>
 	  </div>

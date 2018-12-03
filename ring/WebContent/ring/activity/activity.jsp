@@ -52,10 +52,19 @@ $(document).ready(function(){
 								type="text" class="form-control" name="actName" id="actName" placeholder="必填" required>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">活动时间:</label> 
-							 <div class='input-group date' id='datetimepicker2'>
+							<label for="message-text" class="control-label">活动开始时间:</label> 
+							 <div class='input-group date' id='datetimepicker3'>
 								<input type='text' class="form-control" readonly name="actDate"
 									id="actDate" placeholder="必填" required/> <span class="input-group-addon"> <span
+									class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">预计结束时间:</label> 
+							 <div class='input-group date' id='datetimepicker2'>
+								<input type='text' class="form-control" readonly name="actEnd"
+									id="actEnd" placeholder="必填" required/> <span class="input-group-addon"> <span
 									class="glyphicon glyphicon-calendar"></span>
 								</span>
 							</div>
@@ -69,8 +78,15 @@ $(document).ready(function(){
 								type="text" class="form-control required" name="actAddress" id="actAddress" placeholder="必填" >
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">费用(元):</label> <input
-								type="text" class="form-control number" name="money" id="money" placeholder="必填" >
+							<label for="message-text" class="control-label">费用类型:</label>
+							<select  class="form-control dicSelect"  name="payType" placeholder="必填" required>
+									 
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">费用范围:</label>
+							<input
+								type="text" class="form-control required" name="payRange" id="actAddress"  placeholder="请填写具体的费用或者范围" required>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">主办方:</label>
@@ -190,6 +206,21 @@ $(document).ready(function(){
 	 function deleteTag(obj){
 		   $(obj).parent().remove();
 	 }
+	 
+	 $(function(){
+			if($('#datetimepicker3')[0] != undefined){
+				$('#datetimepicker3').datetimepicker({  
+					minView: "month",
+					format: 'yyyy-mm-dd hh:00',
+				    todayBtn: false,//显示今日按钮
+				    autoclose: true,
+				    language:"zh-CN",
+				    clearBtn: true ,
+				    startDate: new Date(),
+				    minView: 1
+				});
+			}
+		});
 </script>
 
 
