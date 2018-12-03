@@ -21,6 +21,14 @@
 				</table>
 				<div id="toolbar" class="btn-group">
 					<button id="btn_edit" type="button" class="btn btn-default"
+						onclick="updateState('1')">
+						</span>审核通过
+					</button>
+					<button id="btn_edit" type="button" class="btn btn-default"
+						onclick="updateState('2')">
+						审核不通过
+					</button>
+					<button id="btn_edit" type="button" class="btn btn-default"
 						onclick="updateData()">
 						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
 					</button>
@@ -385,6 +393,39 @@
 				 $("#" + idStr).val(idStr+":1")
 		}); 
 		$("#myModal").modal("show");
+	}
+	
+	function updateState(state){
+		var del = confirm("确认？");
+		if (!del) {
+			return false;
+		}
+		var remark = "";
+		if(state =='2'){
+			 remark = prompt("请输入拒绝原因:");
+		}
+		var selectObj = $("#infoTable").bootstrapTable('getSelections')[0];
+		var id = selectObj.id;
+		if (id > 0) {
+			var path = "${basePath}/customer/examine";
+			$.ajax({
+				url : path,
+				type : 'post',
+				data:{'id':id , 'state' : state , 'remark':remark},
+				dataType : 'json',
+				success : function(data) {
+					if (data.success) {
+						alert( data.msg);
+					} else {
+						alert( data.msg);
+					}
+	
+				},
+				error : function(transport) {
+					alert( "系统产生错误,请联系管理员!");
+				}
+			});
+		}
 	}
 	
 	function updateData() {

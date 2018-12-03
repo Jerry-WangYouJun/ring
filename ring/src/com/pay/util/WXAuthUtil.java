@@ -37,9 +37,8 @@ public class WXAuthUtil {
         requestUrl=requestUrl.replace("APPSECRET", WxPayConfig.appsecret);
         
         JSONObject jsonObject = WXAuthUtil.doGetJson(requestUrl); 
-        
+        System.out.println("jsonObject" + jsonObject);
         String access_token = jsonObject.getString("access_token");
-    
         return access_token;
       
 	}

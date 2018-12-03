@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.ClientProtocolException;
+import org.dom4j.Document;
+import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,8 +89,45 @@ public class WeixinPayController {
         System.out.println("收到消息："+sReqData);
         //防止中文乱码
         response.setCharacterEncoding("UTF-8");
-        XMLUtil.replyMessage(sReqData,response.getWriter());
-	}
+        Document document = XMLUtil.readString2XML(sReqData);
+        Element root = document.getRootElement();
+        String content =  XMLUtil.readNode(root, "Content");
+        if("管理签到".equals(content)){
+        	User user = new User();
+        	user.setUserNo(XMLUtil.readNode(root, "FromUserName"));
+        	user.setRole("1");
+        	List<User> userList =userService.queryList(user, new Pagination());
+        	if(userList!=null && userList.size() > 0){
+        		user = userList.get(0);
+        		user.setRole("1" + user.getRole());
+        		userService.update(user);
+        	}
+        }else if("管理签退".equals(content)){
+        	User user = new User();
+        	user.setUserNo(XMLUtil.readNode(root, "FromUserName"));
+        	user.setRole("11");
+        	List<User> userList =userService.queryList(user, new Pagination());
+        	if(userList!=null && userList.size() > 0){
+        		user = userList.get(0);
+        		user.setRole("1");
+        		userService.update(user);
+        	}
+        }else{
+        		Customer cust = new Customer();
+        		cust.setOpenId(XMLUtil.readNode(root, "FromUserName"));
+        		cust.setRemark(content);
+        		List<Customer> list =  custService.queryList(cust, new Pagination());
+        		if(list != null && list.size()>0){
+        			User user = new User();
+        			user.setUserNo(XMLUtil.readNode(root, "FromUserName"));
+        			user.setPwd("123");
+        			user.setRole("2");
+        			userService.insert(user);
+        		}
+        	}
+        XMLUtil.replyMessage(root,response.getWriter());
+       
+  	}
 	
 	/**
 	 * 微信网页授权获取用户基本信息，先获取 code，跳转 url 通过 code 获取 openId
@@ -163,7 +202,7 @@ public class WeixinPayController {
 		        	   
 		        	   List<Customer> custList = custService.queryList(customer, new Pagination());
 		        	   if(custList ==null || custList.size() ==0){
-		        		   return "forward:/web/register?openId=" + customer.getOpenId();
+		        		   return "forward:/web/registerInit?openId=" + customer.getOpenId();
 		        	   }else {
 		        		   User user = new User();
 		        		   user.setUserNo(customer.getOpenId());

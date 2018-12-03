@@ -116,8 +116,6 @@
 		}
 		
 		function checkUnique(name , column , value ){
-			console.info(name);
-			console.info(value);
 			var path = "${pageContext.request.contextPath}/"+name+"/"+name+"_unique";
 			$.ajax({
 				url : path,

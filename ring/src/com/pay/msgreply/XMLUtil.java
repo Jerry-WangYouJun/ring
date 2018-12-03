@@ -48,23 +48,27 @@ public class XMLUtil {
 
     }
     
-    public static void replyMessage(String message, PrintWriter out) {
-        Document document = XMLUtil.readString2XML(message);
-        Element root = document.getRootElement();
+    public static void replyMessage(Element root, PrintWriter out ) {
         String MsgType = XMLUtil.readNode(root, "MsgType");
         if (MsgType.equals("text")) {
             ReplyTextMsg textMsg = new ReplyTextMsg();
-            textMsg.setFromUserName(WxPayConfig.appid);
+            textMsg.setFromUserName("gh_3b01ccc83035");
             textMsg.setToUserName(XMLUtil.readNode(root, "FromUserName"));
             textMsg.setCreateTime();
             //将XML消息的参数都转化内容回复给微信
             XMLUtil.content = "";
             String nodeString = XMLUtil.readNodes(root);
             textMsg.setContent(nodeString);
+            if("管理签到".equals(XMLUtil.readNode(root, "Content"))){
+            	 textMsg.setContent("签到成功");
+            }else if("管理签退".equals(XMLUtil.readNode(root, "Content"))){
+            	textMsg.setContent("签退成功");
+            }
             textMsg.setMsgType("text");
             try {
                 //将对象转化为XML
                 String replyMsg = textMsg.Msg2Xml();
+                System.out.println(replyMsg);
                 out.println(replyMsg);
                 out.close();
             } catch (Exception e) {

@@ -14,6 +14,19 @@
 }
 </style>
 <script>
+$(function(){
+	if($('#datetimepicker2')[0] != undefined){
+		$('#datetimepicker2').datetimepicker({  
+			minView: "month",
+			format: 'yyyy-mm-dd',
+		    todayBtn: true,//显示今日按钮
+		    autoclose: true,
+		    language:"zh-CN",
+		    clearBtn: true 
+		});
+	}
+});
+
 	$(document).ready(function() {
 		$(".dropdown").hover(function() {
 			$('.dropdown-menu', this).stop(true, true).slideDown("fast");
@@ -33,13 +46,16 @@
 		$.ajax({
 			url : path,
 			type : 'post',
-			data : $("#emailForm").serialize(),
+			data : {codeEmail:$("#codeEmail").val()},
 			dataType : 'json',
 			success : function(data) {
 				if (data.success) {
 					alert(data.msg);
+					$("#code").val(data.obj.code);
+					$("#userNo").val(data.obj.openId);
 				} else {
 					alert(data.msg);
+					$("#codeEmail").val("")
 				}
 
 			},
@@ -55,35 +71,6 @@
 		<div class="container">
 			<div class="services">
 				<div class="col-sm-12 col-xs-12 login_left">
-					<form class="form-horizontal" role="form" id="emailForm"
-						action="${basePath}/web/code" method="post">
-						<div class="form-group">
-							<label class="col-lg-12 col-md-12 col-sm-12 control-label">内部会员，请填写资料中的邮箱，我们将发送一个验证码到您的邮箱中</label>
-							<div class="col-lg-12 col-md-12 col-xs-12">
-								<input type="text" class="form-control email " name="codeEmail"
-									id="codeEmail" placeholder="请输入邮箱" required>
-							</div>
-						</div>
-						<!-- End .form-group  -->
-						<div class="form-group">
-							<div class="col-lg-12 col-md-12 col-xs-12">
-								<div class="row">
-									<div class="col-lg-4 col-md-4 col-xs-8">
-										<input type="text" class="form-control"
-											placeholder="请输入收到的验证码" name="code" required>
-									</div>
-									<div class="col-lg-4 col-md-4 col-xs-4">
-										<button type="button" class="btn btn-primary" onclick="mail()">发验证码</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-lg-12 col-md-12 col-xs-12">
-								<button type="button" class="btn btn-primary" onclick="">提交登陆</button>
-							</div>
-						</div>
-					</form>
 
 					<form id="dataForm">
 						<input class="form-control " name="openId" type="hidden"
@@ -117,13 +104,10 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">年龄:</label> <input
-								type="text" class="form-control number" name="age">
-						</div>
-						<div class="form-group">
 							<label for="message-text" class="control-label">家乡:</label> <input
 								type="text" class="form-control" name="hometown">
 						</div>
+						
 						<div class="form-group">
 							<label for="message-text" class="control-label">现居:</label> <select
 								class="form-control dicSelect" name="loca" placeholder="必填"
@@ -138,6 +122,8 @@
 
 							</select>
 						</div>
+						
+						
 						<div class="form-group">
 							<label for="message-text" class="control-label">身高(cm):</label> <input
 								type="text" class="form-control number" name="height">
@@ -220,8 +206,57 @@
 								id="declaration">
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">择偶要求:</label> <input
-								type="text" class="form-control" name="ask" id="ask">
+							<label for="message-text" class="control-label">择偶要求:</label> 
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">生日:</label>
+							<div class='input-group date' id='datetimepicker2'>
+								<input type='text' class="form-control" readonly name="birthday2"
+									id="birthday2"  /> <span
+									class="input-group-addon"> <span
+									class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">家乡:</label> <input
+								type="text" class="form-control" name="hometown2">
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">身高(cm):</label> <input
+								type="text" class="form-control number" name="height2">
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">体重(kg):</label> <input
+								type="text" class="form-control number" name="weight2">
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">婚姻状况:</label> <select
+								class="form-control dicSelect" name="marriage2" placeholder="必填"
+								required>
+
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">学历:</label> <select
+								class="form-control dicSelect" name="degree2" placeholder="必填"
+								required>
+
+							</select>
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">住房状态:</label> <select
+								class="form-control dicSelect" name="houseStatus2"
+								placeholder="必填" required>
+
+							</select>
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">月收入:</label> <select
+								class="form-control dicSelect" name="income2" placeholder="必填"
+								required>
+
+							</select>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">备注:</label> <input
@@ -275,6 +310,9 @@
 		$(".dicSelect").each(
 				function() {
 					var field = this.name;
+					if(field.indexOf("2")>-1){
+						field = field.replace(/2/,"");
+					}
 					var htmlStr = "";
 					if (dic.hasOwnProperty(field)) {
 						for ( var keyValue in dic[field]) {

@@ -8,6 +8,7 @@ import com.common.DateUtils;
 import com.model.Customer;
 import com.model.InviteDetail;
 import com.model.Location;
+import com.model.User;
 import com.pay.msg.Template;
 import com.pay.msg.TemplateParam;
 
@@ -82,7 +83,7 @@ public class NoticeUtil {
 	        tem.setTemplateParamList(paras);  
 	        tem.setToUser(customer.getOpenId());//用户openid
 	        //设置超链接
-	        tem.setUrl("http://www.ringfingerdating.cn/wx/login" );  
+	        tem.setUrl("http://www.ringfingerdating.cn/ring/wx/index/web/0" );  
 	        return tem;
 	}
 	
@@ -105,7 +106,7 @@ public class NoticeUtil {
 	        tem.setTemplateParamList(paras);  
 	        tem.setToUser(joinOpenID);//用户openid
 	        //设置超链接
-	        tem.setUrl("http://www.ringfingerdating.cn/wx/login/"+detail.getInviteId() );  
+	        tem.setUrl("http://www.ringfingerdating.cn/ring/wx/index/web/"+detail.getInviteId() );  
 	        return tem;
 	}
 	/**
@@ -127,7 +128,7 @@ public class NoticeUtil {
 	        tem.setTemplateParamList(paras);  
 	        tem.setToUser(customer.getOpenId());//用户openid
 	        //设置超链接
-	        tem.setUrl("http://www.ringfingerdating.cn/wx/login/"+id);  
+	        tem.setUrl("http://www.ringfingerdating.cn/ring/wx/index/web/"+id);  
 	        return tem;
 	}
 	/**
@@ -148,7 +149,7 @@ public class NoticeUtil {
 	        tem.setTemplateParamList(paras);  
 	        tem.setToUser(customer.getOpenId());//用户openid
 	        //设置超链接
-	        tem.setUrl("http://www.ringfingerdating.cn/wx/login/"+id);  
+	        tem.setUrl("http://www.ringfingerdating.cn/ring/wx/index/web/"+id);  
 	        return tem;
 	}
 	
@@ -172,7 +173,7 @@ public class NoticeUtil {
 	        tem.setTemplateParamList(paras);  
 	        tem.setToUser(customer.getOpenId());//用户openid
 	        //设置超链接
-	        tem.setUrl("http://www.ringfingerdating.cn/wx/login/"+id);  
+	        tem.setUrl("http://www.ringfingerdating.cn/ring/wx/index/web/"+id);  
 	        return tem;
 	}
 	
@@ -191,7 +192,49 @@ public class NoticeUtil {
         tem.setTemplateParamList(paras);  
         tem.setToUser(customer.getOpenId());//用户openid
         //设置超链接
-        tem.setUrl("http://www.ringfingerdating.cn/wx/login/" + id );  
+        tem.setUrl("http://www.ringfingerdating.cn/ring/wx/index/web/" + id );  
+        return tem;
+	}
+
+	public static Template registerReport(User u, Customer customer) {
+		Template tem=new Template();  
+        tem.setTemplateId(examineState);  
+        tem.setTopColor("#000000");  
+        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
+        paras.add(new TemplateParam("first","有新用户待审核","#333"));  
+        paras.add(new TemplateParam("keyword1", "待审核","#333"));
+        paras.add(new TemplateParam("keyword2", customer.getChName(),"#333"));
+        paras.add(new TemplateParam("keyword3", DateUtils.getToday(),"#333"));
+        paras.add(new TemplateParam("remark","点击查看详情","#333"));  
+        tem.setTemplateParamList(paras);  
+        tem.setToUser(u.getUserNo());//用户openid
+        //设置超链接
+        tem.setUrl("http://www.ringfingerdating.cn/ring/wx/index/web/0"  );    
+        return tem;
+	}
+	
+	public static Template registerNotice(User u, Customer customer) {
+		Template tem=new Template();  
+        tem.setTemplateId(examineState);  
+        tem.setTopColor("#000000");  
+        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
+        if("1".equals(customer.getExamine())){
+        	paras.add(new TemplateParam("first","资料审核通过","#333"));  
+        	paras.add(new TemplateParam("keyword1", "已通过","#333"));
+        	paras.add(new TemplateParam("keyword2", customer.getChName(),"#333"));
+        	paras.add(new TemplateParam("keyword3", DateUtils.getToday(),"#333"));
+        	paras.add(new TemplateParam("remark","点击查看详情","#333"));  
+        }else{
+        	paras.add(new TemplateParam("first","资料审核未通过","#333"));  
+        	paras.add(new TemplateParam("keyword1", "未通过","#333"));
+        	paras.add(new TemplateParam("keyword2", customer.getChName(),"#333"));
+        	paras.add(new TemplateParam("keyword3", DateUtils.getToday(),"#333"));
+        	paras.add(new TemplateParam("remark","拒绝原因：" + customer.getRemark(),"#333"));  
+        }
+        tem.setTemplateParamList(paras);  
+        tem.setToUser(customer.getOpenId());//用户openid
+        //设置超链接
+        tem.setUrl("http://www.ringfingerdating.cn/ring/web/customer?id=" + customer.getId() );  
         return tem;
 	}
 

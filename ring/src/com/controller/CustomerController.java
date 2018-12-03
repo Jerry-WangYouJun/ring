@@ -79,6 +79,12 @@ public class CustomerController {
 					user.setRole("2");
 					userService.insert(user);
 			        JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.registerSuccess(customer));
+			        User admin = new User();
+			        admin.setRole("11");
+			        List<User> userList = userService.queryList(admin, new Pagination());
+			        for(User u : userList){
+			        	 WXAuthUtil.sendTemplateMsg(NoticeUtil.registerReport(u , customer));
+			        }
 			        System.out.println(jsonObject);
 				}
 			}
@@ -99,6 +105,28 @@ public class CustomerController {
 		Message msg = new Message();
 		try{
 			service.delete(id);
+			msg.setSuccess(true);
+			msg.setMsg("操作成功");
+		}catch(Exception e ){
+			 msg.setSuccess(false);
+			 msg.setMsg("操作失败：" + e.getMessage());
+			 return msg ;
+		} 
+		return msg;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/examine")
+	public Message  examine( Integer id  , String state , String remark){
+		Message msg = new Message();
+		try{
+			Customer cust = service.selectById(id);
+			cust.setExamine(state);
+			if(StringUtils.isNotEmpty(remark)){
+				cust.setRemark(remark);
+			}
+			service.update(cust);
+			 WXAuthUtil.sendTemplateMsg(NoticeUtil.registerNotice(null , cust));
 			msg.setSuccess(true);
 			msg.setMsg("操作成功");
 		}catch(Exception e ){

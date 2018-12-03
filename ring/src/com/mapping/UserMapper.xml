@@ -6,7 +6,7 @@
     <result column="user_no" property="userNo" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
      <result column="pwd" property="pwd" jdbcType="VARCHAR" />
-     <result column="role" property="role" jdbcType="INTEGER" />
+     <result column="role" property="role" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap><sql id="Base_Column_List">
     id, user_no, pwd , user_name, role, remark
@@ -22,6 +22,9 @@
   	    <if test="obj.userName!= null and obj.userName != '' ">
   	    	     and user_name like #{obj.userName}
   	    </if>
+  	    <if test="obj.role!= null and obj.role != '' ">
+  	    	     and role like #{obj.role}
+  	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
   
@@ -35,6 +38,9 @@
   	    </if>
   	    <if test="userName!= null and userName != '' ">
   	    	     and user_name like #{userName}
+  	    </if>
+  	    <if test="role!= null and role != '' ">
+  	    	     and role like #{role}
   	    </if>
   </select>
   

@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,13 +95,41 @@ public class WebController {
 	public Message sendMail( HttpSession session , String codeEmail ) {
 		Message msg = new Message();
 		try {
-			emailService.sendMail(codeEmail);
+			Customer cust = new Customer();
+			cust.setEmail(codeEmail);
+			List<Customer> list = custService.queryList(cust , new Pagination());
+			if(list != null && list.size()>0){
+				 int code = emailService.sendMail(codeEmail);
+				 Map map = new HashMap();
+				 map.put("code", code);
+				 String openId = (String)session.getAttribute("openId");
+				 map.put("openId", openId);
+				 msg.setObj(map);
+				 msg.setSuccess(true);
+				 msg.setMsg("邮件发送成功");
+				 Customer customer = list.get(0);
+				 customer.setOpenId(openId);
+				 customer.setExamine("0");
+				 customer.setRemark(code+"");
+				 custService.update(customer);
+			}else{
+				msg.setSuccess(false);
+				msg.setMsg("您所填写的邮箱在系统中不存在！");
+			}
 		} catch (Exception e) {
 			msg.setSuccess(false);
 			msg.setMsg("系统异常：" + e.getMessage());
 			e.printStackTrace();
 		}
 		return msg ;
+	}
+	
+	@RequestMapping("/registerInit")
+	public String registerInit(HttpServletRequest  request , HttpSession session ,String openId ) {
+		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
+		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
+		session.setAttribute("openId", openId);
+		return "forward:/ring/registerInit.jsp";
 	}
 	
 	@RequestMapping("/register")

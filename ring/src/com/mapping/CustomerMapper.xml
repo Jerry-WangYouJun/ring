@@ -10,7 +10,7 @@
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
-     <result column="birthday2" jdbcType="DATE" property="birthday2" />
+     <result column="birthday2" jdbcType="VARCHAR" property="birthday2" />
     <result column="hometown" jdbcType="VARCHAR" property="hometown" />
     <result column="addtress" jdbcType="VARCHAR" property="addtress" />
     <result column="height" jdbcType="DOUBLE" property="height" />
@@ -81,7 +81,7 @@
   	    <if test="obj.loca!= null and obj.loca != '' ">
   	    	     and loca = #{obj.loca}
   	    </if>
-  	     <if test="obj.email!= null and obj.email != '' ">
+  	     <if test="obj.email != null and obj.email != '' ">
   	    	     and email = #{obj.email}
   	    </if>
   	    <if test="obj.ageFrom!=null and obj.ageFrom > 0">
@@ -116,7 +116,7 @@
   	    <if test="loca!= null and loca != '' ">
   	    	     and loca = #{loca}
   	    </if>
-  	     <if test="email null and email  != '' ">
+  	     <if test="email != null and email  != '' ">
   	    	     and email = #{email}
   	    </if>
   	    <if test="ageFrom!=null and ageFrom > 0">
@@ -156,7 +156,7 @@
       telephone, email, referee, 
       introduction, declaration, ask, 
       remark, flag , openId , age , loca , birthday2,hometown2,height2,weight2,marriage2,
-      degree2 ,houseStatus2,income2)
+      degree2 ,house_status2,income2)
     values (#{id,jdbcType=INTEGER}, #{examine,jdbcType=VARCHAR}, #{headImage,jdbcType=INTEGER}, 
       #{chName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=DATE}, #{hometown,jdbcType=VARCHAR}, #{addtress,jdbcType=VARCHAR}, 
@@ -167,7 +167,7 @@
       #{introduction,jdbcType=VARCHAR}, #{declaration,jdbcType=VARCHAR}, #{ask,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR} , #{flag,jdbcType=VARCHAR} , #{openId,jdbcType=VARCHAR} ,
        #{age,jdbcType=INTEGER} , #{loca,jdbcType=VARCHAR},
-       #{birthday2,jdbcType=DATE}, #{hometown2,jdbcType=VARCHAR}, 
+       #{birthday2,jdbcType=VARCHAR}, #{hometown2,jdbcType=VARCHAR}, 
        #{height2,jdbcType=DOUBLE}, #{weight2,jdbcType=DOUBLE}, #{marriage2,jdbcType=VARCHAR}, 
         #{degree2,jdbcType=VARCHAR}, #{houseStatus2,jdbcType=VARCHAR},  #{income2,jdbcType=VARCHAR}
        )
@@ -181,7 +181,7 @@
       sex = #{sex,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=DATE},
       hometown = #{hometown,jdbcType=VARCHAR},
-      birthday2 = #{birthday2,jdbcType=DATE},
+      birthday2 = #{birthday2,jdbcType=VARCHAR},
       hometown2 = #{hometown2,jdbcType=VARCHAR},
       addtress = #{addtress,jdbcType=VARCHAR},
       height = #{height,jdbcType=DOUBLE},
