@@ -1,24 +1,22 @@
 /*
- Navicat MySQL Data Transfer
+Navicat MySQL Data Transfer
 
- Source Server         : localhost
- Source Server Type    : MySQL
- Source Server Version : 50719
- Source Host           : localhost
- Source Database       : ring
+Source Server         : 127.0.0.1
+Source Server Version : 50528
+Source Host           : localhost:3306
+Source Database       : ring
 
- Target Server Type    : MySQL
- Target Server Version : 50719
- File Encoding         : utf-8
+Target Server Type    : MYSQL
+Target Server Version : 50528
+File Encoding         : 65001
 
- Date: 12/01/2018 04:30:56 AM
+Date: 2018-12-03 14:42:38
 */
 
-SET NAMES utf8;
-SET FOREIGN_KEY_CHECKS = 0;
+SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
---  Table structure for `t_customer`
+-- Table structure for t_customer
 -- ----------------------------
 DROP TABLE IF EXISTS `t_customer`;
 CREATE TABLE `t_customer` (
@@ -29,7 +27,7 @@ CREATE TABLE `t_customer` (
   `ch_name` varchar(30) DEFAULT NULL COMMENT '中文名',
   `nick_name` varchar(30) DEFAULT NULL COMMENT '昵称',
   `sex` varchar(1) DEFAULT '1' COMMENT '性别  1：男  0：女',
-  `birthday2` date DEFAULT NULL,
+  `birthday2` varchar(30) DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `hometown2` varchar(100) DEFAULT NULL,
   `hometown` varchar(100) DEFAULT NULL COMMENT '家乡',
@@ -59,7 +57,12 @@ CREATE TABLE `t_customer` (
   `remark` varchar(200) DEFAULT NULL COMMENT '备注',
   `flag` varchar(1000) DEFAULT NULL,
   `age` int(3) DEFAULT NULL,
+  `economic` varchar(100) DEFAULT NULL COMMENT '择偶要求 经济能力',
+  `looks` varchar(50) DEFAULT NULL COMMENT '择偶要求 外貌',
+  `disposition` varchar(50) DEFAULT NULL COMMENT '择偶要求 性格',
+  `life_role` varchar(50) DEFAULT NULL COMMENT '择偶要求 生活角色',
+  `life_type` varchar(50) DEFAULT NULL COMMENT '择偶要求 对象类型',
+  `non_type` varchar(50) DEFAULT NULL COMMENT '择偶类型  不接收类型',
+  `other` varchar(50) DEFAULT NULL COMMENT '择偶类型  其他',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
-
-SET FOREIGN_KEY_CHECKS = 1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
