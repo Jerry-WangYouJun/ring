@@ -233,22 +233,6 @@ $(document).ready(function(){
 				    	<div class="col-md-6 basic_1-left">
 				    	  <table class="table_working_hours">
 				        	<tbody>
-				        		<tr class="opened">
-									<td class="day_label">年龄范围 :</td>
-									<td class="day_value dicValue" id="birthday2" value="${cust.birthday2 }"></td>
-								</tr>
-				        		<tr class="opened">
-									<td class="day_label">宗教信仰 :</td>
-									<td class="day_value">Not Specified</td>
-								</tr>
-							    <tr class="opened">
-									<td class="day_label">教育程度 :</td>
-									<td class="day_value closed"><span>Not Specified</span></td>
-								</tr>
-							    <tr class="opened">
-									<td class="day_label">车/房 :</td>
-									<td class="day_value closed"><span>Not Specified</span></td>
-								</tr>
 							 </tbody>
 				          </table>
 				         </div>
@@ -261,36 +245,32 @@ $(document).ready(function(){
 				    	  <table class="table_working_hours">
 				        	<tbody>
 				        		<tr class="opened">
-									<td class="day_label">婚姻状况 :</td>
-									<td class="day_value">Single</td>
+									<td class="day_label">年龄范围 :</td>
+									<td class="day_value dicValue" id="birthday2" value="${cust.birthday2 }"></td>
 								</tr>
 				        		<tr class="opened">
-									<td class="day_label">年龄   :</td>
-									<td class="day_value">28 to 35</td>
+									<td class="day_label">经济能力 :</td>
+									<td class="day_value dicValue" id="birthday2" value="${cust.economic }"></td>
 								</tr>
 							    <tr class="opened">
-									<td class="day_label">身高/体重 :</td>
-									<td class="day_value closed"><span>Doesn't matter</span></td>
+									<td class="day_label">外貌 :</td>
+									<td class="day_value dicValue" id="birthday2" value="${cust.looks }"></td>
 								</tr>
 							    <tr class="opened">
-									<td class="day_label">宗教信仰 :</td>
-									<td class="day_value closed"><span>Doesn't matter</span></td>
+									<td class="day_label">未来生活中的定位 :</td>
+									<td class="day_value dicValue" id="disposition" value="${cust.disposition }"></td>
 								</tr>
 								<tr class="opened">
-									<td class="day_label">教育程度 :</td>
-									<td class="day_value closed"><span>Doesn't matter</span></td>
+									<td class="day_label">未来生活中的扮演的角色:</td>
+									<td class="day_value dicValue" id="lifeRole" value="${cust.lifeRole }"></td>
 								</tr>
-								<tr class="opened">
-									<td class="day_label">车/房 :</td>
-									<td class="day_value closed"><span>Doesn't matter</span></td>
+							    <tr class="opened">
+									<td class="day_label">理想的生活方式 :</td>
+									<td class="day_value dicValue" id="lifeType" value="${cust.lifeType }"></td>
 								</tr>
-								<tr class="opened">
-									<td class="day_label">烟 / 酒 :</td>
-									<td class="day_value closed"><span>No</span></td>
-								</tr>
-								<tr class="opened">
-									<td class="day_label">月收入 :</td>
-									<td class="day_value closed"><span>Doesn't matter</span></td>
+							    <tr class="opened">
+									<td class="day_label">不能接受的类型 :</td>
+									<td class="day_value dicValue" id="nonType" value="${cust.nonType }"></td>
 								</tr>
 							 </tbody>
 				          </table>
