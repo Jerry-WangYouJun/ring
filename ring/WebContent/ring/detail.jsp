@@ -207,46 +207,44 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			   </ul>
 			   <div id="myTabContent" class="tab-content">
 				  <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
-				    <div class="tab_box">
-				    	<h1>活动描述</h1>
-				    	<p> ${act.editorValue }</p>
-				    	<p>${act.tags }</p>
-				    </div>
 				    <div class="basic_1">
-				    	<h3>基本情况 </h3>
+				    	<h3>约会情况情况 </h3>
 				    	<div class="col-md-6 basic_1-left">
 				    	  <table class="table_working_hours">
 				        	<tbody>
 				        		<tr class="opened_1">
-									<td class="day_label">主办方 :</td>
-									<td class="day_value" name="admin" value="${act.admin}"></td>
+									<td class="day_label">邀请人 :</td>
+									<td class="day_value" ><a href="${pageContext.request.contextPath}/web/customer?id=${invite.fromId}">${invite.customerFrom.nickName}</a></td>
+								</tr>
+								<tr class="opened_1">
+									<td class="day_label">受邀人 :</td>
+									<td class="day_value" ><a href="${pageContext.request.contextPath}/web/customer?id=${invite.joinId}">${invite.customerJoin.nickName}</a></td>
 								</tr>
 							    <tr class="opened">
-									<td class="day_label">活动时间 :</td>
-									<td class="day_value">${act.actDate }</td>
+									<td class="day_label">约会时间 :</td>
+									<td class="day_value">${invite.detail.confirmDate }</td>
 								</tr>
 								 <tr class="opened">
 									<td class="day_label">活动地点 :</td>
-									<td class="day_value">${act.actLoca }</td>
+									<td class="day_value">${invite.pointLocation.location} - ${invite.pointLocation.locName}</td>
 								</tr>
 								<tr class="opened_1">
 									<td class="day_label"> 详细地址  :</td>
-									<td class="day_value"> ${act.actAddress }</td>
+									<td class="day_value">  ${invite.pointLocation.actAddress }</td>
 								</tr>
 							    <tr class="opened">
-									<td class="day_label">活动形式:</td>
-									<td class="day_value dicValue"  name="actForm" value="${act.actForm }"></td>
+									<td class="day_label">约会地点联系电话:</td>
+									<td class="day_value " >${invite.pointLocation.telephone }</td>
 								</tr>
-							    <tr class="opened">
-									<td class="day_label">活动状态 :</td>
-									<td class="day_value dicValue"  name="actState" value="${act.actState}"></td>
+								<tr class="opened">
+									<td class="day_label" colspan="2">
+									<button type="button" class="btn btn-primary btn-lg  col-xs-6" style="border: none;" onclick="signUp()">约会签到</button>
+									</td>
 								</tr>
-							    <tr class="closed">
-									<td class="day_label">费用 :</td>
-									<td class="day_value closed"><span>${act.money }</span></td>
-								</tr>
+								
 						    </tbody>
 				          </table>
+				          
 				         </div>
 				        <div class="clearfix"> </div>
 				    </div>
@@ -259,34 +257,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
   </div>
 </div>
-<div class="map">
-
-</div>
-    <div class="modal fade" id="addModal"  role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog" style="height: ">
-				<div class="modal-content">
-					<div class="modal-body">
-					 </div>
-				</div>
-			</div>
-		</div>
-	<div class="modal fade" id="inviteModal"  role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog" style="height: ">
-			<div class="modal-content">
-				<div class="modal-body">
-					 <table id="inviteTable"></table>
-				 </div>
-				 <div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" onclick="accInvite()">接受邀请</button>
-				</div>
-			</div>
-		</div>
 		<!-- /.modal-content -->
-	</div>
 	<script type="text/javascript">
+	
+	function signUp(){
+		var path = "${pageContext.request.contextPath}/invite/signUp?id=${invite.id}";
+		$.ajax({
+			url : path,
+			type : 'post',
+			dataType : 'json',
+			success : function(data) {
+				if (data.success) {
+					alert(data.msg);
+				} else {
+					alert(data.msg);
+				}
+	
+			},
+			error : function(transport) {
+				alert("系统产生错误,请联系管理员!");
+			}
+		});
+	}
+	
 	var dic = "";
 	
 	function getDicList(){

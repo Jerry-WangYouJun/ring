@@ -226,7 +226,7 @@
       disposition=  #{disposition,jdbcType=VARCHAR},
       life_role = #{lifeRole,jdbcType=VARCHAR} ,
       life_type =  #{lifeType,jdbcType=VARCHAR} , 
-       non_nype = #{nonType,jdbcType=VARCHAR},  
+       non_type = #{nonType,jdbcType=VARCHAR},  
         other= #{other,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.model.InviteDetail">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="invite_id" jdbcType="INTEGER" property="inviteId" />
-    <result column="pre_date" jdbcType="TIMESTAMP" property="preDate" />
+    <result column="pre_date" jdbcType="VARCHAR" property="preDate" />
     <result column="confirm_date" jdbcType="VARCHAR" property="confirmDate" />
     <result column="confirm_time" jdbcType="VARCHAR" property="confirmTime" />
     <result column="confirm_loc" jdbcType="VARCHAR" property="confirmLoc" />
@@ -36,7 +36,7 @@
     insert into t_invite_detail (id, invite_id, pre_date, 
       confirm_date, confirm_loc, update_times , confirm_time ,update_time_join ,sign_from,sign_join
       )
-    values (#{id,jdbcType=INTEGER}, #{inviteId,jdbcType=INTEGER}, #{preDate,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{inviteId,jdbcType=INTEGER}, #{preDate,jdbcType=VARCHAR}, 
       #{confirmDate,jdbcType=VARCHAR}, #{confirmLoc,jdbcType=VARCHAR}, #{updateTimes,jdbcType=INTEGER},
       #{confirmTime,jdbcType=VARCHAR}, #{updateTimeJoin,jdbcType=INTEGER},#{signFrom,jdbcType=VARCHAR},#{signJoin,jdbcType=VARCHAR}
       )
@@ -71,7 +71,7 @@
         #{inviteId,jdbcType=INTEGER},
       </if>
       <if test="preDate != null">
-        #{preDate,jdbcType=TIMESTAMP},
+        #{preDate,jdbcType=VARCHAR},
       </if>
       <if test="confirmDate != null">
         #{confirmDate,jdbcType=VARCHAR},
@@ -91,7 +91,7 @@
         invite_id = #{inviteId,jdbcType=INTEGER},
       </if>
       <if test="preDate != null">
-        pre_date = #{preDate,jdbcType=TIMESTAMP},
+        pre_date = #{preDate,jdbcType=VARCHAR},
       </if>
       <if test="confirmDate != null">
         confirm_date = #{confirmDate,jdbcType=VARCHAR},
@@ -108,7 +108,7 @@
   <update id="updateByPrimaryKey" parameterType="com.model.InviteDetail">
     update t_invite_detail
     set invite_id = #{inviteId,jdbcType=INTEGER},
-      pre_date = #{preDate,jdbcType=TIMESTAMP},
+      pre_date = #{preDate,jdbcType=VARCHAR},
       confirm_date = #{confirmDate,jdbcType=VARCHAR},
       confirm_loc = #{confirmLoc,jdbcType=VARCHAR},
       update_times = #{updateTimes,jdbcType=INTEGER},

@@ -12,7 +12,7 @@
                 <div class="navbar">
                     <nav class="top-nav pull-right" role="navigation" style="padding-left:0px">
                         <ul class="nav navbar-nav ">
-                                    <li class="pull-left" ><a href="${pageContext.request.contextPath}/act/index" style="padding:0px"><i class="st-arrow-left"></i> 返回</a>
+                                    <li class="pull-left" ><a href="##" onclick="history.back()" style="padding:0px"><i class="st-arrow-left"></i> 返回</a>
                                     </li>
                                     <li class="pull-right"> <a style="padding-left:0px" href="${pageContext.request.contextPath}/act/myAct"><i class="st-users"></i> 我发起的 </a>
                                     </li>

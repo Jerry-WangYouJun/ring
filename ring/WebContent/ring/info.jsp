@@ -8,8 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="${basePath}/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="${basePath}/css/style.css" />
-<script src="${basePath}/js/jquery-3.1.1.min.js"></script>
-<script src="${basePath}/js/bootstrap.min.js"></script>
  <link href="${pageContext.request.contextPath}/ring/assets/css/main.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/ring/assets/css/custom.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/ring/assets/css/icons.css" rel="stylesheet" />
@@ -131,6 +129,7 @@
 					<div role="tabpanel" class="tab-pane" id="profile">
 					     <c:forEach items="${invitedInfo }" var="invite">
 						    <div>
+						    	<h3> <a href="${pageContext.request.contextPath}/web/detail?id=${invite.id}">约会详细信息</a> </h3>
 								<h3> 邀请人：${invite.customerFrom.nickName } <a href="${pageContext.request.contextPath}/web/customer?id=${invite.fromId}">详细信息</a></h3>
 								<h3> 性别：
 									<c:choose>

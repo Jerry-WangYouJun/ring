@@ -26,6 +26,11 @@
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script> 
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js"></script> 
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
+ <link href="${pageContext.request.contextPath}/ring/assets/css/main.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/ring/assets/css/custom.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/ring/assets/css/icons.css" rel="stylesheet" />
+
 <style>
 .error{
 	 color:red;
@@ -56,21 +61,31 @@ $(document).ready(function(){
     if($('#datetimepicker1')[0] != undefined){
 		$('#datetimepicker1').datetimepicker({  
 			minView: "month",
-			format: 'hh:00',
-		    todayBtn: true,//显示今日按钮
+			format: 'yyyy-mm-dd hh:00',
+		    todayBtn: false,//显示今日按钮
 		    autoclose: true,
 		    language:"zh-CN",
 		    clearBtn: true ,
-		    autoclose: true,
-		    minView: 1 ,
-		    startView : 1
+		    startDate: new Date(),
+		    minView: 1
 		});
 	}
+    
+ 
+    
+    $('#datetimepicker1').datetimepicker('setEndDate',addDate(new Date() , 14));  
     
     $(".selectpicker").selectpicker({  
         noneSelectedText : '请选择'//默认显示内容  
     });  
 });
+
+function addDate(date,days){ 
+    var d=new Date(date); 
+    d.setDate(d.getDate()+days); 
+    var m=d.getMonth()+1; 
+    return d.getFullYear()+'-'+m+'-'+d.getDate(); 
+  } 
 </script>
 </head>
 <body id="a2">
@@ -81,60 +96,25 @@ $(document).ready(function(){
 	     <form id="dataForm">
 						<input class="form-control" name="id" type="hidden" value="${inv.id }"></input>
 						<input class="form-control" name="joinId" type="hidden" value="${joinId }"></input>
-								<div class="form-group">
-									<div>
-										<label for="message-text" class="control-label">约会时段:</label>
-									</div>
-									<div>
-										<label class="checkbox-inline" style="margin-left: 10px;">
-											<input type="checkbox" name="confirmDate" id="inlineCheckbox1" value="1"> 周一
-										</label>
-										<label class="checkbox-inline">
-											<input type="checkbox" name="confirmDate" id="inlineCheckbox2" value="2"> 周二
-										</label>
-										<label class="checkbox-inline">
-											<input type="checkbox" name="confirmDate" id="inlineCheckbox3" value="3"> 周三
-										</label>
-										<label class="checkbox-inline">
-											<input type="checkbox" name="confirmDate" id="inlineCheckbox4" value="4"> 周四
-										</label>
-										<label class="checkbox-inline">
-											<input type="checkbox" name="confirmDate" id="inlineCheckbox5" value="5"> 周五
-										</label>
-										<label class="checkbox-inline">
-											<input type="checkbox" name="confirmDate" id="inlineCheckbox6" value="6"> 周六
-										</label>
-										<label class="checkbox-inline">
-											<input type="checkbox" name="confirmDate" id="inlineCheckbox0" value="7"> 周日
-										</label>
-									</div>
-									
-								</div>
+						<input class="form-control " name="preDate" id="preDate" type="hidden"></input>
 								<div class="form-group" >
 							            <label for="message-text" class="control-label">约会时间：</label>  
 							            <!--指定 date标记-->  
-							           <select  class="form-control"   name="confirmTime" >
-													<option value="10">10:00-12:00</option>
-													<option value="11">13:00-17:00</option>
-													<option value="12">18:00-19:00</option>
-											 	    <option value="1">10:00-11:00</option>
-													<option value="2">11:00-12:00</option>
-													<option value="3">12:00-13:00</option>
-													<option value="4">13:00-14:00</option>
-													<option value="5">14:00-15:00</option>
-													<option value="6">15:00-16:00</option>
-													<option value="7">16:00-17:00</option>
-													<option value="8">17:00-18:00</option>
-													<option value="9">18:00-19:00</option>
-										</select>
+								            <div class='input-group date  col-lg-12' id='datetimepicker1'  >  
+								                <input type='text' class="form-control"  name="tag" id="tag"/>  
+								                <span class="input-group-addon" >  
+								                    <span class="glyphicon glyphicon-calendar"></span>  
+								                </span>  
+								            </div>
+									            <button type="button" class="btn btn-default " onclick="addTags()" >选择合适时间（可选择三个）</button>
+								           		  <div class="tags" >
+	                       		 	 			  </div>
 						        </div> 
 								<div class="form-group">
-									<label for="message-text" class="control-label">约会区域:</label> 
-									<select  class="form-control"   name="confirmLoc" placeholder="必填" required>
+									<label for="message-text" class="control-label">约会地点:</label> 
 											  <c:forEach items="${locList}" var ="loca">
-											 	    <option >${loca}</option>
-											 </c:forEach>
-									</select>
+											 	    <input type="checkbox"   name="confirmLoc" value="${loca.id}">:${loca.location} - ${loca.address}
+ 											  </c:forEach>
 								</div>
 						<div class="form-group">
 							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -148,6 +128,23 @@ $(document).ready(function(){
 </div>
 </body>
 <script type="text/javascript">
+	function addTags(){
+		 var rand = parseInt(Math.random() * (3) + 1); 
+		 var  val = $("#tag").val();
+		 if($(".tags").children().length  == 3){
+			  alert("最多添加三个时间")
+			  return false;
+		 }
+		 if(val != ''){
+			 var arr = ["success","info","warning"];
+			 $("#preDate").val($("#preDate").val() + val + ",");
+			 $(".tags").append('<span class="badge badge-' +arr[rand] +'  mt10">'+ val+'<a href="####"  onclick="deleteTag(this)" class="mr5">X</a></span>');
+		 }
+	 }
+	 function deleteTag(obj){
+		   $(obj).parent().remove();
+	 }
+ 
 	function subInfo() {
 		subInfoAll("invite");
 	}

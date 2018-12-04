@@ -5,6 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+
+	 
+</script>
 </head>
 <body>
 <div id="header" class="header-fixed">
@@ -12,7 +16,7 @@
                 <div class="navbar">
                     <nav class="top-nav pull-right" role="navigation" style="padding-left:0px">
                         <ul class="nav navbar-nav ">
-                                    <li class="pull-left" ><a href="${pageContext.request.contextPath}/web/index" style="padding:0px"><i class="st-arrow-left"></i> 返回</a>
+                                    <li class="pull-left" ><a href="##" onclick="history.back()" style="padding:0px"><i class="st-arrow-left"></i> 返回</a>
                                     </li>
                                     <li class="pull-right"> <a style="padding-left:0px" href="${pageContext.request.contextPath}/web/dateinfo"><i class="st-users"></i> 我的约会</a>
                                     </li>

@@ -168,39 +168,6 @@ $(document).ready(function(){
 	   <script type="text/javascript" src="${pageContext.request.contextPath}/ring/js/jquery.flexisel.js"></script>
     </div>
 </div>
-<div class="grid_2">
-	<div class="container">
-		<h2>成功案例</h2>
-       	<div class="heart-divider">
-			<span class="grey-line"></span>
-			<i class="fa fa-heart pink-heart"></i>
-			<i class="fa fa-heart grey-heart"></i>
-			<span class="grey-line"></span>
-        </div>
-        <div class="row_1">
-	     <div class="col-md-8 suceess_story">
-	         <ul> 
-	            <li>
-				  	<div class="suceess_story-date">
-						<span class="entry-1">Dec 20, 2015</span>
-					</div>
-					<div class="suceess_story-content-container">
-						<figure class="suceess_story-content-featured-image">
-						   <img width="75" height="75" src="images/13.jpg" class="img-responsive" alt=""/>				            
-					    </figure>
-						<div class="suceess_story-content-info">
-				        	<h4><a href="#">张** & 李**</a></h4>				        	
-				        	<p>每一段感情都是始于颜值,陷于才华,忠于人品,安于陪伴.<a href="#">更多...</a></p>
-				        </div>
-				    </div>
-				</li>
-				
-	        </ul>
-	    </div>
-	     <div class="clearfix"> </div>
-	   </div> 
-	  </div>
-    </div>
     <div class="footer">
     	<div class="container">
     		<div class="col-md-4 col_2">
@@ -221,15 +188,6 @@ $(document).ready(function(){
     				<li><a href="terms.html">Terms and Conditions</a></li>
     				<li><a href="services.html">Services</a></li>
     			</ul>
-    		</div>
-    		<div class="col-md-2 col_2">
-    			<h4>分享</h4>
-    			<ul class="footer_social">
-				  <li><a href="#"><i class="fa fa-facebook fa1"> </i></a></li>
-				  <li><a href="#"><i class="fa fa-twitter fa1"> </i></a></li>
-				  <li><a href="#"><i class="fa fa-google-plus fa1"> </i></a></li>
-				  <li><a href="#"><i class="fa fa-youtube fa1"> </i></a></li>
-			    </ul>
     		</div>
     		<div class="clearfix"> </div>
     		<div class="copy">

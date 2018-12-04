@@ -104,13 +104,6 @@ ${focus }
 <%@include file="/ring/header.jsp"%>
    <div class="profile" style="margin-top:50px">
    	 <div class="col-md-12 profile_left">
-   	 <c:if test="${cust.sex eq 1}">
-   	 		<h2>会员ID : M0532${cust.id }</h2>
-   	 </c:if>
-   	  <c:if test="${cust.sex eq 0}">
-   	 		<h2>会员ID : F0532${cust.id }</h2>
-   	 </c:if>
-   	 	
    	 	<div class="col_3">
    	        <div class="col-sm-4 row_2">
 				<div class="flexslider">

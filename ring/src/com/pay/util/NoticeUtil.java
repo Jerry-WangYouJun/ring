@@ -177,6 +177,23 @@ public class NoticeUtil {
 	        return tem;
 	}
 	
+	public static Template inviteAccept(Location location  ,   User user ,Integer id ) {
+		 Template tem=new Template();  
+	        tem.setTemplateId(inviteAccept);  
+	        tem.setTopColor("#000000");  
+	        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
+	        paras.add(new TemplateParam("first","有新的约会已经确定，时间地点如下","#333"));  
+	        paras.add(new TemplateParam("keyword1", location.getLocName(),"#333"));
+	        paras.add(new TemplateParam("keyword2", location.getManager(),"#333"));
+	        paras.add(new TemplateParam("keyword3", location.getTelephone(),"#333"));
+	        paras.add(new TemplateParam("remark","点击查看预约详情","#333"));  
+	        tem.setTemplateParamList(paras);  
+	        tem.setToUser(user.getUserNo());//用户openid
+	        //设置超链接
+	        tem.setUrl("http://www.ringfingerdating.cn/ring/wx/index/web/"+id);  
+	        return tem;
+	}
+	
 	public static Template inviteUpdate(Location location  ,  Customer customer , Date date , Integer id ) {
 		Template tem=new Template();  
         tem.setTemplateId(inviteUpdate);  

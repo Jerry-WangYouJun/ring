@@ -84,6 +84,7 @@ public class WebController {
 			msg.setMsg("登陆成功");
 			return msg;
 		}else {
+			
 			msg.setSuccess(false);
 			msg.setMsg("用户名或密码错误");
 			return msg;
@@ -192,14 +193,8 @@ public class WebController {
 	@RequestMapping("/inviteInit")
 	public String invite(HttpServletRequest request , Invite invite ) {
 		List<Location> locList= locService.queryList(new Location(), new Pagination());
-		List<String> loc = new ArrayList<>();
-		for (Location  obj : locList) {
-			 if(!loc.contains(obj.getLocation())) {
-				  loc.add(obj.getLocation());
-			 }
-		}
 		request.setAttribute("joinId", invite.getJoinId());
-		request.setAttribute("locList", loc);
+		request.setAttribute("locList", locList);
 		return "forward:/ring/dating.jsp";
 	}
 	
@@ -272,7 +267,18 @@ public class WebController {
 		request.setAttribute("joinId", invite.getJoinId());
 		request.setAttribute("inv", invite);
 		request.setAttribute("detail", detail);
-		request.setAttribute("locList", locList);
+		String[] preDateList = detail.getPreDate().split(",") ; 
+		String[] locIdList = detail.getConfirmLoc().split(",");
+		List<Location> locListNew  = new ArrayList<Location>();
+		for(Location loca : locList){
+			 for(String locId : locIdList){
+				  if(locId.equals(loca.getId()+"")){
+					  locListNew.add(loca);
+				  }
+			 }
+		}
+		request.setAttribute("preDateList", preDateList);
+		request.setAttribute("locList", locListNew);
 		return "forward:/ring/accept.jsp";
 	}
 	

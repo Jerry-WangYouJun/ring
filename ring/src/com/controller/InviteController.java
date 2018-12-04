@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONObject;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +34,7 @@ import com.service.CustomerService;
 import com.service.InviteDetailService;
 import com.service.InviteService;
 import com.service.LocationService;
-
-import net.sf.json.JSONObject;
+import com.service.UserService;
 
 
 @Controller
@@ -51,6 +52,9 @@ public class InviteController {
 	
 	@Autowired
 	LocationService locService ;
+	
+	@Autowired
+	UserService userService;
 	
 	@ResponseBody
 	@RequestMapping("/query")
@@ -155,6 +159,13 @@ public class InviteController {
 			if("4".equals(inviteStates)) {
 				 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(invite.getPointLocation(), invite.getCustomerFrom(),invite.getId()));
 				 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(invite.getPointLocation(), invite.getCustomerJoin(),invite.getId()));
+				 User admin = new User();
+				 admin.setRole("11");
+			        List<User> userList = userService.queryList(admin, new Pagination());
+			        for(User u : userList){
+			        	//给管理员发推送
+			        	WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(invite.getPointLocation(), u ,invite.getId()));
+			        }
 			}
 			return "forward:/web/dateinfo";
 		}if("5".equals(inviteStates)){
@@ -226,26 +237,28 @@ public class InviteController {
 						 msg.setMsg("操作失败：对不起您只有一次修改约会地点的机会。" );
 						 return msg ;
 					 }
-				}
-				if("1".equals(inviteTemp.getInviteStates())  ) {
-					inviteTemp.setInviteStates("2");
-				}
-				service.update(inviteTemp);
-				detailTemp.setPreDate(preDate);
-				detailService.update(detailTemp);
-				if("2".equals(inviteTemp.getInviteStates())) {
-					 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteConfirm(inviteTemp.getCustomerJoin(),inviteTemp.getCustomerFrom().getOpenId(),invite.getId()));
-					 System.out.println(jsonObject);
-				}
-				if("4".equals(inviteTemp.getInviteStates())) {
+					 service.update(inviteTemp);
+					 detailTemp.setPreDate(preDate);
+					 detailService.update(detailTemp);
 					 Location loc =locService.selectById(invite.getPointId());
-					 Customer  cust =  (Customer) session.getAttribute("customer");
 					 if( cust.getId().equals(invite.getFromId()) ) {
 						 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, inviteTemp.getCustomerJoin() , inviteTemp.getInviteDate(),invite.getId()));
 					 }else if(cust.getId().equals(invite.getJoinId())) {
 						 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteUpdate(loc, inviteTemp.getCustomerFrom() ,inviteTemp.getInviteDate(),invite.getId()));
 					 }
 				}
+				if("1".equals(inviteTemp.getInviteStates())  ) {
+					inviteTemp.setInviteStates("4");
+					service.update(inviteTemp);
+					 detailTemp.setPreDate(preDate);
+					 detailService.update(detailTemp);
+					 Location loc =locService.selectById(invite.getPointId());
+				}
+				
+//				if("2".equals(inviteTemp.getInviteStates())) {
+//					 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteConfirm(inviteTemp.getCustomerJoin(),inviteTemp.getCustomerFrom().getOpenId(),invite.getId()));
+//					 System.out.println(jsonObject);
+//				}
 			}else{
 				User user =  (User)request.getSession().getAttribute("webUser");
 				if(user.getId() > 0 ) {

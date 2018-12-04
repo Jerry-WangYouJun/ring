@@ -199,7 +199,7 @@ $(function(){
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">联系电话:</label> <input
-								type="text" class="form-control" name="telephone">
+								type="text" class="form-control isPhone" name="telephone">
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">邮箱:</label> <input

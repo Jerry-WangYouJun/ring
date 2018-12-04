@@ -44,6 +44,8 @@ function webLogin(msg){
 					location.href="${pageContext.request.contextPath}/act/index";
 				}else if(msg == 'article'){
 					location.href="${pageContext.request.contextPath}/article/index";
+				}else {
+					location.href="${pageContext.request.contextPath}/web/index";
 				}
 			} else {
 				
