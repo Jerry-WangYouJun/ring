@@ -208,7 +208,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			   <div id="myTabContent" class="tab-content">
 				  <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
 				    <div class="basic_1">
-				    	<h3>约会情况情况 </h3>
+				    	<h3>约会情况 </h3>
 				    	<div class="col-md-6 basic_1-left">
 				    	  <table class="table_working_hours">
 				        	<tbody>
@@ -259,26 +259,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 		<!-- /.modal-content -->
 	<script type="text/javascript">
-	
-	function signUp(){
-		var path = "${pageContext.request.contextPath}/invite/signUp?id=${invite.id}";
-		$.ajax({
-			url : path,
-			type : 'post',
-			dataType : 'json',
-			success : function(data) {
-				if (data.success) {
-					alert(data.msg);
-				} else {
-					alert(data.msg);
-				}
-	
-			},
-			error : function(transport) {
-				alert("系统产生错误,请联系管理员!");
-			}
-		});
-	}
 	
 	var dic = "";
 	

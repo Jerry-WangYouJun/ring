@@ -8,6 +8,7 @@ import com.common.DateUtils;
 import com.model.Customer;
 import com.model.InviteDetail;
 import com.model.Location;
+import com.model.Message;
 import com.model.User;
 import com.pay.msg.Template;
 import com.pay.msg.TemplateParam;
@@ -252,6 +253,57 @@ public class NoticeUtil {
         tem.setToUser(customer.getOpenId());//用户openid
         //设置超链接
         tem.setUrl("http://www.ringfingerdating.cn/ring/web/customer?id=" + customer.getId() );  
+        return tem;
+	}
+	
+	public static Template msgReport(User u, Customer customer, Message msg) {
+		Template tem=new Template();  
+        tem.setTemplateId(examineState);  
+        tem.setTopColor("#000000");  
+        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
+        paras.add(new TemplateParam("first","有用户新留言待审核","#333"));  
+        paras.add(new TemplateParam("keyword1", "待审核","#333"));
+        paras.add(new TemplateParam("keyword2", customer.getChName(),"#333"));
+        paras.add(new TemplateParam("keyword3", DateUtils.getToday(),"#333"));
+        paras.add(new TemplateParam("remark","点击查看详情","#333"));  
+        tem.setTemplateParamList(paras);  
+        tem.setToUser(u.getUserNo());//用户openid
+        //设置超链接
+        tem.setUrl("http://www.ringfingerdating.cn/ring/message/examine?id=" + msg.getId() );    
+        return tem;
+	}
+	
+	public static Template msgSuccess(User u, Customer customer, Message msg) {
+		Template tem=new Template();  
+        tem.setTemplateId(examineState);  
+        tem.setTopColor("#000000");  
+        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
+        paras.add(new TemplateParam("first","您的留言审核已通过","#333"));  
+        paras.add(new TemplateParam("keyword1", "审核通过","#333"));
+        paras.add(new TemplateParam("keyword2", customer.getChName(),"#333"));
+        paras.add(new TemplateParam("keyword3", DateUtils.getToday(),"#333"));
+        paras.add(new TemplateParam("remark","点击查看详情","#333"));  
+        tem.setTemplateParamList(paras);  
+        tem.setToUser(customer.getOpenId());//用户openid
+        //设置超链接
+        tem.setUrl("http://www.ringfingerdating.cn/ring/message/examine?id=" + msg.getId() );    
+        return tem;
+	}
+	
+	public static Template msgNotice( Customer customer, Message msg) {
+		Template tem=new Template();  
+        tem.setTemplateId(examineState);  
+        tem.setTopColor("#000000");  
+        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
+        paras.add(new TemplateParam("first","您的留言审核已通过","#333"));  
+        paras.add(new TemplateParam("keyword1", "审核通过","#333"));
+        paras.add(new TemplateParam("keyword2", customer.getChName(),"#333"));
+        paras.add(new TemplateParam("keyword3", DateUtils.getToday(),"#333"));
+        paras.add(new TemplateParam("remark","点击查看详情","#333"));  
+        tem.setTemplateParamList(paras);  
+        tem.setToUser(customer.getOpenId());//用户openid
+        //设置超链接
+        tem.setUrl("http://www.ringfingerdating.cn/ring/message/examine?id=" + msg.getId() );    
         return tem;
 	}
 

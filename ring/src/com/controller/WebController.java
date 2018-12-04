@@ -284,14 +284,8 @@ public class WebController {
 	
 	@RequestMapping("/evaluate")
 	public String evaluate( HttpSession session  , Integer id  , HttpServletRequest request) {
-		Customer  cust =  (Customer) session.getAttribute("customer");
 		Invite invite  = inviteService.selectById(id);
 		Integer custId =  0;
-		if(cust.getId().equals( invite.getFromId())){
-			custId = invite.getJoinId();
-		 }else{
-			 custId = invite.getFromId();
-		 }
 		Evaluate ev = new Evaluate();
 		ev.setDateingId(id);
 		List<Evaluate> list= evaluateMapper.queryByWhere(ev, new Pagination());

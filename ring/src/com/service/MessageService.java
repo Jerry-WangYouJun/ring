@@ -48,6 +48,8 @@ public class MessageService {
 		return msgMapper.queryTotal(msg);
 	}
 
-
+	 public Message selectByPrimaryKey(Integer id){
+		 return msgMapper.selectByPrimaryKey(id);
+	 }
 
 }

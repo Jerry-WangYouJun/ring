@@ -1,11 +1,14 @@
 package com.controller;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.common.CodeUtil;
 import com.common.entry.Grid;
 import com.common.entry.Pagination;
+import com.model.Customer;
 import com.model.Message;
 import com.model.User;
+import com.pay.util.NoticeUtil;
+import com.pay.util.WXAuthUtil;
 import com.service.MessageService;
+import com.service.UserService;
 
 
 @Controller
@@ -25,6 +32,8 @@ public class MessageController {
 	 
 	@Autowired
 	MessageService service ;
+	@Autowired
+	UserService userService;
 	
 	@ResponseBody
 	@RequestMapping("/query")
@@ -46,13 +55,24 @@ public class MessageController {
 	
 	@ResponseBody
 	@RequestMapping("/remind_edit")
-	public com.common.entry.Message  editMessage(Message message ){
+	public com.common.entry.Message  editMessage(Message message ,HttpSession session ){
 		com.common.entry.Message msg = new com.common.entry.Message();
+		User user = (User)session.getAttribute("webUser");
+		Customer cust = (Customer) session.getAttribute("customer");
 		try{
+			message.setMsgDate(new Date());
 			if(message.getId() != null  &&  message.getId() > 0){
 				service.update(message);
 			}else{
+				User admin = new User();
+				admin.setRole("11");
+				message.setFromId(Integer.valueOf(user.getRemark()));
+				message.setMsgDate(new Date());
 				service.insert(message);
+				List<User> userList = userService.queryList(admin, new Pagination());
+				for(User u : userList){
+					WXAuthUtil.sendTemplateMsg(NoticeUtil.msgReport(u , cust ,message ));
+				}
 			}
 			msg.setSuccess(true);
 			msg.setMsg("操作成功");
@@ -98,4 +118,28 @@ public class MessageController {
 		return msg;
 	}
 	
+	@RequestMapping("/examine")
+	public String  examine(Integer id ,HttpServletRequest request){
+		Message msg = service.selectByPrimaryKey(id);
+		request.setAttribute("msg", msg);
+		return "forward:/ring/message.jsp";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateState")
+	public com.common.entry.Message  updateState(Integer id ,HttpServletRequest request){
+		com.common.entry.Message m = new com.common.entry.Message();
+		Message msg = service.selectByPrimaryKey(id);
+		msg.setRemark("通过");
+		m.setMsg("审核成功");
+		m.setSuccess(true);
+		try {
+			WXAuthUtil.sendTemplateMsg(NoticeUtil.msgSuccess(null ,msg.getCustomerFrom(), msg));
+			WXAuthUtil.sendTemplateMsg(NoticeUtil.msgSuccess(null ,msg.getCustomerFrom(), msg));
+		} catch (Exception e) {
+			m.setMsg("审核失败：" + e.getMessage());
+			m.setSuccess(false);
+		}
+		return m;
+	}
 }
