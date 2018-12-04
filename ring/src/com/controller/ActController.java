@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONObject;
+
+import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,9 +28,10 @@ import com.model.ActDetail;
 import com.model.Customer;
 import com.model.Dictionary;
 import com.model.User;
+import com.pay.util.NoticeUtil;
+import com.pay.util.WXAuthUtil;
+import com.service.CustomerService;
 import com.service.DictionaryService;
-
-import net.sf.json.JSONObject;
 
 
 @Controller
@@ -41,6 +46,9 @@ public class ActController {
 	
 	@Autowired
 	ActDetailMapper detailMapper;
+	
+	@Autowired
+	CustomerService customerService;
 	
 	@ResponseBody
 	@RequestMapping("/query")
@@ -222,6 +230,14 @@ public class ActController {
 	@RequestMapping("/updateDetailAdmin")
 	public String updateDetailAdmin(HttpServletRequest  request , HttpSession session ,ActDetail detail) {
 		detailMapper.updateByPrimaryKey(detail);
+		Customer cust = customerService.selectById(detail.getCustId());
+		 try {
+			WXAuthUtil.sendTemplateMsg(NoticeUtil.actExamineNotice( null, cust , detail));
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return "forward:/act/detail?id=" + detail.getActId();
 	}
 	

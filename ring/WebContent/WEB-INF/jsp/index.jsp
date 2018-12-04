@@ -5,7 +5,7 @@
 <html>
 <head>
         <meta charset="utf-8">
-        <title> 无名指会员管理系统</title>
+        <title> 无名指之约会员管理系统</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="author" content="SuggeElson" />
         <meta name="description" content=""/>
@@ -41,7 +41,7 @@
                 <div class="navbar">
                     <div class="navbar-header">
                         <a class="navbar-brand" href="index.html">
-                            <i class="im-windows8 text-logo-element animated bounceIn"></i><span class="text-logo"> 无名指会员系统</span><span class="text-slogan"></span> 
+                            <i class="im-windows8 text-logo-element animated bounceIn"></i><span class="text-logo"> 无名指之约会员系统</span><span class="text-slogan"></span> 
                         </a>
                     </div>
                     <nav class="top-nav" role="navigation">

@@ -100,7 +100,6 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-${focus }
 <%@include file="/ring/header.jsp"%>
    <div class="profile" style="margin-top:50px">
    	 <div class="col-md-12 profile_left">
@@ -235,8 +234,8 @@ ${focus }
 				    	  <table class="table_working_hours">
 				        	<tbody>
 				        		<tr class="opened">
-									<td class="day_label">身高/体重 :</td>
-									<td class="day_value">Not Specified</td>
+									<td class="day_label">年龄范围 :</td>
+									<td class="day_value dicValue" id="birthday2" value="${cust.birthday2 }"></td>
 								</tr>
 				        		<tr class="opened">
 									<td class="day_label">宗教信仰 :</td>

@@ -79,20 +79,6 @@ $(function(){
 	</section>
 	<section>
 	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6" style="margin: 0 5">
-		<div class="tile-stats b brall mb5 teal-bg">
-			<a href="###" onclick="addArticle()">
-				<div class="tile-stats-icon">
-					<i class="st-pencil color-white"></i>
-				</div>
-				<div class="tile-stats-content">
-					<div class="tile-stats-number color-white">写文章</div>
-					<div class="tile-stats-text color-white"></div>
-				</div>
-				<div class="clearfix"></div>
-			</a>
-		</div>
-	</div>
-	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6" style="margin: 0 5">
 		<div class="tile-stats b brall mb5 gray-bg">
 			<a href="###" onclick="getArticle('2')">
 				<div class="tile-stats-icon">

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.common.DateUtils;
+import com.model.ActDetail;
 import com.model.Customer;
 import com.model.InviteDetail;
 import com.model.Location;
@@ -244,6 +245,31 @@ public class NoticeUtil {
         	paras.add(new TemplateParam("remark","点击查看详情","#333"));  
         }else{
         	paras.add(new TemplateParam("first","资料审核未通过","#333"));  
+        	paras.add(new TemplateParam("keyword1", "未通过","#333"));
+        	paras.add(new TemplateParam("keyword2", customer.getChName(),"#333"));
+        	paras.add(new TemplateParam("keyword3", DateUtils.getToday(),"#333"));
+        	paras.add(new TemplateParam("remark","拒绝原因：" + customer.getRemark(),"#333"));  
+        }
+        tem.setTemplateParamList(paras);  
+        tem.setToUser(customer.getOpenId());//用户openid
+        //设置超链接
+        tem.setUrl("http://www.ringfingerdating.cn/ring/web/customer?id=" + customer.getId() );  
+        return tem;
+	}
+	
+	public static Template actExamineNotice(User u, Customer customer, ActDetail detail ) {
+		Template tem=new Template();  
+        tem.setTemplateId(examineState);  
+        tem.setTopColor("#000000");  
+        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
+        if("2".equals(detail.getDetailState())){
+        	paras.add(new TemplateParam("first","审核通过","#333"));  
+        	paras.add(new TemplateParam("keyword1", "已通过","#333"));
+        	paras.add(new TemplateParam("keyword2", customer.getChName(),"#333"));
+        	paras.add(new TemplateParam("keyword3", DateUtils.getToday(),"#333"));
+        	paras.add(new TemplateParam("remark","点击查看详情","#333"));  
+        }else{
+        	paras.add(new TemplateParam("first","审核未通过","#333"));  
         	paras.add(new TemplateParam("keyword1", "未通过","#333"));
         	paras.add(new TemplateParam("keyword2", customer.getChName(),"#333"));
         	paras.add(new TemplateParam("keyword3", DateUtils.getToday(),"#333"));

@@ -24,7 +24,7 @@
 <script src="assets/js/functions.js"></script>
 <script src="assets/js/wow.min.js"></script>
 <script type="text/javascript" src="assets/js/jquery.ajaxchimp.min.js"></script>
-<title>Insert title here</title>
+<title>文章详情页面</title>
 <script type="text/javascript">
 	$(function() {
 		var dic = eval('(${dic})');
@@ -91,6 +91,9 @@
 									<span class="author-name"> <a href="#">${article.author }</a>
 									</span> <span class="entry-date"> <time datetime="2015-01-15">${article.articleDate }</time>
 									</span>
+									<span class="author-name"> <a href="#">${article.author }</a>
+									</span> 
+									
 								</div>
 								<!-- /.meta-content -->
 							</div>
