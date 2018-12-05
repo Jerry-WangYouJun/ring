@@ -72,8 +72,12 @@ public class CustomerController {
 			}else{
 				String prename = DateUtils.getDate14() ;
 				customer.setExamine("0");
-				CodeUtil.SaveFileFromInputStream(upfile, new Image(prename + upfile.getOriginalFilename()));
-				CodeUtil.SaveFileFromInputStream(upfile2, new Image(prename + upfile2.getOriginalFilename()));
+				if(upfile!=null){
+					CodeUtil.SaveFileFromInputStream(upfile, new Image(prename + upfile.getOriginalFilename()));
+				}
+				if(upfile2!=null){
+					CodeUtil.SaveFileFromInputStream(upfile2, new Image(prename + upfile2.getOriginalFilename()));
+				}
 				service.insert(customer);
 				if(StringUtils.isNotEmpty(customer.getOpenId())){
 					User user = new User();

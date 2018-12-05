@@ -230,7 +230,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</tr>
 								<tr class="opened_1">
 									<td class="day_label"> 详细地址  :</td>
-									<td class="day_value">  ${invite.pointLocation.actAddress }</td>
+									<td class="day_value">  ${invite.pointLocation.address }</td>
 								</tr>
 							    <tr class="opened">
 									<td class="day_label">约会地点联系电话:</td>
@@ -238,7 +238,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</tr>
 								<tr class="opened">
 									<td class="day_label" colspan="2">
-									<button type="button" class="btn btn-primary btn-lg  col-xs-6" style="border: none;" onclick="signUp()">约会签到</button>
+									<c:if test="${invite.inviteStates eq '4' }">
+										<button type="button" class="btn btn-primary btn-lg  col-xs-6" style="border: none;" onclick="signUp()">约会签到</button>
+									</c:if>
 									</td>
 								</tr>
 								
@@ -257,6 +259,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
   </div>
 </div>
+ <div class="modal fade" id="addModal"  role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="height: ">
+				<div class="modal-content">
+					<div class="modal-body">
+					 </div>
+				</div>
+			</div>
+		</div>
 		<!-- /.modal-content -->
 	<script type="text/javascript">
 	

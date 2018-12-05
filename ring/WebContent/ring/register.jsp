@@ -94,13 +94,17 @@ $(function(){
 								placeholder="必填" required>
 							</select>
 						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">联系电话:</label> <input
+								type="text" class="form-control isPhone required" name="telephone"placeholder="必填"  >
+						</div>
 						<div class="form-group">
                             <label class="control-label">身份证正面图</label>
-                                <input type="file" name="upfile" id="upfile" class="form-control required" class="form-control" placeholder="请上传有效的身份证正面">
+                                <input type="file" name="upfile" id="upfile" class="form-control " class="form-control" placeholder="请上传有效的身份证正面">
                         </div>
 						<div class="form-group">
                                  <label class="control-label">身份证反面图</label>
-                                 <input type="file" name="upfile2" id="upfile2" class="form-control required"  class="form-control" placeholder="请上传有效的身份证反面">
+                                 <input type="file" name="upfile2" id="upfile2" class="form-control "  class="form-control" placeholder="请上传有效的身份证反面">
                         </div  >
 						<div class="form-group">
 							<label for="message-text" class="control-label">生日:</label>
@@ -180,8 +184,8 @@ $(function(){
 						<div class="form-group ">
 							<label for="message-text" class="control-label">从事行业:</label> 
 								<select
-									class="form-control dicSelect" name="industry" placeholder="必填"
-										required>
+									class="form-control dicSelect" name="industry" 
+										>
 	
 								</select>
 
@@ -197,10 +201,7 @@ $(function(){
 							<label for="message-text" class="control-label">qq号:</label> <input
 								type="text" class="form-control" name="qq">
 						</div>
-						<div class="form-group ">
-							<label for="message-text" class="control-label">联系电话:</label> <input
-								type="text" class="form-control isPhone" name="telephone">
-						</div>
+						
 						<div class="form-group ">
 							<label for="message-text" class="control-label">邮箱:</label> <input
 								type="text" class="form-control email" name="email">
@@ -226,7 +227,7 @@ $(function(){
 							<label for="message-text" class="control-label">接受的年龄范围:</label>
 							<select
 									class="form-control dicSelect" name="birthday2" placeholder="必填"
-										required>
+										>
 	
 								</select>
 						</div>

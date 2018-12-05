@@ -253,6 +253,14 @@ public class InviteController {
 					 detailTemp.setPreDate(preDate);
 					 detailService.update(detailTemp);
 					 Location loc =locService.selectById(invite.getPointId());
+					 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(loc, inviteTemp.getCustomerJoin() , invite.getId()));
+					 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(loc, inviteTemp.getCustomerFrom() , invite.getId()));
+					 User admin = new User();
+						admin.setRole("11");
+						List<User> userList = userService.queryList(admin, new Pagination());
+						for(User u : userList){
+							 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(loc,u , invite.getId()));
+						}
 				}
 				
 //				if("2".equals(inviteTemp.getInviteStates())) {
