@@ -181,12 +181,6 @@
 					</div>
 				</div> 
 			</div>
-			<div class="row dingwei" >
-				<p class="text-center">
-					<button type="button" class="btn btn-primary btn-lg  col-xs-6" style="border: none;" onclick="signUp()">约会签到</button>
-				</p>
-				
-			</div>
 		</div>
  	<div class="modal fade" id="addModal"  role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">

@@ -18,6 +18,8 @@
                         <ul class="nav navbar-nav ">
                                     <li class="pull-left" ><a href="##" onclick="history.back()" style="padding:0px"><i class="st-arrow-left"></i> 返回</a>
                                     </li>
+                                    <li class="pull-right"> <a style="padding-left:0px" href="${pageContext.request.contextPath}/web/myinfo"><i class="st-users"></i> 个人中心</a>
+                                    </li>
                                     <li class="pull-right"> <a style="padding-left:0px" href="${pageContext.request.contextPath}/web/dateinfo"><i class="st-users"></i> 我的约会</a>
                                     </li>
                                     <li class="pull-right"><a style="padding:0px" href="${pageContext.request.contextPath}/web/info"><i class="st-email2"></i> 我的邀约</a>

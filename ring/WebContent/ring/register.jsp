@@ -99,6 +99,10 @@ $(function(){
 								type="text" class="form-control isPhone required" name="telephone"placeholder="必填"  >
 						</div>
 						<div class="form-group">
+                            <label class="control-label">头像</label>
+                                <input type="file" name="headFile" id="headFile" class="form-control " class="form-control" placeholder="请上传图片">
+                        </div>
+						<div class="form-group">
                             <label class="control-label">身份证正面图</label>
                                 <input type="file" name="upfile" id="upfile" class="form-control " class="form-control" placeholder="请上传有效的身份证正面">
                         </div>

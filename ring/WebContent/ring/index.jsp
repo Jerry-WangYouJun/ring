@@ -168,32 +168,5 @@ $(document).ready(function(){
 	   <script type="text/javascript" src="${pageContext.request.contextPath}/ring/js/jquery.flexisel.js"></script>
     </div>
 </div>
-    <div class="footer">
-    	<div class="container">
-    		<div class="col-md-4 col_2">
-    			<h4>关于我们</h4>
-    			<p>"无名指之约。。。"</p>
-    		</div>
-    		<div class="col-md-2 col_2">
-    			<h4>帮助 & 支持</h4>
-    			<ul class="footer_links">
-    				<li><a href="contact.html">联系我们</a></li>
-    				<li><a href="faq.html">常见问题</a></li>
-    			</ul>
-    		</div>
-    		<div class="col-md-2 col_2">
-    			<h4>合作单位</h4>
-    			<ul class="footer_links">
-    				<li><a href="privacy.html">Privacy Policy</a></li>
-    				<li><a href="terms.html">Terms and Conditions</a></li>
-    				<li><a href="services.html">Services</a></li>
-    			</ul>
-    		</div>
-    		<div class="clearfix"> </div>
-    		<div class="copy">
-		      <p>Copyright &copy; 2018.Company name All rights reserved.</p>
-	        </div>
-    	</div>
-    </div>
 </body>
 </html>

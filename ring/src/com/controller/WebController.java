@@ -129,7 +129,9 @@ public class WebController {
 	public String registerInit(HttpServletRequest  request , HttpSession session ,String openId ) {
 		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
-		session.setAttribute("openId", openId);
+		if(!"0".equals(openId)){
+			session.setAttribute("openId", openId);
+		}
 		return "forward:/ring/registerInit.jsp";
 	}
 	
@@ -181,6 +183,22 @@ public class WebController {
 		Focus focus = new Focus();
 		focus.setFromId(custLogin.getId());
 		focus.setToId(id);
+		List<Focus> focusList = custService.queryFocusByWhere(focus, new Pagination());
+		if(focusList != null &&  focusList.size() > 0) {
+			request.setAttribute("focusId", focusList.get(0).getId()  );
+		}else {
+			request.setAttribute("focusId", 0  );
+		}
+		return "forward:/ring/view_profile.jsp";
+	}
+	
+
+	@RequestMapping("/myinfo")
+	public String myinfo(HttpServletRequest  request) {
+		Customer custLogin = (Customer)request.getSession().getAttribute("customer");
+		Focus focus = new Focus();
+		request.setAttribute("cust", custLogin);
+		focus.setFromId(custLogin.getId());
 		List<Focus> focusList = custService.queryFocusByWhere(focus, new Pagination());
 		if(focusList != null &&  focusList.size() > 0) {
 			request.setAttribute("focusId", focusList.get(0).getId()  );

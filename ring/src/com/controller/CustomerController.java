@@ -63,7 +63,7 @@ public class CustomerController {
 	
 	@ResponseBody
 	@RequestMapping("/customer_edit")
-	public Message  editCustomer(Customer customer , MultipartFile upfile , MultipartFile upfile2 ){
+	public Message  editCustomer(Customer customer , MultipartFile upfile , MultipartFile upfile2 ,MultipartFile headFile){
 		Message msg = new Message();
 		try{
 			 customer.setFlag(customer.getFlagTemp());
@@ -72,6 +72,9 @@ public class CustomerController {
 			}else{
 				String prename = DateUtils.getDate14() ;
 				customer.setExamine("0");
+				if(headFile!=null){
+					CodeUtil.SaveFileFromInputStream(headFile, new Image(prename + headFile.getOriginalFilename()));
+				}
 				if(upfile!=null){
 					CodeUtil.SaveFileFromInputStream(upfile, new Image(prename + upfile.getOriginalFilename()));
 				}

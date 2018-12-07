@@ -199,25 +199,29 @@ public class WeixinPayController {
 		        	   System.out.println("没有关注");
 		        	   return "forward:/article/focus.jsp";
 		           }else{
-		        	   
 		        	   List<Customer> custList = custService.queryList(customer, new Pagination());
 		        	   if(custList ==null || custList.size() ==0){
 		        		   return "forward:/web/registerInit?openId=" + customer.getOpenId();
 		        	   }else {
-		        		   User user = new User();
-		        		   user.setUserNo(customer.getOpenId());
-		        		   user.setPwd("123");
-		        		   user = userService.checkUser(user);
-		        		   request.getSession().setAttribute("webUser", user);
-		        		   Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
-		        		   request.getSession().setAttribute("customer", cust);
-		        		   Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
-		        		   request.getSession().setAttribute("dic",   JSONObject.fromObject(dicMap));
+		        		   if("0".equals(custList.get(0).getExamine())){
+		        			   return "forward:/web/registerInit?openId=0" ;
+		        		   }else{
+		        			   
+		        			   User user = new User();
+		        			   user.setUserNo(customer.getOpenId());
+		        			   user.setPwd("123");
+		        			   user = userService.checkUser(user);
+		        			   request.getSession().setAttribute("webUser", user);
+		        			   Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
+		        			   request.getSession().setAttribute("customer", cust);
+		        			   Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
+		        			   request.getSession().setAttribute("dic",   JSONObject.fromObject(dicMap));
+		        		   }
 		        	   }
 		        	   if( id != null && id != 0) {
 		        		   return "forward:/"+action+"/detail?id=" + id ;
 		        	   }else{
-		        		   return "forward:/"+action+"/index" ;
+		        		   return "forward:/ring/login.jsp" ;
 		        	   }
 		           }
 		

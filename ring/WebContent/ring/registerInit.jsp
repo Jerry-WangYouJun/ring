@@ -109,8 +109,15 @@ $(function(){
 							<div class="col-lg-12 col-md-12 col-xs-12">
 								<div class="row">
 									<div class="col-lg-4 col-md-4 col-xs-12">
-										<label class="col-lg-12 col-md-12 col-sm-12 control-label">尚未注册？</label>
-										<a  href="###" onclick="regist()">注册成为会员</a>
+										<c:choose>
+											 <c:when test="${ openId ne '0'}">
+												<label class="col-lg-12 col-md-12 col-sm-12 control-label">尚未注册？</label>
+												<a  href="###" onclick="regist()">注册成为会员</a>
+											 </c:when>
+											 <c:otherwise>
+											 	  <label class="col-lg-12 col-md-12 col-sm-12 control-label">审核正在进行中，请耐心等待~</label>
+											 </c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 							</div>

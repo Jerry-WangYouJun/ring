@@ -104,6 +104,9 @@
   	    <if test="obj.heightTo !=null and obj.heightTo > 0">
   	    	    and height  &lt;= #{obj.heightTo}
   	    </if>
+  	    <if test="obj.examine !=null and obj.examine = '999'">
+  	    	    and examine  != 0
+  	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
   
