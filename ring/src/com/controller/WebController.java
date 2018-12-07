@@ -205,7 +205,7 @@ public class WebController {
 		}else {
 			request.setAttribute("focusId", 0  );
 		}
-		return "forward:/ring/view_profile.jsp";
+		return "forward:/ring/person_center.jsp";
 	}
 	
 	@RequestMapping("/inviteInit")

@@ -41,7 +41,7 @@
                 <div class="navbar">
                     <div class="navbar-header">
                         <a class="navbar-brand" href="index.html">
-                            <i class="im-windows8 text-logo-element animated bounceIn"></i><span class="text-logo"> 无名指之约会员系统</span><span class="text-slogan"></span> 
+                            <i class="im-windows8 text-logo-element animated bounceIn"></i><span class="text-logo"> 无名指之约</span><span class="text-slogan"></span> 
                         </a>
                     </div>
                     <nav class="top-nav" role="navigation">

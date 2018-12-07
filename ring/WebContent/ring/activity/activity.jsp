@@ -64,7 +64,7 @@ $(document).ready(function(){
 							<label for="message-text" class="control-label">预计结束时间:</label> 
 							 <div class='input-group date' id='datetimepicker2'>
 								<input type='text' class="form-control" readonly name="actEnd"
-									id="actEnd" placeholder="必填" required/> <span class="input-group-addon"> <span
+									id="actEnd" placeholder="必填" /> <span class="input-group-addon"> <span
 									class="glyphicon glyphicon-calendar"></span>
 								</span>
 							</div>
