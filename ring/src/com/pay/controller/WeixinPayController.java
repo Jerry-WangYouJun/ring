@@ -434,6 +434,7 @@ public class WeixinPayController {
 		return null;
 	}
 	
+
 	/**
 	 * 微信异步回调，不会跳转页面
 	 * @param request

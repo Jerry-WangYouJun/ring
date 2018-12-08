@@ -43,12 +43,12 @@ public class JsSignUtil {
         ret.put("signature", getSha1(string1));  
         ret.put("appId",  WxPayConfig.appid);  
   
-       /* System.out.println("1.ticket(原始)="+jsapi_ticket);  
+        System.out.println("1.ticket(原始)="+jsapi_ticket);  
         System.out.println("2.url="+ret.get("url"));  
         System.out.println("3.jsapi_ticket（处理后）="+ret.get("jsapi_ticket"));  
         System.out.println("4.nonceStr="+ret.get("nonceStr"));  
         System.out.println("5.signature="+ret.get("signature"));  
-        System.out.println("6.timestamp="+ret.get("timestamp"));  */
+        System.out.println("6.timestamp="+ret.get("timestamp")); 
           
         return ret;  
     }  

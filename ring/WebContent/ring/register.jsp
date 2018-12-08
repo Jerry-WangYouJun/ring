@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
 <title>会员注册</title>
 <style type="text/css">
 .panel-body {
@@ -14,6 +15,61 @@
 }
 </style>
 <script>
+wx.config({  
+    debug: false,  
+    appId: '${ret.appId}',  
+    timestamp:'${ret.timestamp}',  
+    nonceStr:'${ret.nonceStr}',  
+    signature:'${ret.signature}',  
+    jsApiList : [ 'chooseImage',
+                  'previewImage',
+                  'uploadImage',
+                  'downloadImage' ]  
+});//end_config  
+
+
+wx.ready(function () {
+    wx.checkJsApi({
+        jsApiList: [
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage'
+        ],
+        success: function (res) {
+            //alert(JSON.stringify(res));
+            //alert(JSON.stringify(res.checkResult.getLocation));
+            if (res.checkResult.getLocation == false) {
+                alert('你的微信版本太低，不支持微信JS接口，请升级到最新的微信版本！');
+                return;
+            }else{
+               // wxChooseImage();
+            }
+        }
+    });
+});
+
+
+wx.error(function(res) {  
+   // alert("出错了：" + res.errMsg);  
+}); 
+
+function chooseImg(){
+	wx.chooseImage({
+	    count: 1, //张数， 默认9
+	    sizeType: ['compressed'], //建议压缩图
+	    sourceType: ['album', 'camera'], // 来源是相册、相机
+	    success: function (res) {
+	    	var localIds = res.localIds;
+	    	alert(localIds)
+ //var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+	    //$('.driver-card img').prop('src',res.localIds[0]);
+	    //uploadPhoto.uploadToWeixinServer(res.localIds[0],'car')
+	   }
+	});
+	
+}
+
 $(function(){
 	if($('#datetimepicker2')[0] != undefined){
 		$('#datetimepicker2').datetimepicker({  
@@ -64,6 +120,10 @@ $(function(){
 			}
 		});
 	}
+	
+	
+	
+	 
 </script>
 </head>
 <body id="a2">
@@ -96,11 +156,12 @@ $(function(){
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">联系电话:</label> <input
-								type="text" class="form-control isPhone required" name="telephone"placeholder="必填"  >
+								type="text" class="form-control"  id="telephone" name="telephone" placeholder="必填"  >
 						</div>
 						<div class="form-group">
                             <label class="control-label">头像</label>
-                                <input type="file" name="headFile" id="headFile" class="form-control " class="form-control" placeholder="请上传图片">
+                               	<button type="button" onclick="chooseImg()">上传头像</button>
+                                <input type="file" name="headFile" id="headFile" class="form-control " accept="image/*"  class="form-control" placeholder="请上传图片">
                         </div>
 						<div class="form-group">
                             <label class="control-label">身份证正面图</label>
@@ -291,11 +352,31 @@ $(function(){
 		subInfoAll("customer");
 	}
 
+	$(function(){
+		$("#dataForm").validate({
+		    rules: {
+		    	telephone : {  
+		            required : true,  
+		            minlength : 11, 
+		            isMobile : true  
+		        		}, 
+		          },
+		   messages: {
+			   telephone : {  
+			       required : "请输入手机号",  
+			       minlength : "不能小于11个字符",  
+			       isMobile : "请正确填写手机号码"  
+			  		 	}
+	  				 },
+			});
+	})
+
 	function subInfoAll(name) {
 
 		if (!$("#dataForm").validate().form()) {
 			return false;
 		}
+		
 		var path = "${pageContext.request.contextPath}/" + name + "/" + name
 				+ "_edit";
 			$("#dataForm").ajaxSubmit({

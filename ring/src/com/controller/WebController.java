@@ -26,6 +26,7 @@ import com.model.Invite;
 import com.model.InviteDetail;
 import com.model.Location;
 import com.model.User;
+import com.pay.util.JsSignUtil;
 import com.sendMail.EmailSendService;
 import com.service.CustomerService;
 import com.service.DictionaryService;
@@ -129,9 +130,7 @@ public class WebController {
 	public String registerInit(HttpServletRequest  request , HttpSession session ,String openId ) {
 		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
-		if(!"0".equals(openId)){
-			session.setAttribute("openId", openId);
-		}
+		session.setAttribute("openId", openId);
 		return "forward:/ring/registerInit.jsp";
 	}
 	
@@ -140,6 +139,8 @@ public class WebController {
 		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
 		session.setAttribute("openId", openId);
+		Map<String,String> ret = JsSignUtil.sign("http://www.ringfingerdating.cn/ring/web/register");
+		request.setAttribute("ret", ret);
 		return "forward:/ring/register.jsp";
 	}
 	

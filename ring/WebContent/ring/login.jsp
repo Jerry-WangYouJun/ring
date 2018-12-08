@@ -48,7 +48,7 @@ function webLogin(msg){
 					location.href="${pageContext.request.contextPath}/web/index";
 				}
 			} else {
-				
+				alert(data.msg)
 			}
 
 		},
