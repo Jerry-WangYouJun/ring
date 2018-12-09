@@ -258,6 +258,31 @@ public class NoticeUtil {
         return tem;
 	}
 	
+	public static Template examine(User u, Customer customer , String flag , String remark) {
+		Template tem=new Template();  
+        tem.setTemplateId(examineState);  
+        tem.setTopColor("#000000");  
+        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
+        if("1".equals(flag)){
+        	paras.add(new TemplateParam("first","审核通过","#333"));  
+        	paras.add(new TemplateParam("keyword1", "已通过","#333"));
+        	paras.add(new TemplateParam("keyword2", customer.getChName(),"#333"));
+        	paras.add(new TemplateParam("keyword3", DateUtils.getToday(),"#333"));
+        	paras.add(new TemplateParam("remark","点击查看详情","#333"));  
+        }else{
+        	paras.add(new TemplateParam("first","审核未通过","#333"));  
+        	paras.add(new TemplateParam("keyword1", "未通过","#333"));
+        	paras.add(new TemplateParam("keyword2", customer.getChName(),"#333"));
+        	paras.add(new TemplateParam("keyword3", DateUtils.getToday(),"#333"));
+        	paras.add(new TemplateParam("remark","拒绝原因：" + remark,"#333"));  
+        }
+        tem.setTemplateParamList(paras);  
+        tem.setToUser(customer.getOpenId());//用户openid
+        //设置超链接
+        tem.setUrl("http://www.ringfingerdating.cn/ring/ring/login.jsp");  
+        return tem;
+	}
+	
 	public static Template actExamineNotice(User u, Customer customer, ActDetail detail ) {
 		Template tem=new Template();  
         tem.setTemplateId(examineState);  
