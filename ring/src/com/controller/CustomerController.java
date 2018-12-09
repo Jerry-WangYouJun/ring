@@ -61,6 +61,13 @@ public class CustomerController {
 		return grid;
 	}
 	
+	@RequestMapping("/updateInit")
+	public String updateInit(Integer id , HttpServletRequest request) {
+		Customer cust = service.selectById(id);
+		request.setAttribute("mycust", cust);
+		return "forward:/ring/register.jsp";
+	}
+	
 	@ResponseBody
 	@RequestMapping("/customer_edit")
 	public Message  editCustomer(Customer customer , MultipartFile upfile , MultipartFile upfile2 ,MultipartFile headFile){

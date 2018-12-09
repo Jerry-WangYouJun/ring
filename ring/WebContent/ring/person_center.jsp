@@ -146,12 +146,7 @@ $(document).ready(function(){
 					 </ul>
 				  </div>
 			</div>
-			<button type="button" class="btn btn-default " onclick="detailInfo()"> 我的约会 </button>
-			<button type="button" class="btn btn-default " onclick="addInvite(${cust.id})">  我的邀约</button>
-			<button type="button" class="btn btn-default " onclick="detailInfo()"> 我的活动 </button>
-			<button type="button" class="btn btn-default " onclick="addInvite(${cust.id})">  我的文章</button>
-			<button type="button" class="btn btn-default " onclick="updateFocus('0')"><i class="im-heart2"></i>  我的关注</button>
-			<button type="button" class="btn btn-default " onclick="updateFocus('0')"><i class="im-heart2"></i>  修改信息</button>
+			<a type="button" class="btn btn-default " href="${pageContext.request.contextPath}/customer/updateInit?id=${customer.id}"><i class="im-heart2"></i>  修改信息</a>
 			<button type="button" class="btn btn-default " onclick="updateFocus('0')"><i class="im-heart2"></i>  修改头像</button>
 			<c:if test="${ webUser.role == '1' }">
 				<button type="button" class="btn  btn-success" onclick="signState('${customer.id}','1')">管理员签到</button>
