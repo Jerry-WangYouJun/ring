@@ -85,7 +85,7 @@ public class Customer {
     private String  nonType; 
     private String other;
     
-    private Integer InviteFlag ;
+    private Integer inviteFlag ;
     
     
     List<Focus> focus  ;
@@ -499,11 +499,11 @@ public class Customer {
 	}
 
 	public Integer getInviteFlag() {
-		return InviteFlag;
+		return inviteFlag;
 	}
 
 	public void setInviteFlag(Integer inviteFlag) {
-		InviteFlag = inviteFlag;
+		this.inviteFlag = inviteFlag;
 	}
 	
 	

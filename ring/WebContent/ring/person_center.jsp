@@ -142,10 +142,21 @@ $(document).ready(function(){
    	        <div class="col-sm-4 row_2">
 				<div class="flexslider">
 					 <ul class="slides">
-						<li data-thumb="${pageContext.request.contextPath}/ring/images/p1.jpg">
-							<img src="${pageContext.request.contextPath}/ring/images/p1.jpg" />
-						</li>
-					 </ul>
+							<c:if test="${customer.sex} eq '1'">
+								<img src="${pageContext.request.contextPath}/images/men.jpg"
+									alt="" class="hover-animation image-zoom-in img-responsive" />
+								<li
+									data-thumb="${pageContext.request.contextPath}/images/men.jpg">
+									<img src="${pageContext.request.contextPath}/images/men.jpg" />
+								</li>
+							</c:if>
+							<c:if test="${customer.sex} eq '0'">
+								<li
+									data-thumb="${pageContext.request.contextPath}/images/women.jpg">
+									<img src="${pageContext.request.contextPath}/images/women.jpg" />
+								</li>
+							</c:if>
+						</ul>
 				  </div>
 			</div>
 			<a type="button" class="btn btn-default " href="${pageContext.request.contextPath}/customer/updateInit?id=${customer.id}"><i class="im-heart2"></i>  修改信息</a>

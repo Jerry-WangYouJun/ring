@@ -91,10 +91,13 @@ $(document).ready(function(){
 		$(".dicValue").each(function(){
 			 var field  = $(this).attr("name")
 			 var value =  $(this).attr("value");
-			 if(dic[field][value]!= undefined){
+			 if(dic[field] !=undefined && dic[field][value]!= undefined){
 				 $(this).text(dic[field][value]["describ"]);
 			 }
 		})
+		if(parseInt("${cust.inviteFlag}")  > 0){
+			 $("#flag").attr("disabled",true);
+		}
 	 });
 	 
 </script>
@@ -107,14 +110,22 @@ $(document).ready(function(){
    	        <div class="col-sm-4 row_2">
 				<div class="flexslider">
 					 <ul class="slides">
-						<li data-thumb="${pageContext.request.contextPath}/ring/images/p1.jpg">
-							<img src="${pageContext.request.contextPath}/ring/images/p1.jpg" />
+					 <c:if test="${cust.sex} eq '1'">
+					<img src="${pageContext.request.contextPath}/images/men.jpg" alt="" class="hover-animation image-zoom-in img-responsive"/>
+						<li data-thumb="${pageContext.request.contextPath}/images/men.jpg">
+							<img src="${pageContext.request.contextPath}/images/men.jpg" />
 						</li>
+		      	</c:if>
+		      	<c:if test="${cust.sex} eq '0'">
+					<li data-thumb="${pageContext.request.contextPath}/images/women.jpg">
+							<img src="${pageContext.request.contextPath}/images/women.jpg" />
+						</li>
+		      	</c:if>
 					 </ul>
 				  </div>
 			</div>
 			<button type="button" class="btn btn-default " onclick="detailInfo()"> 留言</button>
-			<button type="button" class="btn btn-default " onclick="addInvite(${cust.id})">  邀约</button>
+			<button type="button" class="btn btn-default " onclick="addInvite(${cust.id})" id="flag">  邀约</button>
 			<c:if test="${focusId eq 0 }">
 				<button type="button" class="btn btn-default " onclick="updateFocus('0')"><i class="im-heart2"></i>  关注</button>
 			</c:if>

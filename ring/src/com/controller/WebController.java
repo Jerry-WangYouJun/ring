@@ -197,6 +197,7 @@ public class WebController {
 	@RequestMapping("/customer")
 	public String customer(HttpServletRequest  request , Integer id ) {
 		Customer cust = custService.selectById(id);
+		cust.setInviteFlag(userService.queryInviteState(id));
 		request.setAttribute("cust", cust);
 		Customer custLogin = (Customer)request.getSession().getAttribute("customer");
 		Focus focus = new Focus();
@@ -386,37 +387,13 @@ public class WebController {
 		Message msg = new Message();
 		try {
 			dao.updateExamine(table , column , state , id );
-			if("customer".equals(table)) {
 				Customer customer = custService.selectById(id);
 				User user = new User();
 				user.setRemark(customer.getId()+"");
 				List<User> userList = userService.queryList(user, new Pagination());
 				if(userList != null && userList.size() > 0) {
-				   WXAuthUtil.sendTemplateMsg(NoticeUtil.registerNotice(userList.get(0), customer))	;
+				   WXAuthUtil.sendTemplateMsg(NoticeUtil.examine(userList.get(0), customer,"1" , ""))	;
 				}
-			}else if("invite".equals(table)) {
-				//Invite inviete = inviteService.selectById(id);
-				//NoticeUtil.
-			}else if("act".equals(table)) {
-				Act act = actMapper.selectByPrimaryKey(id);
-				Customer customer = custService.selectById(act.getCustId());
-				User user = new User();
-				user.setRemark(customer.getId()+"");
-				List<User> userList = userService.queryList(user, new Pagination());
-				if(userList != null && userList.size() > 0) {
-					 WXAuthUtil.sendTemplateMsg(NoticeUtil.actExamineNotice(userList.get(0), customer, act.getDetail()))	;
-				
-				}
-			}else if("acticle".equals(table)) {
-				Article article = articleMapper.selectByPrimaryKey(id);
-				Customer customer = custService.selectById(article.getCustId());
-				User user = new User();
-				user.setRemark(customer.getId()+"");
-				List<User> userList = userService.queryList(user, new Pagination());
-				if(userList != null && userList.size() > 0) {
-					WXAuthUtil.sendTemplateMsg(NoticeUtil.articleSuccess(userList.get(0), customer, article));
-				}
-			}
 		}catch(Exception e) {
 			 msg.setMsg("系统异常："  + e.getMessage());
 			 msg.setSuccess(false);
@@ -433,6 +410,13 @@ public class WebController {
 		Message msg = new Message();
 		try {
 			dao.examineFail(table  ,column, state , remark , id );
+				Customer customer = custService.selectById(id);
+				User user = new User();
+				user.setRemark(customer.getId()+"");
+				List<User> userList = userService.queryList(user, new Pagination());
+				if(userList != null && userList.size() > 0) {
+				 WXAuthUtil.sendTemplateMsg(NoticeUtil.examine(userList.get(0), customer,"0" , remark))	;
+				}
 		}catch(Exception e) {
 			 msg.setMsg("系统异常："  + e.getMessage());
 			 msg.setSuccess(false);

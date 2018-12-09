@@ -65,7 +65,8 @@
 	<section id="site-banner" class="site-banner text-center">
 	<div class="container">
 		<div class="site-logo ">
-			<a href="./" class="pull-left"><img src="images/logo.png"
+		
+			<a href="./" class="pull-left"><img src="${pageContext.request.contextPath}/img/ringlogo.jpg"
 				style="width: 150px; height: auto" alt="Site Logo"></a>
 		</div>
 		<!-- /.site-logo -->
@@ -84,7 +85,7 @@
 						<div class="post-meta">
 							<div class="entry-meta">
 								<div class="author-avatar">
-									<img src="images/author/1.jpg" alt="Author Image">
+									<img src="${pageContext.request.contextPath}/img/ringlogo.jpg" alt="Author Image">
 								</div>
 								<!-- /.author-avatar -->
 								<div class="entry-meta-content">

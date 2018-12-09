@@ -130,16 +130,17 @@ $(document).ready(function(){
         <ul id="">
         		<c:forEach items="${list}" var ="customerJoin">
 		      <li><div class="col_1"><a href="${pageContext.request.contextPath}/web/customer?id=${customerJoin.id}">
-				<img src="${pageContext.request.contextPath}/ring/images/p1.jpg" alt="" class="hover-animation image-zoom-in img-responsive"/>
+		      	<c:if test="${customerJoin.sex} eq '1'">
+					<img src="${pageContext.request.contextPath}/images/men.jpg" alt="" class="hover-animation image-zoom-in img-responsive"/>
+		      	</c:if>
+		      	<c:if test="${customerJoin.sex} eq '0'">
+					<img src="${pageContext.request.contextPath}/images/women.jpg" alt="" class="hover-animation image-zoom-in img-responsive"/>
+		      	</c:if>
 	             <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
 	                <div class="center-middle">详细信息</div>
 	             </div>
-	             <div>
 	             	 <c:if test="${customerJoin.inviteFlag  > 0 }">约会中</c:if>
-	             </div>
-	             <div>
 	             	 <c:if test="${customerJoin.inviteFlag  == 0 }"> 可邀约</c:if>
-	             </div>
 	             <h3><br>${customerJoin.birthday }, ${customerJoin.chName }, ${customerJoin.addtress }<br>${customerJoin.declaration }</h3></a></div>
 	          </li>
         		</c:forEach>
