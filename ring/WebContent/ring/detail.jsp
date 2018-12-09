@@ -64,7 +64,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		 if(states == '3' || states =='5'){
 			 str = window.prompt("请输入拒绝的原因") 
 		 }
-		 window.location.href= "${basePath}/invite/state?id="+id+"&inviteStates=" + states +"&remark=" + str;
+		 window.location.href= "${pageContext.request.contextPath}/invite/state?id="+id+"&inviteStates=" + states +"&remark=" + str;
 	 }
 	 
 		function  addInvite(id , states){

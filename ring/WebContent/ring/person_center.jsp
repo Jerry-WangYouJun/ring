@@ -160,7 +160,7 @@ $(document).ready(function(){
 				 <div class="col-md-6 basic_1-left" >
 				    	  <table class="table_working_hours">
 				        	<tbody>
-				        		<c:forEach items="${myCustExamine}" var = "mycust" end="1">
+				        		<c:forEach items="${myCustExamine}" var = "mycust" end="20">
 					        		<tr class="opened_1">
 										<td class="day_label">姓名 :</td>
 										<td class="day_value">${mycust.chName }</td>

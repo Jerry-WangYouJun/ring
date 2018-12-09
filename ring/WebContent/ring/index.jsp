@@ -134,7 +134,7 @@ $(document).ready(function(){
 	             <div class="layer m_1 hidden-link hover-animation delay1 fade-in">
 	                <div class="center-middle">详细信息</div>
 	             </div>
-	             <h3><br>${customerJoin.birthday }, ${customerJoin.industry }, ${customerJoin.addtress }<br>${customerJoin.declaration }</h3></a></div>
+	             <h3><br>${customerJoin.birthday }, ${customerJoin.chName }, ${customerJoin.addtress }<br>${customerJoin.declaration }</h3></a></div>
 	          </li>
         		</c:forEach>
 	    </ul>
