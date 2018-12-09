@@ -32,6 +32,7 @@ import com.model.Location;
 import com.model.User;
 import com.pay.util.JsSignUtil;
 import com.pay.util.NoticeUtil;
+import com.pay.util.WXAuthUtil;
 import com.sendMail.EmailSendService;
 import com.service.CustomerService;
 import com.service.DictionaryService;
@@ -195,7 +196,6 @@ public class WebController {
 	
 	@RequestMapping("/customer")
 	public String customer(HttpServletRequest  request , Integer id ) {
-		int inviteFlag = dao.checkInviteState(id);
 		Customer cust = custService.selectById(id);
 		request.setAttribute("cust", cust);
 		Customer custLogin = (Customer)request.getSession().getAttribute("customer");
@@ -392,7 +392,7 @@ public class WebController {
 				user.setRemark(customer.getId()+"");
 				List<User> userList = userService.queryList(user, new Pagination());
 				if(userList != null && userList.size() > 0) {
-					NoticeUtil.registerNotice(userList.get(0), customer);
+				   WXAuthUtil.sendTemplateMsg(NoticeUtil.registerNotice(userList.get(0), customer))	;
 				}
 			}else if("invite".equals(table)) {
 				//Invite inviete = inviteService.selectById(id);
@@ -404,7 +404,8 @@ public class WebController {
 				user.setRemark(customer.getId()+"");
 				List<User> userList = userService.queryList(user, new Pagination());
 				if(userList != null && userList.size() > 0) {
-					NoticeUtil.actExamineNotice(userList.get(0), customer, act.getDetail());
+					 WXAuthUtil.sendTemplateMsg(NoticeUtil.actExamineNotice(userList.get(0), customer, act.getDetail()))	;
+				
 				}
 			}else if("acticle".equals(table)) {
 				Article article = articleMapper.selectByPrimaryKey(id);
@@ -413,7 +414,7 @@ public class WebController {
 				user.setRemark(customer.getId()+"");
 				List<User> userList = userService.queryList(user, new Pagination());
 				if(userList != null && userList.size() > 0) {
-					NoticeUtil.articleSuccess(userList.get(0), customer, article);
+					WXAuthUtil.sendTemplateMsg(NoticeUtil.articleSuccess(userList.get(0), customer, article));
 				}
 			}
 		}catch(Exception e) {

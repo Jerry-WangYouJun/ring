@@ -254,7 +254,7 @@ public class NoticeUtil {
         tem.setTemplateParamList(paras);  
         tem.setToUser(customer.getOpenId());//用户openid
         //设置超链接
-        tem.setUrl("http://www.ringfingerdating.cn/ring/web/customer?id=" + customer.getId() );  
+        tem.setUrl("http://www.ringfingerdating.cn/ring/ring/login.jsp");  
         return tem;
 	}
 	

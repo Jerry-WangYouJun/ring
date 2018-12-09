@@ -138,7 +138,7 @@ $(document).ready(function(){
 	             	 <c:if test="${customerJoin.inviteFlag  > 0 }">约会中</c:if>
 	             </div>
 	             <div>
-	             	 <c:if test="${customerJoin.inviteFlag  = 0 }"> 可邀约</c:if>
+	             	 <c:if test="${customerJoin.inviteFlag  == 0 }"> 可邀约</c:if>
 	             </div>
 	             <h3><br>${customerJoin.birthday }, ${customerJoin.chName }, ${customerJoin.addtress }<br>${customerJoin.declaration }</h3></a></div>
 	          </li>
