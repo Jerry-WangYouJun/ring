@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.common.DateUtils;
 import com.model.ActDetail;
+import com.model.Article;
 import com.model.Customer;
 import com.model.InviteDetail;
 import com.model.Location;
@@ -313,6 +314,23 @@ public class NoticeUtil {
         tem.setToUser(customer.getOpenId());//用户openid
         //设置超链接
         tem.setUrl("http://www.ringfingerdating.cn/ring/message/examine?id=" + msg.getId() );    
+        return tem;
+	}
+	
+	public static Template articleSuccess(User u, Customer customer, Article article) {
+		Template tem=new Template();  
+        tem.setTemplateId(examineState);  
+        tem.setTopColor("#000000");  
+        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
+        paras.add(new TemplateParam("first","您的文章审核已通过","#333"));  
+        paras.add(new TemplateParam("keyword1", "审核通过","#333"));
+        paras.add(new TemplateParam("keyword2", article.getTitle(),"#333"));
+        paras.add(new TemplateParam("keyword3", DateUtils.getToday(),"#333"));
+        paras.add(new TemplateParam("remark","点击查看详情","#333"));  
+        tem.setTemplateParamList(paras);  
+        tem.setToUser(customer.getOpenId());//用户openid
+        //设置超链接
+        tem.setUrl("http://www.ringfingerdating.cn/ring/article/detail?id=" + article.getId() );    
         return tem;
 	}
 	

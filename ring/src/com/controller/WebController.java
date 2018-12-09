@@ -31,6 +31,7 @@ import com.model.InviteDetail;
 import com.model.Location;
 import com.model.User;
 import com.pay.util.JsSignUtil;
+import com.pay.util.NoticeUtil;
 import com.sendMail.EmailSendService;
 import com.service.CustomerService;
 import com.service.DictionaryService;
@@ -71,6 +72,8 @@ public class WebController {
 	ArticleMapper articleMapper ;
 	@Autowired
 	ActMapper  actMapper;
+	@Autowired
+	UserService  userService;
 	
 	@RequestMapping("/login")
 	public String login( HttpSession session , User user) {
@@ -166,6 +169,10 @@ public class WebController {
 			custQuery.setWebSex(c.getSex());
 		}
 		list= custService.queryList(custQuery, new Pagination());
+		for (Customer customer : list) {
+			int flag = userService.queryInviteState(customer.getId());
+			customer.setInviteFlag(flag);
+		}
 		request.setAttribute("list", list);
 		return "forward:/ring/index.jsp";
 	}
@@ -379,6 +386,36 @@ public class WebController {
 		Message msg = new Message();
 		try {
 			dao.updateExamine(table , column , state , id );
+			if("customer".equals(table)) {
+				Customer customer = custService.selectById(id);
+				User user = new User();
+				user.setRemark(customer.getId()+"");
+				List<User> userList = userService.queryList(user, new Pagination());
+				if(userList != null && userList.size() > 0) {
+					NoticeUtil.registerNotice(userList.get(0), customer);
+				}
+			}else if("invite".equals(table)) {
+				//Invite inviete = inviteService.selectById(id);
+				//NoticeUtil.
+			}else if("act".equals(table)) {
+				Act act = actMapper.selectByPrimaryKey(id);
+				Customer customer = custService.selectById(act.getCustId());
+				User user = new User();
+				user.setRemark(customer.getId()+"");
+				List<User> userList = userService.queryList(user, new Pagination());
+				if(userList != null && userList.size() > 0) {
+					NoticeUtil.actExamineNotice(userList.get(0), customer, act.getDetail());
+				}
+			}else if("acticle".equals(table)) {
+				Article article = articleMapper.selectByPrimaryKey(id);
+				Customer customer = custService.selectById(article.getCustId());
+				User user = new User();
+				user.setRemark(customer.getId()+"");
+				List<User> userList = userService.queryList(user, new Pagination());
+				if(userList != null && userList.size() > 0) {
+					NoticeUtil.articleSuccess(userList.get(0), customer, article);
+				}
+			}
 		}catch(Exception e) {
 			 msg.setMsg("系统异常："  + e.getMessage());
 			 msg.setSuccess(false);

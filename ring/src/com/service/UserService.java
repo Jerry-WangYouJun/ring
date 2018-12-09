@@ -49,5 +49,12 @@ public class UserService {
 		return dao.checkUnique(userNo);
 	}
 	 	 
+	public User queryUserById(Integer id) {
+		return mapper.selectByPrimaryKey(id);
+	}
+	
+	public Integer queryInviteState(Integer id) {
+		return dao.checkInviteState(id);
+	}
 	
 }	 

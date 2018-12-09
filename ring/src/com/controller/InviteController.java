@@ -22,6 +22,7 @@ import com.common.CodeUtil;
 import com.common.entry.Grid;
 import com.common.entry.Message;
 import com.common.entry.Pagination;
+import com.dao.UserDao;
 import com.model.Customer;
 import com.model.Evaluate;
 import com.model.Invite;
@@ -55,6 +56,7 @@ public class InviteController {
 	
 	@Autowired
 	UserService userService;
+	
 	
 	@ResponseBody
 	@RequestMapping("/query")
@@ -276,7 +278,7 @@ public class InviteController {
 				Invite test = new Invite();
 				test.setFromId(Integer.valueOf(user.getRemark()));
 				test.setInviteStates("1");
-				int inviteTemp = service.queryTotal(test);
+				int inviteTemp =  userService.queryInviteState(invite.getJoinId());
 					if( inviteTemp == 0) {
 						invite.setInviteDate(new Date());
 						invite.setInviteStates("1");

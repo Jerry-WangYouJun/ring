@@ -126,7 +126,9 @@ $(document).ready(function(){
 				 $(this).text(dic[field][value]["describ"]);
 			 }
 		})
-		
+		if(${webUser.role} !='1' && ${webUser.role} !='11'){
+			 $("#examine").hide();
+		}
 	 });
 	 
 	 
