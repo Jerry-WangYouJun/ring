@@ -153,7 +153,7 @@ public class InviteController {
 			 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteRefuse(remark, invite.getCustomerFrom(),invite.getId()));
 		        System.out.println(jsonObject);
 			return "forward:/web/info";
-		}else if("2".equals(inviteStates)){
+		}else if("1".equals(inviteStates)){
 			return "forward:/web/dating?id=" + id;
 		}else if("4".equals(inviteStates) || "6".equals(inviteStates) ){
 			if("4".equals(inviteStates)) {

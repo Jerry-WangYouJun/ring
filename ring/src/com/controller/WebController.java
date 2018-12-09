@@ -188,6 +188,7 @@ public class WebController {
 	
 	@RequestMapping("/customer")
 	public String customer(HttpServletRequest  request , Integer id ) {
+		int inviteFlag = dao.checkInviteState(id);
 		Customer cust = custService.selectById(id);
 		request.setAttribute("cust", cust);
 		Customer custLogin = (Customer)request.getSession().getAttribute("customer");

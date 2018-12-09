@@ -147,7 +147,7 @@
 								<p> 
 									<c:choose>
 										 	 <c:when test="${invite.inviteStates eq '1'}">
-										 	 	 <a href="###" onclick="addInvite('${invite.id}','2')">同意约请</a>
+										 	 	 <a href="###" onclick="addInvite('${invite.id}','1')">同意约请</a>
 								      			 <a href="##" onclick="updateStates('${invite.id}','3')">拒绝约请</a>
 										 	 </c:when>
 										 	 <c:when test="${invite.inviteStates eq '2'}">

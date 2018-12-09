@@ -2,14 +2,12 @@ package com.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.model.Customer;
 import com.model.User;
 
 
@@ -53,6 +51,13 @@ public class UserDao {
 	public void examineFail(String table , String column,String state ,  String remark, Integer id) {
 		String sql = "update t_" + table +  " set remark = '" + remark + "' , "+ column  + " = '" + state +"'  where id =" + id  ;
 		jdbcTemplate.update(sql);
+	}
+
+	public int checkInviteState(Integer id) {
+		String sql = "select count(1) from t_invite where "
+				+ " (from_id = "+id+" and invite_states in ('1','4' , '6') ) "
+				+ " or (join_id = "+id+" and invite_states in ('4' , '6') ) " ;
+		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
 
 }
