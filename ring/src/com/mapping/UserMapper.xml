@@ -25,6 +25,9 @@
   	    <if test="obj.role!= null and obj.role != '' ">
   	    	     and role like #{obj.role}
   	    </if>
+  	    <if test="obj.remark!= null and obj.remark > 0  ">
+  	    	     and remark =  #{obj.remark}
+  	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
   

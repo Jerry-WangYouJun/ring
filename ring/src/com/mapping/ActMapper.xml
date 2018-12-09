@@ -47,6 +47,9 @@
   	    <if test="obj.actLoca!= null and obj.actLoca != '' ">
   	    	     and act_loca like #{obj.actLoca}
   	    </if>
+  	    <if test="obj.actState!= null and obj.actState != '' ">
+  	    	     and act_state like #{obj.actState}
+  	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
   
@@ -63,6 +66,9 @@
   	    </if>
   	    <if test="actForm !=null and actForm != '' ">
   	    	 	and  act_form like #{actForm}
+  	    </if>
+  	    <if test="actLoca!= null and actLoca != '' ">
+  	    	     and act_loca like #{actLoca}
   	    </if>
   	    <if test="actLoca!= null and actLoca != '' ">
   	    	     and act_loca like #{actLoca}

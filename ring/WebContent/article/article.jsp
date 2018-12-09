@@ -82,7 +82,7 @@ $(document).ready(function(){
 								type="text" class="form-control" name="remark" id="remark">
 						</div>
 						<div class="form-group">
-							 <button type="button" class="btn btn-default" onclick="subInfo('0')">关闭</button>
+							 <button type="button" class="btn btn-default" onclick="subInfo('0')">保存草稿</button>
 							<button type="button" class="btn btn-primary" onclick="subInfo('1')">提交</button>
 						</div>
 					</form>

@@ -1,14 +1,11 @@
 package com.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +17,10 @@ import com.common.entry.Message;
 import com.common.entry.Pagination;
 import com.model.Dictionary;
 import com.model.User;
-import com.pay.msg.Template;
-import com.pay.msg.TemplateParam;
 import com.service.DictionaryService;
 import com.service.UserService;
+
+import net.sf.json.JSONObject;
 
 
 @Controller
@@ -172,4 +169,25 @@ public class UserController {
 		return "login";
 	}
 	
+	@ResponseBody
+	@RequestMapping("/signState")
+	public Message signState(HttpSession session , String remark , String state){
+		Message msg = new Message();
+		User user = new User();
+    		user.setRemark(remark);
+    		List<User> userList =service.queryList(user, new Pagination());
+    		if("1".equals(state)) {
+            		user = userList.get(0);
+            		user.setRole("11" );
+            		service.update(user);
+            	}else {
+            		user = userList.get(0);
+            		user.setRole("1" );
+            		service.update(user);
+            	}
+    		session.setAttribute("webUser", user);
+    		msg.setSuccess(true);
+    		msg.setMsg("操作成功");
+		return msg;
+	}
 }

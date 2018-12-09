@@ -44,4 +44,15 @@ public class UserDao {
 		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
 
+	public void updateExamine(String table, String column, String state, Integer id ) {
+		String sql = "update t_" + table +  " set " + column  + " = '" + state + "' where id =" + id  ;
+		jdbcTemplate.update(sql);
+		
+	}
+
+	public void examineFail(String table , String column,String state ,  String remark, Integer id) {
+		String sql = "update t_" + table +  " set remark = '" + remark + "' , "+ column  + " = '" + state +"'  where id =" + id  ;
+		jdbcTemplate.update(sql);
+	}
+
 }

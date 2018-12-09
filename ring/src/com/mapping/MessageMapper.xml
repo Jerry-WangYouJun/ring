@@ -31,6 +31,9 @@
   	    <if test="obj.toId!= null and obj.toId   > 0  ">
   	    	     and to_id = #{obj.toId}
   	    </if>
+  	    <if test="obj.remark!= null and obj.remark!=  ''  ">
+  	    	     and remark = #{obj.remark}
+  	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
   

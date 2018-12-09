@@ -44,6 +44,12 @@
   	    	     and article_type = #{obj.articleType}
   	    </if>
   	     <if test="obj.articleState != null and obj.articleState != '' ">
+  	     	<if test="obj.articleState == '0'.toString() ">
+	  	    	     and article_state = '0' 
+  	     	</if>
+  	     	<if test="obj.articleState == '1'.toString() ">
+	  	    	     and article_state = '1'
+  	     	</if>
   	     	<if test="obj.articleState == '2'.toString() ">
 	  	    	     and article_state not in ('0' , '1')
   	     	</if>

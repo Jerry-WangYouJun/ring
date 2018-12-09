@@ -157,8 +157,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										 	 	 </div>
 										 	 </c:when>
 										 	 <c:when test="${invite.inviteStates eq '6'}">
-										 	 	  系统审核中
-										 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">申请取消约会</a>
+										 	 	   申请取消约会 系统审核中
+										 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">撤回申请</a>
 										 	 </c:when>
 										 	<c:when test="${invite.inviteStates eq '7'}">
 										 	 	  约会已结束

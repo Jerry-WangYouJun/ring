@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.entry.Message;
 import com.common.entry.Pagination;
+import com.dao.ActMapper;
+import com.dao.ArticleMapper;
 import com.dao.EvaluateMapper;
 import com.dao.UserDao;
+import com.model.Act;
+import com.model.Article;
 import com.model.Customer;
 import com.model.Dictionary;
 import com.model.Evaluate;
@@ -33,6 +37,7 @@ import com.service.DictionaryService;
 import com.service.InviteDetailService;
 import com.service.InviteService;
 import com.service.LocationService;
+import com.service.MessageService;
 import com.service.UserService;
 
 import net.sf.json.JSONObject;
@@ -60,6 +65,12 @@ public class WebController {
 	EmailSendService emailService;
 	@Autowired
 	UserDao  dao ;
+	@Autowired
+	MessageService msgService;
+	@Autowired
+	ArticleMapper articleMapper ;
+	@Autowired
+	ActMapper  actMapper;
 	
 	@RequestMapping("/login")
 	public String login( HttpSession session , User user) {
@@ -85,7 +96,6 @@ public class WebController {
 			msg.setMsg("登陆成功");
 			return msg;
 		}else {
-			
 			msg.setSuccess(false);
 			msg.setMsg("用户名或密码错误");
 			return msg;
@@ -195,11 +205,37 @@ public class WebController {
 	
 
 	@RequestMapping("/myinfo")
-	public String myinfo(HttpServletRequest  request) {
-		Customer custLogin = (Customer)request.getSession().getAttribute("customer");
+	public String myinfo(HttpServletRequest  request , HttpSession session) {
+		Customer custLogin = (Customer)session.getAttribute("customer");
+		User user = (User)session.getAttribute("webUser");
 		Focus focus = new Focus();
-		request.setAttribute("cust", custLogin);
 		focus.setFromId(custLogin.getId());
+		if("1".equals(user.getRole()) || "11".equals(user.getRole())) {
+			Customer queryCust = new Customer();
+			queryCust.setExamine("0");
+			  List<Customer> examineList =  custService.queryList(queryCust, new Pagination());
+			  session.setAttribute("myCustExamine", examineList);
+			  
+			  Invite invite = new Invite();
+			  invite.setInviteStates("6");
+			  List<Invite> inviteList = inviteService.queryList(invite, new Pagination());
+			  session.setAttribute("cancelDating", inviteList);
+//			  
+//			  com.model.Message msg = new com.model.Message();
+//			  msg.setRemark("0");
+//			  List<com.model.Message> msgList = msgService.queryList(msg, new Pagination());
+//			  session.setAttribute("myMsgExamine", msgList);
+			  
+			  Article  article = new Article();
+			  article.setArticleState("1");
+			  List<Article>  articleList = articleMapper.queryByWhere(article, new Pagination());
+			  session.setAttribute("myArticleExamine", articleList);
+			  
+			  Act act = new Act() ;
+			  act.setActState("0");
+			  List<Act> actList =  actMapper.queryByWhere(act, new Pagination());
+			  session.setAttribute("myActExamine", actList);
+		}
 		List<Focus> focusList = custService.queryFocusByWhere(focus, new Pagination());
 		if(focusList != null &&  focusList.size() > 0) {
 			request.setAttribute("focusId", focusList.get(0).getId()  );
@@ -336,4 +372,35 @@ public class WebController {
 	}
 	
 	
+	@ResponseBody
+	@RequestMapping("/examineSuccess")
+	public Message examineSuccess(String table , String column , String state , Integer id  ) {
+		Message msg = new Message();
+		try {
+			dao.updateExamine(table , column , state , id );
+		}catch(Exception e) {
+			 msg.setMsg("系统异常："  + e.getMessage());
+			 msg.setSuccess(false);
+			 return msg;
+		}
+		msg.setSuccess(true);
+		msg.setMsg("更新成功");
+		return msg;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/examineFail")
+	public Message examineFail(String table ,String column, Integer id , String remark , String state ) {
+		Message msg = new Message();
+		try {
+			dao.examineFail(table  ,column, state , remark , id );
+		}catch(Exception e) {
+			 msg.setMsg("系统异常："  + e.getMessage());
+			 msg.setSuccess(false);
+			 return msg;
+		}
+		msg.setSuccess(true);
+		msg.setMsg("更新成功");
+		return msg;
+	}
 }

@@ -107,6 +107,9 @@
   	    <if test="obj.examine !=null and obj.examine == '999'">
   	    	    and examine  != 0
   	    </if>
+  	    <if test="obj.examine !=null and obj.examine != ''">
+  	    	    and examine  &lt;= #{obj.examine}
+  	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
   

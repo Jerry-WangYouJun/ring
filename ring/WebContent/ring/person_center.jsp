@@ -48,10 +48,8 @@ $(document).ready(function(){
     );
     
 });
-	 function invite(joinId){
-		 
-		 if(status != '9'){
-			 var url = "${pageContext.request.contextPath}/web/inviteInit?id=" + joinId;
+	 function signState(custId , state){
+			 var url = "${pageContext.request.contextPath}/user/signState?remark=" + custId + "&state=" + state;
 			 $.ajax({
 					url : url,
 					type : 'post',
@@ -59,18 +57,57 @@ $(document).ready(function(){
 					success : function(data) {
 						if (data.success) {
 							alert(data.msg);
-							window.location.href="${pageContext.request.contextPath}/web/index";
+							window.location.href="${pageContext.request.contextPath}/web/myinfo";
 						} else {
 							alert(data.msg);
 						}
-	
 					},
 					error : function(transport) {
 						alert("系统产生错误,请联系管理员!");
 					}
 				});
-		 }
 	 }
+	 
+	 function examineSuccess(table,column  , state , id ){
+		 var url = "${pageContext.request.contextPath}/web/examineSuccess?table=" + table +"&column="+column + "&state=" + state + "&id=" +id;
+		 $.ajax({
+				url : url,
+				type : 'post',
+				dataType : 'json',
+				success : function(data) {
+					if (data.success) {
+						alert(data.msg);
+						window.location.href="${pageContext.request.contextPath}/web/myinfo";
+					} else {
+						alert(data.msg);
+					}
+				},
+				error : function(transport) {
+					alert("系统产生错误,请联系管理员!");
+				}
+			});
+ }
+	 
+	 function examineFail(table , column ,state , id ){
+		 var remark = prompt("请输入不通过的原因","")
+		 var url = "${pageContext.request.contextPath}/web/examineFail?table=" + table +"&column="+column +"&remark="+remark + "&state=" + state + "&id=" +id;
+		 $.ajax({
+				url : url,
+				type : 'post',
+				dataType : 'json',
+				success : function(data) {
+					if (data.success) {
+						alert(data.msg);
+						window.location.href="${pageContext.request.contextPath}/web/myinfo";
+					} else {
+						alert(data.msg);
+					}
+				},
+				error : function(transport) {
+					alert("系统产生错误,请联系管理员!");
+				}
+			});
+ 	}
 	 
 	 function updateFocus(state ){
 		  var id = "${cust.id}"
@@ -89,7 +126,9 @@ $(document).ready(function(){
 				 $(this).text(dic[field][value]["describ"]);
 			 }
 		})
+		
 	 });
+	 
 	 
 </script>
 </head>
@@ -115,20 +154,147 @@ $(document).ready(function(){
 			<button type="button" class="btn btn-default " onclick="updateFocus('0')"><i class="im-heart2"></i>  修改信息</button>
 			<button type="button" class="btn btn-default " onclick="updateFocus('0')"><i class="im-heart2"></i>  修改头像</button>
 			<c:if test="${ webUser.role == '1' }">
-				<button type="button" class="btn  btn-success" onclick="deleteFocus(${focusId})"><i class="im-heart"></i> 管理员签到</button>
-				<button type="button" class="btn  btn-success" onclick="deleteFocus(${focusId})"><i class="im-heart"></i> 审核信息</button>
+				<button type="button" class="btn  btn-success" onclick="signState('${customer.id}','1')">管理员签到</button>
 			</c:if>
 			<c:if test="${ webUser.role == '11' }">
-				<button type="button" class="btn  btn-success" onclick="deleteFocus(${focusId})"><i class="im-heart"></i> 管理员签退</button>
-				<button type="button" class="btn  btn-success" onclick="deleteFocus(${focusId})"><i class="im-heart"></i> 审核信息</button>
+				<button type="button" class="btn  btn-success" onclick="signState('${customer.id}','0')"><i class="im-heart"></i> 管理员签退</button>
 			</c:if>
-			<div style="margin: 30px"> 
-			<div class="col-sm-8 row_1">
-				<table class="table_working_hours">
-		        	<tbody>
-				    </tbody>
-				</table>
-				
+			<div style="margin: 30px" id="examine" class="showView"> 
+			<div class="row mb10 ">
+				  会员信息待审核 <a href="#">&nbsp;更多</a>
+				 <div class="col-md-6 basic_1-left" >
+				    	  <table class="table_working_hours">
+				        	<tbody>
+				        		<c:forEach items="${myCustExamine}" var = "mycust" end="1">
+					        		<tr class="opened_1">
+										<td class="day_label">姓名 :</td>
+										<td class="day_value">${mycust.chName }</td>
+										</tr>
+									<tr class="opened_1">
+										<td class="day_label">昵称 :</td>
+										<td class="day_value">${mycust.nickName }</td>
+									</tr>
+									<tr class="opened_1">
+										<td class="day_label">联系电话 :</td>
+										<td class="day_value">${mycust.telephone }</td>
+										</tr>
+									<tr class="opened_1">
+										<td class="day_value" ><a href="${pageContext.request.contextPath}/web/customer?id=${mycust.id}">详情</a></td>
+										<td class="day_value"><button type="button" class="btn btn-default " onclick="examineSuccess('customer','examine','1','${mycust.id}')"> 通过</button>
+										<button type="button" class="btn btn-default " onclick="examineFail('customer','examine','2','${mycust.id}')"> 不通过</button></td>
+									</tr>
+				        		</c:forEach>
+						    </tbody>
+				          </table>
+				         </div>
+			</div>
+			<div class="clearfix"> </div>
+			<div class="row mb10">
+				  约会取消申请待审核 <a href="#">&nbsp;更多</a>
+				  <div class="col-md-6 basic_1-left" >
+				    	  <table class="table_working_hours">
+				        	<tbody>
+				        		<c:forEach items="${cancelDating}" var = "mydating" end="1">
+					        		<tr class="opened_1">
+										<td class="day_label">邀约人:</td>
+										<td class="day_value">
+											<a href="${pageContext.request.contextPath}/web/customer?id=${mydating.customerFrom.id}">
+												${mydating.customerFrom.chName }
+											</a>
+										</td>
+										</tr>
+									<tr class="opened_1">
+										<td class="day_label">受邀人 :</td>
+										<td class="day_value">
+										<a href="${pageContext.request.contextPath}/web/customer?id=${mydating.customerJoin.id}">
+												${mydating.customerJoin.chName}
+											</a></td>
+									</tr>
+									<tr class="opened_1">
+										<td class="day_label">约会地点 :</td>
+										<td class="day_value">
+												${mydating.pointLocation.locName }
+										</td>
+										</tr>
+									<tr class="opened_1">
+										<td class="day_value" ><a href="${pageContext.request.contextPath}/web/detail?id=${mydating.id}">详情</a></td>
+										<td class="day_value"><button type="button" class="btn btn-default " onclick="examineSuccess('invite','invite_states','9','${mydating.id}')"> 通过</button>
+										<button type="button" class="btn btn-default " onclick="examineFail('invite','invite_states','4','${mydating.id}')"> 不通过</button></td>
+									</tr>
+				        		</c:forEach>
+						    </tbody>
+				          </table>
+				         </div>
+			</div>
+			<div class="clearfix"> </div>
+			<div class="row">
+				  文章待审核 <a href="#">&nbsp;更多</a>
+				  <div class="col-md-6 basic_1-left" >
+				    	  <table class="table_working_hours">
+				        	<tbody>
+				        		<c:forEach items="${myArticleExamine}" var = "myarticle" end="1">
+					        		<tr class="opened_1">
+										<td class="day_label">文章名称:</td>
+										<td class="day_value">
+												${myarticle.title }
+										</td>
+										</tr>
+									<tr class="opened_1">
+										<td class="day_label">文章简介 :</td>
+										<td class="day_value">
+												${myarticle.discrib}
+										</td>
+									</tr>
+									<tr class="opened_1">
+										<td class="day_label">作者 :</td>
+										<td class="day_value">
+												${myarticle.author }
+										</td>
+										</tr>
+									<tr class="opened_1">
+										<td class="day_value" ><a href="${pageContext.request.contextPath}/article/detail?id=${myarticle.id}">详情</a></td>
+										<td class="day_value"><button type="button" class="btn btn-default " onclick="examineSuccess('article','article_state','2','${myarticle.id}')"> 通过</button>
+										<button type="button" class="btn btn-default " onclick="examineFail('article','article_state','0','${myarticle.id}')"> 不通过</button></td>
+									</tr>
+				        		</c:forEach>
+						    </tbody>
+				          </table>
+				         </div>
+			</div>
+			<div class="clearfix"> </div>
+			<div class="row">
+				  活动待审核 <a href="#">&nbsp;更多</a>
+				  <div class="col-md-6 basic_1-left" >
+				    	  <table class="table_working_hours">
+				        	<tbody>
+				        		<c:forEach items="${myActExamine}" var = "myact" end="1">
+					        		<tr class="opened_1">
+										<td class="day_label">活动名称:</td>
+										<td class="day_value">
+												${myact.actName }
+										</td>
+										</tr>
+									<tr class="opened_1">
+										<td class="day_label">活动时间 :</td>
+										<td class="day_value">
+												${myact.actDate}
+										</td>
+									</tr>
+									<tr class="opened_1">
+										<td class="day_label">活动地点 :</td>
+										<td class="day_value">
+												${myact.actAddress }
+										</td>
+										</tr>
+									<tr class="opened_1">
+										<td class="day_value" ><a href="${pageContext.request.contextPath}/act/detail?id=${myact.id}">详情</a></td>
+										<td class="day_value"><button type="button" class="btn btn-default " onclick="examineSuccess('act','act_state','2','${myact.id}')"> 通过</button>
+										<button type="button" class="btn btn-default " onclick="examineFail('act','0','act_state','${myact.id}')"> 不通过</button></td>
+									</tr>
+				        		</c:forEach>
+						    </tbody>
+				          </table>
+				         </div>
 			</div>
 			<div class="clearfix"> </div>
    	 </div>

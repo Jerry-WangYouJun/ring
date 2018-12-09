@@ -111,8 +111,7 @@ public class WeixinPayController {
         		user = userList.get(0);
         		user.setRole("1");
         		userService.update(user);
-        	}
-        }else{
+        	}}else{
         		Customer cust = new Customer();
         		cust.setOpenId(XMLUtil.readNode(root, "FromUserName"));
         		cust.setRemark(content);
