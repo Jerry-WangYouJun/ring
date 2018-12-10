@@ -52,25 +52,6 @@
 			 }
 		}
 		
-		function signUp(){
-			var path = "${pageContext.request.contextPath}/invite/signUp?id=${inviteId}";
-			$.ajax({
-				url : path,
-				type : 'post',
-				dataType : 'json',
-				success : function(data) {
-					if (data.success) {
-						alert(data.msg);
-					} else {
-						alert(data.msg);
-					}
-		
-				},
-				error : function(transport) {
-					alert("系统产生错误,请联系管理员!");
-				}
-			});
-		}
 		
 		function evaluateDate(id){
 			 window.location.href="${pageContext.request.contextPath}/ring/evaluate.jsp"
@@ -81,36 +62,6 @@
 
 		<div class="container-fluid">
 			 <div class="row">
-                        <div class="">
-                            <!-- col-lg-4 start here -->
-                            <div class="panel panel-default plain profile-widget">
-                                <!-- Start .panel -->
-                                <div class="panel-heading pink-bg">
-                                    <h4 class="panel-title"><i class="ec-user"></i> 个人信息</h4>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="col-lg-4 col-md-4 col-sm-12">
-                                        <div class="profile-avatar">
-                                            <img class="img-responsive" src="${pageContext.request.contextPath}/ring/images/p3.jpg" alt="@roybarberuk">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-8 col-md-8 col-sm-12">
-                                        <div class="profile-name">
-                                            SuggeElson <span class="label label-success">admin</span>
-                                        </div>
-                                        <div class="profile-quote">
-                                            <p>Building new app with yeoman generator plus grunt and bower, it`s awesome</p>
-                                        </div>
-                                        <div class="profile-stats-info">
-                                            <a href="#" class="tipB" title="Views"><i class="im-eye2"></i> <strong>5600</strong></a>
-                                            <a href="#" class="tipB" title="Comments"><i class="im-bubble"></i> <strong>75</strong></a>
-                                            <a href="#" class="tipB" title="Likes"><i class="im-heart"></i> <strong>45</strong></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End .panel -->
-                        </div>
                         <!-- col-lg-4 end here -->
                         <div class="">
                             <!-- col-lg-4 start here -->
@@ -119,15 +70,49 @@
                                 <div class="panel-heading pink-bg">
                                     <h4 class="panel-title"><i class="ec-user"></i> 约会信息</h4>
                                 </div>
-                                <div class="panel-footer white-bg">
-                                    <ul class="profile-info">
-                                        <li><i class="ec-mobile"></i> +234 345 887</li>
-                                        <li><i class="ec-location"></i> Spain, Barcelona</li>
-                                        <li><i class="ec-mail"></i> suggeelson@suggelson.com</li>
-                                        <li><i class="im-office"></i> Web developer</li>
-                                        <li><i class="fa-bitbucket"></i> code@suggelab.com</li>
-                                    </ul>
-                                </div>
+                                <div class="basic_1">
+				    	<h3>约会情况 </h3>
+				    	<div class="col-md-6 basic_1-left">
+				    	  <table class="table_working_hours">
+				        	<tbody>
+				        		<tr class="opened_1">
+									<td class="day_label">邀请人 :</td>
+									<td class="day_value" ><a href="${pageContext.request.contextPath}/web/customer?id=${invite.fromId}">${invite.customerFrom.nickName}</a></td>
+								</tr>
+								<tr class="opened_1">
+									<td class="day_label">受邀人 :</td>
+									<td class="day_value" ><a href="${pageContext.request.contextPath}/web/customer?id=${invite.joinId}">${invite.customerJoin.nickName}</a></td>
+								</tr>
+							    <tr class="opened">
+									<td class="day_label">约会时间 :</td>
+									<td class="day_value">${invite.detail.confirmDate }</td>
+								</tr>
+								 <tr class="opened">
+									<td class="day_label">活动地点 :</td>
+									<td class="day_value">${invite.pointLocation.location} - ${invite.pointLocation.locName}</td>
+								</tr>
+								<tr class="opened_1">
+									<td class="day_label"> 详细地址  :</td>
+									<td class="day_value">  ${invite.pointLocation.address }</td>
+								</tr>
+							    <tr class="opened">
+									<td class="day_label">约会地点联系电话:</td>
+									<td class="day_value " >${invite.pointLocation.telephone }</td>
+								</tr>
+								<tr class="opened">
+									<td class="day_label" colspan="2">
+									<c:if test="${invite.inviteStates eq '4' }">
+										<button type="button" class="btn btn-primary btn-lg  col-xs-6" style="border: none;" onclick="signUp()">约会签到</button>
+									</c:if>
+									</td>
+								</tr>
+								
+						    </tbody>
+				          </table>
+				          
+				         </div>
+				        <div class="clearfix"> </div>
+				    </div>
                                 <div class="panel-body">
                                     <form class="form-vertical hover-stripped" role="form" id="dataForm" action="${basePath}/web/evaluateAdd" method="post">
                                     <input type="hidden" name="fromId" value="${customer.id }">

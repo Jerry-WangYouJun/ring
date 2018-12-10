@@ -82,7 +82,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		}
 		
 		function signUp(){
-			var path = "${pageContext.request.contextPath}/invite/signUp?id=${inviteId}";
+			var path = "${pageContext.request.contextPath}/invite/signUp?id=${invite.id}";
 			$.ajax({
 				url : path,
 				type : 'post',
@@ -90,6 +90,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				success : function(data) {
 					if (data.success) {
 						alert(data.msg);
+						window.location.href="${pageContext.request.contextPath}/web/detail?id=${invite.id}";
 					} else {
 						alert(data.msg);
 					}
@@ -112,12 +113,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		$(".dicValue").each(function(){
 			 var field  = $(this).attr("name")
 			 var value =  $(this).attr("value");
-			 if(dic[field][value]!= undefined){
+			 if(dic[field]!=undefined && dic[field][value]!= undefined){
 				 $(this).text(dic[field][value]["describ"]);
 			 }
 		})
+		$(".table_working").hide();
 	 });
-	 
+	 function detailView(){
+		 $(".table_working").show();
+	 }
 </script>
 </head>
 <body>
@@ -137,7 +141,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				  </div>
 			</div>
 			<c:if test="${customer.id eq invite.customerJoin.id }">
-					<c:choose>
+										 	<c:if test="${ empty invite.detail.signJoin}">
+										<c:choose>
 										 	 <c:when test="${invite.inviteStates eq '1'}">
 										 	 	 <a href="###" onclick="addInvite('${invite.id}','1')">同意约请</a>
 								      			 <a href="##" onclick="updateStates('${invite.id}','3')">拒绝约请</a>
@@ -160,15 +165,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										 	 	   申请取消约会 系统审核中
 										 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">撤回申请</a>
 										 	 </c:when>
-										 	<c:when test="${invite.inviteStates eq '7'}">
-										 	 	  约会已结束
-										 	 	  <a class="btn btn-default" href="##" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
-										 	 </c:when>
 										 </c:choose>
+										 	</c:if>
+										 	<c:if test="${ not empty invite.detail.signJoin}">
+										 		 已签到
+											 	<c:if test="${invite.inviteStates eq '7'}">
+											 	 	  约会已结束
+											 	 	  <a class="btn btn-default" href="##" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
+											 	 </c:if>
+										 	</c:if>
+										 	
 			</c:if>
 			
-			
 			<c:if test="${customer.id eq invite.customerFrom.id }">
+			<c:if test="${ empty invite.detail.signFrom}">
 				  	<c:choose>
 										 	 <c:when test="${invite.inviteStates eq '1'}">
 										 	 	  未确认
@@ -198,6 +208,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										 	 	  <a class="btn btn-default" href="###" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
 										 	 </c:when>
 										 </c:choose>
+			</c:if>
 			</c:if>
 			<div style="margin: 30px"> 
 		<div class="col_4">
@@ -237,6 +248,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<td class="day_value " >${invite.pointLocation.telephone }</td>
 								</tr>
 								<tr class="opened">
+									<td class="day_label">对我的评价:</td>
+									<td class="day_value " >
+									 <a  class="btn btn-primary" style="border: none;" onclick="detailView()" >详情</a></td>
+								</tr>
+								<tr class="opened">
 									<td class="day_label" colspan="2">
 									<c:if test="${invite.inviteStates eq '4' }">
 										<button type="button" class="btn btn-primary btn-lg  col-xs-6" style="border: none;" onclick="signUp()">约会签到</button>
@@ -246,7 +262,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								
 						    </tbody>
 				          </table>
-				          
+				          <table class="table_working">
+				        	<tbody>
+							    <tr class="opened">
+									<td class="day_label">是否发生迟到 :</td>
+									<td class="day_value dicValue" name="late" value="${ev.late}">${ev.late}</td>
+								</tr>
+								 <tr class="opened">
+									<td class="day_label">对方实际情况与系统描述相符情况 :</td>
+									<td class="day_value dicValue" name="compare" value="${ev.compare}"> </td>
+								</tr>
+								<tr class="opened_1">
+									<td class="day_label">互动中，对方反馈积极程度 :</td>
+									<td class="day_value dicValue" name="talk" value="${ev.talk }">  </td>
+								</tr>
+								<tr class="opened">
+									<td class="day_label">是否愿意再次与对方见面:</td>
+									<td class="day_value dicValue" name="next" value="${ev.next}"></td>
+								</tr>
+						    </tbody>
+				          </table>
 				         </div>
 				        <div class="clearfix"> </div>
 				    </div>

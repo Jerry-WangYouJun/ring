@@ -356,6 +356,12 @@ public class WebController {
 		if(list != null && list.size() > 0) {
 			ev = list.get(0);
 		}
+		Customer  cust =  (Customer) request.getSession().getAttribute("customer");
+		if(cust.getId().equals(invite.getFromId())){
+			custId =  invite.getJoinId();
+		}else{
+			custId =  invite.getFromId();
+		}
 		Customer evaluateCust = custService.selectById(custId);
 		request.setAttribute("evaluateCust", evaluateCust);
 		request.setAttribute("invite", invite);
@@ -377,6 +383,14 @@ public class WebController {
 	public String detail(Integer id , HttpServletRequest request ) {
 		Invite invite = inviteService.selectById(id);
 		request.setAttribute("invite", invite);
+		Customer  cust =  (Customer) request.getSession().getAttribute("customer");
+		Evaluate evaluate  = new Evaluate();
+		evaluate.setDateingId(id);
+				 evaluate.setToId(cust.getId());
+		List<Evaluate>  evList= evaluateMapper.queryByWhere(evaluate, new Pagination());
+		if(evList!= null && evList.size() > 0){
+			request.setAttribute("ev", evList.get(0));
+		}
 		return "forward:/ring/detail.jsp";
 	}
 	

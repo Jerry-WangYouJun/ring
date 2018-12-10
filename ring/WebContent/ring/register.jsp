@@ -141,7 +141,7 @@ $(function(){
 						<div class="form-group">
 							<label for="message-text" class="control-label">姓名:</label> <input
 								type="text" class="form-control" name="chName" id="chName" value="${mycust.chName }"
-								placeholder="必填" required  onchange="check_unique('chName')">
+								placeholder="必填" required  >
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">昵称:</label> <input
