@@ -17,18 +17,42 @@
 	<div >
 			<div >
 				  <div class="panel-body" id="a3" style="display:block">
-				  	    <table id="infoTable"> </table>
-					<div id="toolbar" class="btn-group">  
-			            <button id="btn_edit" type="button" class="btn btn-default" onclick="updateData()">  
-			                <span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>修改  
-			            </button>  
-			            <button id="btn_delete" type="button" class="btn btn-default" onclick="delDish()">  
-			                <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>删除  
-			            </button>  
-			            <button id="btn_delete" type="button" class="btn btn-default" onclick="addInfo()">  
-			            	<span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
-			            </button>
-			        </div>  
+					  	<div>
+						<div id="toolbar" class="btn-group  pull-left">
+	
+							<button id="btn_edit" type="button" class="btn btn-default"
+								onclick="updateData()">
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+							</button>
+							<button id="btn_delete" type="button" class="btn btn-default"
+								onclick="delDish()">
+								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+							</button>
+							<button id="btn_delete" type="button" class="btn btn-default"
+								onclick="addInfo()">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+							</button>
+						</div>
+						<div class="pull-right" id="query-form"
+							style="padding-bottom: 10px;">
+							<input name="col" id="col"
+								placeholder='数据库名' type="text"
+								style="float: left; width: 150px; margin-right: 5px;"
+								v-model="lookupType" class="form-control">
+						   	<div style="float: left; margin-right: 5px;">
+							</div>
+	
+							<div class="btn-group">
+								<button id="btn_search" onclick="customSearch()" type="button"
+									class="btn btn-primary btn-space">
+									<span class="fa fa-search" aria-hidden="true"
+										class="btn-icon-space"></span> 查询
+								</button>
+							</div>
+						</div>
+
+				</div>
+ 					<table id="infoTable"> </table>
 				  </div>
 			</div>
 		</div>
@@ -90,6 +114,14 @@
 			deleteDataAll("dic");
 		}
 		
+		function customSearch(){
+			var options = $('#infoTable').bootstrapTable('refresh', {
+	            query: 
+	            {
+	                col:$("#col").val()
+	            }
+	        });
+		}
 		
 		$(function(){
 			    $('#infoTable').bootstrapTable({  
@@ -104,10 +136,10 @@
 			        pageList: [10,30,50],        //可供选择的每页的行数（*）  
 			        queryParamsType:'',
 			        singleSelect    : true,   
-			        showRefresh : true, // 是否显示刷新按钮  
+			        showRefresh : false, // 是否显示刷新按钮  
 			        clickToSelect : true, // 是否启用点击选中行  
 			        showToggle : false, // 是否显示详细视图和列表视图的切换按钮  
-			        search:true,   //是否启用搜索框 
+			        search: false,   //是否启用搜索框 
 			        
 			        columns : [ {  
 			            checkbox : true 
