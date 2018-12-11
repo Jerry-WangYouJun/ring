@@ -39,6 +39,10 @@
 								placeholder='数据库名' type="text"
 								style="float: left; width: 150px; margin-right: 5px;"
 								v-model="lookupType" class="form-control">
+								<input name="name" id="name"
+								placeholder='表头名' type="text"
+								style="float: left; width: 150px; margin-right: 5px;"
+								v-model="lookupType" class="form-control">
 						   	<div style="float: left; margin-right: 5px;">
 							</div>
 	
