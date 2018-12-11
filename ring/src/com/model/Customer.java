@@ -23,13 +23,19 @@ public class Customer {
     private String birthday2;
 
     private String hometown;
+    private String hometownProvince;
+    private String hometownCity;
+    private String hometownCountry;
     private String hometown2;
     
     private String loca;
 
     private String addtress;
+    private String addressProvince;
+    private String addressCity;
+    private String addressCountry;
 
-    private Double height;
+    private String height;
     private Double height2;
 
     private Double weight;
@@ -162,11 +168,11 @@ public class Customer {
         this.addtress = addtress == null ? null : addtress.trim();
     }
 
-    public Double getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(Double height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 

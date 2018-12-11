@@ -35,10 +35,12 @@ public class DictionaryController {
 	@RequestMapping("/query")
 	public Grid  queryTest( HttpServletResponse response, HttpServletRequest request  ) {
 		String col = request.getParameter("col");
+		String name=request.getParameter("name");
 		String pageNo = request.getParameter("pageNumber");
 		String pageSize = request.getParameter("pageSize");
 	    Dictionary dic = new Dictionary();
 	    dic.setCol(col);
+	    dic.setName(name);
 		Pagination page =  new Pagination(pageNo, pageSize) ;
 	    CodeUtil.initPagination(page);
 		List<Dictionary> list = service.queryList(dic , page );
