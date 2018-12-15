@@ -576,4 +576,43 @@ public class DateUtils {
                 / (1000 * 60 * 60 * 24) + 0.5);
         return betweenDays;
     }
+    
+    /**
+	  * 两个时间之间的天数
+	  * 
+	  * @param date1 靠后、较大的时间
+	  * @param date2 脚小的时间
+	  * @return
+	  */
+	 public static long getDays(String date1, String date2) {
+	  if (date1 == null || date1.equals(""))
+	   return 0;
+	  if (date2 == null || date2.equals(""))
+	   return 0;
+	  // 转换为标准时间
+	  SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	  java.util.Date date = null;
+	  java.util.Date mydate = null;
+	  try {
+	   date = myFormatter.parse(date1);
+	   mydate = myFormatter.parse(date2);
+	  } catch (Exception e) {
+		  e.getMessage();
+	  }
+	  long day =(long) ((date.getTime() -  mydate.getTime())
+             / (1000 * 60 * 60 ) + 0.5);
+	  return day;
+	 }
+	 
+	 /**
+	  * 获取现在时间
+	  * 
+	  * @return返回字符串格式 yyyy-MM-dd HH:mm:ss
+	  */
+	 public static String getStringDate() {
+	  Date currentTime = new Date();
+	  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	  String dateString = formatter.format(currentTime);
+	  return dateString;
+	 }
 }

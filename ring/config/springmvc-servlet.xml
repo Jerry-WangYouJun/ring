@@ -24,7 +24,7 @@
     </bean>
     <bean id="unicomNormalTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="unicomNormalJob"/>
-        <property name="cronExpression" value="0 0 4/4 * * ?"></property>
+        <property name="cronExpression" value="0 0 0 * * ?"></property>
     </bean>
     
     <bean id="unicomDisbaleJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -34,7 +34,7 @@
     </bean>
     <bean id="unicomDisableTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="unicomDisbaleJob"/>
-        <property name="cronExpression" value="5 15 5/4 * * ?"></property>
+        <property name="cronExpression" value="0 0 * * * ?"></property>
     </bean>
     
     <bean id="cmccNormalJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -49,12 +49,12 @@
     
     <bean id="cmccDisableJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="taskJob"></property>
-        <property name="targetMethod" value="cmccUpdateDisable"></property>
+        <property name="targetMethod" value="inviteRemind"></property>
         <property name="concurrent" value="false"></property>
     </bean>
     <bean id="cmccDisableTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="cmccDisableJob"/>
-        <property name="cronExpression" value="15 45 7/4 * * ?"></property>
+        <property name="cronExpression" value="0 0 * * * ?"></property>
     </bean>
     
     <bean lazy-init="false"  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  

@@ -66,6 +66,28 @@ public class NoticeUtil {
 	
 	
 	/**
+	 *  约会提醒
+	 * @param location
+	 * @param customer
+	 * @return
+	 */
+	public static Template inviteRemind( String msg  ,  String inviteDate, Customer customer , Integer id  , int time) {
+		 Template tem=new Template();  
+	        tem.setTemplateId(actState);  
+	        tem.setTopColor("#000000");  
+	        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
+	        paras.add(new TemplateParam("first","您的约会讲在" + time + "小时后开始","#333"));  
+	        paras.add(new TemplateParam("keyword1", "" ,"#333"));
+	        paras.add(new TemplateParam("keyword2", inviteDate,"#333"));
+	        paras.add(new TemplateParam("remark", "请注意约会时间," + msg,"#333"));  
+	        tem.setTemplateParamList(paras);  
+	        tem.setToUser(customer.getOpenId());//用户openid
+	        //设置超链接
+	        tem.setUrl("http://www.ringfingerdating.cn/ring/wx/index/web/"+id);  
+	        return tem;
+	}
+	
+	/**
 	 * 注册成功
 	 * @param customer
 	 * @param joinOpenID 
