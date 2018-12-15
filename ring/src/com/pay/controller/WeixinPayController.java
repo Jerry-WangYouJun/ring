@@ -220,7 +220,7 @@ public class WeixinPayController {
 		        	   if( id != null && id != 0) {
 		        		   return "forward:/"+action+"/detail?id=" + id ;
 		        	   }else{
-		        		   return "forward:/ring/login.jsp" ;
+		        		   return "forward:/web/login" ;
 		        	   }
 		           }
 		

@@ -81,8 +81,12 @@ public class WebController {
 		user = service.checkUser(user);
 			session.setAttribute("webUser", user);
 			Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
-			session.setAttribute("customer", cust);
-			return "forward:/web/index";
+			if("0".equals(cust.getExamine())){
+ 			   return "forward:/web/registerInit?openId=0" ;
+ 		   }else{
+ 			   session.setAttribute("customer", cust);
+ 			   return "forward:/web/index";
+ 		   }
 	}
 	
 	
