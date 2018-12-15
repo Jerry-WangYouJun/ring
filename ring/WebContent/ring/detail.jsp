@@ -249,7 +249,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</tr>
 								<tr class="opened">
 									<td class="day_label" colspan="2">
-									<c:if test="${invite.inviteStates eq '4' }">
+									<c:if test="${invite.inviteStates eq '4' && invite.fromId eq customer.id &&  empty invite.detail.signFrom }">
+										<button type="button" class="btn btn-primary btn-lg  col-xs-6" style="border: none;" onclick="signUp()">约会签到</button>
+									</c:if>
+									<c:if test="${invite.inviteStates eq '4' && invite.joinId eq customer.id &&  empty invite.detail.signJoin }">
 										<button type="button" class="btn btn-primary btn-lg  col-xs-6" style="border: none;" onclick="signUp()">约会签到</button>
 									</c:if>
 									</td>
