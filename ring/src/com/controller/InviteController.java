@@ -228,13 +228,13 @@ public class InviteController {
 				Invite inviteTemp = service.selectById(invite.getId());
 				inviteTemp.setPointId(invite.getPointId());
 				InviteDetail detailTemp = detailService.selectById(inviteTemp.getId());
-				if(invite.getPointId().equals(1)) {
+				if( StringUtils.isNotBlank(detailTemp.getConfirmLoc())) {
 					detailTemp.setConfirmDate(detailTemp.getPreDate());
 					inviteTemp.setPointId(Integer.valueOf(detailTemp.getConfirmLoc()));
-				}else if(invite.getPointId().equals(2)) {
+				}else if( StringUtils.isNotBlank(detailTemp.getConfirmLoc2())) {
 					detailTemp.setConfirmDate(detailTemp.getPreDate2());
 					inviteTemp.setPointId(Integer.valueOf(detailTemp.getConfirmLoc2()));
-				}else if(invite.getPointId().equals(3)) {
+				}else if( StringUtils.isNotBlank(detailTemp.getConfirmLoc3())) {
 					detailTemp.setConfirmDate(detailTemp.getPreDate3());
 					inviteTemp.setPointId(Integer.valueOf(detailTemp.getConfirmLoc3()));
 				}
