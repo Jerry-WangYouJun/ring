@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -100,13 +101,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<c:when test="${act.actState == '0' || act.actState == null}">
 					  活动待审核
 				</c:when>
-					 <c:when test="${ empty act.detail   }">
-						<button type="button" class="btn btn-default " onclick="addDetail('${act.id}')"> 报名 </button>
+					 <c:when test="${ empty act.detailList   }">
+					 	<c:if test="${ act.acount ne fn:length(act.detailList)}">
+							<button type="button" class="btn btn-default " onclick="addDetail('${act.id}')"> 报名 </button>
+					 	</c:if>
 					 </c:when>
 					 <c:otherwise>
-					 		<c:if test="${  act.detail.detailState eq '6'}">
-									<button type="button" class="btn btn-default " onclick="updateAct('${act.detail.id}','2')"> 报名 </button>
-							</c:if>
+						 	<c:if test="${ act.acount eq fn:length(act.detailList)}">
+						 		 已满额
+						 	</c:if>
+					 		<c:if test="${ act.acount ne fn:length(act.detailList)}">
+						 		<c:if test="${  act.detail.detailState eq '6'}">
+										<button type="button" class="btn btn-default " onclick="updateAct('${act.detail.id}','2')"> 报名 </button>
+								</c:if>
+						 	</c:if>
 				 			<c:if test="${  act.detail.detailState eq '2'}">
 				 			  	  已加入
 									<button type="button" class="btn  btn-success" onclick="updateAct('${act.detail.id}','6')"> 退出活动 </button>

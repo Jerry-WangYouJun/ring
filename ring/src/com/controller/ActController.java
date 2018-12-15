@@ -140,7 +140,16 @@ public class ActController {
 	public String actIndex(HttpServletRequest  request , HttpSession session ,String openId ) {
 		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
-		List<Act> actList = service.queryByWhere(new Act(), new Pagination());
+		Act act = new Act() ;
+		act.setActState("2");
+		List<Act> actList = service.queryByWhere(act, new Pagination());
+		for (Act act2 : actList) {
+			ActDetail detail = new ActDetail();
+			detail.setActId(act2.getId());
+			detail.setDetailState("2");
+			 List<ActDetail> detailList = detailMapper.queryByWhere(detail, new Pagination());
+			 act.setDetailList(detailList);
+		}
 		request.setAttribute("actList", actList);
 		return "forward:/ring/activity/main.jsp";
 	}
@@ -191,9 +200,7 @@ public class ActController {
 		}else {
 			detail.setCustId(Integer.valueOf(user.getRemark()));
 			List<ActDetail> detailList = detailMapper.queryByWhere(detail, new Pagination());
-			if(detailList!=null && detailList.size() > 0) {
-				act.setDetail(detailList.get(0)); 
-			}
+			act.setDetailList(detailList); 
 			request.setAttribute("act", act);
 			return "forward:/ring/activity/detail.jsp";
 		}

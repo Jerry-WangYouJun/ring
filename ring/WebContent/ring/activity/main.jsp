@@ -94,7 +94,7 @@
                                                         <li> <h3>活动地点：${actinfo.actLoca }</h3> </li>
                                                         <li>  <h3 class="dicValue"  name="actForm" value="${actinfo.actForm }">活动形式：</h3> </li>
                                                         <li> <h3>活动人数：${actinfo.acount }</h3> </li>
-                                                        <li>  <h3 >剩余人数： ${actinfo.acount - fn:length(actList) }</h3> </li>
+                                                        <li>  <h3 >剩余名额： ${actinfo.acount - fn:length(actinfo.detailList) }</h3> </li>
                                                     </ul>
 									 	</div>
 						 			</div>

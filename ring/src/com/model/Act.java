@@ -1,5 +1,7 @@
 package com.model;
 
+import java.util.List;
+
 public class Act {
     private Integer id;
     
@@ -32,7 +34,7 @@ public class Act {
     
     
     private Customer customer;
-    private ActDetail detail;
+    private List<ActDetail> detailList;
     public Integer getId() {
         return id;
     }
@@ -137,12 +139,12 @@ public class Act {
 		this.customer = customer;
 	}
 
-	public ActDetail getDetail() {
-		return detail;
+	public List<ActDetail> getDetailList() {
+		return detailList;
 	}
 
-	public void setDetail(ActDetail detail) {
-		this.detail = detail;
+	public void setDetailList(List<ActDetail> detailList) {
+		this.detailList = detailList;
 	}
 
 	public Integer getAcount() {
