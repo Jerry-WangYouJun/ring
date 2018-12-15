@@ -148,7 +148,7 @@ public class ActController {
 			detail.setActId(act2.getId());
 			detail.setDetailState("2");
 			 List<ActDetail> detailList = detailMapper.queryByWhere(detail, new Pagination());
-			 act.setDetailList(detailList);
+			 act2.setDetailList(detailList);
 		}
 		request.setAttribute("actList", actList);
 		return "forward:/ring/activity/main.jsp";
@@ -191,6 +191,7 @@ public class ActController {
 		Act act = service.selectByPrimaryKey(id);
 		User user = (User)session.getAttribute("webUser");
 		ActDetail detail = new ActDetail() ;
+		detail.setDetailState("2");
 		detail.setActId(id);
 		if(act.getCustId().equals(Integer.valueOf(user.getRemark()) )) {
 			List<ActDetail> detailList = detailMapper.queryByWhere(detail, new Pagination());
@@ -201,6 +202,9 @@ public class ActController {
 			detail.setCustId(Integer.valueOf(user.getRemark()));
 			List<ActDetail> detailList = detailMapper.queryByWhere(detail, new Pagination());
 			act.setDetailList(detailList); 
+			if(detailList!= null && detailList.size() >0) {
+				act.setDetail(detailList.get(0));
+			}
 			request.setAttribute("act", act);
 			return "forward:/ring/activity/detail.jsp";
 		}
@@ -211,14 +215,16 @@ public class ActController {
 		User user = (User)session.getAttribute("webUser");
 		ActDetail detail = new ActDetail() ;
 		Act act = service.selectByPrimaryKey(actId);
-		detail.setActId(actId);
-		detail.setDetailState("6");
-		int times = detailMapper.queryTotal(detail);
+		ActDetail detailTemp = new ActDetail() ;
+		detailTemp.setActId(actId);
+		detailTemp.setDetailState("6");
+		int times = detailMapper.queryTotal(detailTemp);
 		if(times ==3 ) {
 			 request.setAttribute("msg", "您已经三次爽约，不能在报名参加活动");
 		}else if(times ==2 && !"1".equals(act.getAdmin())){
 			request.setAttribute("msg", "您已经两次次爽约，只参加活动无名指之约官方组织的活动");
 		}else {
+			detail.setActId(actId);
 			detail.setDetailState("2");
 			detail.setCustId(Integer.valueOf(user.getRemark()));
 			detailMapper.insert(detail);

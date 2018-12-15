@@ -27,7 +27,7 @@
   	    	    and id = #{obj.id}
   	    </if>
   	    <if test=" obj.detailState !=null and obj.detailState   != '' ">
-  	    	 	and  detail_tate = #{obj.detailState}
+  	    	 	and  detail_state = #{obj.detailState}
   	    </if>
   	    <if test="obj.actId !=null and obj.actId   > 0  ">
   	    	 	and  act_id = #{obj.actId}

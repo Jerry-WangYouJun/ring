@@ -91,10 +91,11 @@
                                                         <li> <h3>活动名称：${actinfo.actName }</h3> </li>
                                                         <li> <h3>时间：${actinfo.actDate }</h3> </li>
                                                         <li> <h3 class="dicValue"  name="admin" value="${actinfo.admin}">主办方：</h3> </li>
+                                                        <li> <h3>组织者：${actinfo.customer.nickName }</h3> </li>
                                                         <li> <h3>活动地点：${actinfo.actLoca }</h3> </li>
                                                         <li>  <h3 class="dicValue"  name="actForm" value="${actinfo.actForm }">活动形式：</h3> </li>
                                                         <li> <h3>活动人数：${actinfo.acount }</h3> </li>
-                                                        <li>  <h3 >剩余名额： ${actinfo.acount - fn:length(actinfo.detailList) }</h3> </li>
+                                                        <li>  <h3 >剩余名额： ${actinfo.acount  - fn:length(actinfo.detailList) } </h3> </li>
                                                     </ul>
 									 	</div>
 						 			</div>

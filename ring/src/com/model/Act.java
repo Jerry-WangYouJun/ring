@@ -34,6 +34,7 @@ public class Act {
     
     
     private Customer customer;
+    private ActDetail detail;
     private List<ActDetail> detailList;
     public Integer getId() {
         return id;
@@ -178,6 +179,13 @@ public class Act {
 	public void setPayRange(String payRange) {
 		this.payRange = payRange;
 	}
-	
+
+	public ActDetail getDetail() {
+		return detail;
+	}
+
+	public void setDetail(ActDetail detail) {
+		this.detail = detail;
+	}
     
 }
