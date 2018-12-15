@@ -66,7 +66,7 @@
 			  window.location.href="${pageContext.request.contextPath}/web/info";
 		 }
 </script>
-<title>Insert title here</title>
+<title>约会信息</title>
 </head>
 <body>
 <div class="container">

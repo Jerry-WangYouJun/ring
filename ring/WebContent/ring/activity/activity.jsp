@@ -90,7 +90,7 @@ $(document).ready(function(){
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">活动人数:</label> <input
-								type="text" class="form-control number" name="account" id="actLoca" placeholder="必填" >
+								type="text" class="form-control number" name="acount" id="actLoca" placeholder="必填" >
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">活动地点:</label> <input

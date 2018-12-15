@@ -140,7 +140,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				        	<tbody>
 				        		<tr class="opened_1">
 									<td class="day_label">主办方 :</td>
-									<td class="day_value" name="admin" value="${act.admin}"></td>
+									<td class="day_value dicValue" name="admin" value="${act.admin}"></td>
 								</tr>
 							    <tr class="opened">
 									<td class="day_label">活动时间 :</td>
@@ -163,8 +163,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<td class="day_value dicValue"  name="actState" value="${act.actState}"></td>
 								</tr>
 							    <tr class="closed">
-									<td class="day_label">费用 :</td>
-									<td class="day_value closed"><span>${act.money }</span></td>
+									<td class="day_label">费用范围 :</td>
+									<td class="day_value closed"><span>${act.payRange }</span></td>
 								</tr>
 						    </tbody>
 				          </table>
