@@ -23,12 +23,12 @@ function indexPage(){
 <div class="index-main">
     <div class="index-header">
         <div class="col-xs-3" onclick="indexPage()"><img src="images/logo.png" height="18rem">主页</div>
-        <div class="col-xs-6">
+        <div class="col-xs-4">
             <div class="index-header-search">
                 <input type="text" class="form-control" placeholder="Search">
             </div>
         </div>
-        <div class="col-xs-3 no-pad"  onclick="addActivity()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>新建活动</div>
+        <div class="col-xs-5 no-pad" style="text-align: center;"  onclick="addActivity()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>新建活动</div>
         
     </div>
     </div>

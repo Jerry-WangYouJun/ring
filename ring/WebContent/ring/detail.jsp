@@ -33,6 +33,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <link href="${pageContext.request.contextPath}/ring/assets/css/main.css" rel="stylesheet" />
         <!-- Custom stylesheets ( Put your own changes here ) -->
         <link href="${pageContext.request.contextPath}/ring/assets/css/custom.css" rel="stylesheet" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/new/css/style.css">
 <!----font-Awesome----->
 <script>
 	 function invite(joinId){
@@ -126,12 +127,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="index-main">
     <div class="index-header">
         <div class="col-xs-3"><img src="${pageContext.request.contextPath}/img/logo.jpg" height="18rem">主页</div>
-        <div class="col-xs-6">
+        <div class="col-xs-4">
             <div class="index-header-search">
                 <input type="text" class="form-control" placeholder="Search">
             </div>
         </div>
-        <div class="col-xs-3 no-pad" onclick="personCenter()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>个人中心</div>
+        <div class="col-xs-5 no-pad " style="text-align: center;" onclick="personCenter()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>个人中心</div>
     </div>
     </div>
    <div class="profile" style="margin-top:70px">
