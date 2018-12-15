@@ -121,6 +121,10 @@
                     <li>
                     	 	 <a href="#" class="st-tag" onclick='addTab("act","${pageContext.request.contextPath}/pages/act_list.jsp","活动信息")'> 活动信息 </a>
                     </li>
+                    
+                     <li>
+                    	 	 <a href="#" class="st-tag" onclick='addTab("article","${pageContext.request.contextPath}/pages/article_list.jsp","文章信息")'> 文章管理 </a>
+                    </li>
                 </ul>
             </div>
             <!-- End .sidebar-inner -->

@@ -85,13 +85,22 @@ public class ArticleController {
 				service.updateByPrimaryKey(article);
 			}else{
 				User user = (User)request.getSession().getAttribute("webUser");
-				article.setCustId(Integer.valueOf(user.getRemark()));
+				if(user == null) {
+					 user = (User)request.getSession().getAttribute("user");
+				}
+				if(StringUtils.isNotBlank(user.getRemark())) {
+					article.setCustId(Integer.valueOf(user.getRemark()));
+				}
 				if("1".equals(user.getRole())) {
 					article.setArticleState("2");
 				}
 				article.setArticleDate(DateUtils.formatDate("yyyy-MM-dd HH:mm", new Date()));
 				Customer cust = custMapper.selectByPrimaryKey(Integer.valueOf(user.getRemark()));
-				article.setAuthor(cust.getNickName());
+				if(cust == null ) {
+					 article.setAuthor("无名指之约");
+				}else {
+					article.setAuthor(cust.getNickName());
+				}
 				service.insert(article);
 			}
 			request.getSession().removeAttribute("articleImg");
@@ -131,7 +140,7 @@ public class ArticleController {
 			int total = service.queryTotal(article );
 			if(total > 0){
 				msg.setSuccess(false);
-				msg.setMsg("用户名重复");
+				msg.setMsg("标题重复");
 			}
 		}catch(Exception e ){
 			 msg.setSuccess(false);

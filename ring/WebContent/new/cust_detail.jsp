@@ -189,8 +189,8 @@ $(document).ready(function(){
                 <li><span class="col-xs-4" >经济能力</span><span class="col-xs-8"><span class="dicValue" name="economic" value="${cust.economic }"></span></span></li>
                 <li><span class="col-xs-4" >外貌</span><span class="col-xs-8"><span class="dicValue" name="looks" value="${cust.looks }"></span></span></li>
                 <li><span class="col-xs-4" >未来生活中的定位 </span><span class="col-xs-8"><span class="dicValue" name="disposition" value="${cust.disposition }"></span></span></li>
-                <li><span class="col-xs-4" >未来生活中的扮演的角色</span><span class="col-xs-8">
-					<span class="dicValue" name="disposition" value="${cust.disposition }"></span></span></li>
+                <li><div><span class="col-xs-4" >未来生活中的扮演的角色</span><span class="col-xs-8">
+					<span class="dicValue" name="disposition" value="${cust.disposition }"></span></span></div></li>
                 <li><span class="col-xs-4" >理想的生活方式 </span><span class="col-xs-8"> 
                	 <span class="dicValue" name="lifeType" value="${cust.lifeType }"></span></span></li>
                 <li><span class="col-xs-4" >不能接受的类型 </span><span class="col-xs-8"><span class="dicValue" name="nonType" value="${cust.nonType }"></span></span></li>

@@ -313,7 +313,7 @@ public class WebController {
 				Article article = articleMapper.selectByPrimaryKey(id);
 				customer = custService.selectById(article.getCustId());
 			}
-				   WXAuthUtil.sendTemplateMsg(NoticeUtil.examine( customer,"1" , ""))	;
+				 // WXAuthUtil.sendTemplateMsg(NoticeUtil.examine( customer,"1" , ""))	;
 		}catch(Exception e) {
 			 msg.setMsg("系统异常："  + e.getMessage());
 			 msg.setSuccess(false);

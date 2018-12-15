@@ -174,7 +174,6 @@ function addDate(date,days){
 								
 						
 						<div class="form-group">
-							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 							<button type="button" class="btn btn-primary" onclick="subInfo()">提交</button>
 						</div>
 					</form>

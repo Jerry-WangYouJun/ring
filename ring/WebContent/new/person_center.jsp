@@ -36,7 +36,6 @@
                 <span class="major_title general_title">普通版</span>
 
             </div>
-
         </div>
         <div>
         <a  href="${pageContext.request.contextPath}/customer/updateInit?id=${customer.id}">

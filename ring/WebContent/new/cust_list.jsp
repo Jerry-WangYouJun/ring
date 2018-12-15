@@ -36,17 +36,8 @@ function personCenter(){
 </script>
 </head>
 <body>
+<%@include file="/ring/header.jsp"%>
 <div class="container">
-    <div class="row index-header">
-        <div class="col-xs-3"><img src="${pageContext.request.contextPath}/img/logo.jpg" height="18rem">主页</div>
-        <div class="col-xs-6">
-            <div class="index-header-search">
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
-        </div>
-       <div class="col-xs-3 no-pad" onclick="personCenter()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>个人中心</div>
-        
-    </div>
     <!-- <div class="row index-menu">
         <div class="col-xs-2"><span class="on">全部</span></div>
         <div class="col-xs-2"><span>文化</span></div>

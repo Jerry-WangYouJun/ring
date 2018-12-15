@@ -23,16 +23,8 @@
 </script>
 </head>
 <body>
+<%@include file="/ring/header.jsp"%>
 <div class="index-main">
-    <div class="index-header">
-        <div class="col-xs-3"><img src="images/logo.png" height="18rem">主页</div>
-        <div class="col-xs-6">
-            <div class="index-header-search">
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
-        </div>
-        <div class="col-xs-3 no-pad" onclick="personCenter()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>个人中心</div>
-    </div>
     <div class="index-main-tab wsy_msite">
         <div class="col-xs-4" onclick="dateIndex()">
             <i class="ic_party_post im"></i>
@@ -44,22 +36,30 @@
 	            <div class="txt_leaf_menu">找活动</div>
 	        </div>
         </a>
-        <div class="col-xs-4" onclick="${pageContext.request.contextPath}/web/acticle/index">
-            <i class="ic_party_search im"></i>
-            <div class="txt_leaf_menu">历史文章</div>
-        </div>
-        <div class="col-xs-4" onclick="${pageContext.request.contextPath}/web/acticle/index">
+        <a href="${pageContext.request.contextPath}/article/index">
+	        <div class="col-xs-4" >
+	            <i class="ic_party_search im"></i>
+	            <div class="txt_leaf_menu">历史文章</div>
+	        </div>
+        </a>
+        <a href="${pageContext.request.contextPath}/web/acticle/index">
+        <div class="col-xs-4" >
             <i class="ic_wsy_article_square im"></i>
             <div class="txt_leaf_menu">人物专访</div>
         </div>
+        </a>
+        <a href="${pageContext.request.contextPath}/web/acticle/index">
         <div class="col-xs-4">
             <i class="ic_teacher_search im"></i>
             <div class="txt_leaf_menu">活动回顾</div>
         </div>
+        </a>
+        <a href="${pageContext.request.contextPath}/web/acticle/index">
         <div class="col-xs-4">
             <i class="ic_party_post im"></i>
             <div class="txt_leaf_menu">文章系列</div>
         </div>
+        </a>
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/new/js/jquery-1.10.2.js"></script>
