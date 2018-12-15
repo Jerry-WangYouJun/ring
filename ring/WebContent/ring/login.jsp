@@ -40,13 +40,7 @@ function webLogin(msg){
 		dataType : 'json',
 		success : function(data) {
 			if (data.success) {
-				if(msg ==  'act'){
-					location.href="${pageContext.request.contextPath}/act/index";
-				}else if(msg == 'article'){
-					location.href="${pageContext.request.contextPath}/article/index";
-				}else {
 					location.href="${pageContext.request.contextPath}/web/index";
-				}
 			} else {
 				alert(data.msg)
 			}
@@ -82,8 +76,6 @@ function webLogin(msg){
 	    </div>
 	    <div class="form-actions">
 	    	<input type="button" id="date" name="op" onclick="webLogin('dating')" value="约会登录" class="btn_1 submit">
-	    	  	<input type="button" id="act" name="op" onclick="webLogin('act')" value="活动登录" class="btn_1 submit">
-	    	  	  	<input type="button" id="art" name="op" onclick="webLogin('article')" value="文章登录" class="btn_1 submit">
 	    </div>
 	   </form>
 	  </div>

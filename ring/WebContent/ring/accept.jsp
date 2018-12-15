@@ -5,6 +5,7 @@
 <html id="a1">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>约会信息</title>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-easyui-1.4/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/validate/jquery.validate.min.js"></script>
@@ -15,6 +16,7 @@
 <script src="${pageContext.request.contextPath}/js/bootstrap-select.min.js"></script>
 <link href="${pageContext.request.contextPath}/css/bootstrap-select.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/new/css/style.css">
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-table.min.css" />  
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table.js"></script>
@@ -96,32 +98,64 @@ $(document).ready(function(){
 			 $('#datetimepicker1').datetimepicker('setDaysOfWeekDisabled', strArr);
 			 $("#confirmTime").val('${inv.detail.confirmTime}');
 		})
+		
+		 function personCenter(){
+		 window.location.href="${pageContext.request.contextPath}/new/person_center.jsp";
+	 }
 </script>
 </head>
 <body id="a2">
+<div class="index-main">
+    <div class="index-header">
+        <div class="col-xs-3"><img src="${pageContext.request.contextPath}/img/logo.jpg" height="18rem">主页</div>
+        <div class="col-xs-6">
+            <div class="index-header-search">
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
+        </div>
+        <div class="col-xs-3 no-pad" onclick="personCenter()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>个人中心</div>
+    </div>
+    </div>
 	<div class="grid_3">
   <div class="container">
+  
    <div class="services">
    	  <div class="col-sm-6 login_left">
 	     <form id="dataForm">
 						<input class="form-control" name="id" type="hidden" value="${inv.id }"></input>
 						<input class="form-control" name="joinId" type="hidden" value="${joinId }"></input>
-							       <div class="form-group">
-									<label for="message-text" class="control-label">选择约会时间:</label>
-									<select  class="form-control" name="detail.confirmDate" placeholder="必填" required  >
-											  <c:forEach items="${preDateList}" var ="conDate">
-											 	    <option >${conDate}</option>
-											 </c:forEach>
-									</select>
-								</div>
+								<div class="form-group" >
+										<input type="radio" name="pointId" value="1">
+							            <label for="message-text" class="control-label">约会时间一：</label>  
+							            <!--指定 date标记-->  
+							             <label for="message-text" class="control-label"> ${detail.preDate} </label>  
+						        </div> 
 								<div class="form-group">
-									<label for="message-text" class="control-label">选择约会地点:</label> 
-									<select  class="form-control"   name="pointId" placeholder="必填" required>
-											  <c:forEach items="${locList}" var ="loca">
-											 	    <option value="${loca.id}">${loca.location} - ${loca.address}</option>
-											 </c:forEach>
-									</select>
+									<label for="message-text" class="control-label">约会地点一:</label> 
+									<label for="message-text" class="control-label"> ${detail.location.location} - ${detail.location.locName} </label>
 								</div>
+								
+								<div class="form-group" >
+								<input type="radio" name="pointId" value="2">
+							            <label for="message-text" class="control-label">约会时间二：</label> 
+							            <label for="message-text" class="control-label"> ${detail.preDate2} </label> 
+						        </div> 
+								<div class="form-group">
+									<label for="message-text" class="control-label">约会地点二:</label> 
+									<label for="message-text" class="control-label">  ${detail.location2.location} - ${detail.location2.locName}  </label>
+								</div>
+								
+								<div class="form-group" >
+								<input type="radio" name="pointId" value="3">
+							            <label for="message-text" class="control-label">约会时间三：</label> 
+							            <label for="message-text" class="control-label"> ${detail.preDate3} </label> 
+						        </div> 
+								<div class="form-group">
+									<label for="message-text" class="control-label">约会地点三:</label> 
+									<label for="message-text" class="control-label">  ${detail.location3.location} - ${detail.location3.locName} </label>
+								</div>
+								
+						
 						<div class="form-group">
 							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 							<button type="button" class="btn btn-primary" onclick="subInfo()">提交</button>
@@ -152,7 +186,7 @@ $(document).ready(function(){
 			success : function(data) {
 				if (data.success) {
 					alert(data.msg);
-					if("${inv.inviteStates}" == "4"){
+					if(data.obj == "4"){
 						window.location.href="${pageContext.request.contextPath}/web/dateinfo";
 					}else{
 						window.location.href="${pageContext.request.contextPath}/web/info";

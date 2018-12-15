@@ -104,16 +104,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<button type="button" class="btn btn-default " onclick="addDetail('${act.id}')"> 报名 </button>
 					 </c:when>
 					 <c:otherwise>
-					 		<c:if test="${  act.detail.detailState eq '0'}">
-									<button type="button" class="btn btn-default " onclick="updateAct('${act.detail.id}','1')"> 报名 </button>
-							</c:if>
-							<c:if test="${  act.detail.detailState eq '1'}">
-									<i class="im-heart"></i> 已申请待审核 
-									<button type="button" class="btn  btn-success" onclick="updateAct('${act.detail.id}','0')"> 取消申请 </button>
+					 		<c:if test="${  act.detail.detailState eq '6'}">
+									<button type="button" class="btn btn-default " onclick="updateAct('${act.detail.id}','2')"> 报名 </button>
 							</c:if>
 				 			<c:if test="${  act.detail.detailState eq '2'}">
 				 			  	  已加入
-									<button type="button" class="btn  btn-success" onclick="updateAct('${act.detail.id}','4')"> 退出活动 </button>
+									<button type="button" class="btn  btn-success" onclick="updateAct('${act.detail.id}','6')"> 退出活动 </button>
 							</c:if>
 							<c:if test="${  act.detail.detailState eq '3'}">
 									 已缴费

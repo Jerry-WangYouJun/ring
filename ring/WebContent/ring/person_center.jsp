@@ -159,14 +159,12 @@ $(document).ready(function(){
 						</ul>
 				  </div>
 			</div>
-			<a type="button" class="btn btn-default " href="${pageContext.request.contextPath}/customer/updateInit?id=${customer.id}"><i class="im-heart2"></i>  修改信息</a>
-			<button type="button" class="btn btn-default " onclick="updateFocus('0')"><i class="im-heart2"></i>  修改头像</button>
 			<c:if test="${ webUser.role == '1' }">
 				<button type="button" class="btn  btn-success" onclick="signState('${customer.id}','1')">管理员签到</button>
 			</c:if>
 			<c:if test="${ webUser.role == '11' }">
 				<button type="button" class="btn  btn-success" onclick="signState('${customer.id}','0')"><i class="im-heart"></i> 管理员签退</button>
-			</c:if>
+			
 			<div style="margin: 30px" id="examine" class="showView"> 
 			<div class="row mb10 ">
 				  会员信息待审核 <a href="#">&nbsp;更多</a>
@@ -305,6 +303,7 @@ $(document).ready(function(){
 				         </div>
 			</div>
 			<div class="clearfix"> </div>
+			</c:if>
    	 </div>
        <div class="clearfix"> </div>
     </div>

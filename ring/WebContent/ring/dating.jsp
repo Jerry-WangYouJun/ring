@@ -5,6 +5,7 @@
 <html id="a1">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>约会信息</title>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-easyui-1.4/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/validate/jquery.validate.min.js"></script>
@@ -58,8 +59,8 @@ $(document).ready(function(){
         }
     );
     
-    if($('#datetimepicker1')[0] != undefined){
-		$('#datetimepicker1').datetimepicker({  
+    if($('.datetimepicker1')[0] != undefined){
+		$('.datetimepicker1').datetimepicker({  
 			minView: "month",
 			format: 'yyyy-mm-dd hh:00',
 		    todayBtn: false,//显示今日按钮
@@ -68,12 +69,19 @@ $(document).ready(function(){
 		    clearBtn: true ,
 		    startDate: new Date(),
 		    minView: 1
+		}).on('changeDate', function(ev){
+			   var select = ev.date.getHours();
+			   var flag = true
+			    if( select > 21 || select < 9){
+			    		alert("时间不合适，只能选择早9点到晚8点之间的时间") ;
+				    $(this).children()[0].value = ""
+			    }
 		});
 	}
     
  
     
-    $('#datetimepicker1').datetimepicker('setEndDate',addDate(new Date() , 14));  
+    $('.datetimepicker1').datetimepicker('setEndDate',addDate(new Date() , 14));  
     
     $(".selectpicker").selectpicker({  
         noneSelectedText : '请选择'//默认显示内容  
@@ -96,26 +104,58 @@ function addDate(date,days){
 	     <form id="dataForm">
 						<input class="form-control" name="id" type="hidden" value="${inv.id }"></input>
 						<input class="form-control" name="joinId" type="hidden" value="${joinId }"></input>
-						<input class="form-control " name="preDate" id="preDate" type="hidden"></input>
 								<div class="form-group" >
-							            <label for="message-text" class="control-label">约会时间：</label>  
+							            <label for="message-text" class="control-label">约会时间一：</label>  
 							            <!--指定 date标记-->  
-								            <div class='input-group date  col-lg-12' id='datetimepicker1'  >  
-								                <input type='text' class="form-control"  name="tag" id="tag"/>  
+								            <div class='input-group date  col-lg-12 datetimepicker1'  >  
+								                <input type='text' class="form-control"  name="preDate" id="preDate" />  
 								                <span class="input-group-addon" >  
 								                    <span class="glyphicon glyphicon-calendar"></span>  
 								                </span>  
 								            </div>
-									            <button type="button" class="btn btn-default " onclick="addTags()" >选择合适时间（可选择三个）</button>
-								           		  <div class="tags" >
-	                       		 	 			  </div>
 						        </div> 
 								<div class="form-group">
-									<label for="message-text" class="control-label">约会地点:</label> 
+									<label for="message-text" class="control-label">约会地点一:</label> 
 											  <c:forEach items="${locList}" var ="loca">
-											 	    <input type="checkbox"   name="confirmLoc" value="${loca.id}">:${loca.location} - ${loca.address}
+											 	    <input type="radio"   name="confirmLoc"  class = "confirmLoc" value="${loca.id}">:${loca.location} - ${loca.address}
  											  </c:forEach>
 								</div>
+								
+								<div class="form-group" >
+							            <label for="message-text" class="control-label">约会时间二：</label>  
+							            <!--指定 date标记-->  
+								            <div class='input-group date  col-lg-12 datetimepicker1'  >  
+								                <input type='text' class="form-control"  name="preDate2"  id="preDate2" />  
+								                <span class="input-group-addon" >  
+								                    <span class="glyphicon glyphicon-calendar"></span>  
+								                </span>  
+								            </div>
+						        </div> 
+								<div class="form-group">
+									<label for="message-text" class="control-label">约会地点二:</label> 
+											  <c:forEach items="${locList}" var ="loca">
+											 	    <input type="radio"   name="confirmLoc2"   class="confirmLoc2" value="${loca.id}">:${loca.location} - ${loca.address}
+ 											  </c:forEach>
+								</div>
+								
+								<div class="form-group" >
+							            <label for="message-text" class="control-label">约会时间三：</label>  
+							            <!--指定 date标记-->  
+								            <div class='input-group date  col-lg-12  datetimepicker1'  >  
+								                <input type='text' class="form-control"  name="preDate3"  id="preDate3" />  
+								                <span class="input-group-addon" >  
+								                    <span class="glyphicon glyphicon-calendar"></span>  
+								                </span>  
+								            </div>
+						        </div> 
+								<div class="form-group">
+									<label for="message-text" class="control-label">约会地点三:</label> 
+											  <c:forEach items="${locList}" var ="loca">
+											 	    <input type="radio"   name="confirmLoc3"  class="confirmLoc3" value="${loca.id}">:${loca.location} - ${loca.address}
+ 											  </c:forEach>
+								</div>
+								
+						
 						<div class="form-group">
 							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 							<button type="button" class="btn btn-primary" onclick="subInfo()">提交</button>
@@ -128,32 +168,50 @@ function addDate(date,days){
 </div>
 </body>
 <script type="text/javascript">
-	function addTags(){
-		 var rand = parseInt(Math.random() * (3) + 1); 
-		 var  val = $("#tag").val();
-		 if($(".tags").children().length  == 3){
-			  alert("最多添加三个时间")
-			  return false;
-		 }
-		 if(val != ''){
-			 var arr = ["success","info","warning"];
-			 $("#preDate").val($("#preDate").val() + val + ",");
-			 $(".tags").append('<span class="badge badge-' +arr[rand] +'  mt10">'+ val+'<a href="####"  onclick="deleteTag(this)" class="mr5">X</a></span>');
-		 }
-	 }
-	 function deleteTag(obj){
-		   $(obj).parent().remove();
-	 }
  
 	function subInfo() {
-		subInfoAll("invite");
+		var flag = false;
+		if( $("#preDate").val() != ""){
+			$(".confirmLoc").each(function(){
+				  if($(this).is(':checked')){
+					   flag = true;
+				  }
+			})
+		  if(!flag){
+			  $("#preDate").val("") ;
+		  }
+		}
+		var flag2 = false;
+		if( $("#preDate2").val() != ""){
+			$(".confirmLoc2").each(function(){
+				  if($(this).is(':checked')){
+					   flag2 = true;
+				  }
+			})
+				  if(!flag2){
+					  $("#preDate2").val("") ;
+				  }
+		}
+		var flag3 = false ;
+		if( $("#preDate3").val() != ""){
+			$(".confirmLoc3").each(function(){
+				  if($(this).is(':checked')){
+					   flag3 = true;
+				  }
+			})
+				  if(!flag3){
+					  $("#preDate3").val("") ;
+				  }
+		}
+		if(flag || flag2 || flag3){
+			subInfoAll("invite");
+		}else{
+			alert("约会信息最少填写一组完整的时间和地点")
+		}
 	}
 	
 	function subInfoAll(name) {
 		
-		if(!$("#dataForm").validate().form()){
-			return false ; 
-		}
 		var path = "${pageContext.request.contextPath}/"+name+"/"+name+"_edit";
 		$.ajax({
 			url : path,

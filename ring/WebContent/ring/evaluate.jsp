@@ -71,7 +71,6 @@
                                     <h4 class="panel-title"><i class="ec-user"></i> 约会信息</h4>
                                 </div>
                                 <div class="basic_1">
-				    	<h3>约会情况 </h3>
 				    	<div class="col-md-6 basic_1-left">
 				    	  <table class="table_working_hours">
 				        	<tbody>
@@ -151,7 +150,7 @@
 												</select>
                                         <div class="form-group">
                                             <label class="control-label">评价</label>
-                                            <textarea class="form-control" rows="3" name="evaluateMsg"></textarea>
+                                            <textarea class="form-control" rows="3" name="evaluateMsg">${evaluate.evaluateMsg }</textarea>
                                         </div>
                                         </div>
                                         <!-- End .form-group  -->

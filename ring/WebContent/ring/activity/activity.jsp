@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="/common.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html id="a1">
 <head>
@@ -8,6 +8,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<c:set var="basePath" value="${pageContext.request.contextPath}" scope="request"></c:set>
+<script type="text/javascript" src="${basePath}/js/jquery-easyui-1.4/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/layer/layer.js"></script>
+<script src="${basePath}/js/validate/jquery.validate.min.js"></script>
+<script src="${basePath}/js/validate/jquery.metadata.js"></script>
+<script src="${basePath}/js/validate/messages_zh.js"></script>
+<script src="${basePath}/js/base.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-theme.min.css">
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-table.min.css" />  
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table-zh-CN.js"></script>
+<script type="text/JavaScript" src="${basePath}/js/jquery.form.js"></script>
+<link href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />  
+<script src="${pageContext.request.contextPath}/js/moment-with-locales.js"></script>  
+<script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script> 
+<script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <link rel="stylesheet" href="${basePath}/css/style.css" />
  <link href="${pageContext.request.contextPath}/ring/assets/css/main.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/ring/assets/css/custom.css" rel="stylesheet" />
@@ -24,6 +42,7 @@
 }
 </style>
 <script>
+var dic = eval('(${dic})');
 $(document).ready(function(){
     $(".dropdown").hover(            
         function() {
@@ -68,6 +87,10 @@ $(document).ready(function(){
 									class="glyphicon glyphicon-calendar"></span>
 								</span>
 							</div>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">活动人数:</label> <input
+								type="text" class="form-control number" name="account" id="actLoca" placeholder="必填" >
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">活动地点:</label> <input
@@ -191,7 +214,7 @@ $(document).ready(function(){
 				    clearBtn: true ,
 				    startDate: new Date(),
 				    minView: 1
-				});
+				})
 				
 			}
 	});
@@ -218,6 +241,11 @@ $(document).ready(function(){
 				    clearBtn: true ,
 				    startDate: new Date(),
 				    minView: 1
+				}).on('changeDate',function(){
+				   //$("#beginTime-error").hide();
+				    var startTime= $(this).children()[0].value
+				    $("#datetimepicker2").datetimepicker('setStartDate',startTime);
+				    $("#datetimepicker3").datetimepicker('hide');
 				});
 			}
 		});

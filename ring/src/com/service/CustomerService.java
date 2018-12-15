@@ -51,11 +51,13 @@ public class CustomerService {
 		if("nickName".equals(colName)){
 			cust.setNickName(customerNo);
 		}
+		if("telephone".equals(colName)){
+			cust.setTelephone(customerNo);
+		}
 		return mapper.queryTotal(cust);
 	}
 
 	public Customer selectById(Integer id) {
-		// TODO Auto-generated method stub
 		return mapper.selectByPrimaryKey(id);
 	}
 

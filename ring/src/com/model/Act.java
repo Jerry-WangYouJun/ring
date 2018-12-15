@@ -25,7 +25,7 @@ public class Act {
     
     private String actDate;
     
-    private String acount ;
+    private Integer acount ;
     private String actEnd ;
     private String payType;
     private String payRange;
@@ -145,11 +145,11 @@ public class Act {
 		this.detail = detail;
 	}
 
-	public String getAcount() {
+	public Integer getAcount() {
 		return acount;
 	}
 
-	public void setAcount(String acount) {
+	public void setAcount(Integer acount) {
 		this.acount = acount;
 	}
 

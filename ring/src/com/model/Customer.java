@@ -22,6 +22,7 @@ public class Customer {
     private String birthday;
     private String birthday2;
 
+    //家乡
     private String hometown;
     private String hometownProvince;
     private String hometownCity;
@@ -30,13 +31,73 @@ public class Customer {
     
     private String loca;
 
+    //现居地
     private String addtress;
     private String addressProvince;
     private String addressCity;
     private String addressCountry;
 
     private String height;
-    private Double height2;
+    //身高查询条件
+    private String heightQuery;
+    
+    public String getHometownProvince() {
+		return hometownProvince;
+	}
+
+	public void setHometownProvince(String hometownProvince) {
+		this.hometownProvince = hometownProvince;
+	}
+
+	public String getHometownCity() {
+		return hometownCity;
+	}
+
+	public void setHometownCity(String hometownCity) {
+		this.hometownCity = hometownCity;
+	}
+
+	public String getHometownCountry() {
+		return hometownCountry;
+	}
+
+	public void setHometownCountry(String hometownCountry) {
+		this.hometownCountry = hometownCountry;
+	}
+
+	public String getAddressProvince() {
+		return addressProvince;
+	}
+
+	public void setAddressProvince(String addressProvince) {
+		this.addressProvince = addressProvince;
+	}
+
+	public String getAddressCity() {
+		return addressCity;
+	}
+
+	public void setAddressCity(String addressCity) {
+		this.addressCity = addressCity;
+	}
+
+	public String getAddressCountry() {
+		return addressCountry;
+	}
+
+	public void setAddressCountry(String addressCountry) {
+		this.addressCountry = addressCountry;
+	}
+
+	public String getHeightQuery() {
+		return heightQuery;
+	}
+
+	public void setHeightQuery(String heightQuery) {
+		this.heightQuery = heightQuery;
+	}
+
+	private Double height2;
 
     private Double weight;
     private Double weight2;
@@ -78,8 +139,8 @@ public class Customer {
     
     private Integer age ;
     
-    private Integer ageFrom ;
-    private Integer ageTo ;
+    private String ageFrom ;
+    private String ageTo ;
     private Double heightFrom;
     private Double heightTo;
     
@@ -336,19 +397,19 @@ public class Customer {
 		this.age = age;
 	}
 
-	public Integer getAgeFrom() {
+	public String getAgeFrom() {
 		return ageFrom;
 	}
 
-	public void setAgeFrom(Integer ageFrom) {
+	public void setAgeFrom(String ageFrom) {
 		this.ageFrom = ageFrom;
 	}
 
-	public Integer getAgeTo() {
+	public String getAgeTo() {
 		return ageTo;
 	}
 
-	public void setAgeTo(Integer ageTo) {
+	public void setAgeTo(String ageTo) {
 		this.ageTo = ageTo;
 	}
 

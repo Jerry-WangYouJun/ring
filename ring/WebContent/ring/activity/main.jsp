@@ -93,6 +93,8 @@
                                                         <li> <h3 class="dicValue"  name="admin" value="${actinfo.admin}">主办方：</h3> </li>
                                                         <li> <h3>活动地点：${actinfo.actLoca }</h3> </li>
                                                         <li>  <h3 class="dicValue"  name="actForm" value="${actinfo.actForm }">活动形式：</h3> </li>
+                                                        <li> <h3>活动人数：${actinfo.account }</h3> </li>
+                                                        <li>  <h3 >剩余人数： ${actinfo.account -actList.length }</h3> </li>
                                                     </ul>
 									 	</div>
 						 			</div>

@@ -204,7 +204,7 @@ public class CustomerController {
 			int num = service.checkUnique(name , colName);
 			if(num > 0){
 				msg.setSuccess(false);
-				msg.setMsg("填写的资料有重复，请重新填写");
+				msg.setMsg("填写的信息有重复，请重新填写");
 			}else{
 				msg.setSuccess(true);
 			}

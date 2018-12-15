@@ -85,26 +85,6 @@ public class WebController {
 			return "forward:/web/index";
 	}
 	
-	@ResponseBody
-	@RequestMapping("/webLogin")
-	public Message webLogin( HttpSession session , User user) {
-		user = service.checkUser(user);
-		Message msg = new Message();
-		if(user.getId() != null  && user.getId()>0) {
-			session.setAttribute("webUser", user);
-			Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
-			session.setAttribute("customer", cust);
-			Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
-			session.setAttribute("dic",   JSONObject.fromObject(dicMap));
-			msg.setSuccess(true);
-			msg.setMsg("登陆成功");
-			return msg;
-		}else {
-			msg.setSuccess(false);
-			msg.setMsg("用户名或密码错误");
-			return msg;
-		}
-	}
 	
 	@ResponseBody
 	@RequestMapping("/sendMail")
@@ -158,25 +138,6 @@ public class WebController {
 		return "forward:/ring/register.jsp";
 	}
 	
-	@RequestMapping("/index")
-	public String index(HttpServletRequest  request  ,HttpSession session , Customer custQuery) {
-//		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
-//		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
-		User  user = (User)request.getSession().getAttribute("webUser");
-		List<Customer> list  = new ArrayList<>();
-		
-		if(StringUtils.isNotBlank(user.getRemark())) {
-			Customer c =  custService.selectById(Integer.valueOf(user.getRemark()));
-			custQuery.setWebSex(c.getSex());
-		}
-		list= custService.queryList(custQuery, new Pagination());
-		for (Customer customer : list) {
-			int flag = userService.queryInviteState(customer.getId());
-			customer.setInviteFlag(flag);
-		}
-		request.setAttribute("list", list);
-		return "forward:/ring/index.jsp";
-	}
 	
 	@RequestMapping("/myFocus")
 	public String myFocus(HttpServletRequest  request  ,HttpSession session ) {
@@ -192,24 +153,6 @@ public class WebController {
 		}
 		request.setAttribute("list", customerList);
 		return "forward:/ring/focus.jsp";
-	}
-	
-	@RequestMapping("/customer")
-	public String customer(HttpServletRequest  request , Integer id ) {
-		Customer cust = custService.selectById(id);
-		cust.setInviteFlag(userService.queryInviteState(id));
-		request.setAttribute("cust", cust);
-		Customer custLogin = (Customer)request.getSession().getAttribute("customer");
-		Focus focus = new Focus();
-		focus.setFromId(custLogin.getId());
-		focus.setToId(id);
-		List<Focus> focusList = custService.queryFocusByWhere(focus, new Pagination());
-		if(focusList != null &&  focusList.size() > 0) {
-			request.setAttribute("focusId", focusList.get(0).getId()  );
-		}else {
-			request.setAttribute("focusId", 0  );
-		}
-		return "forward:/ring/view_profile.jsp";
 	}
 	
 
@@ -276,44 +219,6 @@ public class WebController {
 		return "forward:/ring/dating.jsp";
 	}
 	
-	@RequestMapping("/info")
-	public String info( HttpSession session  , HttpServletRequest request  ) {
-		Customer  cust =  (Customer) session.getAttribute("customer");
-		List<Invite> inviteList = inviteService.queryInviteByCustId(cust.getId());
-		List<Invite> inviteInfo = new ArrayList<>();
-		List<Invite> invitedInfo = new ArrayList<>();
-		for(Invite invite : inviteList){
-			 if(cust.getId().equals( invite.getFromId())){
-				 inviteInfo.add(invite);
-			 }else{
-				 invitedInfo.add(invite);
-			 }
-		}
-		request.setAttribute("inviteInfo", inviteInfo);
-		request.setAttribute("invitedInfo", invitedInfo);
-		return "forward:/ring/info.jsp";
-	}
-	
-	@RequestMapping("/dateinfo")
-	public String dateinfo( HttpSession session  , HttpServletRequest request  ) {
-		Customer  cust =  (Customer) session.getAttribute("customer");
-		List<Invite> inviteList = inviteService.queryDateingByCustId(cust.getId());
-		List<Invite> inviteInfo = new ArrayList<>();
-		List<Invite> invitedInfo = new ArrayList<>();
-		for(Invite invite : inviteList){
-			 if(cust.getId().equals( invite.getFromId())){
-				 inviteInfo.add(invite);
-			 }else{
-				 invitedInfo.add(invite);
-			 }
-			 if("4".equals(invite.getInviteStates())){
-				 request.setAttribute("inviteId", invite.getId());
-			 }
-		}
-		request.setAttribute("inviteInfo", inviteInfo);
-		request.setAttribute("invitedInfo", invitedInfo);
-		return "forward:/ring/info.jsp";
-	}
 	
 	/**
 	 * 受邀人同意邀约申请，选择约会时间地点
@@ -331,18 +236,8 @@ public class WebController {
 		request.setAttribute("joinId", invite.getJoinId());
 		request.setAttribute("inv", invite);
 		request.setAttribute("detail", detail);
-		String[] preDateList = detail.getPreDate().split(",") ; 
-		String[] locIdList = detail.getConfirmLoc().split(",");
-		List<Location> locListNew  = new ArrayList<Location>();
-		for(Location loca : locList){
-			 for(String locId : locIdList){
-				  if(locId.equals(loca.getId()+"")){
-					  locListNew.add(loca);
-				  }
-			 }
-		}
-		request.setAttribute("preDateList", preDateList);
-		request.setAttribute("locList", locListNew);
+		
+		request.setAttribute("detail", detail);
 		return "forward:/ring/accept.jsp";
 	}
 	
@@ -401,13 +296,18 @@ public class WebController {
 		Message msg = new Message();
 		try {
 			dao.updateExamine(table , column , state , id );
-				Customer customer = custService.selectById(id);
-				User user = new User();
-				user.setRemark(customer.getId()+"");
-				List<User> userList = userService.queryList(user, new Pagination());
-				if(userList != null && userList.size() > 0) {
-				   WXAuthUtil.sendTemplateMsg(NoticeUtil.examine(userList.get(0), customer,"1" , ""))	;
-				}
+			Customer customer =  new Customer();
+			if("invite".equals(table)) {
+				  Invite invte = inviteService.selectById(id);
+				  customer = custService.selectById(invte.getFromId());
+			}else if("act".equals(table)) {
+				Act act = actMapper.selectByPrimaryKey(id);
+				customer = custService.selectById(act.getCustId());
+			}else if("article".equals(table)) {
+				Article article = articleMapper.selectByPrimaryKey(id);
+				customer = custService.selectById(article.getCustId());
+			}
+				   WXAuthUtil.sendTemplateMsg(NoticeUtil.examine( customer,"1" , ""))	;
 		}catch(Exception e) {
 			 msg.setMsg("系统异常："  + e.getMessage());
 			 msg.setSuccess(false);
@@ -425,12 +325,7 @@ public class WebController {
 		try {
 			dao.examineFail(table  ,column, state , remark , id );
 				Customer customer = custService.selectById(id);
-				User user = new User();
-				user.setRemark(customer.getId()+"");
-				List<User> userList = userService.queryList(user, new Pagination());
-				if(userList != null && userList.size() > 0) {
-				 WXAuthUtil.sendTemplateMsg(NoticeUtil.examine(userList.get(0), customer,"0" , remark))	;
-				}
+				 WXAuthUtil.sendTemplateMsg(NoticeUtil.examine( customer,"0" , remark))	;
 		}catch(Exception e) {
 			 msg.setMsg("系统异常："  + e.getMessage());
 			 msg.setSuccess(false);
@@ -439,5 +334,143 @@ public class WebController {
 		msg.setSuccess(true);
 		msg.setMsg("更新成功");
 		return msg;
+	}
+	
+	
+	
+	
+	/********************************分割线********************************************/
+	/**
+	 * web登录
+	 * @param session
+	 * @param user
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/webLogin")
+	public Message webLogin( HttpSession session , User user) {
+		user = service.checkUser(user);
+		Message msg = new Message();
+		if(user.getId() != null  && user.getId()>0) {
+			session.setAttribute("webUser", user);
+			Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
+			session.setAttribute("customer", cust);
+			Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
+			session.setAttribute("dic",   JSONObject.fromObject(dicMap));
+			msg.setSuccess(true);
+			msg.setMsg("登陆成功");
+			return msg;
+		}else {
+			msg.setSuccess(false);
+			msg.setMsg("用户名或密码错误");
+			return msg;
+		}
+	}
+	
+	@RequestMapping("/index")
+	public String index(){
+		
+		return "forward:/new/index.jsp";
+	}
+	
+	/**
+	 *   会员信息列表页
+	 * @param request
+	 * @param session
+	 * @param custQuery
+	 * @return
+	 */
+	
+	@RequestMapping("/ring/index")
+	public String ringIndex(HttpServletRequest  request  ,HttpSession session , Customer custQuery) {
+//		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
+//		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
+		User  user = (User)request.getSession().getAttribute("webUser");
+		List<Customer> list  = new ArrayList<>();
+		
+		if(StringUtils.isNotBlank(user.getRemark())) {
+			Customer c =  custService.selectById(Integer.valueOf(user.getRemark()));
+			custQuery.setWebSex(c.getSex());
+		}
+		list= custService.queryList(custQuery, new Pagination());
+		for (Customer customer : list) {
+			int flag = userService.queryInviteState(customer.getId());
+			customer.setInviteFlag(flag);
+		}
+		request.setAttribute("list", list);
+		return "forward:/new/cust_list.jsp";
+	}
+	
+	/**
+	 * 会员信息详情页
+	 * @param request
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/customer")
+	public String customer(HttpServletRequest  request , Integer id ) {
+		Customer cust = custService.selectById(id);
+		cust.setInviteFlag(userService.queryInviteState(id));
+		request.setAttribute("cust", cust);
+		Customer custLogin = (Customer)request.getSession().getAttribute("customer");
+		Focus focus = new Focus();
+		focus.setFromId(custLogin.getId());
+		focus.setToId(id);
+		List<Focus> focusList = custService.queryFocusByWhere(focus, new Pagination());
+		if(focusList != null &&  focusList.size() > 0) {
+			request.setAttribute("focusId", focusList.get(0).getId()  );
+		}else {
+			request.setAttribute("focusId", 0  );
+		}
+		return "forward:/new/cust_detail.jsp";
+	}
+	/**
+	 * 邀约列表
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/info")
+	public String info( HttpSession session  , HttpServletRequest request  ) {
+		Customer  cust =  (Customer) session.getAttribute("customer");
+		List<Invite> inviteList = inviteService.queryInviteByCustId(cust.getId());
+		List<Invite> inviteInfo = new ArrayList<>();
+		List<Invite> invitedInfo = new ArrayList<>();
+		for(Invite invite : inviteList){
+			InviteDetail detail = inviteDetaiService.selectById(invite.getId());
+			invite.setDetail(detail);
+			 if(cust.getId().equals( invite.getFromId())){
+				 inviteInfo.add(invite);
+			 }else{
+				 invitedInfo.add(invite);
+			 }
+		}
+		request.setAttribute("inviteInfo", inviteInfo);
+		request.setAttribute("invitedInfo", invitedInfo);
+		return "forward:/new/date_list.jsp";
+	}
+	
+	/**
+	 * 约会列表
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/dateinfo")
+	public String dateinfo( HttpSession session  , HttpServletRequest request  ) {
+		Customer  cust =  (Customer) session.getAttribute("customer");
+		List<Invite> inviteList = inviteService.queryDateingByCustId(cust.getId());
+		List<Invite> inviteInfo = new ArrayList<>();
+		List<Invite> invitedInfo = new ArrayList<>();
+		for(Invite invite : inviteList){
+			 if(cust.getId().equals( invite.getFromId())){
+				 inviteInfo.add(invite);
+			 }else{
+				 invitedInfo.add(invite);
+			 }
+		}
+		request.setAttribute("inviteInfo", inviteInfo);
+		request.setAttribute("invitedInfo", invitedInfo);
+		return "forward:/new/date_list.jsp";
 	}
 }

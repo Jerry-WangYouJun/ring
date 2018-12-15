@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="/common.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html id="a1">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
+<%@include file="/common.jsp"%>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+
 <title>会员注册</title>
 <style type="text/css">
 .panel-body {
@@ -15,45 +16,6 @@
 }
 </style>
 <script>
-wx.config({  
-    debug: false,  
-    appId: '${ret.appId}',  
-    timestamp:'${ret.timestamp}',  
-    nonceStr:'${ret.nonceStr}',  
-    signature:'${ret.signature}',  
-    jsApiList : [ 'chooseImage',
-                  'previewImage',
-                  'uploadImage',
-                  'downloadImage' ]  
-});//end_config  
-
-
-wx.ready(function () {
-    wx.checkJsApi({
-        jsApiList: [
-            'chooseImage',
-            'previewImage',
-            'uploadImage',
-            'downloadImage'
-        ],
-        success: function (res) {
-            //alert(JSON.stringify(res));
-            //alert(JSON.stringify(res.checkResult.getLocation));
-            if (res.checkResult.getLocation == false) {
-                alert('你的微信版本太低，不支持微信JS接口，请升级到最新的微信版本！');
-                return;
-            }else{
-               // wxChooseImage();
-            }
-        }
-    });
-});
-
-
-wx.error(function(res) {  
-   // alert("出错了：" + res.errMsg);  
-}); 
-
 function chooseImg(){
 	wx.chooseImage({
 	    count: 1, //张数， 默认9
@@ -71,6 +33,20 @@ function chooseImg(){
 }
 
 $(function(){
+	if($('#datetimepicker3')[0] != undefined){
+		$('#datetimepicker3').datetimepicker({ 
+			startView: 'decade',
+			minView:"2",
+			format: 'yyyy-mm-dd',
+		    todayBtn: true,//显示今日按钮
+		    endDate : new Date(),
+		    autoclose: true,
+		    maxDate:new Date(),
+		    language:"zh-CN",
+		    clearBtn: true 
+		});
+	}
+	
 	if($('#datetimepicker2')[0] != undefined){
 		$('#datetimepicker2').datetimepicker({  
 			minView: "month",
@@ -121,8 +97,7 @@ $(function(){
 		});
 	}
 	
-	
-	
+
 	 
 </script>
 </head>
@@ -156,11 +131,10 @@ $(function(){
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">联系电话:</label> <input
-								type="text" class="form-control"  id="telephone" name="telephone" placeholder="必填"  >
+								type="text" class="form-control required"  id="telephone" name="telephone" placeholder="必填" onchange="check_unique('telephone')" >
 						</div>
 						<div class="form-group">
                             <label class="control-label">头像</label>
-                               	<button type="button" onclick="chooseImg()">上传头像</button>
                                 <input type="file" name="headFile" id="headFile" class="form-control " accept="image/*"  class="form-control" placeholder="请上传图片">
                         </div>
 						<div class="form-group">
@@ -173,7 +147,7 @@ $(function(){
                         </div  >
 						<div class="form-group">
 							<label for="message-text" class="control-label">生日:</label>
-							<div class='input-group date' id='datetimepicker1'>
+							<div class='input-group date' id='datetimepicker3'>
 								<input type='text' class="form-control" readonly name="birthday"
 									id="birthday" placeholder="必填" required /> <span
 									class="input-group-addon"> <span
@@ -182,26 +156,45 @@ $(function(){
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">家乡:</label> <input
-								type="text" class="form-control" name="hometown">
+							<label for="message-text" class="control-label">家乡:</label> 
+							<div class="col-lg-12">
+								<div class="row">
+									<select id="hometownProvince" name="hometown" class="form-control col-lg-4 col-ms-4 col-xs-4" ></select>
+									<select id="hometownCity" name="hometown" class="form-control col-lg-4" ></select>
+									<select id="hometownCountry" name="hometown" class="form-control col-lg-4" ></select>
+								</div>	
+							</div>
 						</div>
 						
 						<div class="form-group">
 							<label for="message-text" class="control-label">现居地:</label>
 							<div class="col-lg-12">
 								<div class="row">
-									<select id="cmbProvince" name="hometown" class="form-control col-lg-4" ></select>
-									<select id="cmbCity" name="hometown" class="form-control col-lg-4" ></select>
-									<select id="cmbArea" name="hometown" class="form-control col-lg-4" ></select>
+									<select id="cmbProvince" name="address" class="form-control col-lg-4 col-ms-4 col-xs-4" ></select>
+									<select id="cmbCity" name="address" class="form-control col-lg-4" ></select>
+									<select id="cmbArea" name="address" class="form-control col-lg-4" ></select>
 								</div>	
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">经常活动区域:</label> <select
-								class="form-control dicSelect" name="addtress" placeholder="必填"
-								required>
+							<label for="message-text" class="control-label">经常活动区域:</label>
+								<div class="col-lg-12">
+								<div class="row">
+												    <label class="checkbox-inline">
+												      <input type="checkbox"  value="市南" name="loca">市南
+												    </label>
+												    <label class="checkbox-inline">
+												      <input type="checkbox"  value="市北" name="loca">市北
+												    </label>
+												    <label class="checkbox-inline">
+												    <input type="checkbox"  value="崂山" name="loca">崂山
+												    </label>
+												    <label class="checkbox-inline">
+												    <input type="checkbox"  value="李沧" name="loca">李沧
+												    </label>
+								</div>	
+							</div>
 
-							</select>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">身高(cm):</label> <input
@@ -256,7 +249,7 @@ $(function(){
 
 						</div>
 						<div class="form-group ">
-							<label for="message-text" class="control-label">月收入:</label> <select
+							<label for="message-text" class="control-label">月收入(税前):</label> <select
 								class="form-control dicSelect" name="income" placeholder="必填"
 								required>
 
@@ -297,16 +290,21 @@ $(function(){
 								</select>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">经济能力:</label> <input
-								type="text" class="form-control" name="economic">
+							<label for="message-text" class="control-label">经济能力:</label>
+								<select
+								class="form-control dicSelect" name="economic">
+							</select>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">外貌:</label> <input
-								type="text" class="form-control number" name="looks">
+							<label for="message-text" class="control-label">外貌:</label><select
+								class="form-control dicSelect" name="looks">
+							</select>
 						</div>
 						<div class="form-group ">
-							<label for="message-text" class="control-label">性格:</label> <input
-								type="text" class="form-control number" name="disposition">
+							<label for="message-text" class="control-label">性格:</label> 
+								<select
+								class="form-control dicSelect" name="disposition">
+							</select>
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">期望对方将来的生活角色 :</label> <select
@@ -326,12 +324,6 @@ $(function(){
 								placeholder="必填" >
 							</select>
 						</div>
-						<div class="form-group ">
-							<label for="message-text" class="control-label">其他:</label> <select
-								class="form-control dicSelect" name="other" 
-								>
-							</select>
-						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">备注:</label> <input
 								type="text" class="form-control" name="remark" id="remark">
@@ -347,36 +339,24 @@ $(function(){
 	</div>
 </body>
 <script type="text/javascript">
-	addressInit('cmbProvince', 'cmbCity', 'cmbArea');
+	addressInit('cmbProvince', 'cmbCity', 'cmbArea','山东' ,'青岛市');
+	addressInit('hometownProvince', 'hometownCity', 'hometownCountry','山东' ,'青岛市');
 	function subInfo() {
 		subInfoAll("customer");
 	}
 
-	$(function(){
-		$("#dataForm").validate({
-		    rules: {
-		    	telephone : {  
-		            required : true,  
-		            minlength : 11, 
-		            isMobile : true  
-		        		}, 
-		          },
-		   messages: {
-			   telephone : {  
-			       required : "请输入手机号",  
-			       minlength : "不能小于11个字符",  
-			       isMobile : "请正确填写手机号码"  
-			  		 	}
-	  				 },
-			});
-	})
 
 	function subInfoAll(name) {
 
 		if (!$("#dataForm").validate().form()) {
 			return false;
 		}
-		
+	            var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+	            if (!myreg.test($("#telephone").val())) {
+	            		 layer.msg("手机号不合法");
+	                return false;
+	            } 
+
 		var path = "${pageContext.request.contextPath}/" + name + "/" + name
 				+ "_edit";
 			$("#dataForm").ajaxSubmit({
@@ -434,7 +414,7 @@ $(function(){
 				dataType : 'json',
 				success : function(data) {
 					if (!data.success)  {
-						alert(data.msg);
+						layer.alert(data.msg);
 						$("#"+filed).val("");
 					}
 				},

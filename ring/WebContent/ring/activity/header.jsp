@@ -4,24 +4,33 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/new/css/style.css">
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="${pageContext.request.contextPath}/new/js/public.js"></script>
+<title></title>
+<script type="text/javascript">
+function addActivity(){
+	 window.location.href="${pageContext.request.contextPath}/ring/activity/activity.jsp" ;
+}
+
+function indexPage(){
+	window.location.href="${pageContext.request.contextPath}/web/index" ;
+}
+</script>
 </head>
 <body>
-<div id="header" class="header-fixed">
-            <div class="container-fluid">
-                <div class="navbar">
-                    <nav class="top-nav pull-right" role="navigation" style="padding-left:0px">
-                        <ul class="nav navbar-nav ">
-                                    <li class="pull-left" ><a href="##" onclick="history.back()" style="padding:0px"><i class="st-arrow-left"></i> 返回</a>
-                                    </li>
-                                    <li class="pull-right"> <a style="padding-left:0px" href="${pageContext.request.contextPath}/act/myAct"><i class="st-users"></i> 我发起的 </a>
-                                    </li>
-                                    <li class="pull-right"><a style="padding:0px" href="${pageContext.request.contextPath}/act/joinAct"><i class="st-email2"></i> 我参与的 </a>
-                                    </li>
-                        </ul>
-                    </nav>
-                </div>
+
+<div class="index-main">
+    <div class="index-header">
+        <div class="col-xs-3" onclick="indexPage()"><img src="images/logo.png" height="18rem">主页</div>
+        <div class="col-xs-6">
+            <div class="index-header-search">
+                <input type="text" class="form-control" placeholder="Search">
             </div>
-        </div>  
+        </div>
+        <div class="col-xs-3 no-pad"  onclick="addActivity()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>新建活动</div>
+        
+    </div>
+    </div>
 </body>
 </html>

@@ -212,7 +212,7 @@ public class ActController {
 		}else if(times ==2 && !"1".equals(act.getAdmin())){
 			request.setAttribute("msg", "您已经两次次爽约，只参加活动无名指之约官方组织的活动");
 		}else {
-			detail.setDetailState("1");
+			detail.setDetailState("2");
 			detail.setCustId(Integer.valueOf(user.getRemark()));
 			detailMapper.insert(detail);
 		}

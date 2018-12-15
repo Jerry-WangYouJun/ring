@@ -12,7 +12,13 @@
     <result column="birthday" jdbcType="DATE" property="birthday" />
      <result column="birthday2" jdbcType="VARCHAR" property="birthday2" />
     <result column="hometown" jdbcType="VARCHAR" property="hometown" />
+    <result column="hometown_province" jdbcType="VARCHAR" property="hometownProvince" />
+    <result column="hometown_city" jdbcType="VARCHAR" property="hometownCity" />
+    <result column="hometown_country" jdbcType="VARCHAR" property="hometownCountry" />
     <result column="addtress" jdbcType="VARCHAR" property="addtress" />
+    <result column="address_province" jdbcType="VARCHAR" property="addressProvince" />
+    <result column="address_city" jdbcType="VARCHAR" property="addressCity" />
+    <result column="address_country" jdbcType="VARCHAR" property="addressCountry" />
     <result column="height" jdbcType="DOUBLE" property="height" />
     <result column="weight" jdbcType="DOUBLE" property="weight" />
     <result column="marriage" jdbcType="VARCHAR" property="marriage" />
@@ -92,10 +98,22 @@
   	     <if test="obj.email != null and obj.email != '' ">
   	    	     and email = #{obj.email}
   	    </if>
-  	    <if test="obj.ageFrom!=null and obj.ageFrom > 0">
+  	    <if test="obj.ageFrom!=null and obj.ageFrom != ''">
   	    	    and age  >= #{obj.ageFrom}
   	    </if>
-  	    <if test="obj.ageTo !=null and obj.ageTo > 0">
+    	    <if test="obj.heightQuery !=null and obj.heightQuery == '1'.toString() ">
+    	   		 and height  &lt;=  160
+    		</if>
+    		 <if test="obj.heightQuery == '2'.toString()">
+    	   		 and height  &lt;= 170 and  height > 160
+    		</if>
+    		<if test="obj.heightQuery == '3'.toString()">
+    	   		 and height  &lt;= 180 and  height > 170
+    		</if>
+    		<if test="obj.heightQuery == '4'.toString()">
+    	   		and  height > 180
+    		</if>
+  	    <if test="obj.ageTo !=null and obj.ageTo != ''">
   	    	    and age  &lt;= #{obj.ageTo}
   	    </if>
   	    <if test="obj.heightFrom!=null and obj.heightFrom > 0">
@@ -132,6 +150,9 @@
   	    </if>
   	     <if test="email != null and email  != '' ">
   	    	     and email = #{email}
+  	    </if>
+  	    <if test="telephone != null and telephone  != '' ">
+  	    	     and telephone = #{telephone}
   	    </if>
   	    <if test="ageFrom!=null and ageFrom > 0">
   	    	    and age  >= #{ageFrom}

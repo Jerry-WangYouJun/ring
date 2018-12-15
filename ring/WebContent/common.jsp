@@ -5,6 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="basePath" value="${pageContext.request.contextPath}" scope="request"></c:set>
 <script type="text/javascript" src="${basePath}/js/jquery-easyui-1.4/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/layer/layer.js"></script>
 <script src="${basePath}/js/validate/jquery.validate.min.js"></script>
 <script src="${basePath}/js/validate/jquery.metadata.js"></script>
 <script src="${basePath}/js/validate/messages_zh.js"></script>

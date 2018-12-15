@@ -5,17 +5,29 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="invite_id" jdbcType="INTEGER" property="inviteId" />
     <result column="pre_date" jdbcType="VARCHAR" property="preDate" />
+    <result column="pre_date2" jdbcType="VARCHAR" property="preDate2" />
+    <result column="pre_date3" jdbcType="VARCHAR" property="preDate3" />
     <result column="confirm_date" jdbcType="VARCHAR" property="confirmDate" />
     <result column="confirm_time" jdbcType="VARCHAR" property="confirmTime" />
     <result column="confirm_loc" jdbcType="VARCHAR" property="confirmLoc" />
+    <result column="confirm_loc2" jdbcType="VARCHAR" property="confirmLoc2" />
+    <result column="confirm_loc3" jdbcType="VARCHAR" property="confirmLoc3" />
     <result column="update_times" jdbcType="INTEGER" property="updateTimes" />
     <result column="update_time_join" jdbcType="INTEGER" property="updateTimeJoin" />
     <result column="sign_from" jdbcType="VARCHAR" property="signFrom" />
     <result column="sign_join" jdbcType="VARCHAR" property="signJoin" />
+    <association property="location" column="confirm_loc" javaType="com.model.Location" select="selectLocation"/>
+    <association property="location2" column="confirm_loc2" javaType="com.model.Location" select="selectLocation"/>
+    <association property="location3" column="confirm_loc3" javaType="com.model.Location" select="selectLocation"/>
   </resultMap>
   <sql id="Base_Column_List">
-    id, invite_id, pre_date, confirm_date, confirm_loc, update_times , confirm_time , update_time_join , sign_from,sign_join
+    id, invite_id, pre_date,pre_date2,pre_date3, confirm_date, confirm_loc, confirm_loc2,confirm_loc3,update_times , confirm_time , update_time_join , sign_from,sign_join
   </sql>
+  
+  <select id="selectLocation" parameterType="java.lang.Integer" resultType="com.model.Location">
+    select  * from t_location
+    where id = #{id}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -33,11 +45,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.model.InviteDetail">
-    insert into t_invite_detail (id, invite_id, pre_date, 
-      confirm_date, confirm_loc, update_times , confirm_time ,update_time_join ,sign_from,sign_join
+    insert into t_invite_detail (id, invite_id, pre_date, pre_date2,pre_date3,
+      confirm_date, confirm_loc,confirm_loc2,confirm_loc3, update_times , confirm_time ,update_time_join ,sign_from,sign_join
       )
-    values (#{id,jdbcType=INTEGER}, #{inviteId,jdbcType=INTEGER}, #{preDate,jdbcType=VARCHAR}, 
-      #{confirmDate,jdbcType=VARCHAR}, #{confirmLoc,jdbcType=VARCHAR}, #{updateTimes,jdbcType=INTEGER},
+    values (#{id,jdbcType=INTEGER}, #{inviteId,jdbcType=INTEGER}, #{preDate,jdbcType=VARCHAR}, #{preDate2,jdbcType=VARCHAR},#{preDate3,jdbcType=VARCHAR},
+      #{confirmDate,jdbcType=VARCHAR}, #{confirmLoc,jdbcType=VARCHAR},#{confirmLoc2,jdbcType=VARCHAR}, #{confirmLoc3,jdbcType=VARCHAR},#{updateTimes,jdbcType=INTEGER},
       #{confirmTime,jdbcType=VARCHAR}, #{updateTimeJoin,jdbcType=INTEGER},#{signFrom,jdbcType=VARCHAR},#{signJoin,jdbcType=VARCHAR}
       )
   </insert>
@@ -109,8 +121,12 @@
     update t_invite_detail
     set invite_id = #{inviteId,jdbcType=INTEGER},
       pre_date = #{preDate,jdbcType=VARCHAR},
+       pre_date2 = #{preDate2,jdbcType=VARCHAR},
+        pre_date3 = #{preDate3,jdbcType=VARCHAR},
       confirm_date = #{confirmDate,jdbcType=VARCHAR},
       confirm_loc = #{confirmLoc,jdbcType=VARCHAR},
+       confirm_loc2 = #{confirmLoc2,jdbcType=VARCHAR},
+        confirm_loc3 = #{confirmLoc3,jdbcType=VARCHAR},
       update_times = #{updateTimes,jdbcType=INTEGER},
       confirm_time = #{confirmTime,jdbcType=VARCHAR} ,
       update_time_join = #{updateTimeJoin,jdbcType=INTEGER} , 

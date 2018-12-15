@@ -258,7 +258,7 @@ public class NoticeUtil {
         return tem;
 	}
 	
-	public static Template examine(User u, Customer customer , String flag , String remark) {
+	public static Template examine( Customer customer , String flag , String remark) {
 		Template tem=new Template();  
         tem.setTemplateId(examineState);  
         tem.setTopColor("#000000");  

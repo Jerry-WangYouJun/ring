@@ -160,17 +160,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				        		<tr class="opened_1">
 									<td class="day_label"> 报名人 </td>
 									<td class="day_label"> 报名状态</td>
-									<td class="day_label"> 操作</td>
+									<td class="day_label"> 联系电话</td>
+									<td class="day_label"> 具体信息</td>
 								</tr>
 								<c:forEach items="${detailList }" var ="det">
 								    <tr class="opened">
 										<td class="day_value">${det.customer.nickName }</td>
 										<td class="day_value dicValue"  name="detailState" value="${det.detailState}"></td>
 										<td class="day_value">
-											 <c:if test="${det.detailState eq 1}">
-											 	 <button type="button" class="btn  btn-success" onclick="updateActDetail('${det.id}','${det.custId }','2')"> 通过 </button>
-											 	 <button type="button" class="btn  btn-success" onclick="updateActDetail('${det.id}','${det.custId }','7')"> 拒绝 </button>
-											 </c:if>
+											${det.customer.telephone }
+										</td>
+										<td class="day_value">
+											<a href="${pageContext.request.contextPath}/web/customer?id=${det.customer.id}"> 个人信息
+											</a>
 										</td>
 									</tr>
 								 	 

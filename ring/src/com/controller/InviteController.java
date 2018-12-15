@@ -153,7 +153,7 @@ public class InviteController {
 		service.update(invite);
 		if("3".equals(inviteStates)){
 			 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteRefuse(remark, invite.getCustomerFrom(),invite.getId()));
-		        System.out.println(jsonObject);
+		     //   System.out.println(jsonObject);
 			return "forward:/web/info";
 		}else if("1".equals(inviteStates)){
 			return "forward:/web/dating?id=" + id;
@@ -171,8 +171,8 @@ public class InviteController {
 			}
 			return "forward:/web/dateinfo";
 		}if("5".equals(inviteStates)){
-			 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteRefuse(remark, invite.getCustomerJoin(),invite.getId()));
-		        System.out.println(jsonObject);
+			 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteRefuse(remark, invite.getCustomerJoin(),invite.getId()));
+//		        System.out.println(jsonObject);
 			return "forward:/web/info";
 		}else{
 			Location loc =locService.selectById(invite.getPointId());
@@ -228,6 +228,16 @@ public class InviteController {
 				Invite inviteTemp = service.selectById(invite.getId());
 				inviteTemp.setPointId(invite.getPointId());
 				InviteDetail detailTemp = detailService.selectById(inviteTemp.getId());
+				if(invite.getPointId().equals(1)) {
+					detailTemp.setConfirmDate(detailTemp.getPreDate());
+					inviteTemp.setPointId(Integer.valueOf(detailTemp.getConfirmLoc()));
+				}else if(invite.getPointId().equals(2)) {
+					detailTemp.setConfirmDate(detailTemp.getPreDate2());
+					inviteTemp.setPointId(Integer.valueOf(detailTemp.getConfirmLoc2()));
+				}else if(invite.getPointId().equals(3)) {
+					detailTemp.setConfirmDate(detailTemp.getPreDate3());
+					inviteTemp.setPointId(Integer.valueOf(detailTemp.getConfirmLoc3()));
+				}
 				if("4".equals(inviteTemp.getInviteStates())  ) {
 					Customer  cust =  (Customer) session.getAttribute("customer");
 					 if( cust.getId().equals(inviteTemp.getFromId())&&detailTemp.getUpdateTimes() <1 ) {
@@ -240,7 +250,6 @@ public class InviteController {
 						 return msg ;
 					 }
 					 service.update(inviteTemp);
-					 detailTemp.setPreDate(preDate);
 					 detailService.update(detailTemp);
 					 Location loc =locService.selectById(invite.getPointId());
 					 if( cust.getId().equals(invite.getFromId()) ) {
@@ -252,7 +261,6 @@ public class InviteController {
 				if("1".equals(inviteTemp.getInviteStates())  ) {
 					inviteTemp.setInviteStates("4");
 					service.update(inviteTemp);
-					 detailTemp.setPreDate(preDate);
 					 detailService.update(detailTemp);
 					 Location loc =locService.selectById(invite.getPointId());
 					 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(loc, inviteTemp.getCustomerJoin() , invite.getId()));
@@ -264,21 +272,17 @@ public class InviteController {
 							 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteAccept(loc,u , invite.getId()));
 						}
 				}
-				
+				msg.setObj(inviteTemp.getInviteStates());
 //				if("2".equals(inviteTemp.getInviteStates())) {
-//					 JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteConfirm(inviteTemp.getCustomerJoin(),inviteTemp.getCustomerFrom().getOpenId(),invite.getId()));
+					 WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteConfirm(inviteTemp.getCustomerJoin(),inviteTemp.getCustomerFrom().getOpenId(),invite.getId()));
 //					 System.out.println(jsonObject);
 //				}
 			}else{
-				User user =  (User)request.getSession().getAttribute("webUser");
-				if(user.getId() > 0 ) {
-					invite.setFromId(Integer.valueOf(user.getRemark()));
-				}
-				Customer cust =  custService.selectById(Integer.valueOf(user.getRemark()));
+				Customer cust =   (Customer)request.getSession().getAttribute("customer");
 				Invite test = new Invite();
-				test.setFromId(Integer.valueOf(user.getRemark()));
+				test.setFromId(cust.getId());
 				test.setInviteStates("1");
-				int inviteTemp =  userService.queryInviteState(invite.getJoinId());
+				int inviteTemp =  userService.queryInviteState(cust.getId());
 					if( inviteTemp == 0) {
 						invite.setInviteDate(new Date());
 						invite.setInviteStates("1");
@@ -289,8 +293,9 @@ public class InviteController {
 						detail.setUpdateTimeJoin(0);
 						detailService.insert(detail);
 						Customer custJoin = custService.selectById(invite.getJoinId());
-						JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteInit(detail, custJoin.getOpenId()));
-					    System.out.println(jsonObject);
+						WXAuthUtil.sendTemplateMsg(NoticeUtil.inviteInit(detail, custJoin.getOpenId()));
+					 //   System.out.println(jsonObject);
+						msg.setObj(invite.getInviteStates());
 					}else {
 						msg.setSuccess(false);
 						msg.setMsg("操作失败：有其他邀约尚在进行" );
@@ -299,6 +304,7 @@ public class InviteController {
 			}
 			msg.setSuccess(true);
 			msg.setMsg("操作成功");
+			
 		}catch(Exception e ){
 			 msg.setSuccess(false);
 			 msg.setMsg("操作失败：" + e.getMessage());
