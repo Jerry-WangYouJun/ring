@@ -63,12 +63,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	 function updateStates(id , states){
 		 var str = "";
 		 if(states == '3' || states =='5'){
-			 layer.prompt({title: '请输入拒绝的原因', formType: 1}, function(pass, index){
-				    str = text;
+			 layer.prompt({title: '请输入拒绝的原因', formType: 2}, function(text, index){
+				 layer.close(index);
+				 window.location.href= "${pageContext.request.contextPath}/invite/state?id="+id+"&inviteStates=" + states +"&remark=" + text;
 				});
-		 }
-		 if(str){
-		 window.location.href= "${pageContext.request.contextPath}/invite/state?id="+id+"&inviteStates=" + states +"&remark=" + str;
+		 }else{
+			 window.location.href= "${pageContext.request.contextPath}/invite/state?id="+id+"&inviteStates=" + states +"&remark=" + str;
 		 }
 	 }
 	 
@@ -123,8 +123,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </script>
 </head>
 <body>
-
-<div class="index-main-about">
+<div class="index-main">
     <div class="index-header">
         <div class="col-xs-3"><img src="${pageContext.request.contextPath}/img/logo.jpg" height="18rem">主页</div>
         <div class="col-xs-6">
@@ -132,7 +131,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <input type="text" class="form-control" placeholder="Search">
             </div>
         </div>
-         <div class="col-xs-3 no-pad" onclick="personCenter()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>个人中心</div>
+        <div class="col-xs-3 no-pad" onclick="personCenter()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>个人中心</div>
     </div>
     </div>
    <div class="profile" style="margin-top:70px">
