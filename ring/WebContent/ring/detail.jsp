@@ -68,17 +68,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	 }
 	 
 		function  addInvite(id , states){
-			//$("#addModal").modal("show");
-			$("#addModal").modal({  
-			    remote: "${pageContext.request.contextPath}/invite/state?id="+id+"&inviteStates=" + states
-			});
+			window.location.href = "${pageContext.request.contextPath}/invite/state?id="+id+"&inviteStates=" + states;
 		}
 		function  updateDating(id , states){
-			if(confirm("只有一次修改约会信息的机会，确定修改？")){
-				$("#addModal").modal({  
-				    remote: "${pageContext.request.contextPath}/invite/update?id="+id+"&inviteStates=" + states
-				});
-			 }
+			window.location.href = "${pageContext.request.contextPath}/invite/update?id="+id+"&inviteStates=" + states;
 		}
 		
 		function signUp(){

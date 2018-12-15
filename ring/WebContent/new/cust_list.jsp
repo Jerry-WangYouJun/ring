@@ -16,7 +16,7 @@
 <script src="${pageContext.request.contextPath}/js/moment-with-locales.js"></script>  
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script> 
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js"></script> 
-<title>Insert title here</title>
+<title>会员信息</title>
 <script type="text/javascript">
 $(function(){
 	$('.form_datetime').datetimepicker({
@@ -133,8 +133,15 @@ function personCenter(){
 	        </div>
 	        <div class="col-xs-8 list-right">
 	            <div class="row">
-	                <p class="index-list-tittle">开心活动开心活动开心活动开心活动开心活动</p>
-	                <p class="menu-list-main"><img src="${pageContext.request.contextPath}/new/images/logo.png"> ${customerJoin.nickName}</p>
+	                <p class="menu-list-main">
+	                <c:if test="${cust.sex eq '1'}">
+						<img src="${pageContext.request.contextPath}/img/men.jpg"  />
+			      	</c:if>
+			      	<c:if test="${cust.sex eq '0'}">
+								<img src="${pageContext.request.contextPath}/img/women.jpg" />
+			      	</c:if>
+	                
+	                 ${customerJoin.nickName}</p>
 	                <div class="index-list-tap">
 	                    <i class="glyphicon glyphicon-bookmark fl"></i>
 	                    <span class="line"></span>

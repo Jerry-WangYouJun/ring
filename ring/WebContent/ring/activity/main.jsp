@@ -93,8 +93,8 @@
                                                         <li> <h3 class="dicValue"  name="admin" value="${actinfo.admin}">主办方：</h3> </li>
                                                         <li> <h3>活动地点：${actinfo.actLoca }</h3> </li>
                                                         <li>  <h3 class="dicValue"  name="actForm" value="${actinfo.actForm }">活动形式：</h3> </li>
-                                                        <li> <h3>活动人数：${actinfo.account }</h3> </li>
-                                                        <li>  <h3 >剩余人数： ${actinfo.account -actList.length }</h3> </li>
+                                                        <li> <h3>活动人数：${actinfo.acount }</h3> </li>
+                                                        <li>  <h3 >剩余人数： ${actinfo.acount -actList.length }</h3> </li>
                                                     </ul>
 									 	</div>
 						 			</div>
@@ -108,10 +108,6 @@
 			<!-- <div class="dingwei2 pull-right">
 					  <button class="btn btn-primary  btn-circle" onclick="addActivity()">新建 </button>
 				</div> -->
- 			<div class="row dingwei page-top " >
-						<a type="button" class="text-center  col-xs-6" style="margin-bottom: 10px" onclick="signUp()"><i class="im-home"></i>活动主页</a>
-						<a type="button" class="text-center  col-xs-6" style="border: none;" onclick="addActivity()"><i class="ec-user"></i>新建</a>
-				</div>
 			</div>
 		</div>
  	<div class="modal fade" id="addModal"  role="dialog"
