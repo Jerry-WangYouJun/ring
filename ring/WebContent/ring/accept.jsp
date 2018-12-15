@@ -125,7 +125,7 @@ $(document).ready(function(){
 						<input class="form-control" name="id" type="hidden" value="${inv.id }"></input>
 						<input class="form-control" name="joinId" type="hidden" value="${joinId }"></input>
 								<div class="form-group" >
-										<input type="radio" name="pointId" value="1">
+										<input type="radio" name="pointId" value="${detail.confirmLoc3}">
 							            <label for="message-text" class="control-label">约会时间一：</label>  
 							            <!--指定 date标记-->  
 							             <label for="message-text" class="control-label"> ${detail.preDate} </label>  
@@ -136,7 +136,7 @@ $(document).ready(function(){
 								</div>
 								
 								<div class="form-group" >
-								<input type="radio" name="pointId" value="2">
+								<input type="radio" name="pointId" value="${detail.confirmLoc3}">
 							            <label for="message-text" class="control-label">约会时间二：</label> 
 							            <label for="message-text" class="control-label"> ${detail.preDate2} </label> 
 						        </div> 
@@ -146,7 +146,7 @@ $(document).ready(function(){
 								</div>
 								
 								<div class="form-group" >
-								<input type="radio" name="pointId" value="3">
+								<input type="radio" name="pointId" value=" ${detail.confirmLoc3}">
 							            <label for="message-text" class="control-label">约会时间三：</label> 
 							            <label for="message-text" class="control-label"> ${detail.preDate3} </label> 
 						        </div> 
@@ -157,7 +157,6 @@ $(document).ready(function(){
 								
 						
 						<div class="form-group">
-							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 							<button type="button" class="btn btn-primary" onclick="subInfo()">提交</button>
 						</div>
 					</form>
