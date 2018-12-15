@@ -113,36 +113,7 @@
 											 </c:choose>
 										 	</span>
 					                    <span class="line"></span>
-										 <span>  状态： 
-										<c:choose>
-										 	 <c:when test="${invite.inviteStates eq '1'}">
-										 	 	 未确认
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '2'}">
-										 	 	  已接受
-										 	 	   <a href="##" onclick="updateStates('${invite.id}','4')">确定约会</a>
-										 	 	   <a href="##" onclick="updateStates('${invite.id}','5')">取消约会</a>
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '3'}">
-										 	 	  已拒绝   原因：${invite.remark }
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '4'}">
-										 	 	  准备约会，约会时间：${invite.detail.preDate}
-										 	 	  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
-										 	 	  <a href="##" onclick="updateDating('${invite.id}','4')">修改约会地点</a>
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '5'}">
-										 	 	  已取消：${invite.remark}
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '6'}">
-										 	 	  系统审核中
-										 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">撤回申请</a>
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '7'}">
-										 	 	  约会已结束
-										 	 	  <a class="btn btn-default" href="###" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
-										 	 </c:when>
-										 </c:choose>
+										 <span> <a href="${pageContext.request.contextPath}/web/detail?id=${invite.id}"> 约会详细信息</a>
 										 </span>
 					                </div>
 					                <br>
@@ -201,11 +172,6 @@
 					                
 									<hr />
 								</div>
-								<div class="row">
-									  <c:if test="${invite.inviteStates eq '4'}">
-											 <a class="btn btn-success" href="###" onclick="signUp('${invite.id}')">约会签到</a>
-									 </c:if>
-								</div>
 						    </c:forEach>
             </div>
             
@@ -236,40 +202,10 @@
 										 	 </c:when>
 											 </c:choose>
 										 	</span>
+										 	<span class="line"></span>
+												 <span> <a href="${pageContext.request.contextPath}/web/detail?id=${invite.id}"> 约会详细信息</a>
+											 </span>
 					                    </div>
-					                <br>
-					                <div class="index-list-tap col-lg-12 col-xs-12">
-										 <span>  状态： 
-										<c:choose>
-										 	 <c:when test="${invite.inviteStates eq '1'}">
-										 	 	 <a href="###" onclick="addInvite('${invite.id}','1')">同意约请</a>
-								      			 <a href="##" onclick="updateStates('${invite.id}','3')">拒绝约请</a>
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '2'}">
-										 	 	  已接受
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '3'}">
-										 	 	  已拒绝  原因：${invite.remark }
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '4'}">
-										 	 	  准备约会，约会时间：${invite.detail.preDate}
-										 	 	 约会地点：${invite.pointLocation.location},${invite.pointLocation.address},${invite.pointLocation.locName}
-										 	 	<div>  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
-										 	 	   	<a href="##" onclick="updateDating('${invite.id}','4')">修改约会地点</a>
-										 	 	   	<a href="##" onclick="updateDating('${invite.id}','0')">约会爽约</a>
-										 	 	 </div>
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '6'}">
-										 	 	  系统审核中
-										 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">撤回申请</a>
-										 	 </c:when>
-										 	<c:when test="${invite.inviteStates eq '7'}">
-										 	 	  约会已结束
-										 	 	  <a class="btn btn-default" href="##" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
-										 	 </c:when>
-										 </c:choose>
-										 </span>
-					                </div>
 					                <br>
 					                <div class="index-list-tap col-lg-12 col-xs-12">
 					                    <span>生日 <span></span></span>
