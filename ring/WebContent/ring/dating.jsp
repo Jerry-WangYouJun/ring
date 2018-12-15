@@ -88,6 +88,20 @@ $(document).ready(function(){
     });  
 });
 
+$(function(){
+	 var dic = eval('(${dic})');
+	$(".dicValue").each(function(){
+		 var field  = $(this).attr("name")
+		 var value =  $(this).attr("value");
+		 if(dic[field] !=undefined && dic[field][value]!= undefined){
+			 $(this).text(dic[field][value]["describ"]);
+		 }
+	})
+	if(parseInt("${cust.inviteFlag}")  > 0){
+		 $("#flag").hide()
+	}
+});
+
 function addDate(date,days){ 
     var d=new Date(date); 
     d.setDate(d.getDate()+days); 
@@ -117,7 +131,8 @@ function addDate(date,days){
 								<div class="form-group">
 									<label for="message-text" class="control-label">约会地点一:</label> 
 											  <c:forEach items="${locList}" var ="loca">
-											 	    <input type="radio"   name="confirmLoc"  class = "confirmLoc" value="${loca.id}">:${loca.location} - ${loca.address}
+											 	    <input type="radio"   name="confirmLoc"  class = "confirmLoc" value="${loca.id}">:
+											 	    <span class="dicValue" name="location" value="${loca.location}"></span> - ${loca.address}
  											  </c:forEach>
 								</div>
 								
@@ -134,7 +149,8 @@ function addDate(date,days){
 								<div class="form-group">
 									<label for="message-text" class="control-label">约会地点二:</label> 
 											  <c:forEach items="${locList}" var ="loca">
-											 	    <input type="radio"   name="confirmLoc2"   class="confirmLoc2" value="${loca.id}">:${loca.location} - ${loca.address}
+											 	    <input type="radio"   name="confirmLoc2"   class="confirmLoc2" value="${loca.id}">:
+											 	    <span class="dicValue" name="location" value="${loca.location}"></span> - ${loca.address}
  											  </c:forEach>
 								</div>
 								
@@ -151,7 +167,8 @@ function addDate(date,days){
 								<div class="form-group">
 									<label for="message-text" class="control-label">约会地点三:</label> 
 											  <c:forEach items="${locList}" var ="loca">
-											 	    <input type="radio"   name="confirmLoc3"  class="confirmLoc3" value="${loca.id}">:${loca.location} - ${loca.address}
+											 	    <input type="radio"   name="confirmLoc3"  class="confirmLoc3" value="${loca.id}">:
+											 	    <span class="dicValue" name="location" value="${loca.location}"></span>- ${loca.address}
  											  </c:forEach>
 								</div>
 								

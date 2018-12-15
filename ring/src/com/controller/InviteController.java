@@ -279,11 +279,9 @@ public class InviteController {
 //				}
 			}else{
 				Customer cust =   (Customer)request.getSession().getAttribute("customer");
-				Invite test = new Invite();
-				test.setFromId(cust.getId());
-				test.setInviteStates("1");
 				int inviteTemp =  userService.queryInviteState(cust.getId());
 					if( inviteTemp == 0) {
+						invite.setFromId(cust.getId());
 						invite.setInviteDate(new Date());
 						invite.setInviteStates("1");
 						service.insert(invite);
