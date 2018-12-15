@@ -248,14 +248,15 @@ public class WebController {
 	@RequestMapping("/evaluate")
 	public String evaluate( HttpSession session  , Integer id  , HttpServletRequest request) {
 		Invite invite  = inviteService.selectById(id);
-		Integer custId =  0;
+		Customer  cust =  (Customer) request.getSession().getAttribute("customer");
 		Evaluate ev = new Evaluate();
 		ev.setDateingId(id);
+		ev.setFromId(cust.getId());
 		List<Evaluate> list= evaluateMapper.queryByWhere(ev, new Pagination());
 		if(list != null && list.size() > 0) {
 			ev = list.get(0);
 		}
-		Customer  cust =  (Customer) request.getSession().getAttribute("customer");
+		Integer custId = 0;
 		if(cust.getId().equals(invite.getFromId())){
 			custId =  invite.getJoinId();
 		}else{
@@ -273,6 +274,7 @@ public class WebController {
 		if(evaluate.getId() != null && evaluate.getId() > 0) {
 			evaluateMapper.updateByPrimaryKey(evaluate);
 		}else {
+			
 			evaluateMapper.insert(evaluate);
 		}
 		return "forward:/web/dateinfo";
