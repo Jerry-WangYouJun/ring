@@ -119,7 +119,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		$(".table_working").hide();
 	 });
 	 function detailView(){
-		 $(".table_working").show();
+		 $(".table_working").toggle();
 	 }
 	 
 	 function addActivity(){
@@ -219,12 +219,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										 	 	  系统审核中
 										 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">申请取消约会</a>
 										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '7'}">
-										 	 	  约会已结束
-										 	 	  <a class="btn btn-default" href="###" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
-										 	 </c:when>
 										 </c:choose>
 			</c:if>
+										<c:if test="${ not empty invite.detail.signFrom}">
+										 		 已签到
+											 	<c:if test="${invite.inviteStates eq '7'}">
+											 	 	  约会已结束
+											 	 	  <a class="btn btn-default" href="##" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
+											 	 </c:if>
+										 	</c:if>
 			</c:if>
 			<div style="margin: 30px"> 
 		<div class="col_4">

@@ -295,7 +295,7 @@ $(document).ready(function(){
 									<tr class="opened_1">
 										<td class="day_value" ><a href="${pageContext.request.contextPath}/act/detail?id=${myact.id}">详情</a></td>
 										<td class="day_value"><button type="button" class="btn btn-default " onclick="examineSuccess('act','act_state','2','${myact.id}')"> 通过</button>
-										<button type="button" class="btn btn-default " onclick="examineFail('act','0','act_state','${myact.id}')"> 不通过</button></td>
+										<button type="button" class="btn btn-default " onclick="examineFail('act','act_state','1','${myact.id}')"> 不通过</button></td>
 									</tr>
 				        		</c:forEach>
 						    </tbody>
