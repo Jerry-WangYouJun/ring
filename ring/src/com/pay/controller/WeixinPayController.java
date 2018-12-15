@@ -220,7 +220,7 @@ public class WeixinPayController {
 		        	   if( id != null && id != 0) {
 		        		   return "forward:/"+action+"/detail?id=" + id ;
 		        	   }else{
-		        		   return "forward:/web/login" ;
+		        		   return "forward:/web/login?userNo="+ customer.getOpenId() + "&&pwd=123"  ;
 		        	   }
 		           }
 		
