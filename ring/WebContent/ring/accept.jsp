@@ -147,7 +147,7 @@ $(document).ready(function(){
 										<label for="message-text" class="control-label">  ${detail.location2.location} - ${detail.location2.locName}  </label>
 									</div>
 								 </c:if>
-								 <c:if test="${not empty detail.location2 }">
+								 <c:if test="${not empty detail.location3 }">
 									<div class="form-group" >
 									<input type="radio" name="pointId" value=" ${detail.confirmLoc3}">
 								            <label for="message-text" class="control-label">约会时间三：</label> 
