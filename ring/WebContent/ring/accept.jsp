@@ -124,36 +124,40 @@ $(document).ready(function(){
 	     <form id="dataForm">
 						<input class="form-control" name="id" type="hidden" value="${inv.id }"></input>
 						<input class="form-control" name="joinId" type="hidden" value="${joinId }"></input>
-								<div class="form-group" >
-										<input type="radio" name="pointId" value="${detail.confirmLoc3}">
-							            <label for="message-text" class="control-label">约会时间一：</label>  
-							            <!--指定 date标记-->  
-							             <label for="message-text" class="control-label"> ${detail.preDate} </label>  
-						        </div> 
-								<div class="form-group">
-									<label for="message-text" class="control-label">约会地点一:</label> 
-									<label for="message-text" class="control-label"> ${detail.location.location} - ${detail.location.locName} </label>
-								</div>
-								
-								<div class="form-group" >
-								<input type="radio" name="pointId" value="${detail.confirmLoc3}">
-							            <label for="message-text" class="control-label">约会时间二：</label> 
-							            <label for="message-text" class="control-label"> ${detail.preDate2} </label> 
-						        </div> 
-								<div class="form-group">
-									<label for="message-text" class="control-label">约会地点二:</label> 
-									<label for="message-text" class="control-label">  ${detail.location2.location} - ${detail.location2.locName}  </label>
-								</div>
-								
-								<div class="form-group" >
-								<input type="radio" name="pointId" value=" ${detail.confirmLoc3}">
-							            <label for="message-text" class="control-label">约会时间三：</label> 
-							            <label for="message-text" class="control-label"> ${detail.preDate3} </label> 
-						        </div> 
-								<div class="form-group">
-									<label for="message-text" class="control-label">约会地点三:</label> 
-									<label for="message-text" class="control-label">  ${detail.location3.location} - ${detail.location3.locName} </label>
-								</div>
+						        <c:if test="${not empty detail.location }">
+									<div class="form-group" >
+											<input type="radio" name="pointId" value="${detail.confirmLoc}">
+								            <label for="message-text" class="control-label">约会时间一：</label>  
+								            <!--指定 date标记-->  
+								             <label for="message-text" class="control-label"> ${detail.preDate} </label>  
+							        </div> 
+									<div class="form-group">
+										<label for="message-text" class="control-label">约会地点一:</label> 
+										<label for="message-text" class="control-label"> ${detail.location.location} - ${detail.location.locName} </label>
+									</div>
+						        </c:if>
+								 <c:if test="${not empty detail.location2 }">
+									<div class="form-group" >
+									<input type="radio" name="pointId" value="${detail.confirmLoc2}">
+								            <label for="message-text" class="control-label">约会时间二：</label> 
+								            <label for="message-text" class="control-label"> ${detail.preDate2} </label> 
+							        </div> 
+									<div class="form-group">
+										<label for="message-text" class="control-label">约会地点二:</label> 
+										<label for="message-text" class="control-label">  ${detail.location2.location} - ${detail.location2.locName}  </label>
+									</div>
+								 </c:if>
+								 <c:if test="${not empty detail.location2 }">
+									<div class="form-group" >
+									<input type="radio" name="pointId" value=" ${detail.confirmLoc3}">
+								            <label for="message-text" class="control-label">约会时间三：</label> 
+								            <label for="message-text" class="control-label"> ${detail.preDate3} </label> 
+							        </div> 
+									<div class="form-group">
+										<label for="message-text" class="control-label">约会地点三:</label> 
+										<label for="message-text" class="control-label">  ${detail.location3.location} - ${detail.location3.locName} </label>
+									</div>
+								 </c:if>
 								
 						
 						<div class="form-group">

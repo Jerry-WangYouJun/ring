@@ -11,6 +11,7 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-easyui-1.4/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/layer/layer.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-table.min.css" />  
@@ -62,7 +63,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	 function updateStates(id , states){
 		 var str = "";
 		 if(states == '3' || states =='5'){
-			 str = window.prompt("请输入拒绝的原因") 
+			 layer.prompt({title: '请输入拒绝的原因', formType: 1}, function(pass, index){
+				    str = text;
+				});
 		 }
 		 if(str){
 		 window.location.href= "${pageContext.request.contextPath}/invite/state?id="+id+"&inviteStates=" + states +"&remark=" + str;
@@ -121,7 +124,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 <body>
 
-<%@include file="/ring/header.jsp"%>
+<div class="index-main-about">
+    <div class="index-header">
+        <div class="col-xs-3"><img src="${pageContext.request.contextPath}/img/logo.jpg" height="18rem">主页</div>
+        <div class="col-xs-6">
+            <div class="index-header-search">
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
+        </div>
+         <div class="col-xs-3 no-pad" onclick="personCenter()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>个人中心</div>
+    </div>
+    </div>
    <div class="profile" style="margin-top:70px">
    	 <div class="col-md-12 profile_left">
    	 	

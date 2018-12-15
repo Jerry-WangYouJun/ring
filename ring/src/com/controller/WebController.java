@@ -234,9 +234,6 @@ public class WebController {
 	public String dating(HttpServletRequest request , Integer id ) {
 		Invite invite  = inviteService.selectById(id);
 		InviteDetail detail = inviteDetaiService.selectById(invite.getId());
-		Location loc = new Location();
-		loc.setLocName(detail.getConfirmLoc());
-		List<Location> locList = locService.queryList(loc, new Pagination());
 		request.setAttribute("joinId", invite.getJoinId());
 		request.setAttribute("inv", invite);
 		request.setAttribute("detail", detail);
