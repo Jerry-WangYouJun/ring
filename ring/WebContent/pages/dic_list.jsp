@@ -91,10 +91,13 @@
 								<input type="text" class="form-control" name="describ" id="describ">
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">是否有效:</label>
+							<label for="message-text" class="control-label">字典类型:</label>
 							<select class="form-control"  id ="flag" name="flag" >  
-					           <option value="1" selected="selected">是</option>
-					           <option value="0">否</option>
+					           <option value="0">标签</option>
+					           <option value="1">多选类型</option>
+					           <option value="2">单选类型</option>
+					           <option value="3">标准：男</option>
+					           <option value="4">标准：女</option>
 					        </select>	
 						</div> 
 					</form>

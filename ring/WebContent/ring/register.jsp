@@ -113,6 +113,9 @@ $(function(){
 							value="${openId}"></input> <input class="form-control " name="id"
 							type="hidden"></input> <input class="form-control " name="flag"
 							id="flag" type="hidden"></input>
+						<div class="form-group"  style="text-align: center">
+							<label for="message-text" class="control-label" style="font-size:">个人信息</label> 
+						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">姓名:</label> <input
 								type="text" class="form-control" name="chName" id="chName" value="${mycust.chName }"
@@ -121,17 +124,17 @@ $(function(){
 						<div class="form-group">
 							<label for="message-text" class="control-label">昵称:</label> <input
 								type="text" class="form-control required" name="nickName"
-								id="nickName" placeholder="必填"  onchange="check_unique('nickName')">
+								id="nickName" placeholder="必填"  onchange="check_unique('nickName')" value="${mycust.nickName}">
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">性别:</label> <select
-								class="form-control dicSelect" id="sex" name="sex"
+								class="form-control dicSelect" id="sex" name="sex"  value="${mycust.sex}"
 								placeholder="必填" required>
 							</select>
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">联系电话:</label> <input
-								type="text" class="form-control required"  id="telephone" name="telephone" placeholder="必填" onchange="check_unique('telephone')" >
+								type="text" class="form-control required" onchange="checkTelephone()"  id="telephone" value="${mycust.telephone}" name="telephone" placeholder="必填" onchange="check_unique('telephone')" >
 						</div>
 						<div class="form-group">
                             <label class="control-label">头像</label>
@@ -148,7 +151,7 @@ $(function(){
 						<div class="form-group">
 							<label for="message-text" class="control-label">生日:</label>
 							<div class='input-group date' id='datetimepicker3'>
-								<input type='text' class="form-control" readonly name="birthday"
+								<input type='text' class="form-control" readonly name="birthday" value="${mycust.birthday}"
 									id="birthday" placeholder="必填" required /> <span
 									class="input-group-addon"> <span
 									class="glyphicon glyphicon-calendar"></span>
@@ -192,18 +195,21 @@ $(function(){
 												    <label class="checkbox-inline">
 												    <input type="checkbox"  value="李沧" name="loca">李沧
 												    </label>
+												    <label class="checkbox-inline">
+												    <input type="checkbox"  value="城阳" name="loca">城阳
+												    </label>
 								</div>	
 							</div>
 
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">身高(cm):</label> <input
-								type="text" class="form-control number" name="height">
+								type="text" class="form-control number" name="height" value="${mycust.height}">
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">体重(kg):</label> <input
-								type="text" class="form-control number" name="weight">
-						</div>
+								type="text" class="form-control number" name="weight" value="${mycust.weight}">
+						</div> 
 						<div class="form-group ">
 							<label for="message-text" class="control-label">婚姻状况:</label> <select
 								class="form-control dicSelect" name="marriage" placeholder="必填"
@@ -278,8 +284,8 @@ $(function(){
 								type="text" class="form-control" name="declaration"
 								id="declaration">
 						</div>
-						<div class="form-group">
-							<label for="message-text" class="control-label">择偶要求:</label> 
+						<div class="form-group"  style="text-align: center">
+							<label for="message-text" class="control-label" style="font-size:">择偶要求</label> 
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">接受的年龄范围:</label>
@@ -339,12 +345,24 @@ $(function(){
 	</div>
 </body>
 <script type="text/javascript">
-	addressInit('cmbProvince', 'cmbCity', 'cmbArea','山东' ,'青岛市');
-	addressInit('hometownProvince', 'hometownCity', 'hometownCountry','山东' ,'青岛市');
+	$(function(){
+	addressInit('cmbProvince', 'cmbCity', 'cmbArea');
+	addressInit('hometownProvince', 'hometownCity', 'hometownCountry');
+	$("#hometownProvince").val("");
+	$("#hometownCity").val("")
+	$("#hometownCountry").val("")
+	})
 	function subInfo() {
 		subInfoAll("customer");
 	}
 
+	function checkTelephone(){
+		 var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+         if (!myreg.test($("#telephone").val())) {
+         		 layer.msg("手机号不合法");
+             return false;
+         } 
+	}
 
 	function subInfoAll(name) {
 
@@ -387,6 +405,7 @@ $(function(){
 /* 					if(field.indexOf("2")>-1){
 						field = field.replace(/2/,"");
 					}
+					concosle.info()
  */					var htmlStr = "";
 					if (dic.hasOwnProperty(field)) {
 						for ( var keyValue in dic[field]) {
@@ -398,10 +417,7 @@ $(function(){
 					$(this).append(htmlStr);
 				});
 
-		$("select:not(.dicSelect)").each(function() {
-			var idStr = this.id;
-			$("#" + idStr).val(idStr + ":1")
-		});
+		
 	});
 	
 	function check_unique(filed){

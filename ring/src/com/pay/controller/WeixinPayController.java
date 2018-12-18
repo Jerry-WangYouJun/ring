@@ -226,7 +226,7 @@ public class WeixinPayController {
 		
 	}
 	
-	public JSONObject getUserInfo(HttpServletRequest request, HttpServletResponse response) throws ClientProtocolException, IOException{
+	public static JSONObject getUserInfo(HttpServletRequest request, HttpServletResponse response) throws ClientProtocolException, IOException{
 		String code =request.getParameter("code");
 	      //第二步：通过code换取网页授权access_token
 	         String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+WxPayConfig.appid

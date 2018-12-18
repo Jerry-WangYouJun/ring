@@ -128,7 +128,7 @@ $(document).ready(function(){
 			success : function(data) {
 				if (data.success) {
 					alert(data.msg);
-					window.location.href="${pageContext.request.contextPath}/article/index";
+					//window.location.href="${pageContext.request.contextPath}/article/index";
 				} else {
 					alert(data.msg);
 				}

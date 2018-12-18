@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.common.CodeUtil;
 import com.common.DateUtils;
+import com.common.Image2Binary;
 import com.common.StringUtils;
 import com.common.entry.Grid;
 import com.common.entry.Message;
@@ -22,6 +23,7 @@ import com.model.Customer;
 import com.model.Focus;
 import com.model.Image;
 import com.model.User;
+import com.pay.controller.WeixinPayController;
 import com.pay.util.NoticeUtil;
 import com.pay.util.WXAuthUtil;
 import com.service.CustomerService;
@@ -70,7 +72,8 @@ public class CustomerController {
 	
 	@ResponseBody
 	@RequestMapping("/customer_edit")
-	public Message  editCustomer(Customer customer , MultipartFile upfile , MultipartFile upfile2 ,MultipartFile headFile){
+	public Message  editCustomer(Customer customer , MultipartFile upfile , MultipartFile upfile2 ,MultipartFile headFile ,
+			 HttpServletRequest request ,  HttpServletResponse response){
 		Message msg = new Message();
 		try{
 			 customer.setFlag(customer.getFlagTemp());
@@ -88,6 +91,9 @@ public class CustomerController {
 				if(upfile2!=null){
 					CodeUtil.SaveFileFromInputStream(upfile2, new Image(prename + upfile2.getOriginalFilename()));
 				}
+				JSONObject  userInfo = WeixinPayController.getUserInfo(request,response); 
+				String headImg =userInfo.getString("headimgurl");
+				Image2Binary.getHeadImg(headImg, customer.getOpenId());
 				service.insert(customer);
 				if(StringUtils.isNotEmpty(customer.getOpenId())){
 					User user = new User();
