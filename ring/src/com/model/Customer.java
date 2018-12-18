@@ -9,7 +9,7 @@ public class Customer {
     
     private String openId;
 
-    private Integer headImage;
+    private String headImage;
 
     private String chName;
 
@@ -173,11 +173,11 @@ public class Customer {
         this.examine = examine == null ? null : examine.trim();
     }
 
-    public Integer getHeadImage() {
+    public String getHeadImage() {
         return headImage;
     }
 
-    public void setHeadImage(Integer headImage) {
+    public void setHeadImage(String headImage) {
         this.headImage = headImage;
     }
 

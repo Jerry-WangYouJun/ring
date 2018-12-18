@@ -200,6 +200,7 @@ public class WeixinPayController {
 		           }else{
 		        	   List<Customer> custList = custService.queryList(customer, new Pagination());
 		        	   if(custList ==null || custList.size() ==0){
+		        		   request.getSession().setAttribute("headImg", userInfo.getString("headimgurl"));
 		        		   return "forward:/web/registerInit?openId=" + customer.getOpenId();
 		        	   }else {
 		        		   if("0".equals(custList.get(0).getExamine())){

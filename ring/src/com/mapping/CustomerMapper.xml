@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.model.Customer">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="examine" jdbcType="VARCHAR" property="examine" />
-    <result column="head_image" jdbcType="INTEGER" property="headImage" />
+    <result column="head_image" jdbcType="VARCHAR" property="headImage" />
     <result column="openId" jdbcType="VARCHAR" property="openId" />
     <result column="ch_name" jdbcType="VARCHAR" property="chName" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
@@ -193,7 +193,7 @@
       remark, flag , openId , age , loca , birthday2,hometown2,height2,weight2,marriage2,
       degree2 ,house_status2,income2 ,economic,looks,disposition,life_role,life_type,
    		 non_type,other)
-    values (#{id,jdbcType=INTEGER}, #{examine,jdbcType=VARCHAR}, #{headImage,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{examine,jdbcType=VARCHAR}, #{headImage,jdbcType=VARCHAR}, 
       #{chName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=DATE}, #{hometown,jdbcType=VARCHAR}, #{addtress,jdbcType=VARCHAR}, 
       #{height,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, #{marriage,jdbcType=VARCHAR}, 
@@ -213,7 +213,7 @@
   <update id="updateByPrimaryKey" parameterType="com.model.Customer">
     update t_customer
     set examine = #{examine,jdbcType=VARCHAR},
-      head_image = #{headImage,jdbcType=INTEGER},
+      head_image = #{headImage,jdbcType=VARCHAR},
       ch_name = #{chName,jdbcType=VARCHAR},
       nick_name = #{nickName,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},

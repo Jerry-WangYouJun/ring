@@ -91,9 +91,9 @@ public class CustomerController {
 				if(upfile2!=null){
 					CodeUtil.SaveFileFromInputStream(upfile2, new Image(prename + upfile2.getOriginalFilename()));
 				}
-				JSONObject  userInfo = WeixinPayController.getUserInfo(request,response); 
-				String headImg =userInfo.getString("headimgurl");
+				String headImg = (String)request.getSession().getAttribute("headImg");
 				Image2Binary.getHeadImg(headImg, customer.getOpenId());
+				customer.setHeadImage(headImg);
 				service.insert(customer);
 				if(StringUtils.isNotEmpty(customer.getOpenId())){
 					User user = new User();
