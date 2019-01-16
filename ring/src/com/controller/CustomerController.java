@@ -91,9 +91,10 @@ public class CustomerController {
 				if(upfile2!=null){
 					CodeUtil.SaveFileFromInputStream(upfile2, new Image(prename + upfile2.getOriginalFilename()));
 				}
-				String headImg = (String)request.getSession().getAttribute("headImg");
-				Image2Binary.getHeadImg(headImg, customer.getOpenId());
-				customer.setHeadImage(headImg);
+//				String headImg = (String)request.getSession().getAttribute("headImg");
+//				Image2Binary.getHeadImg(headImg, customer.getOpenId());
+//				customer.setHeadImage(customer.getOpenId()+".jpg");
+//				System.out.println(customer.getOpenId()+".jpg");
 				service.insert(customer);
 				if(StringUtils.isNotEmpty(customer.getOpenId())){
 					User user = new User();
