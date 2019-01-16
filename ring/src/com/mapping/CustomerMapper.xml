@@ -206,7 +206,7 @@
       remark, flag , openId , age , loca , birthday2,hometown2,weight2,marriage2,
       degree2 ,house_status2,income2 ,economic,looks,disposition,life_role,life_type,
    		 non_type,other , 
-   		  , car_status,car_status2,wx,hobby,hobby2,weekday,weekday2,travel,travel2,age1,age2,height1,height2)
+   		 car_status,car_status2,wx,hobby,hobby2,weekday,weekday2,travel,travel2,age1,age2,height1,height2)
     values (#{id,jdbcType=INTEGER}, #{examine,jdbcType=VARCHAR}, #{headImage,jdbcType=VARCHAR}, 
       #{chName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=DATE}, #{hometown,jdbcType=VARCHAR}, #{addtress,jdbcType=VARCHAR}, 

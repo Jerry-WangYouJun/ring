@@ -144,13 +144,13 @@ $(function(){
 						<div class="form-group">
                             <label class="control-label">身份证正面图</label>
                                 <input type="file" name="upfile" id="upfile" class="form-control " class="form-control" placeholder="请上传有效的身份证正面">
-							<div class="layui-upload">
+							<!-- <div class="layui-upload">
 							  <button type="button" class="layui-btn" id="test1">上传图片</button>
 							  <div class="layui-upload-list">
 							    <img class="layui-upload-img" id="demo1" width="100%" >
 							    <p id="demoText"></p>
 							  </div>
-							</div> 
+							</div>  -->
                         </div>
                                   
 						<div class="form-group">
@@ -395,14 +395,14 @@ $(function(){
 						<div class="form-group ">
 							<label for="message-text" class="control-label">住房状态:</label> <select
 								class="form-control dicSelect" name="houseStatus2"
-								placeholder="必填" required>
+								placeholder="必填" >
 
 							</select>
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">用车状态:</label> <select
 								class="form-control dicSelect" name="carStatus2"
-								placeholder="必填" required>
+								placeholder="必填" >
 
 							</select>
 						</div>
