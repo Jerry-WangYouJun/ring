@@ -8,7 +8,8 @@
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <%@include file="/common.jsp"%>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css"  media="all">
+<script src="${pageContext.request.contextPath }/layui/layui.js" charset="utf-8"></script>
 <title>会员注册</title>
 <style type="text/css">
 .panel-body {
@@ -136,14 +137,22 @@ $(function(){
 							<label for="message-text" class="control-label">联系电话:</label> <input
 								type="text" class="form-control required" onchange="checkTelephone()"  id="telephone" value="${mycust.telephone}" name="telephone" placeholder="必填" onchange="check_unique('telephone')" >
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
                             <label class="control-label">头像</label>
                                 <input type="file" name="headFile" id="headFile" class="form-control " accept="image/*"  class="form-control" placeholder="请上传图片">
-                        </div>
+                        </div> -->
 						<div class="form-group">
                             <label class="control-label">身份证正面图</label>
                                 <input type="file" name="upfile" id="upfile" class="form-control " class="form-control" placeholder="请上传有效的身份证正面">
+							<div class="layui-upload">
+							  <button type="button" class="layui-btn" id="test1">上传图片</button>
+							  <div class="layui-upload-list">
+							    <img class="layui-upload-img" id="demo1" width="100%" >
+							    <p id="demoText"></p>
+							  </div>
+							</div> 
                         </div>
+                                  
 						<div class="form-group">
                                  <label class="control-label">身份证反面图</label>
                                  <input type="file" name="upfile2" id="upfile2" class="form-control "  class="form-control" placeholder="请上传有效的身份证反面">
@@ -198,6 +207,9 @@ $(function(){
 												    <label class="checkbox-inline">
 												    <input type="checkbox"  value="城阳" name="loca">城阳
 												    </label>
+												    <label class="checkbox-inline">
+												    <input type="checkbox"  value="其他" name="loca">其他
+												    </label>
 								</div>	
 							</div>
 
@@ -224,7 +236,7 @@ $(function(){
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">学历:</label> <select
+							<label for="message-text" class="control-label">学历（全日制最高学历）:</label> <select
 								class="form-control dicSelect" name="degree" placeholder="必填"
 								required>
 
@@ -233,6 +245,13 @@ $(function(){
 						<div class="form-group ">
 							<label for="message-text" class="control-label">住房状态:</label> <select
 								class="form-control dicSelect" name="houseStatus"
+								placeholder="必填" required>
+
+							</select>
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">用车状态:</label> <select
+								class="form-control dicSelect" name="carStatus"
 								placeholder="必填" required>
 
 							</select>
@@ -262,8 +281,57 @@ $(function(){
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">qq号:</label> <input
-								type="text" class="form-control" name="qq">
+							<label for="message-text" class="control-label">性格:</label>
+								<div class="col-lg-12">
+								<div class="row">
+												    <label class="checkbox-inline">
+												      <input type="checkbox"  value="温柔" name="disposition">温柔
+												    </label>
+												    <label class="checkbox-inline">
+												      <input type="checkbox"  value="过日子" name="disposition">过日子
+												    </label>
+												    <label class="checkbox-inline">
+												    <input type="checkbox"  value="阳光" name="disposition">阳光
+												    </label>
+												    <label class="checkbox-inline">
+												    <input type="checkbox"  value="外冷内热" name="disposition">外冷内热
+												    </label>
+								</div>	
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">兴趣爱好:</label>
+								<div class="col-lg-12">
+								<div class="row">
+												    <label class="checkbox-inline">
+												      <input type="checkbox"  value="唱歌" name="hobby">唱歌
+												    </label>
+												    <label class="checkbox-inline">
+												      <input type="checkbox"  value="逛吃" name="hobby">逛吃
+												    </label>
+												    <label class="checkbox-inline">
+												    <input type="checkbox"  value="运动" name="hobby">运动
+												    </label>
+												    <label class="checkbox-inline">
+												    <input type="checkbox"  value="旅游" name="hobby">旅游
+												    </label>
+								</div>	
+							</div>
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">工作时间 :</label> <select
+								class="form-control dicSelect" name="weekday">
+							</select>
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">工作性质（出差情况） :</label> <select
+								class="form-control dicSelect" name="travel"
+								>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">微信号:</label> <input
+								type="text" class="form-control" name="wx">
 						</div>
 						
 						<div class="form-group ">
@@ -275,42 +343,123 @@ $(function(){
 								type="text" class="form-control" name="referee">
 						</div>
 						<div class="form-group ">
-							<label for="message-text" class="control-label">自我介绍:</label> <input
+							<label for="message-text" class="control-label">自我介绍:</label><!--  <input
 								type="text" class="form-control" name="introduction"
-								id="introduction">
+								id="introduction"> -->
+								<textarea rows="3"   class="form-control" name="introduction"
+								id="introduction"></textarea>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">爱情宣言:</label> <input
+							<label for="message-text" class="control-label">爱情宣言:</label> <!-- <input
 								type="text" class="form-control" name="declaration"
-								id="declaration">
+								id="declaration"> -->
+								<textarea rows="2"   class="form-control" name="declaration"
+								id="declaration"></textarea>
 						</div>
-						<div class="form-group"  style="text-align: center">
+						
+						
+						<!-- 择偶要求 -->
+						<hr width="150%" style="height:2px;margin: 30px -25% 10px" color=black>
+						<div class="form-group"  style="text-align: center;margin:0px">
 							<label for="message-text" class="control-label" style="font-size:">择偶要求</label> 
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">接受的年龄范围:</label>
-							<select
-									class="form-control dicSelect" name="birthday2" placeholder="必填"
-										>
-	
-								</select>
+							<div class="form-inline">
+									
+									<input type="text" class="form-control layui-input" id="age1" >
+									<label for="message-text" class="control-label"> 至</label>
+									<input type="text" class="form-control layui-input" id="age2" >
+							</div>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">经济能力:</label>
-								<select
-								class="form-control dicSelect" name="economic">
-							</select>
+							<label for="message-text" class="control-label">接受的身高范围:</label>
+							<div class="form-inline">
+									
+									<input type="text" class="form-control layui-input" id="height1" >
+									<label for="message-text" class="control-label"> 至</label>
+									<input type="text" class="form-control layui-input" id="height2" >
+							</div>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">外貌:</label><select
 								class="form-control dicSelect" name="looks">
 							</select>
 						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">税前月收入:</label>
+								<select
+								class="form-control dicSelect" name="economic">
+							</select>
+						</div>
 						<div class="form-group ">
+							<label for="message-text" class="control-label">住房状态:</label> <select
+								class="form-control dicSelect" name="houseStatus2"
+								placeholder="必填" required>
+
+							</select>
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">用车状态:</label> <select
+								class="form-control dicSelect" name="carStatus2"
+								placeholder="必填" required>
+
+							</select>
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">工作时间 :</label> <select
+								class="form-control dicSelect" name="weekday2">
+							</select>
+						</div>
+						<div class="form-group ">
+							<label for="message-text" class="control-label">工作性质（出差情况） :</label> <select
+								class="form-control dicSelect" name="travel2"
+								>
+							</select>
+						</div>
+						<!-- <div class="form-group ">
 							<label for="message-text" class="control-label">性格:</label> 
 								<select
 								class="form-control dicSelect" name="disposition">
 							</select>
+						</div> -->
+						<div class="form-group">
+							<label for="message-text" class="control-label">性格:</label>
+								<div class="col-lg-12">
+								<div class="row">
+												    <label class="checkbox-inline">
+												      <input type="checkbox"  value="温柔" name="disposition2">温柔
+												    </label>
+												    <label class="checkbox-inline">
+												      <input type="checkbox"  value="过日子" name="disposition2">过日子
+												    </label>
+												    <label class="checkbox-inline">
+												    <input type="checkbox"  value="阳光" name="disposition2">阳光
+												    </label>
+												    <label class="checkbox-inline">
+												    <input type="checkbox"  value="外冷内热" name="disposition2">外冷内热
+												    </label>
+								</div>	
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">兴趣爱好:</label>
+								<div class="col-lg-12">
+								<div class="row">
+												    <label class="checkbox-inline">
+												      <input type="checkbox"  value="唱歌" name="hobby2">唱歌
+												    </label>
+												    <label class="checkbox-inline">
+												      <input type="checkbox"  value="逛吃" name="hobby2">逛吃
+												    </label>
+												    <label class="checkbox-inline">
+												    <input type="checkbox"  value="运动" name="hobby2">运动
+												    </label>
+												    <label class="checkbox-inline">
+												    <input type="checkbox"  value="旅游" name="hobby2">旅游
+												    </label>
+								</div>	
+							</div>
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">期望对方将来的生活角色 :</label> <select
@@ -359,7 +508,8 @@ $(function(){
 	function checkTelephone(){
 		 var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
          if (!myreg.test($("#telephone").val())) {
-         		 layer.msg("手机号不合法");
+         		 layer.msg("手机号不合法,请重填");
+         		$("#telephone").val("")
              return false;
          } 
 	}
@@ -439,6 +589,52 @@ $(function(){
 				}
 		 })
 	}
+	
+	
+	layui.use('laydate', function(){
+	  var laydate = layui.laydate;
+	  laydate.render({
+		    elem: '#age1'
+		    ,type: 'year'
+		  });
+	  
+	  laydate.render({
+		    elem: '#age2'
+		    ,type: 'year'
+		  });
+	});
+	
+	layui.use('upload', function(){
+		  var $ = layui.jquery
+		  ,upload = layui.upload;
+		  
+		  //普通图片上传
+		  var uploadInst = upload.render({
+		    elem: '#test1'
+		    ,url: '/upload/'
+		    ,before: function(obj){
+		      //预读本地文件示例，不支持ie8
+		      obj.preview(function(index, file, result){
+		        $('#demo1').attr('src', result); //图片链接（base64）
+		      });
+		    }
+		    ,done: function(res){
+		      //如果上传失败
+		      if(res.code > 0){
+		        return layer.msg('上传失败');
+		      }
+		      //上传成功
+		    }
+		    ,error: function(){
+		      //演示失败状态，并实现重传
+		      var demoText = $('#demoText');
+		      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+		      demoText.find('.demo-reload').on('click', function(){
+		        uploadInst.upload();
+		      });
+		    }
+		  });
+	});
 </script>
 
 

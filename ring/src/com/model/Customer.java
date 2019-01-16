@@ -41,61 +41,6 @@ public class Customer {
     //身高查询条件
     private String heightQuery;
     
-    public String getHometownProvince() {
-		return hometownProvince;
-	}
-
-	public void setHometownProvince(String hometownProvince) {
-		this.hometownProvince = hometownProvince;
-	}
-
-	public String getHometownCity() {
-		return hometownCity;
-	}
-
-	public void setHometownCity(String hometownCity) {
-		this.hometownCity = hometownCity;
-	}
-
-	public String getHometownCountry() {
-		return hometownCountry;
-	}
-
-	public void setHometownCountry(String hometownCountry) {
-		this.hometownCountry = hometownCountry;
-	}
-
-	public String getAddressProvince() {
-		return addressProvince;
-	}
-
-	public void setAddressProvince(String addressProvince) {
-		this.addressProvince = addressProvince;
-	}
-
-	public String getAddressCity() {
-		return addressCity;
-	}
-
-	public void setAddressCity(String addressCity) {
-		this.addressCity = addressCity;
-	}
-
-	public String getAddressCountry() {
-		return addressCountry;
-	}
-
-	public void setAddressCountry(String addressCountry) {
-		this.addressCountry = addressCountry;
-	}
-
-	public String getHeightQuery() {
-		return heightQuery;
-	}
-
-	public void setHeightQuery(String heightQuery) {
-		this.heightQuery = heightQuery;
-	}
 
 	private Double height2;
 
@@ -139,6 +84,7 @@ public class Customer {
     
     private Integer age ;
     
+    // from - to 是查询用的
     private String ageFrom ;
     private String ageTo ;
     private Double heightFrom;
@@ -147,11 +93,25 @@ public class Customer {
     private String economic ;
     private String  looks; 
     private String disposition;
+    private String disposition2;
     private String  lifeRole; 
     private String lifeType;
     private String  nonType; 
     private String other;
     
+    private String carStatus;
+    private String carStatus2;
+    
+    private String wx ;
+    private String hobby;
+    private String hobby2;
+    private String weekday;
+    private String weekday2;
+    private String travel;
+    private String travel2;
+    private Integer age1;
+    private Integer age2;
+    private Double height1;
     private Integer inviteFlag ;
     
     
@@ -573,6 +533,164 @@ public class Customer {
 		this.inviteFlag = inviteFlag;
 	}
 	
-	
-	
+	 public String getHometownProvince() {
+			return hometownProvince;
+		}
+
+		public void setHometownProvince(String hometownProvince) {
+			this.hometownProvince = hometownProvince;
+		}
+
+		public String getHometownCity() {
+			return hometownCity;
+		}
+
+		public void setHometownCity(String hometownCity) {
+			this.hometownCity = hometownCity;
+		}
+
+		public String getHometownCountry() {
+			return hometownCountry;
+		}
+
+		public void setHometownCountry(String hometownCountry) {
+			this.hometownCountry = hometownCountry;
+		}
+
+		public String getAddressProvince() {
+			return addressProvince;
+		}
+
+		public void setAddressProvince(String addressProvince) {
+			this.addressProvince = addressProvince;
+		}
+
+		public String getAddressCity() {
+			return addressCity;
+		}
+
+		public void setAddressCity(String addressCity) {
+			this.addressCity = addressCity;
+		}
+
+		public String getAddressCountry() {
+			return addressCountry;
+		}
+
+		public void setAddressCountry(String addressCountry) {
+			this.addressCountry = addressCountry;
+		}
+
+		public String getHeightQuery() {
+			return heightQuery;
+		}
+
+		public void setHeightQuery(String heightQuery) {
+			this.heightQuery = heightQuery;
+		}
+
+		public String getDisposition2() {
+			return disposition2;
+		}
+
+		public void setDisposition2(String disposition2) {
+			this.disposition2 = disposition2;
+		}
+
+		public String getCarStatus() {
+			return carStatus;
+		}
+
+		public void setCarStatus(String carStatus) {
+			this.carStatus = carStatus;
+		}
+
+		public String getCarStatus2() {
+			return carStatus2;
+		}
+
+		public void setCarStatus2(String carStatus2) {
+			this.carStatus2 = carStatus2;
+		}
+
+		public String getWx() {
+			return wx;
+		}
+
+		public void setWx(String wx) {
+			this.wx = wx;
+		}
+
+		public String getHobby() {
+			return hobby;
+		}
+
+		public void setHobby(String hobby) {
+			this.hobby = hobby;
+		}
+
+		public String getHobby2() {
+			return hobby2;
+		}
+
+		public void setHobby2(String hobby2) {
+			this.hobby2 = hobby2;
+		}
+
+		public String getWeekday() {
+			return weekday;
+		}
+
+		public void setWeekday(String weekday) {
+			this.weekday = weekday;
+		}
+
+		public String getWeekday2() {
+			return weekday2;
+		}
+
+		public void setWeekday2(String weekday2) {
+			this.weekday2 = weekday2;
+		}
+
+		public String getTravel() {
+			return travel;
+		}
+
+		public void setTravel(String travel) {
+			this.travel = travel;
+		}
+
+		public String getTravel2() {
+			return travel2;
+		}
+
+		public void setTravel2(String travel2) {
+			this.travel2 = travel2;
+		}
+
+		public Integer getAge1() {
+			return age1;
+		}
+
+		public void setAge1(Integer age1) {
+			this.age1 = age1;
+		}
+
+		public Integer getAge2() {
+			return age2;
+		}
+
+		public void setAge2(Integer age2) {
+			this.age2 = age2;
+		}
+
+		public Double getHeight1() {
+			return height1;
+		}
+
+		public void setHeight1(Double height1) {
+			this.height1 = height1;
+		}
+		
 }
