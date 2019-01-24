@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.common.CodeUtil;
 import com.common.DateUtils;
-import com.common.Image2Binary;
 import com.common.StringUtils;
 import com.common.entry.Grid;
 import com.common.entry.Message;
@@ -23,7 +22,6 @@ import com.model.Customer;
 import com.model.Focus;
 import com.model.Image;
 import com.model.User;
-import com.pay.controller.WeixinPayController;
 import com.pay.util.NoticeUtil;
 import com.pay.util.WXAuthUtil;
 import com.service.CustomerService;
@@ -71,9 +69,27 @@ public class CustomerController {
 	}
 	
 	@ResponseBody
+	@RequestMapping("/cardimg")
+	public Message uploadCardImg( MultipartFile file , MultipartFile upfile2 ) {
+		Message msg = new Message();
+		try {
+				String prename = DateUtils.getDate14() ;
+				String img = prename + "_" +  file.getOriginalFilename();
+				if(file!=null){
+					CodeUtil.SaveFileFromInputStream(file, new Image(img));
+				}
+				msg.setSuccess(true);
+				msg.setMsg(img);
+		}catch(Exception e) {
+			 msg.setSuccess(false);
+			 msg.setMsg("操作失败");
+		}
+		return msg ;
+	}
+	
+	@ResponseBody
 	@RequestMapping("/customer_edit")
-	public Message  editCustomer(Customer customer , MultipartFile upfile , MultipartFile upfile2 ,MultipartFile headFile ,
-			 HttpServletRequest request ,  HttpServletResponse response){
+	public Message  editCustomer(Customer customer  , HttpServletRequest request ,  HttpServletResponse response){
 		Message msg = new Message();
 		try{
 			 customer.setFlag(customer.getFlagTemp());
@@ -83,41 +99,23 @@ public class CustomerController {
 				user.setUserNo(customer.getTelephone());
 				userService.update(user);
 			}else{
-				String prename = DateUtils.getDate14() ;
 				customer.setExamine("0");
-				if(headFile!=null){
-					CodeUtil.SaveFileFromInputStream(headFile, new Image(prename + "_" +  headFile.getOriginalFilename()));
-				}
-				if(upfile!=null){
-					String front = prename + "_" +  upfile.getOriginalFilename();
-					CodeUtil.SaveFileFromInputStream(upfile, new Image(front));
-					customer.setFrontImg(front);
-				}
-				if(upfile2!=null){
-					String back = prename + "_" +  upfile2.getOriginalFilename();
-					CodeUtil.SaveFileFromInputStream(upfile2, new Image(back));
-					customer.setBackImg(back);
-				}
-//				String headImg = (String)request.getSession().getAttribute("headImg");
-//				Image2Binary.getHeadImg(headImg, customer.getOpenId());
-//				customer.setHeadImage(customer.getOpenId()+".jpg");
-//				System.out.println(customer.getOpenId()+".jpg");
 				service.insert(customer);
-					User user = new User();
-					user.setUserNo(customer.getTelephone());
-					user.setPwd("123");
-					user.setRemark(customer.getOpenId());
-					user.setUserName(customer.getChName());
-					user.setRole("2");
-					userService.insert(user);
-			        JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.registerSuccess(customer));
-			        User admin = new User();
-			        admin.setRole("11");
-			        List<User> userList = userService.queryList(admin, new Pagination());
-			        for(User u : userList){
-			        	 WXAuthUtil.sendTemplateMsg(NoticeUtil.registerReport(u , customer));
-			        }
-			        System.out.println(jsonObject);
+				User user = new User();
+				user.setUserNo(customer.getTelephone());
+				user.setPwd("123");
+				user.setRemark(customer.getOpenId());
+				user.setUserName(customer.getChName());
+				user.setRole("2");
+				userService.insert(user);
+		        JSONObject jsonObject = WXAuthUtil.sendTemplateMsg(NoticeUtil.registerSuccess(customer));
+		        User admin = new User();
+		        admin.setRole("11");
+		        List<User> userList = userService.queryList(admin, new Pagination());
+		        for(User u : userList){
+		        	 	WXAuthUtil.sendTemplateMsg(NoticeUtil.registerReport(u , customer));
+		        }
+		        System.out.println(jsonObject);
 			}
 			msg.setSuccess(true);
 			msg.setMsg("操作成功");

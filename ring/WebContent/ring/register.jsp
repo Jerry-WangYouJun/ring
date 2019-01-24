@@ -151,21 +151,27 @@ $(function(){
                                 <input type="file" name="headFile" id="headFile" class="form-control " accept="image/*"  class="form-control" placeholder="请上传图片">
                         </div> -->
 						<div class="form-group">
-                            <label class="control-label">身份证正面图</label>
-                                <input type="file" name="upfile" id="upfile" class="form-control " class="form-control" placeholder="请上传有效的身份证正面">
-							<!-- <div class="layui-upload">
-							  <button type="button" class="layui-btn" id="test1">上传图片</button>
+                                <input type="hidden" name="frontImg" id="frontImg"  class="form-control " class="form-control" >
+							 <div class="layui-upload">
+							  <button type="button" class="layui-btn" id="upfileFront">上传身份证正面</button>
 							  <div class="layui-upload-list">
 							    <img class="layui-upload-img" id="demo1" width="100%" >
 							    <p id="demoText"></p>
 							  </div>
-							</div>  -->
+							</div> 
+                        </div>
+                        
+                        <div class="form-group">
+                             <input type="hidden" name="backImg"  id="backImg" class="form-control " class="form-control" >
+							 <div class="layui-upload">
+							  <button type="button" class="layui-btn" id="upfileBack">上传身份证反面</button>
+							  <div class="layui-upload-list">
+							    <img class="layui-upload-img" id="demo2" width="100%" >
+							    <p id="demoText2"></p>
+							  </div>
+							</div> 
                         </div>
                                   
-						<div class="form-group">
-                                 <label class="control-label">身份证反面图</label>
-                                 <input type="file" name="upfile2" id="upfile2" class="form-control "  class="form-control" placeholder="请上传有效的身份证反面">
-                        </div  >
 						<div class="form-group">
 							<label for="message-text" class="control-label">生日:</label>
 							<div class='input-group date' id='datetimepicker3'>
@@ -612,8 +618,8 @@ $(function(){
 		  
 		  //普通图片上传
 		  var uploadInst = upload.render({
-		    elem: '#test1'
-		    ,url: '/upload/'
+		    elem: '#upfileFront'
+		    ,url: '${basePath}/customer/cardimg'
 		    ,before: function(obj){
 		      //预读本地文件示例，不支持ie8
 		      obj.preview(function(index, file, result){
@@ -621,8 +627,11 @@ $(function(){
 		      });
 		    }
 		    ,done: function(res){
+		    	  console.info(res);
 		      //如果上传失败
-		      if(res.code > 0){
+		      if(res.success){
+		    	  	  $("#frontImg").val(res.msg);
+		      }else{
 		        return layer.msg('上传失败');
 		      }
 		      //上传成功
@@ -636,6 +645,35 @@ $(function(){
 		      });
 		    }
 		  });
+		  
+		  var uploadInst2 = upload.render({
+			    elem: '#upfileBack'
+			    ,url: '${basePath}/customer/cardimg'
+			    ,before: function(obj){
+			      //预读本地文件示例，不支持ie8
+			      obj.preview(function(index, file, result){
+			        $('#demo2').attr('src', result); //图片链接（base64）
+			      });
+			    }
+			    ,done: function(res){
+			    	  console.info(res);
+			      //如果上传失败
+			      if(res.success){
+			    	  	$("#backImg").val(res.msg);
+			      }else{
+			        return layer.msg('上传失败');
+			      }
+			      //上传成功
+			    }
+			    ,error: function(){
+			      //演示失败状态，并实现重传
+			      var demoText = $('#demoText2');
+			      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+			      demoText.find('.demo-reload').on('click', function(){
+			        uploadInst2.upload();
+			      });
+			    }
+			  });
 	});
 </script>
 
