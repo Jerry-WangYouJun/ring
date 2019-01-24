@@ -55,18 +55,19 @@ public class WXAuthUtil {
       
 	}
 	
-	public static JSONObject  sendTemplateMsg(Template template) throws ClientProtocolException, IOException{  
-        
+	public static JSONObject  sendTemplateMsg(Template template) throws ClientProtocolException, IOException { 
+		JSONObject jsonObject = null ;
+        try {
+	        	String token = getAccessToken();
+	        	String requestUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
+	        	requestUrl=requestUrl.replace("ACCESS_TOKEN", token);  
+	        	System.out.println(template.toJSON());
+	        	//发送模板消息,返回json格式结果
+	        jsonObject =CommonUtil.httpsRequest(requestUrl, "POST", template.toJSON());
+        }catch(Exception e) {
+        		System.out.println("忽略微信端异常:" + e.getMessage());
+        }
         //获取token
-        String token = getAccessToken();
-          
-        String requestUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
-        
-        requestUrl=requestUrl.replace("ACCESS_TOKEN", token);  
-        
-        System.out.println(template.toJSON());
-        //发送模板消息,返回json格式结果
-        JSONObject jsonObject =CommonUtil.httpsRequest(requestUrl, "POST", template.toJSON());
         
         return jsonObject;
           

@@ -32,4 +32,7 @@ public interface UserMapper {
 
 	public int queryTotal(User record);
 
+
+	public User queryUserByTelephone(String telephone);
+
 }

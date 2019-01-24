@@ -64,6 +64,8 @@
 	 <result column="age2" jdbcType="INTEGER" property="age2" />
 	 <result column="height1" jdbcType="INTEGER" property="height1" />
 	 <result column="height2" jdbcType="INTEGER" property="height2" />
+	 <result column="front_img" jdbcType="VARCHAR" property="frontImg" /> 
+	<result column="back_img" jdbcType="VARCHAR" property="backImg" /> 
     <collection property="focus" ofType="com.model.Focus" select="getFocus" column="id">
 		</collection>
   </resultMap>
@@ -71,7 +73,7 @@
     id, examine, head_image, ch_name, nick_name, sex, birthday, birthday2,hometown,hometown2, addtress, height,height2, 
     weight,weight2, marriage,marriage2, children, degree,degree2, house_status, house_status2,industry, income,income2 ,qq, telephone, 
     email, referee, introduction, declaration, ask, remark,flag , openId ,age , loca,economic,looks,disposition,life_role,life_type,
-    non_type,other , car_status,car_status2,wx,hobby,hobby2,weekday,weekday2,travel,travel2,age1,age2,height1,height2
+    non_type,other , car_status,car_status2,wx,hobby,hobby2,weekday,weekday2,travel,travel2,age1,age2,height1,height2,front_img,back_img
   </sql>
   <select id="getFocus" parameterType="int" resultType="com.model.Focus">
 		select 
@@ -206,7 +208,8 @@
       remark, flag , openId , age , loca , birthday2,hometown2,weight2,marriage2,
       degree2 ,house_status2,income2 ,economic,looks,disposition,life_role,life_type,
    		 non_type,other , 
-   		 car_status,car_status2,wx,hobby,hobby2,weekday,weekday2,travel,travel2,age1,age2,height1,height2)
+   		 car_status,car_status2,wx,hobby,hobby2,weekday,weekday2,travel,travel2,age1,age2,height1,height2 , 
+   		 front_img ,back_img)
     values (#{id,jdbcType=INTEGER}, #{examine,jdbcType=VARCHAR}, #{headImage,jdbcType=VARCHAR}, 
       #{chName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=DATE}, #{hometown,jdbcType=VARCHAR}, #{addtress,jdbcType=VARCHAR}, 
@@ -227,7 +230,7 @@
       #{hobby,jdbcType=VARCHAR}, #{hobby2,jdbcType=VARCHAR}, #{weekday,jdbcType=VARCHAR}, 
       #{weekday2,jdbcType=VARCHAR}, #{travel,jdbcType=VARCHAR}, #{travel2,jdbcType=VARCHAR}, 
          #{age1,jdbcType=INTEGER} , #{age2,jdbcType=INTEGER} ,
-       #{height1,jdbcType=DOUBLE}, #{height2,jdbcType=DOUBLE}
+       #{height1,jdbcType=DOUBLE}, #{height2,jdbcType=DOUBLE} ,  #{frontImg,jdbcType=VARCHAR}, #{backImg,jdbcType=VARCHAR}
        )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.model.Customer">
@@ -274,11 +277,12 @@
       life_type =  #{lifeType,jdbcType=VARCHAR} , 
        non_type = #{nonType,jdbcType=VARCHAR},  
         other= #{other,jdbcType=VARCHAR},
-       car_status=  #{carStatus,jdbcType=VARCHAR}, cat_status2 = #{carStatus2,jdbcType=VARCHAR},wx= #{wx,jdbcType=VARCHAR}, 
+       car_status=  #{carStatus,jdbcType=VARCHAR}, car_status2  = #{carStatus2,jdbcType=VARCHAR},wx= #{wx,jdbcType=VARCHAR}, 
       hobby =#{hobby,jdbcType=VARCHAR},hobby2= #{hobby2,jdbcType=VARCHAR},weekday = #{weekday,jdbcType=VARCHAR}, 
       weekday2 = #{weekday2,jdbcType=VARCHAR}, travel =#{travel,jdbcType=VARCHAR}, travel2= #{travel2,jdbcType=VARCHAR}, 
       height1= #{height1,jdbcType=DOUBLE}, height2 =#{height2,jdbcType=DOUBLE}  ,age1  =  #{age1,jdbcType=INTEGER} , 
-      age2 = #{age2,jdbcType=INTEGER} 
+      age2 = #{age2,jdbcType=INTEGER} ,
+      front_img = #{frontImg,jdbcType=VARCHAR}, back_img = #{backImg,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

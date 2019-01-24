@@ -44,10 +44,10 @@ public class CodeUtil {
         		path="D:\\uploadFile";
         	}
         	File f = new File(path + "/"+ image.getIname());
-			 if(!f.exists()){
-				 f.getParentFile().mkdirs();
-			 }
-			 OutputStream out = new FileOutputStream(f);
+		if(!f.exists()){
+			 f.getParentFile().mkdirs();
+		}
+		OutputStream out = new FileOutputStream(f);
         	FileCopyUtils.copy(file.getInputStream(), out);
 		}  
 }

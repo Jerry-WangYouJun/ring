@@ -12,7 +12,7 @@
     id, user_no, pwd , user_name, role, remark
   </sql>
   <select id="queryByWhere" resultMap="BaseResultMap" >
-  	    select * from t_user where 1=1 
+  	    select * from t_user where 1=1  
   	    <if test="obj.id!=null and obj.id > 0">
   	    	    and id = #{obj.id}
   	    </if>
@@ -29,6 +29,13 @@
   	    	     and remark =  #{obj.remark}
   	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
+  </select>
+  
+  <select id="queryUserByTelephone" parameterType="java.lang.String" resultMap="BaseResultMap" >
+  	    select * from t_user where 1=1  
+  	    <if test="telephone !=null and telephone  != '' ">
+  	    	    and userNo =  #{telephone,jdbcType=VARCHAR}
+  	    </if>
   </select>
   
   <select id="queryTotal"  resultType="java.lang.Integer">

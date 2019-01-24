@@ -135,7 +135,16 @@ $(function(){
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">联系电话:</label> <input
-								type="text" class="form-control required" onchange="checkTelephone()"  id="telephone" value="${mycust.telephone}" name="telephone" placeholder="必填" onchange="check_unique('telephone')" >
+								type="text" class="form-control required" onchange="checkTelephone()"  id="telephone" value="${mycust.telephone}" name="telephone" placeholder="必填"  >
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">微信号:</label> <input
+								type="text" class="form-control " name="wx">
+						</div>
+						
+						<div class="form-group ">
+							<label for="message-text" class="control-label">邮箱:</label> <input
+								type="text" class="form-control email required " name="email">
 						</div>
 						<!-- <div class="form-group">
                             <label class="control-label">头像</label>
@@ -329,15 +338,7 @@ $(function(){
 								>
 							</select>
 						</div>
-						<div class="form-group">
-							<label for="message-text" class="control-label">微信号:</label> <input
-								type="text" class="form-control" name="wx">
-						</div>
 						
-						<div class="form-group ">
-							<label for="message-text" class="control-label">邮箱:</label> <input
-								type="text" class="form-control email" name="email">
-						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">推荐人:</label> <input
 								type="text" class="form-control" name="referee">
@@ -512,6 +513,7 @@ $(function(){
          		$("#telephone").val("")
              return false;
          } 
+         check_unique('telephone');
 	}
 
 	function subInfoAll(name) {

@@ -46,7 +46,7 @@ $(function(){
 		$.ajax({
 			url : path,
 			type : 'post',
-			data : {codeEmail:$("#codeEmail").val()},
+			data : {codeEmail:$("#codeEmail").val() , telephone: $("#telephone").val()},
 			dataType : 'json',
 			success : function(data) {
 				if (data.success) {
@@ -84,10 +84,16 @@ $(function(){
 						<input type="hidden" name="userNo" id="userNo" />
 						<input type="hidden" name="pwd" id="pwd" value="123"/>
 						<div class="form-group">
-							<label class="col-lg-12 col-md-12 col-sm-12 control-label">内部会员，请填写档案中的电子邮箱，我们将发送一个验证码到您的邮箱中</label>
+							<label class="col-lg-12 col-md-12 col-sm-12 control-label">如果您已经是内部注册会员，请填写档案中的电子邮箱以及手机号，我们将发送一个验证码到您的邮箱中来关联您的用户信息</label>
 							<div class="col-lg-12 col-md-12 col-xs-12">
 								<input type="text" class="form-control email " 
 									id="codeEmail" placeholder="请输入邮箱" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-lg-12 col-md-12 col-xs-12">
+								<input type="text" class="form-control " 
+									id="telephone" placeholder="请输入注册手机号" required>
 							</div>
 						</div>
 						<!-- End .form-group  -->

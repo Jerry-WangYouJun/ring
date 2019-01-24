@@ -208,7 +208,7 @@ public class WeixinPayController {
 		        		   }else{
 		        			   
 		        			   User user = new User();
-		        			   user.setUserNo(customer.getOpenId());
+		        			   user.setUserNo(customer.getTelephone());
 		        			   user.setPwd("123");
 		        			   user = userService.checkUser(user);
 		        			   request.getSession().setAttribute("webUser", user);

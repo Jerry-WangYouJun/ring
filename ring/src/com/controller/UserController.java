@@ -169,12 +169,20 @@ public class UserController {
 		return "login";
 	}
 	
+	
+	/**
+	 *  会员签到
+	 * @param session
+	 * @param remark
+	 * @param state
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("/signState")
-	public Message signState(HttpSession session , String remark , String state){
+	public Message signState(HttpSession session , String telephone , String state){
 		Message msg = new Message();
 		User user = new User();
-    		user.setRemark(remark);
+    		user.setUserNo(telephone);
     		List<User> userList =service.queryList(user, new Pagination());
     		if("1".equals(state)) {
             		user = userList.get(0);

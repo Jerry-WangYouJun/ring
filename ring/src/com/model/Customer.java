@@ -17,7 +17,10 @@ public class Customer {
 
     private String sex;
 
-    private String webSex;
+    private String webSex;//查询的性别
+    
+    private  String frontImg ;
+    private String backImg;
    
     private String birthday;
     private String birthday2;
@@ -691,6 +694,22 @@ public class Customer {
 
 		public void setHeight1(Double height1) {
 			this.height1 = height1;
+		}
+
+		public String getFrontImg() {
+			return frontImg;
+		}
+
+		public void setFrontImg(String frontImg) {
+			this.frontImg = frontImg;
+		}
+
+		public String getBackImg() {
+			return backImg;
+		}
+
+		public void setBackImg(String backImg) {
+			this.backImg = backImg;
 		}
 		
 }

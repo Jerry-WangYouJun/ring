@@ -213,7 +213,7 @@ public class NoticeUtil {
 	        paras.add(new TemplateParam("keyword3", location.getTelephone(),"#333"));
 	        paras.add(new TemplateParam("remark","点击查看预约详情","#333"));  
 	        tem.setTemplateParamList(paras);  
-	        tem.setToUser(user.getUserNo());//用户openid
+	        tem.setToUser(user.getRemark());//用户openid
 	        //设置超链接
 	        tem.setUrl("http://www.ringfingerdating.cn/ring/wx/index/web/"+id);  
 	        return tem;
@@ -249,7 +249,7 @@ public class NoticeUtil {
         paras.add(new TemplateParam("keyword3", DateUtils.getToday(),"#333"));
         paras.add(new TemplateParam("remark","点击查看详情","#333"));  
         tem.setTemplateParamList(paras);  
-        tem.setToUser(u.getUserNo());//用户openid
+        tem.setToUser(u.getRemark());//用户openid
         //设置超链接
         tem.setUrl("http://www.ringfingerdating.cn/ring/wx/index/web/0"  );    
         return tem;
@@ -341,7 +341,7 @@ public class NoticeUtil {
         paras.add(new TemplateParam("keyword3", DateUtils.getToday(),"#333"));
         paras.add(new TemplateParam("remark","点击查看详情","#333"));  
         tem.setTemplateParamList(paras);  
-        tem.setToUser(u.getUserNo());//用户openid
+        tem.setToUser(u.getRemark());//用户openid
         //设置超链接
         tem.setUrl("http://www.ringfingerdating.cn/ring/message/examine?id=" + msg.getId() );    
         return tem;

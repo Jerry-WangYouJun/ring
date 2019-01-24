@@ -154,9 +154,11 @@
 							if (value == '1') {
 								return "超级管理员";
 							} else if (value == '2') {
-								return "普通管理员";
+								return "普通会员";
 							} else if(value =='3' ){
 								return  "其他";
+							} else if(value = '11'){
+								return "值班管理员";
 							}
 			        }},{  
 			            field : 'remark',   title : '备注',  align: 'center',   valign: 'middle'  

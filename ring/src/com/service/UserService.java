@@ -28,6 +28,16 @@ public class UserService {
 		return mapper.queryByWhere(user , page);
 	}
 	
+	/**
+	 * 根据用户名/注册手机号查询用户
+	 * @param user
+	 * @param page
+	 * @return
+	 */
+	public  User queryUserByTelephone(String telephone) {
+		return mapper.queryUserByTelephone(telephone);
+	}
+	
 	public void insert(User user) {
 		mapper.insert(user);
 	}

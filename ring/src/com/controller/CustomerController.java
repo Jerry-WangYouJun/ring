@@ -79,28 +79,34 @@ public class CustomerController {
 			 customer.setFlag(customer.getFlagTemp());
 			if(customer.getId() != null  &&  customer.getId() > 0){
 				service.update(customer);
+				User user = userService.queryUserByTelephone(customer.getTelephone());
+				user.setUserNo(customer.getTelephone());
+				userService.update(user);
 			}else{
 				String prename = DateUtils.getDate14() ;
 				customer.setExamine("0");
 				if(headFile!=null){
-					CodeUtil.SaveFileFromInputStream(headFile, new Image(prename + headFile.getOriginalFilename()));
+					CodeUtil.SaveFileFromInputStream(headFile, new Image(prename + "_" +  headFile.getOriginalFilename()));
 				}
 				if(upfile!=null){
-					CodeUtil.SaveFileFromInputStream(upfile, new Image(prename + upfile.getOriginalFilename()));
+					String front = prename + "_" +  upfile.getOriginalFilename();
+					CodeUtil.SaveFileFromInputStream(upfile, new Image(front));
+					customer.setFrontImg(front);
 				}
 				if(upfile2!=null){
-					CodeUtil.SaveFileFromInputStream(upfile2, new Image(prename + upfile2.getOriginalFilename()));
+					String back = prename + "_" +  upfile2.getOriginalFilename();
+					CodeUtil.SaveFileFromInputStream(upfile2, new Image(back));
+					customer.setBackImg(back);
 				}
 //				String headImg = (String)request.getSession().getAttribute("headImg");
 //				Image2Binary.getHeadImg(headImg, customer.getOpenId());
 //				customer.setHeadImage(customer.getOpenId()+".jpg");
 //				System.out.println(customer.getOpenId()+".jpg");
 				service.insert(customer);
-				if(StringUtils.isNotEmpty(customer.getOpenId())){
 					User user = new User();
-					user.setUserNo(customer.getOpenId());
+					user.setUserNo(customer.getTelephone());
 					user.setPwd("123");
-					user.setRemark(customer.getId()+"");
+					user.setRemark(customer.getOpenId());
 					user.setUserName(customer.getChName());
 					user.setRole("2");
 					userService.insert(user);
@@ -112,7 +118,6 @@ public class CustomerController {
 			        	 WXAuthUtil.sendTemplateMsg(NoticeUtil.registerReport(u , customer));
 			        }
 			        System.out.println(jsonObject);
-				}
 			}
 			msg.setSuccess(true);
 			msg.setMsg("操作成功");
@@ -138,9 +143,9 @@ public class CustomerController {
 				
 				if(StringUtils.isNotEmpty(customer.getOpenId())){
 					User user = new User();
-					user.setUserNo(customer.getOpenId());
+					user.setUserNo(customer.getTelephone());
 					user.setPwd("123");
-					user.setRemark(customer.getId()+"");
+					user.setRemark(customer.getOpenId());
 					user.setUserName(customer.getChName());
 					user.setRole("2");
 					userService.insert(user);

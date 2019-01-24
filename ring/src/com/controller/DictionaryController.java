@@ -39,8 +39,12 @@ public class DictionaryController {
 		String pageNo = request.getParameter("pageNumber");
 		String pageSize = request.getParameter("pageSize");
 	    Dictionary dic = new Dictionary();
-	    dic.setCol(col);
-	    dic.setName(name);
+	    if(col != null) {
+	    		dic.setCol("%" + col + "%");
+	    }
+	    if(name != null) {
+		    	dic.setName("%" + name + "%");
+	    }
 		Pagination page =  new Pagination(pageNo, pageSize) ;
 	    CodeUtil.initPagination(page);
 		List<Dictionary> list = service.queryList(dic , page );

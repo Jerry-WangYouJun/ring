@@ -83,8 +83,8 @@
                         <a href="#"> 系统管理 <i class="im-paragraph-justify"></i></a>
                         <ul class="nav sub">
                             <li>
-                            	<a href="#" class="ec-users" onclick='addTab("user","${pageContext.request.contextPath}/pages/user_list.jsp","管理员信息")'>
-								 管理员信息</a>
+                            	<a href="#" class="ec-users" onclick='addTab("user","${pageContext.request.contextPath}/pages/user_list.jsp","账号信息")'>
+								 账号信息</a>
                             </li>
                             <li>
                             	<a href="#" class="ec-location" onclick='addTab("location","${pageContext.request.contextPath}/pages/location_list.jsp","约会地点维护")'>

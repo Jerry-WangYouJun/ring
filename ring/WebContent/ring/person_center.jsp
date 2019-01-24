@@ -48,8 +48,8 @@ $(document).ready(function(){
     );
     
 });
-	 function signState(custId , state){
-			 var url = "${pageContext.request.contextPath}/user/signState?remark=" + custId + "&state=" + state;
+	 function signState(telephone , state){
+			 var url = "${pageContext.request.contextPath}/user/signState?telephone=" + telephone + "&state=" + state;
 			 $.ajax({
 					url : url,
 					type : 'post',
@@ -160,10 +160,10 @@ $(document).ready(function(){
 				  </div>
 			</div>
 			<c:if test="${ webUser.role == '1' }">
-				<button type="button" class="btn  btn-success" onclick="signState('${customer.id}','1')">管理员签到</button>
+				<button type="button" class="btn  btn-success" onclick="signState('${customer.telephone}','1')">管理员签到</button>
 			</c:if>
 			<c:if test="${ webUser.role == '11' }">
-				<button type="button" class="btn  btn-success" onclick="signState('${customer.id}','0')"><i class="im-heart"></i> 管理员签退</button>
+				<button type="button" class="btn  btn-success" onclick="signState('${customer.telephone}','0')"><i class="im-heart"></i> 管理员签退</button>
 			
 			<div style="margin: 30px" id="examine" class="showView"> 
 			<div class="row mb10 ">

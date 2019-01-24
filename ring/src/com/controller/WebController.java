@@ -30,7 +30,6 @@ import com.model.Invite;
 import com.model.InviteDetail;
 import com.model.Location;
 import com.model.User;
-import com.pay.util.JsSignUtil;
 import com.pay.util.NoticeUtil;
 import com.pay.util.WXAuthUtil;
 import com.sendMail.EmailSendService;
@@ -78,9 +77,14 @@ public class WebController {
 	
 	@RequestMapping("/login")
 	public String login( HttpSession session , User user) {
-		user = service.checkUser(user);
+			user = service.checkUser(user);
 			session.setAttribute("webUser", user);
-			Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
+			Customer cust =  new Customer();
+			cust.setTelephone(user.getUserNo());
+			List<Customer> custList = custService.queryList(cust, new Pagination());
+			if(custList != null && custList.size() > 0) {
+				cust = custList.get(0);
+			}
 			if("0".equals(cust.getExamine())){
  			   return "forward:/web/registerInit?openId=0" ;
  		   }else{
@@ -92,11 +96,12 @@ public class WebController {
 	
 	@ResponseBody
 	@RequestMapping("/sendMail")
-	public Message sendMail( HttpSession session , String codeEmail ) {
+	public Message sendMail( HttpSession session , String codeEmail  , String telephone ) {
 		Message msg = new Message();
 		try {
 			Customer cust = new Customer();
 			cust.setEmail(codeEmail);
+			cust.setTelephone(telephone);
 			List<Customer> list = custService.queryList(cust , new Pagination());
 			if(list != null && list.size()>0){
 				 int code = emailService.sendMail(codeEmail);
@@ -114,7 +119,7 @@ public class WebController {
 				 custService.update(customer);
 			}else{
 				msg.setSuccess(false);
-				msg.setMsg("您所填写的邮箱在系统中不存在！");
+				msg.setMsg("您所填写的邮箱或手机信息错误或不存在，请核对！");
 			}
 		} catch (Exception e) {
 			msg.setSuccess(false);
