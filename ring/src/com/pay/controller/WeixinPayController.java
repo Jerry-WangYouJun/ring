@@ -185,7 +185,13 @@ public class WeixinPayController {
 	@RequestMapping("/checkact/{action}/{id}")
 	public String checkact(HttpServletRequest request, HttpServletResponse response
 			, @PathVariable Integer id , @PathVariable String action) throws ClientProtocolException, IOException{
-			        JSONObject userInfo  = getUserInfo(request, response);
+			        JSONObject userInfo   = null ;
+			        try{
+			        	userInfo = getUserInfo(request, response);
+			        }catch(Exception e){
+			        	System.out.println("获取用户信息失败或网络异常");
+			        	 return "forward:/web/registerInit?openId=1" ;
+			        }
 		                Customer customer = new Customer();
 		                customer.setOpenId(userInfo.getString("openid"));
 		        String token_user_focus    = WXAuthUtil.getAccessToken();

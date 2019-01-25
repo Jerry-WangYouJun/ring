@@ -123,6 +123,9 @@ $(function(){
 											 <c:when test="${openId eq '0'}">
 											 	  <label class="col-lg-12 col-md-12 col-sm-12 control-label">审核正在进行中，请耐心等待~</label>
 											 </c:when>
+											  <c:when test="${openId eq '1'}">
+											 	  <label class="col-lg-12 col-md-12 col-sm-12 control-label">网络繁忙，请刷新或稍后访问~</label>
+											 </c:when>
 											 <c:otherwise>
 												<label class="col-lg-12 col-md-12 col-sm-12 control-label">尚未注册？</label>
 												<a  href="###" onclick="regist()">注册成为会员</a>
