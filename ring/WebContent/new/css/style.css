@@ -222,9 +222,9 @@ ul,li{
 .list-main-introduce .introduce-btn{
     height: 4rem;
 }
-.list-main-introduce .col-xs-4{
+/* .list-main-introduce .spanleft {
     color:#999;
-}
+} */
 .list-main-about{
     margin-top: 2rem;
     padding:0 20px;

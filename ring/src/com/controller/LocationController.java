@@ -43,6 +43,21 @@ public class LocationController {
 	}
 	
 	@ResponseBody
+	@RequestMapping("/detail")
+	public Message  queryDetail( Integer id) {
+		Message msg = new Message();
+		try {
+			Location  loca = service.selectById(id);
+			msg.setSuccess(true);
+			msg.setObj(loca);
+		}catch(Exception e) {
+			msg.setSuccess(false);
+			msg.setMsg(e.getMessage());
+		}
+		return msg;
+	}
+	
+	@ResponseBody
 	@RequestMapping("/location_edit")
 	public Message  editLocation(Location location ){
 		Message msg = new Message();

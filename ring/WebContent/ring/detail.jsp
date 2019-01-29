@@ -13,16 +13,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-easyui-1.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/layer/layer.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-table.min.css" />  
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table-zh-CN.js"></script>
-<script type="text/JavaScript" src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
-<link href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />  
-<script src="${pageContext.request.contextPath}/js/moment-with-locales.js"></script>  
-<script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script> 
-<script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js"></script> 
 
+<link href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />  
 <link href="${pageContext.request.contextPath}/ring/assets/css/icons.css" rel='stylesheet' type='text/css' />
 <!-- Custom Theme files -->
 <link href="${pageContext.request.contextPath}/ring/css/style.css" rel='stylesheet' type='text/css' />
@@ -64,10 +57,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	 function updateStates(id , states){
 		 var str = "";
 		 if(states == '3' || states =='5'){
-			 layer.prompt({title: '请输入拒绝的原因', formType: 2}, function(text, index){
+			 /* layer.prompt({title: '请输入拒绝的原因', formType: 2}, function(text, index){
 				 layer.close(index);
 				 window.location.href= "${pageContext.request.contextPath}/invite/state?id="+id+"&inviteStates=" + states +"&remark=" + text;
-				});
+				}); */
+				$("#id").val(id);
+				$("#inviteStates").val(states);
+			 $("#myModal").modal("show");	
 		 }else{
 			 window.location.href= "${pageContext.request.contextPath}/invite/state?id="+id+"&inviteStates=" + states +"&remark=" + str;
 		 }
@@ -129,19 +125,78 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	function indexPage(){
 		window.location.href="${pageContext.request.contextPath}/web/index" ;
 	}
+	
+	function subRefuse(){
+		$("#dataForm").submit();
+	}
+	
+	$(function() {
+		var dic = eval('(${dic})');
+		$(".dicSelect").each(
+				function() {
+					var field = this.name;
+					var htmlStr = "";
+					if (dic.hasOwnProperty(field)) {
+						for ( var keyValue in dic[field]) {
+							htmlStr += "<option value="+keyValue+">"
+									+ dic[field][keyValue].describ
+									+ "</option>"
+						}
+					}
+					$(this).append(htmlStr);
+				});
+		$(".dicValue").each(function(){
+			 var field  = $(this).attr("name")
+			 var value =  $(this).attr("value");
+			 if(dic[field] !=undefined && dic[field][value]!= undefined){
+				 $(this).text(dic[field][value]["describ"]);
+			 }
+		})
+
+		
+	});
 </script>
 </head>
 <body>
+<div class="modal fade" id="myModal" tabindex="-2" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="height: ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">拒绝约会</h4>
+				</div>
+				<div class="modal-body">
+					<form id="dataForm" action="${pageContext.request.contextPath}/invite/state">
+					  <input  class="form-control" name="id" id="id" type="hidden"  value="'${invite.id}'"></input>
+					  <input  class="form-control" name="inviteStates"  id="inviteStates" type="hidden" ></input>
+						<div class="form-group">
+							<label for="recipient-name" class="control-label">拒绝原因:</label> 
+							 <select
+							class="form-control dicSelect" name="remark" id="remark" placeholder="必填"
+							required></select>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" onclick="subRefuse()">提交</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal -->
+	</div>
 <div class="index-main">
-    <div class="index-header">
-        <div class="col-xs-3"><img src="${pageContext.request.contextPath}/img/logo.jpg" height="18rem">主页</div>
-        <div class="col-xs-4">
-            <div class="index-header-search">
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
-        </div>
-        <div class="col-xs-5 no-pad " style="text-align: center;" onclick="personCenter()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>个人中心</div>
-    </div>
+    <%@include file="/ring/header.jsp"%>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table-zh-CN.js"></script>
+<script type="text/JavaScript" src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
+<script src="${pageContext.request.contextPath}/js/moment-with-locales.js"></script>  
+<script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script> 
+<script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js"></script> 
     </div>
    <div class="profile" style="margin-top:70px">
    	 <div class="col-md-12 profile_left">
@@ -160,14 +215,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										 	<c:if test="${ empty invite.detail.signJoin}">
 										<c:choose>
 										 	 <c:when test="${invite.inviteStates eq '1'}">
-										 	 	 <a href="###" onclick="addInvite('${invite.id}','1')">同意约请</a>
+										 	 	 <a href="###" onclick="addInvite('${invite.id}','1')">时间地点信息</a>
 								      			 <a href="##" onclick="updateStates('${invite.id}','3')">拒绝约请</a>
 										 	 </c:when>
 										 	 <c:when test="${invite.inviteStates eq '2'}">
 										 	 	  已接受
 										 	 </c:when>
 										 	 <c:when test="${invite.inviteStates eq '3'}">
-										 	 	  已拒绝  原因：${invite.remark }
+										 	 	  已拒绝  原因：<span class="dicValue" name="remark" value="${invite.remark }"></span>
 										 	 </c:when>
 										 	 <c:when test="${invite.inviteStates eq '4'}">
 										 	 	  准备约会，约会时间：${invite.detail.preDate}

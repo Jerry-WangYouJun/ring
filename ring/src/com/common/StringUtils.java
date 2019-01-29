@@ -255,5 +255,25 @@ public final class StringUtils {
 		String s = EMPTY+EMPTY_QUAN+EMPTY+EMPTY_QUAN+"hello"+EMPTY+EMPTY_QUAN+EMPTY+EMPTY_QUAN+"  "+"　"+"";
 		System.out.println(trimToEmpty(s).length());
 	}
+    
+    /**
+     *  传入"a,b,c"
+     *  获得"'a','b','c'"到sql中的in语法中 
+     *  
+     * @param s
+     * @return
+     */
+    public static String getInString(String s) {
+    		 String[] tempArr = s.split(",");
+    		 String result = "";
+    		 for (int i =0 ; i < tempArr.length ; i ++ ) {
+				if(i != tempArr.length -1) {
+					 result += "'" + tempArr[i] + "' , ";
+				}else {
+					result += "'" + tempArr[i] + "' ";
+				}
+		 }
+    		 return result;
+     }
 }
 

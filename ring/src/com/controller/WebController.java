@@ -85,6 +85,7 @@ public class WebController {
 			if(custList != null && custList.size() > 0) {
 				cust = custList.get(0);
 			}
+			session.setMaxInactiveInterval(1800);
 			if("0".equals(cust.getExamine())){
  			   return "forward:/web/registerInit?openId=0" ;
  		   }else{
@@ -207,6 +208,12 @@ public class WebController {
 		return "forward:/ring/person_center.jsp";
 	}
 	
+	/**
+	 *  邀约初始化页面，改页面进行首次邀约
+	 * @param request
+	 * @param invite
+	 * @return
+	 */
 	@RequestMapping("/inviteInit")
 	public String invite(HttpServletRequest request , Invite invite ) {
 		List<Location> locList= locService.queryList(new Location(), new Pagination());
@@ -362,10 +369,17 @@ public class WebController {
 		Message msg = new Message();
 		if(user.getId() != null  && user.getId()>0) {
 			session.setAttribute("webUser", user);
-			Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
+			
+			Customer cust = new Customer();
+			cust.setTelephone(user.getUserNo());
+			List<Customer> custList = custService.queryList(cust, new Pagination());
+			if(custList != null && custList.size() > 0) {
+				cust = custList.get(0);
+			}
 			session.setAttribute("customer", cust);
 			Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 			session.setAttribute("dic",   JSONObject.fromObject(dicMap));
+			session.setMaxInactiveInterval(1800);
 			msg.setSuccess(true);
 			msg.setMsg("登陆成功");
 			return msg;
@@ -396,10 +410,12 @@ public class WebController {
 //		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
 		User  user = (User)request.getSession().getAttribute("webUser");
 		List<Customer> list  = new ArrayList<>();
-		
-		if(StringUtils.isNotBlank(user.getRemark())) {
-			Customer c =  custService.selectById(Integer.valueOf(user.getRemark()));
+		Customer c = custService.queryCustByUserNo(user.getUserNo());
+		if(StringUtils.isNotBlank(user.getUserNo())) {
 			custQuery.setWebSex(c.getSex());
+		}
+		if(StringUtils.isNotBlank(custQuery.getCustLoca())) {
+			custQuery.setLoca(custQuery.getCustLoca());
 		}
 		list= custService.queryList(custQuery, new Pagination());
 		for (Customer customer : list) {
@@ -407,6 +423,7 @@ public class WebController {
 			customer.setInviteFlag(flag);
 		}
 		request.setAttribute("list", list);
+		request.setAttribute("custQuery", custQuery);
 		return "forward:/new/cust_list.jsp";
 	}
 	
@@ -482,4 +499,13 @@ public class WebController {
 		request.setAttribute("invitedInfo", invitedInfo);
 		return "forward:/new/date_list.jsp";
 	}
+	
+//	
+//    @ExceptionHandler({Exception.class})   
+//    @ResponseBody
+//    public String exception(Exception e ,HttpServletRequest request  ) {       
+//        System.out.println(e.getMessage());       
+//        request.setAttribute("exmsg", e.getMessage());
+//        return e.getMessage();     
+//    } 
 }

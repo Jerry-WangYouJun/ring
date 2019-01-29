@@ -23,4 +23,6 @@ public interface CustomerMapper {
 	List<Customer> queryByWhere(@Param("obj")Customer customer,@Param("page")Pagination page);
 
 	int queryTotal(Customer customer);
+
+	Customer queryCustByUserNo(String userNo);
 }

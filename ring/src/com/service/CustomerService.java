@@ -21,6 +21,9 @@ public class CustomerService {
 	@Autowired
 	FocusMapper focusMapper;
 
+	public Customer queryCustByUserNo(String userNo) {
+		 return mapper.queryCustByUserNo(userNo);
+	}
 
 	public List<Customer> queryList(Customer customer, Pagination page) {
 		return mapper.queryByWhere(customer , page);

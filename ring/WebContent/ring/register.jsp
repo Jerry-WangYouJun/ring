@@ -7,6 +7,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <%@include file="/common.jsp"%>
+<script src="${pageContext.request.contextPath }/js/dic.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css"  media="all">
 <script src="${pageContext.request.contextPath }/layui/layui.js" charset="utf-8"></script>
@@ -30,7 +31,6 @@ function chooseImg(){
 	    //uploadPhoto.uploadToWeixinServer(res.localIds[0],'car')
 	   }
 	});
-	
 }
 
 $(function(){
@@ -58,6 +58,8 @@ $(function(){
 		    clearBtn: true 
 		});
 	}
+	//加载多选字典数据，第二个字段为多选的已有值或者默认值
+	setCheckbox(dic,"");
 });
 
 	$(document).ready(function() {
@@ -197,34 +199,16 @@ $(function(){
 							<label for="message-text" class="control-label">现居地:</label>
 							<div class="col-lg-12">
 								<div class="row">
-									<select id="cmbProvince" name="address" class="form-control col-lg-4 col-ms-4 col-xs-4" ></select>
-									<select id="cmbCity" name="address" class="form-control col-lg-4" ></select>
-									<select id="cmbArea" name="address" class="form-control col-lg-4" ></select>
+									<select id="cmbProvince" name="addtress" class="form-control col-lg-4 col-ms-4 col-xs-4" ></select>
+									<select id="cmbCity" name="addtress" class="form-control col-lg-4" ></select>
+									<select id="cmbArea" name="addtress" class="form-control col-lg-4" ></select>
 								</div>	
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">经常活动区域:</label>
 								<div class="col-lg-12">
-								<div class="row">
-												    <label class="checkbox-inline">
-												      <input type="checkbox"  value="市南" name="loca">市南
-												    </label>
-												    <label class="checkbox-inline">
-												      <input type="checkbox"  value="市北" name="loca">市北
-												    </label>
-												    <label class="checkbox-inline">
-												    <input type="checkbox"  value="崂山" name="loca">崂山
-												    </label>
-												    <label class="checkbox-inline">
-												    <input type="checkbox"  value="李沧" name="loca">李沧
-												    </label>
-												    <label class="checkbox-inline">
-												    <input type="checkbox"  value="城阳" name="loca">城阳
-												    </label>
-												    <label class="checkbox-inline">
-												    <input type="checkbox"  value="其他" name="loca">其他
-												    </label>
+								<div class="row dicCheckbox"  name="custLoca">
 								</div>	
 							</div>
 
@@ -298,38 +282,15 @@ $(function(){
 						<div class="form-group">
 							<label for="message-text" class="control-label">性格:</label>
 								<div class="col-lg-12">
-								<div class="row">
-												    <label class="checkbox-inline">
-												      <input type="checkbox"  value="温柔" name="disposition">温柔
-												    </label>
-												    <label class="checkbox-inline">
-												      <input type="checkbox"  value="过日子" name="disposition">过日子
-												    </label>
-												    <label class="checkbox-inline">
-												    <input type="checkbox"  value="阳光" name="disposition">阳光
-												    </label>
-												    <label class="checkbox-inline">
-												    <input type="checkbox"  value="外冷内热" name="disposition">外冷内热
-												    </label>
+								<div class="row dicCheckbox" name="disposition">
+												   
 								</div>	
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">兴趣爱好:</label>
 								<div class="col-lg-12">
-								<div class="row">
-												    <label class="checkbox-inline">
-												      <input type="checkbox"  value="唱歌" name="hobby">唱歌
-												    </label>
-												    <label class="checkbox-inline">
-												      <input type="checkbox"  value="逛吃" name="hobby">逛吃
-												    </label>
-												    <label class="checkbox-inline">
-												    <input type="checkbox"  value="运动" name="hobby">运动
-												    </label>
-												    <label class="checkbox-inline">
-												    <input type="checkbox"  value="旅游" name="hobby">旅游
-												    </label>
+								<div class="row dicCheckbox" name="hobby">
 								</div>	
 							</div>
 						</div>
@@ -371,28 +332,28 @@ $(function(){
 							<label for="message-text" class="control-label" style="font-size:">择偶要求</label> 
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">接受的年龄范围:</label>
+							<label for="message-text" class="control-label">出生年月:</label>
 							<div class="form-inline">
 									
-									<input type="text" class="form-control layui-input" id="age1" >
+									<input type="text" class="form-control layui-input" id="age1"  name="age1">
 									<label for="message-text" class="control-label"> 至</label>
-									<input type="text" class="form-control layui-input" id="age2" >
+									<input type="text" class="form-control layui-input" id="age2" name="age2">
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">接受的身高范围:</label>
+							<label for="message-text" class="control-label">身高范围:</label>
 							<div class="form-inline">
 									
-									<input type="text" class="form-control layui-input" id="height1" >
+									<input type="text" class="form-control layui-input" id="height1" name="height1" >
 									<label for="message-text" class="control-label"> 至</label>
-									<input type="text" class="form-control layui-input" id="height2" >
+									<input type="text" class="form-control layui-input" id="height2" name="height2">
 							</div>
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label for="message-text" class="control-label">外貌:</label><select
 								class="form-control dicSelect" name="looks">
 							</select>
-						</div>
+						</div> -->
 						<div class="form-group">
 							<label for="message-text" class="control-label">税前月收入:</label>
 								<select
@@ -433,62 +394,41 @@ $(function(){
 						<div class="form-group">
 							<label for="message-text" class="control-label">性格:</label>
 								<div class="col-lg-12">
-								<div class="row">
-												    <label class="checkbox-inline">
-												      <input type="checkbox"  value="温柔" name="disposition2">温柔
-												    </label>
-												    <label class="checkbox-inline">
-												      <input type="checkbox"  value="过日子" name="disposition2">过日子
-												    </label>
-												    <label class="checkbox-inline">
-												    <input type="checkbox"  value="阳光" name="disposition2">阳光
-												    </label>
-												    <label class="checkbox-inline">
-												    <input type="checkbox"  value="外冷内热" name="disposition2">外冷内热
-												    </label>
+								<div class="row dicCheckbox" name="disposition2">
+												    
 								</div>	
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">兴趣爱好:</label>
-								<div class="col-lg-12">
-								<div class="row">
-												    <label class="checkbox-inline">
-												      <input type="checkbox"  value="唱歌" name="hobby2">唱歌
-												    </label>
-												    <label class="checkbox-inline">
-												      <input type="checkbox"  value="逛吃" name="hobby2">逛吃
-												    </label>
-												    <label class="checkbox-inline">
-												    <input type="checkbox"  value="运动" name="hobby2">运动
-												    </label>
-												    <label class="checkbox-inline">
-												    <input type="checkbox"  value="旅游" name="hobby2">旅游
-												    </label>
+							<div class="col-lg-12">
+								<div class="row dicCheckbox" name="hobby2">
 								</div>	
 							</div>
 						</div>
 						<div class="form-group ">
-							<label for="message-text" class="control-label">期望对方将来的生活角色 :</label> <select
-								class="form-control dicSelect" name="lifeRole"
-								>
-							</select>
+							<label for="message-text" class="control-label">期望对方将来的生活角色 :</label> 
+							<div class="col-lg-12">
+								<div class="row dicCheckbox" name="lifeRole">
+								</div>	
+							</div>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">期望未来对象的类型:</label> <select
-								class="form-control dicSelect" name="lifeType" 
-								>
-							</select>
+							<label for="message-text" class="control-label">期望未来对象的类型:</label> 
+							<div class="col-lg-12">
+								<div class="row dicCheckbox" name="lifeType">
+								</div>
+							</div>
 						</div>
 						<div class="form-group ">
-							<label for="message-text" class="control-label">不可接受的类型:</label> <select
-								class="form-control dicSelect" name="nonType"
-								placeholder="必填" >
-							</select>
+							<label for="message-text" class="control-label">不可接受的类型:</label> 
+							 <input
+								type="text" class="form-control" name="nonType" id="nonType">
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">备注:</label> <input
-								type="text" class="form-control" name="remark" id="remark">
+							<label for="message-text" class="control-label">备注:</label> 
+								<textarea rows="2"   class="form-control" name="remark"
+								id="remark"></textarea>
 						</div>
 						<div class="form-group">
 							<button type="button" class="btn btn-primary" onclick="subInfo()">提交</button>

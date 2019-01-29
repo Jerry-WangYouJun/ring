@@ -114,18 +114,19 @@ $(document).ready(function(){
 	 
 	 
 </script>
+<style type="text/css">
+span{
+	 padding-left: 0px !important;
+	  padding-right: 5px !important;
+}
+.spanleft{
+	 color:#999;
+}
+</style>
 </head>
 <body>
 <div class="index-main-about">
-    <div class="index-header">
-        <div class="col-xs-3"><img src="${pageContext.request.contextPath}/img/logo.jpg" height="18rem">主页</div>
-        <div class="col-xs-6">
-            <div class="index-header-search">
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
-        </div>
-         <div class="col-xs-3 no-pad" onclick="personCenter()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>个人中心</div>
-    </div>
+   <%@include file="/ring/header.jsp"%>
     <div class="list-main-bg">
         <c:if test="${cust.sex eq '1'}">
 					<img src="${pageContext.request.contextPath}/img/men.jpg"  />
@@ -137,23 +138,28 @@ $(document).ready(function(){
     <div class="list-main-cot">
         <div class="list-main-tittle">基本资料</div>
         <div class="list-main-introduce">
-            <ul>
-                <li><span class="col-xs-4" style="text-align: right">昵称</span><span class="col-xs-8">${cust.chName }</span></li>
-                <li><span class="col-xs-4" style="text-align: right">生日</span><span class="col-xs-8">${cust.birthday }</span></li>
-                <li><span class="col-xs-4" style="text-align: right">婚姻状况</span><span class="col-xs-8">市南</span></li>
-                <li><span class="col-xs-4" style="text-align: right">所在地</span><span class="col-xs-8">${cust.addtress}</span></li>
-                <li><span class="col-xs-4" style="text-align: right">职业</span><span class="col-xs-8">${cust.industry }</span></li>
-                <li><span class="col-xs-4" style="text-align: right">学历</span><span class="col-xs-8"> 
-               	 <span class="dicValue" name="degree" value="${cust.degree }"></span></span></li>
-               	 
-               	
-                <li><span class="col-xs-4" style="text-align: right">家乡</span><span class="col-xs-8">${cust.hometown }</span></li>
-                <li><span class="col-xs-4" style="text-align: right">身高体重</span><span class="col-xs-8">${cust.height }cm, ${cust.weight }kg</span></li>
-                <li><span class="col-xs-4" style="text-align: right">婚姻状况</span><span class="col-xs-8">
+            <ul style="padding: 10px">
+                <li><span class="col-xs-4 spanleft" style="text-align: right;padding-left:0px ">昵称</span><span class="col-xs-4" >${cust.chName }</span></li>
+               	<li>	<span class="col-xs-4 spanleft" style="text-align: right">生日</span><span class="col-xs-8">${cust.birthday }</span>
+               	</li>
+                <li><span class="col-xs-4 spanleft" style="text-align: right">家乡</span><span class="col-xs-8">${cust.hometown }</span></li>
+                <li>	<span class="col-xs-4 spanleft" style="text-align: right">现居地</span><span class="col-xs-8">${cust.addtress}</span></li>
+                <li><span class="col-xs-4 spanleft" style="text-align: right">活动范围</span><span class="col-xs-8">${cust.loca }</span></li>
+                <li><span class="col-xs-4 spanleft" style="text-align: right">身高体重</span><span class="col-xs-8">${cust.height }cm, ${cust.weight }kg</span></li>
+                <li><span class="col-xs-4 spanleft" style="text-align: right">婚姻状况</span><span class="col-xs-8">
                 	  <span class="day_value dicValue"  name="marriage" value="${cust.marriage }"></span>
                 </span></li>
-                <li><span class="col-xs-4" style="text-align: right">子女</span><span class="col-xs-8"><span name="children"  class = "dicValue" value="${cust.children }"></span>/人</span></li>
-               
+                <li><span class="col-xs-4 spanleft"  style="text-align: right">学历</span><span class="col-xs-8"> 
+               	 <span class="dicValue" name="degree" value="${cust.degree }"></span></span></li>
+                <li><span class="col-xs-4 spanleft" style="text-align: right">职业</span><span class="col-xs-8"><span name="industry"  class = "dicValue" value="${cust.industry }"></span></span></li>
+				<li><span class="col-xs-4 spanleft" style="text-align: right">工作时间</span><span class="col-xs-8"><span name="weekday"  class = "dicValue" value="${cust.weekday }"></span></span></li>
+				<li><span class="col-xs-4 spanleft" style="text-align: right">工作性质</span><span class="col-xs-8"><span name="travel"  class = "dicValue" value="${cust.travel }"></span></span></li>
+                <li><span class="col-xs-4 spanleft" style="text-align: right">住房状态</span><span class="col-xs-8"><span name="houseStatus"  class = "dicValue" value="${cust.houseStatus }"></span></span></li>
+				<li><span class="col-xs-4 spanleft" style="text-align: right">用车状态</span><span class="col-xs-8"><span name="carStatus"  class = "dicValue" value="${cust.carStatus }"></span></span></li>
+				<li><span class="col-xs-4 spanleft" style="text-align: right">月收入(税前)</span><span class="col-xs-8"><span name="income"  class = "dicValue" value="${cust.income }"></span></span></li>
+				<li><span class="col-xs-4 spanleft" style="text-align: right">性格</span><span class="col-xs-8">${cust.disposition }</span></li>
+				<li><span class="col-xs-4 spanleft" style="text-align: right">兴趣爱好</span><span class="col-xs-8"> ${cust.hobby }</span></li>
+
                 
                 <li class="introduce-btn">
                     <span class="col-xs-4" style="text-align: right">
@@ -184,16 +190,30 @@ $(document).ready(function(){
         <div class="list-main-about-top"><i class="glyphicon glyphicon-tags"></i> 择偶要求</div>
         <div class="list-main-about-cot">
             	<div class="list-main-introduce">
-            <ul>
-                <li><span class="col-xs-4" >年龄范围 </span><span class="col-xs-8"><span class="dicValue" name="birthday2" value="${cust.birthday2 }"></span></span></li>
-                <li><span class="col-xs-4" >经济能力</span><span class="col-xs-8"><span class="dicValue" name="economic" value="${cust.economic }"></span></span></li>
-                <li><span class="col-xs-4" >外貌</span><span class="col-xs-8"><span class="dicValue" name="looks" value="${cust.looks }"></span></span></li>
-                <li><span class="col-xs-4" >未来生活中的定位 </span><span class="col-xs-8"><span class="dicValue" name="disposition" value="${cust.disposition }"></span></span></li>
-                <li><div><span class="col-xs-4" >未来生活中的扮演的角色</span><span class="col-xs-8">
-					<span class="dicValue" name="disposition" value="${cust.disposition }"></span></span></div></li>
-                <li><span class="col-xs-4" >理想的生活方式 </span><span class="col-xs-8"> 
+            <ul style="padding: 10px">
+                <li><span class="col-xs-5 spanleft" style="text-align: right">年龄范围 </span>
+                	<span class="col-xs-7">
+                	   <c:if test="${empty cust.age1}"> — </c:if> ${cust.age1 } 至
+                	   <c:if test="${empty cust.age2}"> — </c:if> ${cust.age2 }</span></li>
+                <li><span class="col-xs-5 spanleft" style="text-align: right" >身高范围</span>
+                	<span class="col-xs-7">
+           			<c:if test="${empty cust.height1}"> — </c:if> ${cust.height1 } 至
+           	   		<c:if test="${empty cust.height2}"> — </c:if> ${cust.height2 }</span>
+                	</li>
+                <li><span class="col-xs-5 spanleft" style="text-align: right">工作时间</span><span class="col-xs-7"><span name="weekday2"  class = "dicValue" value="${cust.weekday2 }"></span></span></li>
+				<li><span class="col-xs-5 spanleft" style="text-align: right">工作性质</span><span class="col-xs-7"><span name="travel2"  class = "dicValue" value="${cust.travel2 }"></span></span></li>
+                <li><span class="col-xs-5 spanleft" style="text-align: right">住房状态</span><span class="col-xs-7"><span name="houseStatus2"  class = "dicValue" value="${cust.houseStatus2 }"></span></span></li>
+				<li><span class="col-xs-5 spanleft" style="text-align: right">用车状态</span><span class="col-xs-7"><span name="carStatus2"  class = "dicValue" value="${cust.carStatus2 }"></span></span></li>
+				<li><span class="col-xs-5 spanleft" style="text-align: right">月收入(税前)</span><span class="col-xs-7"><span name="economic"  class = "dicValue" value="${cust.economic }"></span></span></li>
+				<li><span class="col-xs-5 spanleft" style="text-align: right">性格</span><span class="col-xs-7">${cust.disposition2 }</span></li>
+				<li><span class="col-xs-5 spanleft" style="text-align: right">兴趣爱好</span><span class="col-xs-7"> ${cust.hobby2 }</span></li>
+               <%--  <li><span class="col-xs-4" >外貌</span><span class="col-xs-8"><span class="dicValue" name="looks" value="${cust.looks }"></span></span></li> --%>
+                <%-- <li><span class="col-xs-6" >未来生活中的定位 </span><span class="col-xs-6">${cust.lifeType }</span></li> --%>
+                <li><div><span class="col-xs-5 spanleft" style="text-align: right">生活中的角色</span><span class="col-xs-7">
+					<span name="lifeRole"  class = "dicValue" value="${cust.lifeRole }"></span></span></div></li>
+                <li><span class="col-xs-5 spanleft" style="text-align: right" >理想的生活方式 </span><span class="col-xs-7"> 
                	 <span class="dicValue" name="lifeType" value="${cust.lifeType }"></span></span></li>
-                <li><span class="col-xs-4" >不能接受的类型 </span><span class="col-xs-8"><span class="dicValue" name="nonType" value="${cust.nonType }"></span></span></li>
+                <li><span class="col-xs-5 spanleft" style="text-align: right">不能接受的类型 </span><span class="col-xs-7"><span class="dicValue" name="nonType" value="${cust.nonType }"></span></span></li>
             </ul>
         </div>
         </div>

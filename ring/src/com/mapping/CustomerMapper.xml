@@ -47,6 +47,7 @@
     <result column="economic" jdbcType="VARCHAR" property="economic" />
     <result column="looks" jdbcType="VARCHAR" property="looks" />
     <result column="disposition" jdbcType="VARCHAR" property="disposition" />
+     <result column="disposition2" jdbcType="VARCHAR" property="disposition2" />
     <result column="life_role" jdbcType="VARCHAR" property="lifeRole" />
     <result column="life_type" jdbcType="VARCHAR" property="lifeType" />
     <result column="non_type" jdbcType="VARCHAR" property="nonType" />
@@ -72,7 +73,7 @@
   <sql id="Base_Column_List">
     id, examine, head_image, ch_name, nick_name, sex, birthday, birthday2,hometown,hometown2, addtress, height,height2, 
     weight,weight2, marriage,marriage2, children, degree,degree2, house_status, house_status2,industry, income,income2 ,qq, telephone, 
-    email, referee, introduction, declaration, ask, remark,flag , openId ,age , loca,economic,looks,disposition,life_role,life_type,
+    email, referee, introduction, declaration, ask, remark,flag , openId ,age , loca,economic,looks,disposition,disposition2 , life_role,life_type,
     non_type,other , car_status,car_status2,wx,hobby,hobby2,weekday,weekday2,travel,travel2,age1,age2,height1,height2,front_img,back_img
   </sql>
   <select id="getFocus" parameterType="int" resultType="com.model.Focus">
@@ -107,14 +108,17 @@
   	     <if test="obj.openId!= null and obj.openId != '' ">
   	    	     and openId = #{obj.openId}
   	    </if>
-  	    <if test="obj.loca!= null and obj.loca != '' ">
-  	    	     and loca = #{obj.loca}
-  	    </if>
   	     <if test="obj.email != null and obj.email != '' ">
   	    	     and email = #{obj.email}
   	    </if>
   	    <if test="obj.ageFrom!=null and obj.ageFrom != ''">
-  	    	    and age  >= #{obj.ageFrom}
+  	    	    and birthday  >= #{obj.ageFrom}
+  	    </if>
+  	    <if test="obj.ageTo !=null and obj.ageTo != ''">
+  	    	    and birthday  &lt;= #{obj.ageTo}
+  	    </if>
+  	    <if test="obj.custLoca !=null and obj.custLoca != ''">
+  	    	    and loca regexp replace(#{obj.loca},',','|')
   	    </if>
     	    <if test="obj.heightQuery !=null and obj.heightQuery == '1'.toString() ">
     	   		 and height  &lt;=  160
@@ -128,9 +132,6 @@
     		<if test="obj.heightQuery == '4'.toString()">
     	   		and  height > 180
     		</if>
-  	    <if test="obj.ageTo !=null and obj.ageTo != ''">
-  	    	    and age  &lt;= #{obj.ageTo}
-  	    </if>
   	    <if test="obj.heightFrom!=null and obj.heightFrom > 0">
   	    	    and height  >= #{obj.heightFrom}
   	    </if>
@@ -142,6 +143,9 @@
   	    </if>
   	    <if test="obj.examine !=null and obj.examine != ''">
   	    	    and examine  &lt;= #{obj.examine}
+  	    </if>
+  	     <if test="obj.telephone !=null and obj.telephone != ''">
+  	    	    and telephone  like  #{obj.telephone}
   	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
@@ -160,8 +164,8 @@
   	    <if test="sex!= null and sex != '' ">
   	    	     and sex = #{sex}
   	    </if>
-  	    <if test="loca!= null and loca != '' ">
-  	    	     and loca = #{loca}
+  	   <if test="custLoca !=null and custLoca != ''">
+  	    	    and  loca regexp replace(#{loca},',','|')
   	    </if>
   	     <if test="email != null and email  != '' ">
   	    	     and email = #{email}
@@ -170,10 +174,10 @@
   	    	     and telephone = #{telephone}
   	    </if>
   	    <if test="ageFrom!=null and ageFrom > 0">
-  	    	    and age  >= #{ageFrom}
+  	    	    and birthday  >= #{ageFrom}
   	    </if>
   	    <if test="ageTo !=null and ageTo > 0">
-  	    	    and age  &lt;= #{ageTo}
+  	    	    and birthday  &lt;= #{ageTo}
   	    </if>
   	    <if test="heightFrom!=null and heightFrom > 0">
   	    	    and height  >= #{heightFrom}
@@ -181,8 +185,18 @@
   	    <if test="heightTo !=null and heightTo > 0">
   	    	    and height  &lt;= #{heightTo}
   	    </if>
+  	    <if test="telephone !=null and  telephone != ''">
+  	    	    and telephone  like  #{telephone}
+  	    </if>
   </select>
   
+  
+  <select id="queryCustByUserNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_customer
+    where telephone  =   #{userNo,jdbcType=VARCHAR} 
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -206,7 +220,7 @@
       telephone, email, referee, 
       introduction, declaration, ask, 
       remark, flag , openId , age , loca , birthday2,hometown2,weight2,marriage2,
-      degree2 ,house_status2,income2 ,economic,looks,disposition,life_role,life_type,
+      degree2 ,house_status2,income2 ,economic,looks,disposition,disposition2,life_role,life_type,
    		 non_type,other , 
    		 car_status,car_status2,wx,hobby,hobby2,weekday,weekday2,travel,travel2,age1,age2,height1,height2 , 
    		 front_img ,back_img)
@@ -223,7 +237,7 @@
        #{birthday2,jdbcType=VARCHAR}, #{hometown2,jdbcType=VARCHAR}, 
         #{weight2,jdbcType=DOUBLE}, #{marriage2,jdbcType=VARCHAR}, 
         #{degree2,jdbcType=VARCHAR}, #{houseStatus2,jdbcType=VARCHAR},  #{income2,jdbcType=VARCHAR},
-        #{economic,jdbcType=VARCHAR}, #{looks,jdbcType=VARCHAR},  #{disposition,jdbcType=VARCHAR},
+        #{economic,jdbcType=VARCHAR}, #{looks,jdbcType=VARCHAR},  #{disposition,jdbcType=VARCHAR},  #{disposition2,jdbcType=VARCHAR},
         #{lifeRole,jdbcType=VARCHAR} ,#{lifeType,jdbcType=VARCHAR} , #{nonType,jdbcType=VARCHAR},  #{other,jdbcType=VARCHAR},
         
          #{carStatus,jdbcType=VARCHAR}, #{carStatus2,jdbcType=VARCHAR}, #{wx,jdbcType=VARCHAR}, 
@@ -273,6 +287,7 @@
       economic =   #{economic,jdbcType=VARCHAR}, 
        looks= #{looks,jdbcType=VARCHAR},  
       disposition=  #{disposition,jdbcType=VARCHAR},
+       disposition2=  #{disposition2,jdbcType=VARCHAR},
       life_role = #{lifeRole,jdbcType=VARCHAR} ,
       life_type =  #{lifeType,jdbcType=VARCHAR} , 
        non_type = #{nonType,jdbcType=VARCHAR},  

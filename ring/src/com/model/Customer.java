@@ -43,6 +43,7 @@ public class Customer {
     private String height;
     //身高查询条件
     private String heightQuery;
+    private String custLoca;
     
 
 	private Double height2;
@@ -711,5 +712,12 @@ public class Customer {
 		public void setBackImg(String backImg) {
 			this.backImg = backImg;
 		}
-		
+
+		public String getCustLoca() {
+			return custLoca;
+		}
+
+		public void setCustLoca(String custLoca) {
+			this.custLoca = custLoca;
+		}
 }

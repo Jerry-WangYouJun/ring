@@ -11,22 +11,11 @@
 <script src="${pageContext.request.contextPath}/js/validate/jquery.validate.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/validate/jquery.metadata.js"></script>
 <script src="${pageContext.request.contextPath}/js/validate/messages_zh.js"></script>
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-theme.min.css">
 <link href="${pageContext.request.contextPath}/css/bootstrap-select.min.css" rel="stylesheet" />
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
-<script src="${pageContext.request.contextPath}/js/bootstrap-select.min.js"></script>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-table.min.css" />  
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table-zh-CN.js"></script>
-<script type="text/JavaScript" src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
-
 <link href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />  
-<script src="${pageContext.request.contextPath}/js/moment-with-locales.js"></script>  
-<script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script> 
-<script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js"></script> 
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
  <link href="${pageContext.request.contextPath}/ring/assets/css/main.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/ring/assets/css/custom.css" rel="stylesheet" />
@@ -44,6 +33,11 @@
 .grid_3{
 	 padding: 20px;20px
 }
+
+.rcolor{
+	color:black;
+}
+
 </style>
 <script>
 
@@ -83,9 +77,6 @@ $(document).ready(function(){
     
     $('.datetimepicker1').datetimepicker('setEndDate',addDate(new Date() , 14));  
     
-    $(".selectpicker").selectpicker({  
-        noneSelectedText : '请选择'//默认显示内容  
-    });  
 });
 
 $(function(){
@@ -108,13 +99,51 @@ function addDate(date,days){
     var m=d.getMonth()+1; 
     return d.getFullYear()+'-'+m+'-'+d.getDate(); 
   } 
+  
+  function getLocaInfo(obj){
+	   var path = "${pageContext.request.contextPath}/location/detail";
+		$.ajax({
+			url : path,
+			type : 'post',
+			data : {id:$(obj).prev().val()},
+			dataType : 'json',
+			success : function(data) {
+				if (data.success) {
+					$("#locName").text(data.obj.locName == 'null'?'':data.obj.locName);
+					$("#workDate").text(data.obj.workDate);
+					$("#workTime").text(data.obj.workTime == null?'':data.obj.workTime);
+					$("#telephone").text(data.obj.telephone == null?'':data.obj.telephone);
+					$("#location").text(data.obj.location);
+					$("#address").text(data.obj.address);
+					$("#detailModal").modal("show");
+					
+				} else {
+					alert(data.msg);
+				}
+			},
+			error : function(transport) {
+				alert("系统产生错误,请联系管理员!");
+			}
+		});
+  }
+  
 </script>
 </head>
 <body id="a2">
+	<%@include file="/ring/header.jsp"%>
+<script src="${pageContext.request.contextPath}/js/moment-with-locales.js"></script>  
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
+<script src="${pageContext.request.contextPath}/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-table-zh-CN.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script> 
+<script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js"></script> 
+<script type="text/JavaScript" src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
 	<div class="grid_3">
   <div class="container">
    <div class="services">
    	  <div class="col-sm-6 login_left">
+   	  	<div><span  style='color:red'>约会时间只能选择两周之内的时间</span></div>
 	     <form id="dataForm">
 						<input class="form-control" name="id" type="hidden" value="${inv.id }"></input>
 						<input class="form-control" name="joinId" type="hidden" value="${joinId }"></input>
@@ -127,14 +156,19 @@ function addDate(date,days){
 								                    <span class="glyphicon glyphicon-calendar"></span>  
 								                </span>  
 								            </div>
+										<label for="message-text" class="control-label">约会地点一:</label> 
+										<div class="form-inline">
+											<select
+												class="form-control dicSelect col-lg-10"  id="confirmLoc" name="confirmLoc" 
+												placeholder="必填" >
+														<option value="">-请选择-</option>
+												  <c:forEach items="${locList}" var ="loca">
+												  		<option value="${loca.id}"> ${loca.locName}</option>
+	 											  </c:forEach>
+											</select>
+											<input type="button" class="btn btn-link" value="查看约会地点" onclick="getLocaInfo(this)">
+										</div>
 						        </div> 
-								<div class="form-group">
-									<label for="message-text" class="control-label">约会地点一:</label> 
-											  <c:forEach items="${locList}" var ="loca">
-											 	    <input type="radio"   name="confirmLoc"  class = "confirmLoc" value="${loca.id}">:
-											 	    <span class="dicValue" name="location" value="${loca.location}"></span> - ${loca.address}
- 											  </c:forEach>
-								</div>
 								
 								<div class="form-group" >
 							            <label for="message-text" class="control-label">约会时间二：</label>  
@@ -145,14 +179,17 @@ function addDate(date,days){
 								                    <span class="glyphicon glyphicon-calendar"></span>  
 								                </span>  
 								            </div>
+								            <label for="message-text" class="control-label">约会地点二:</label>
+								            <select
+												class="form-control dicSelect" id="confirmLoc2" name="confirmLoc2" 
+												placeholder="必填" >
+												<option value="">-请选择-</option>
+												  <c:forEach items="${locList}" var ="loca">
+												  		<option value="${loca.id}"> ${loca.locName}</option>
+	 											  </c:forEach>
+											</select>
+										<input type="button" class="btn btn-link" value="查看约会地点" onclick="getLocaInfo(this)">
 						        </div> 
-								<div class="form-group">
-									<label for="message-text" class="control-label">约会地点二:</label> 
-											  <c:forEach items="${locList}" var ="loca">
-											 	    <input type="radio"   name="confirmLoc2"   class="confirmLoc2" value="${loca.id}">:
-											 	    <span class="dicValue" name="location" value="${loca.location}"></span> - ${loca.address}
- 											  </c:forEach>
-								</div>
 								
 								<div class="form-group" >
 							            <label for="message-text" class="control-label">约会时间三：</label>  
@@ -163,18 +200,22 @@ function addDate(date,days){
 								                    <span class="glyphicon glyphicon-calendar"></span>  
 								                </span>  
 								            </div>
+										<label for="message-text" class="control-label">约会地点三:</label> 
+											<select 
+													class="form-control dicSelect" id="confirmLoc3" name="confirmLoc3" 
+													placeholder="必填" >
+													<option value="">-请选择-</option>
+													  <c:forEach items="${locList}" var ="loca">
+													  		<option value="${loca.id}"> ${loca.locName}</option>
+		 											  </c:forEach>
+												</select>
+												<input type="button" class="btn btn-link" value="查看约会地点" onclick="getLocaInfo(this)">
 						        </div> 
-								<div class="form-group">
-									<label for="message-text" class="control-label">约会地点三:</label> 
-											  <c:forEach items="${locList}" var ="loca">
-											 	    <input type="radio"   name="confirmLoc3"  class="confirmLoc3" value="${loca.id}">:
-											 	    <span class="dicValue" name="location" value="${loca.location}"></span>- ${loca.address}
- 											  </c:forEach>
-								</div>
 								
 						
 						<div class="form-group">
 							<button type="button" class="btn btn-primary" onclick="subInfo()">提交</button>
+							<button type="button" class="btn btn-primary" onclick="window.history.back()"> 返回上一步</button>
 						</div>
 					</form>
 	  </div>
@@ -182,43 +223,45 @@ function addDate(date,days){
    </div>
   </div>
 </div>
+<div class="modal fade" id="detailModal"  role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content"  >
+					<div class="modal-body" style="height:250px;background-color: #f6f6f6">
+							  店铺信息
+						 	 <div class="list-main-cot"  style="margin-top: 10px">
+						        <div class="list-main-introduce">
+						            <ul style="padding: 10px">
+						                <li><span class="col-xs-5 spanleft" style="text-align: right">店铺名</span><span class="col-xs-7 rcolor" id="locName" style="color:black;">店铺名</span></li>
+						                <li><span class="col-xs-5 spanleft" style="text-align: right">工作日</span><span class="col-xs-7 rcolor" id="workDate"></span></li>
+										<li><span class="col-xs-5 spanleft" style="text-align: right">营业时间</span><span class="col-xs-7 rcolor" id="workTime"></span></li>
+										<li><span class="col-xs-5 spanleft" style="text-align: right">联系电话</span><span class="col-xs-7 rcolor" id="telephone"></span></li>
+										<li><span class="col-xs-5 spanleft" style="text-align: right">所在区</span><span class="col-xs-7 rcolor"  id="location"></span></li>
+										<li><span class="col-xs-5 spanleft" style="text-align: right">具体地址</span><span class="col-xs-7 rcolor" id="address"></span></li>
+						            </ul>
+						        </div>
+						    </div>
+					 </div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
 </body>
 <script type="text/javascript">
  
 	function subInfo() {
 		var flag = false;
-		if( $("#preDate").val() != ""){
-			$(".confirmLoc").each(function(){
-				  if($(this).is(':checked')){
+		  if($("#preDate").val() != "" && $("#confirmLoc").val() != ""){
 					   flag = true;
-				  }
-			})
-		  if(!flag){
-			  $("#preDate").val("") ;
 		  }
-		}
 		var flag2 = false;
-		if( $("#preDate2").val() != ""){
-			$(".confirmLoc2").each(function(){
-				  if($(this).is(':checked')){
-					   flag2 = true;
-				  }
-			})
-				  if(!flag2){
-					  $("#preDate2").val("") ;
-				  }
-		}
+		  if($("#preDate2").val() != "" && $("#confirmLoc2").val() != ""){
+			   flag2 = true;
+			 }
 		var flag3 = false ;
-		if( $("#preDate3").val() != ""){
-			$(".confirmLoc3").each(function(){
-				  if($(this).is(':checked')){
-					   flag3 = true;
-				  }
-			})
-				  if(!flag3){
-					  $("#preDate3").val("") ;
-				  }
-		}
+		  if($("#preDate3").val() != "" && $("#confirmLoc3").val() != ""){
+			   flag3 = true;
+		   }
 		if(flag || flag2 || flag3){
 			subInfoAll("invite");
 		}else{
@@ -259,7 +302,6 @@ function addDate(date,days){
 			success : function(data) {
 				var htmlStr = "";
 				for( var  s in data.rows ){
-				console.info(data.rows[s].id);
 				htmlStr += "<option value="+data.rows[s].id+">"+data.rows[s].locName+"</option>"
 				 }
 				 $("#pointId").append(htmlStr); 

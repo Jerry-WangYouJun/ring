@@ -102,18 +102,73 @@ $(document).ready(function(){
 		 function personCenter(){
 		 window.location.href="${pageContext.request.contextPath}/new/person_center.jsp";
 	 }
+		
+		function subRefuse(){
+			$("#detailForm").submit();
+		}
+		
+		$(function() {
+			var dic = eval('(${dic})');
+			$(".dicSelect").each(
+					function() {
+						var field = this.name;
+						var htmlStr = "";
+						if (dic.hasOwnProperty(field)) {
+							for ( var keyValue in dic[field]) {
+								htmlStr += "<option value="+keyValue+">"
+										+ dic[field][keyValue].describ
+										+ "</option>"
+							}
+						}
+						$(this).append(htmlStr);
+					});
+			$(".dicValue").each(function(){
+				 var field  = $(this).attr("name")
+				 var value =  $(this).attr("value");
+				 if(dic[field] !=undefined && dic[field][value]!= undefined){
+					 $(this).text(dic[field][value]["describ"]);
+				 }
+			})
+
+			
+		});
 </script>
 </head>
 <body id="a2">
+<div class="modal fade" id="myModal" tabindex="-2" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="height: ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">拒绝约会</h4>
+				</div>
+				<div class="modal-body">
+					<form id="detailForm" action="${pageContext.request.contextPath}/invite/state">
+					  <input  class="form-control" name="id" id="id" type="hidden"  value="'${invite.id}'"></input>
+					  <input  class="form-control" name="inviteStates"  id="inviteStates" type="hidden" ></input>
+						<div class="form-group">
+							<label for="recipient-name" class="control-label">拒绝原因:</label> 
+							 <select
+							class="form-control dicSelect" name="remark" id="remark" placeholder="必填"
+							required></select>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" onclick="subRefuse()">提交</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal -->
+	</div>
 <div class="index-main">
     <div class="index-header">
-        <div class="col-xs-3"><img src="${pageContext.request.contextPath}/img/logo.jpg" height="18rem">主页</div>
-        <div class="col-xs-6">
-            <div class="index-header-search">
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
-        </div>
-        <div class="col-xs-3 no-pad" onclick="personCenter()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>个人中心</div>
+        <div class="col-xs-6"><img src="${pageContext.request.contextPath}/img/logo.jpg" height="18rem">主页</div>
+        <div class="col-xs-6 no-pad" onclick="personCenter()"><i class="glyphicon glyphicon-user glyphicon-teather"></i>个人中心</div>
     </div>
     </div>
 	<div class="grid_3">
@@ -161,7 +216,10 @@ $(document).ready(function(){
 								
 						
 						<div class="form-group">
-							<button type="button" class="btn btn-primary" onclick="subInfo()">提交</button>
+							<button type="button" class="btn btn-primary" onclick="subInfo()">同意</button>
+							<%-- <c:if test="${inv.inviteStates  eq  '1' }">
+								<button type="button" class="btn btn-primary" onclick="subInfo()">拒绝</button>
+							</c:if> --%>
 						</div>
 					</form>
 	  </div>
@@ -172,7 +230,12 @@ $(document).ready(function(){
 </body>
 <script type="text/javascript">
 	function subInfo() {
-		subInfoAll("invite");
+		var a = $("input[name='pointId']:checked").val();
+		 if(a){
+			subInfoAll("invite");
+		 }else{
+			 alert("请选择时间地点")
+		 }
 	}
 	
 	function subInfoAll(name) {

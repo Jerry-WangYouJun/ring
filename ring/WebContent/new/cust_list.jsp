@@ -16,23 +16,38 @@
 <script src="${pageContext.request.contextPath}/js/moment-with-locales.js"></script>  
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script> 
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js"></script> 
+<link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css"  media="all">
+<script src="${pageContext.request.contextPath }/layui/layui.js" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath }/js/dic.js" charset="utf-8"></script>
 <title>会员信息</title>
 <script type="text/javascript">
-$(function(){
-	$('.form_datetime').datetimepicker({
-	    format: 'yyyy-mm',
-	    autoclose: true,
-	    todayBtn: true,
-	    startView: 'decade',
-	    minView:'year',
-	    maxView:'decade',
-	    language:  'zh-CN',
-	});
-});
 
 function personCenter(){
 	 window.location.href="${pageContext.request.contextPath}/new/person_center.jsp";
 }
+
+$(function(){
+	var dic = eval('(${dic})');
+	 setCheckbox(dic,"${custQuery.custLoca}");
+	 if("${custQuery.heightQuery}"  != ''){
+		   $("#heightQuery").val("${custQuery.heightQuery}")
+	 }
+});
+
+layui.use('laydate', function(){
+	  var laydate = layui.laydate;
+	  laydate.render({
+		    elem: '#age1'
+		    ,type: 'year'
+		  });
+	  
+	  laydate.render({
+		    elem: '#age2'
+		    ,type: 'year'
+		  });
+	});
+	
+	
 </script>
 </head>
 <body>
@@ -66,21 +81,21 @@ function personCenter(){
                             <div class=" panel-default toggle">
                                 <!-- Start .panel -->
                                 <div class="panel-body">
-                                    <form class=" group-border hover-stripped" role="form" action="${pageContext.request.contextPath}/web/ring/index" method="post">
-                                        <div class="form-group" >
-                                        		<label class="col-lg-2 col-md-2 col-xs-12 control-label" >出生年月</label>
-                                            <div class="col-lg-5 col-md-5 col-xs-6 mb10" style="margin-bottom: 5px">
-                                               <input class="form-control form_datetime" type="text" value="" size="16" name="ageFrom">
-                                            </div>
-                                            <div class="col-lg-5 col-md-5 col-xs-6 mb10" style="margin-bottom: 5px">
-                                                <input class="form-control form_datetime" type="text" value="" size="16" name="ageTo">
-                                            </div>
-                                        </div>
+                                    <form  class="form-horizontal" role="form" action="${pageContext.request.contextPath}/web/ring/index" method="post">
+                                        <div class="form-group">
+											<label for="message-text" class="control-label col-lg-2 col-md-2 col-xs-4 ">出生年月:</label>
+											<div class="form-inline" style="margin-bottom: 5px">
+													
+													<input type="text" class="form-control layui-input" id="age1" name="ageFrom" readonly="readonly" value="${custQuery.ageFrom}">
+													<label for="message-text" class="control-label"> 至</label>
+													<input type="text" class="form-control layui-input" id="age2" name="ageTo" readonly="readonly" value="${custQuery.ageTo}">
+											</div>
+										</div>
                                         
                                          <div class="form-group" >
                                         		<label class="col-lg-2 col-md-2 col-xs-4 control-label" >身高范围</label>
-                                        		<div class="col-lg-4 col-md-4 col-xs-8 mb10" style="margin-bottom: 5px">
-                                            		<select name="heightQuery" class="form-control" >
+                                        		<div class="form-inline" style="margin-bottom: 5px">
+                                            		<select name="heightQuery"  id="heightQuery" class="form-control"  value="${custQuery.heightQuery}">
                                                	   <option value="">请选择</option>
                                                 	   <option value="1">160以下</option>
                                                 	   <option value="2">160-170</option>
@@ -91,24 +106,13 @@ function personCenter(){
                                         </div>
                                         <!-- End .form-group  -->
                                         <div class="form-group">
-                                            <label class="col-lg-2 col-md-2 col-sm-12 col-xs-4 control-label " style="text-align: right">活动范围</label>
-                                            <div class="col-lg-4 col-md-4 col-xs-8 mb10 " >
-                                            		<div class="form-group ">
-												    <label class="checkbox-inline">
-												      <input type="checkbox"  value="市南" name="loca">市南
-												    </label>
-												    <label class="checkbox-inline">
-												      <input type="checkbox"  value="市北" name="loca">市北
-												    </label>
-												    <label class="checkbox-inline">
-												    <input type="checkbox"  value="崂山" name="loca">崂山
-												    </label>
-												  </div>
-                                            </div>
+                                            <label class="col-lg-2 col-md-2 col-sm-12 col-xs-4 control-label ">活动范围</label>
+                                            		<div class="form-group dicCheckbox" name="custLoca">
+												 </div>
                                         </div>
                                          <div class="form-group">
                                                 <button class="btn main-about-btn"  >查询心仪的Ta</button>
-                                            </div>
+                                         </div>
                                         <!-- End .form-group  -->
                                     </form>
                                 </div>

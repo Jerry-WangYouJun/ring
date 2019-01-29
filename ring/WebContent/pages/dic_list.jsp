@@ -90,7 +90,7 @@
 							<label for="message-text" class="control-label">显示值:</label> 
 								<input type="text" class="form-control" name="describ" id="describ">
 						</div>
-						<div class="form-group">
+						<!--<div class="form-group">
 							<label for="message-text" class="control-label">字典类型:</label>
 							<select class="form-control"  id ="flag" name="flag" >  
 					           <option value="0">标签</option>
@@ -99,7 +99,7 @@
 					           <option value="3">标准：男</option>
 					           <option value="4">标准：女</option>
 					        </select>	
-						</div> 
+						</div>   -->
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -162,7 +162,7 @@
 			            field : 'code',   title : '实际值',  align: 'center',   valign: 'middle'  
 			        },{  
 			            field : 'describ',   title : '显示值',  align: 'center',   valign: 'middle'  
-			        },{  
+			        }/* ,{  
 			            field : 'flag',   title : '是否有效',  align: 'center',   valign: 'middle'  ,
 						formatter : function(value, row, index) {
 							if (value == '1') {
@@ -170,7 +170,7 @@
 							} else if (value == '0') {
 								return "无效";
 							}
-			        }}],  
+			        }} */],  
 			        silent : true, // 刷新事件必须设置  
 			    });  
 		});
