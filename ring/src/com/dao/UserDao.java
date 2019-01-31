@@ -20,9 +20,8 @@ public class UserDao {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public User checkUser(final User user) {
 		String sql = "select * from t_user a where "
-				+ " ( user_no = '"+ user.getUserNo()+"'  or user_no = "
-						+ "(select openid from t_customer where telephone = '"+user.getUserNo()+"') )"
-								+ " and pwd = '" + user.getPwd() + "' " ;
+				+ " ( remark = '"+ user.getRemark()+"'  or user_no = '" +user.getUserNo()  + "' )"
+								+ "  and pwd = '" + user.getPwd() + "' " ;
 		jdbcTemplate.query(sql, new RowMapper() {
 			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
 					user.setId(rs.getInt("id"));
