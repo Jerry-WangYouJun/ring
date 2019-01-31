@@ -11,7 +11,7 @@
  Target Server Version : 50719
  File Encoding         : utf-8
 
- Date: 01/29/2019 22:59:06 PM
+ Date: 01/31/2019 21:00:01 PM
 */
 
 SET NAMES utf8;
@@ -209,13 +209,13 @@ CREATE TABLE `t_evaluate` (
   `talk` varchar(10) DEFAULT NULL,
   `next` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_evaluate`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_evaluate` VALUES ('11', '51', '44', null, '就解决了', '', null, '3', '2', '2', null), ('12', null, null, null, null, null, null, null, null, null, null), ('13', '48', '40', '41', '1323', '好看,', null, '3', '2', '3', '4'), ('14', '61', '46', '40', '123123123', '13,', null, '3', '4', '3', '3');
+INSERT INTO `t_evaluate` VALUES ('11', '51', '44', null, '就解决了', '', null, '3', '2', '2', null), ('12', null, null, null, null, null, null, null, null, null, null), ('13', '48', '40', '41', '1323', '好看,', null, '3', '2', '3', '4'), ('14', '61', '46', '40', '123123123', '13,', null, '3', '4', '3', '3'), ('15', '64', '70', '71', '123123123', '', '5', '3', '3', '3', '3'), ('18', '64', '71', '70', '123', '', '4', '5', '5', '4', '3');
 COMMIT;
 
 -- ----------------------------
@@ -268,7 +268,7 @@ CREATE TABLE `t_invite` (
 --  Records of `t_invite`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_invite` VALUES ('47', '38', '39', '1', '2018-12-04 18:22:17', '9', null), ('48', '40', '41', null, '2018-12-04 18:25:54', '7', null), ('49', '41', '42', '2', '2018-12-04 19:53:30', '7', null), ('50', '42', '38', null, '2018-12-04 19:54:13', '7', null), ('51', '44', '42', '2', '2018-12-04 20:03:33', '7', null), ('52', '43', '42', '1', '2018-12-04 20:04:37', '4', null), ('53', '43', '42', '2', '2018-12-16 20:04:58', '4', '1231'), ('54', '46', '41', '1', '2018-12-16 10:32:23', '4', null), ('61', '46', '40', '2', '2018-12-14 17:37:25', '4', '123123123aaaa'), ('62', '41', '46', null, '2018-12-15 21:26:36', '1', null), ('64', '70', '71', '2', '2019-01-29 20:57:20', '1', '1');
+INSERT INTO `t_invite` VALUES ('47', '38', '39', '1', '2018-12-04 18:22:17', '9', null), ('48', '40', '41', null, '2018-12-04 18:25:54', '7', null), ('49', '41', '42', '2', '2018-12-04 19:53:30', '7', null), ('50', '42', '38', null, '2018-12-04 19:54:13', '7', null), ('51', '44', '42', '2', '2018-12-04 20:03:33', '7', null), ('52', '43', '42', '1', '2018-12-04 20:04:37', '4', null), ('53', '43', '42', '2', '2018-12-16 20:04:58', '4', '1231'), ('54', '46', '41', '1', '2018-12-16 10:32:23', '4', null), ('61', '46', '40', '2', '2018-12-14 17:37:25', '4', '123123123aaaa'), ('62', '41', '46', null, '2018-12-15 21:26:36', '1', null), ('64', '70', '71', '2', '2019-01-29 20:57:20', '7', '1');
 COMMIT;
 
 -- ----------------------------
@@ -297,7 +297,7 @@ CREATE TABLE `t_invite_detail` (
 --  Records of `t_invite_detail`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_invite_detail` VALUES ('29', '44', null, null, null, null, null, '2', null, null, '0', '0', null, null), ('30', '45', null, null, null, null, null, '1', null, null, '0', '1', null, null), ('31', '46', null, null, null, null, null, '1', null, null, '0', '1', null, null), ('32', '47', null, null, null, null, null, '1', null, null, '0', '1', null, null), ('33', '48', null, '2018-12-13 17:00,2018-12-14 14:00,2018-12-14 14:00,', null, null, null, '2', null, null, '0', '0', null, null), ('34', '49', null, null, null, null, null, '2', null, null, '0', '0', '1', null), ('35', '50', null, '2018-12-04 22:00,', null, null, null, '1', null, null, '0', '0', null, null), ('36', '52', null, null, null, '2018-12-16 04:00', null, '2', null, null, '0', '0', '1', '1'), ('37', '53', null, '2018-12-12 01:00,', null, '2018-12-16 04:00', null, null, null, null, '0', '0', null, null), ('38', '54', null, '2018-12-10 04:00', null, '2018-12-16 04:00', null, '1', null, null, '0', '0', null, null), ('39', '55', null, '', null, null, null, '2', null, null, '0', '0', null, null), ('40', '56', null, '', null, null, null, '2', null, null, '0', '0', null, null), ('41', '57', null, '', null, null, null, '2', null, null, '0', '0', null, null), ('42', '58', null, '2018-12-19 09:00', null, null, null, '1', null, null, '0', '0', null, null), ('43', '61', '2018-12-19 09:00', null, '2018-12-19 17:00', '2018-12-19 17:00', null, null, '2', '1', '0', '0', '1', '1'), ('45', '63', '', '2018-12-18 09:00', '', null, null, '2', null, null, '0', '0', null, null), ('46', '62', '', '2018-12-18 13:00', '', null, null, '2', null, null, '0', '0', null, null), ('47', '63', '2019-01-31 14:00', '', '', null, null, '', '', '2', '0', '0', null, null), ('48', '64', '', '2019-01-30 13:00', '', '2019-01-30 13:00', null, '2', '', '', '0', '0', null, null);
+INSERT INTO `t_invite_detail` VALUES ('29', '44', null, null, null, null, null, '2', null, null, '0', '0', null, null), ('30', '45', null, null, null, null, null, '1', null, null, '0', '1', null, null), ('31', '46', null, null, null, null, null, '1', null, null, '0', '1', null, null), ('32', '47', null, null, null, null, null, '1', null, null, '0', '1', null, null), ('33', '48', null, '2018-12-13 17:00,2018-12-14 14:00,2018-12-14 14:00,', null, null, null, '2', null, null, '0', '0', null, null), ('34', '49', null, null, null, null, null, '2', null, null, '0', '0', '1', null), ('35', '50', null, '2018-12-04 22:00,', null, null, null, '1', null, null, '0', '0', null, null), ('36', '52', null, null, null, '2018-12-16 04:00', null, '2', null, null, '0', '0', '1', '1'), ('37', '53', null, '2018-12-12 01:00,', null, '2018-12-16 04:00', null, null, null, null, '0', '0', null, null), ('38', '54', null, '2018-12-10 04:00', null, '2018-12-16 04:00', null, '1', null, null, '0', '0', null, null), ('39', '55', null, '', null, null, null, '2', null, null, '0', '0', null, null), ('40', '56', null, '', null, null, null, '2', null, null, '0', '0', null, null), ('41', '57', null, '', null, null, null, '2', null, null, '0', '0', null, null), ('42', '58', null, '2018-12-19 09:00', null, null, null, '1', null, null, '0', '0', null, null), ('43', '61', '2018-12-19 09:00', null, '2018-12-19 17:00', '2018-12-19 17:00', null, null, '2', '1', '0', '0', '1', '1'), ('45', '63', '', '2018-12-18 09:00', '', null, null, '2', null, null, '0', '0', null, null), ('46', '62', '', '2018-12-18 13:00', '', null, null, '2', null, null, '0', '0', null, null), ('47', '63', '2019-01-31 14:00', '', '', null, null, '', '', '2', '0', '0', null, null), ('48', '64', '', '2019-01-30 13:00', '', '2019-01-30 13:00', null, '2', '', '', '0', '0', '1', '1');
 COMMIT;
 
 -- ----------------------------
