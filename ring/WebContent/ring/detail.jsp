@@ -214,30 +214,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<c:if test="${customer.id eq invite.customerJoin.id }">
 										 	<c:if test="${ empty invite.detail.signJoin}">
-										<c:choose>
-										 	 <c:when test="${invite.inviteStates eq '1'}">
-										 	 	 <a href="###" onclick="addInvite('${invite.id}','1')">时间地点信息</a>
-								      			 <a href="##" onclick="updateStates('${invite.id}','3')">拒绝约请</a>
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '2'}">
-										 	 	  已接受
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '3'}">
-										 	 	  已拒绝  原因：<span class="dicValue" name="remark" value="${invite.remark }"></span>
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '4'}">
-										 	 	  准备约会，约会时间：${invite.detail.preDate}
-										 	 	 约会地点：${invite.pointLocation.location},${invite.pointLocation.address},${invite.pointLocation.locName}
-										 	 	<div>  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
-										 	 	   	<a href="##" onclick="updateDating('${invite.id}','4')">修改约会地点</a>
-										 	 	   	<a href="##" onclick="updateDating('${invite.id}','0')">约会爽约</a>
-										 	 	 </div>
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '6'}">
-										 	 	   申请取消约会 系统审核中
-										 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">撤回申请</a>
-										 	 </c:when>
-										 </c:choose>
+												<c:choose>
+												 	 <c:when test="${invite.inviteStates eq '1'}">
+												 	 	 <a href="###" onclick="addInvite('${invite.id}','1')">时间地点信息</a>
+										      			 <a href="##" onclick="updateStates('${invite.id}','3')">拒绝约请</a>
+												 	 </c:when>
+												 	 <c:when test="${invite.inviteStates eq '2'}">
+												 	 	  已接受
+												 	 </c:when>
+												 	 <c:when test="${invite.inviteStates eq '3'}">
+												 	 	  已拒绝  原因：<span class="dicValue" name="remark" value="${invite.remark }"></span>
+												 	 </c:when>
+												 	 <c:when test="${invite.inviteStates eq '4'}">
+												 	 	  准备约会，约会时间：${invite.detail.preDate}
+												 	 	 约会地点：${invite.pointLocation.location},${invite.pointLocation.address},${invite.pointLocation.locName}
+												 	 	<div>  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
+												 	 	   	<a href="##" onclick="updateDating('${invite.id}','4')">修改约会地点</a>
+												 	 	   	<a href="##" onclick="updateDating('${invite.id}','0')">约会爽约</a>
+												 	 	 </div>
+												 	 </c:when>
+												 	 <c:when test="${invite.inviteStates eq '6'}">
+												 	 	   申请取消约会 系统审核中
+												 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">撤回申请</a>
+												 	 </c:when>
+												 </c:choose>
 										 	</c:if>
 										 	<c:if test="${ not empty invite.detail.signJoin}">
 										 		 已签到

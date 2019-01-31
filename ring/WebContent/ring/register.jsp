@@ -335,18 +335,18 @@ $(function(){
 							<label for="message-text" class="control-label">出生年月:</label>
 							<div class="form-inline">
 									
-									<input type="text" class="form-control layui-input" id="age1"  name="age1">
+									<input type="text" class="form-control layui-input" id="age1"  name="age1" readonly="readonly">
 									<label for="message-text" class="control-label"> 至</label>
-									<input type="text" class="form-control layui-input" id="age2" name="age2">
+									<input type="text" class="form-control layui-input" id="age2" name="age2" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">身高范围:</label>
 							<div class="form-inline">
 									
-									<input type="text" class="form-control layui-input" id="height1" name="height1" >
+									<input type="text" class="form-control layui-input number" id="height1" name="height1"  >
 									<label for="message-text" class="control-label"> 至</label>
-									<input type="text" class="form-control layui-input" id="height2" name="height2">
+									<input type="text" class="form-control layui-input number" id="height2" name="height2" >
 							</div>
 						</div>
 						<!-- <div class="form-group">

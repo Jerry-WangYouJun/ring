@@ -26,20 +26,20 @@
     <div class="info_mc borderB">
         <div class="helper_headCover">
             <div class="head_info_mc" >
-					<c:if test="${empty cust.headImage}">
-        			<c:if test="${cust.sex eq '1'}">
+					<c:if test="${empty customer.headImage}">
+        			<c:if test="${customer.sex eq '1'}">
 					<img src="${pageContext.request.contextPath}/img/men.jpg"  />
 		      	</c:if>
-		      	<c:if test="${cust.sex eq '0'}">
+		      	<c:if test="${customer.sex eq '0'}">
 							<img src="${pageContext.request.contextPath}/img/women.jpg" />
 		      	</c:if>
     			</c:if>
     			<c:choose>
-    				  <c:when test="${fn:startsWith(cust.headImage,'http')}">
-    				  		<img src="${cust.headImage}" />
+    				  <c:when test="${fn:startsWith(customer.headImage,'http')}">
+    				  		<img src="${customer.headImage}" />
     				  </c:when>
     				  <c:otherwise>
-    				  	     <img src="${pageContext.request.contextPath}/upload/${cust.headImage}" >
+    				  	     <img src="${pageContext.request.contextPath}/upload/${customer.headImage}" >
     				  </c:otherwise>
     			</c:choose>
             </div>
