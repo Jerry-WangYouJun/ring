@@ -138,14 +138,16 @@ span{
 							<img src="${pageContext.request.contextPath}/img/women.jpg" />
 		      	</c:if>
     			</c:if>
-    			<c:choose>
-    				  <c:when test="${fn:startsWith(cust.headImage,'http')}">
-    				  		<img src="${cust.headImage}" />
-    				  </c:when>
-    				  <c:otherwise>
-    				  	     <img src="${pageContext.request.contextPath}/upload/${cust.headImage}" >
-    				  </c:otherwise>
-    			</c:choose>
+    			<c:if test="${not empty cust.headImage}">
+	    			<c:choose>
+	    				  <c:when test="${fn:startsWith(cust.headImage,'http')}">
+	    				  		<img src="${cust.headImage}" />
+	    				  </c:when>
+	    				  <c:otherwise>
+	    				  	     <img src="${pageContext.request.contextPath}/upload/${cust.headImage}" >
+	    				  </c:otherwise>
+	    			</c:choose>
+    			</c:if>
     </div>
     <div class="list-main-cot">
         <div class="list-main-tittle">基本资料</div>

@@ -125,27 +125,36 @@ layui.use('laydate', function(){
     <c:forEach items="${list}" var ="customerJoin">
 	    <div class="row index-list">
 	        <div class="col-xs-4 list-left">
-	            <a href="${pageContext.request.contextPath}/web/customer?id=${customerJoin.id}"><img src="${pageContext.request.contextPath}/new/images/1_03.jpg" width="100%"></a>
+	            <a href="${pageContext.request.contextPath}/web/customer?id=${customerJoin.id}">
+	            <c:if test="${empty cust.headImage}">
+	        			<c:if test="${cust.sex eq '1'}">
+						<img src="${pageContext.request.contextPath}/img/men.jpg"  width="100%" />
+			      	</c:if>
+			      	<c:if test="${cust.sex eq '0'}">
+								<img src="${pageContext.request.contextPath}/img/women.jpg"  width="100%"/>
+			      	</c:if>
+	    			</c:if>
+	    			<c:if test="${not empty cust.headImage}">
+		    			<c:choose>
+		    				  <c:when test="${fn:startsWith(cust.headImage,'http')}">
+		    				  		<img src="${cust.headImage}"   width="100%"/>
+		    				  </c:when>
+		    				  <c:otherwise>
+		    				  	     <img src="${pageContext.request.contextPath}/upload/${cust.headImage}"   width="100%">
+		    				  </c:otherwise>
+		    			</c:choose>
+	    			</c:if>
+	            </a>
 	        </div>
 	        <div class="col-xs-8 list-right">
 	            <div class="row">
 	                <p class="menu-list-main">
-	                <c:if test="${empty cust.headImage}">
-	        			<c:if test="${cust.sex eq '1'}">
+	                <c:if test="${cust.sex eq '1'}">
 						<img src="${pageContext.request.contextPath}/img/men.jpg"  />
 			      	</c:if>
 			      	<c:if test="${cust.sex eq '0'}">
 								<img src="${pageContext.request.contextPath}/img/women.jpg" />
 			      	</c:if>
-	    			</c:if>
-	    			<c:choose>
-	    				  <c:when test="${fn:startsWith(cust.headImage,'http')}">
-	    				  		<img src="${cust.headImage}" />
-	    				  </c:when>
-	    				  <c:otherwise>
-	    				  	     <img src="${pageContext.request.contextPath}/upload/${cust.headImage}" >
-	    				  </c:otherwise>
-	    			</c:choose>
 	                
 	                 ${customerJoin.nickName}</p>
 	                <div class="index-list-tap">

@@ -26,22 +26,24 @@
     <div class="info_mc borderB">
         <div class="helper_headCover">
             <div class="head_info_mc" >
-					<c:if test="${empty customer.headImage}">
+			<c:if test="${empty customer.headImage}">
         			<c:if test="${customer.sex eq '1'}">
-					<img src="${pageContext.request.contextPath}/img/men.jpg"  />
+					<img src="${pageContext.request.contextPath}/img/men.jpg"  width ="56px"   height="56px"/>
 		      	</c:if>
 		      	<c:if test="${customer.sex eq '0'}">
-							<img src="${pageContext.request.contextPath}/img/women.jpg" />
+							<img src="${pageContext.request.contextPath}/img/women.jpg" width ="56px"   height="56px"/>
 		      	</c:if>
     			</c:if>
-    			<c:choose>
-    				  <c:when test="${fn:startsWith(customer.headImage,'http')}">
-    				  		<img src="${customer.headImage}" />
-    				  </c:when>
-    				  <c:otherwise>
-    				  	     <img src="${pageContext.request.contextPath}/upload/${customer.headImage}" >
-    				  </c:otherwise>
-    			</c:choose>
+    			<c:if test="${not empty customer.headImage}">
+	    			<c:choose>
+	    				  <c:when test="${fn:startsWith(customer.headImage,'http')}">
+	    				  		<img src="${customer.headImage}"width ="56px"   height="56px" />
+	    				  </c:when>
+	    				  <c:otherwise>
+	    				  	     <img src="${pageContext.request.contextPath}/upload/${customer.headImage}" width ="56px"   height="56px" />
+	    				  </c:otherwise>
+	    			</c:choose>
+    			</c:if>
             </div>
         </div>
 
