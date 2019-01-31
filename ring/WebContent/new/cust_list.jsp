@@ -126,7 +126,7 @@ layui.use('laydate', function(){
 	    <div class="row index-list">
 	        <div class="col-xs-4 list-left">
 	            <a href="${pageContext.request.contextPath}/web/customer?id=${customerJoin.id}">
-	            <c:if test="${empty cust.headImage}">
+	            <c:if test="${empty customerJoin.headImage}">
 	        			<c:if test="${cust.sex eq '1'}">
 						<img src="${pageContext.request.contextPath}/img/men.jpg"  width="100%" />
 			      	</c:if>
@@ -134,13 +134,13 @@ layui.use('laydate', function(){
 								<img src="${pageContext.request.contextPath}/img/women.jpg"  width="100%"/>
 			      	</c:if>
 	    			</c:if>
-	    			<c:if test="${not empty cust.headImage}">
+	    			<c:if test="${not empty customerJoin.headImage}">
 		    			<c:choose>
-		    				  <c:when test="${fn:startsWith(cust.headImage,'http')}">
-		    				  		<img src="${cust.headImage}"   width="100%"/>
+		    				  <c:when test="${fn:startsWith(customerJoin.headImage,'http')}">
+		    				  		<img src="${customerJoin.headImage}"   width="100%"/>
 		    				  </c:when>
 		    				  <c:otherwise>
-		    				  	     <img src="${pageContext.request.contextPath}/upload/${cust.headImage}"   width="100%">
+		    				  	     <img src="${pageContext.request.contextPath}/upload/${customerJoin.headImage}"   width="100%">
 		    				  </c:otherwise>
 		    			</c:choose>
 	    			</c:if>
