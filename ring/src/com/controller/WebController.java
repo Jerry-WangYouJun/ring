@@ -78,18 +78,20 @@ public class WebController {
 	@RequestMapping("/login")
 	public String login( HttpSession session , User user) {
 			user = service.checkUser(user);
-			session.setAttribute("webUser", user);
 			Customer cust =  new Customer();
 			cust.setTelephone(user.getUserNo());
 			List<Customer> custList = custService.queryList(cust, new Pagination());
 			if(custList != null && custList.size() > 0) {
 				cust = custList.get(0);
 			}
-			session.setMaxInactiveInterval(1800);
+			Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 			if("0".equals(cust.getExamine())){
  			   return "forward:/web/registerInit?openId=0" ;
  		   }else{
+ 			   session.setAttribute("dic",   JSONObject.fromObject(dicMap));
+ 			   session.setAttribute("webUser", user);
  			   session.setAttribute("customer", cust);
+ 			   session.setMaxInactiveInterval(1800);
  			   return "forward:/web/index";
  		   }
 	}

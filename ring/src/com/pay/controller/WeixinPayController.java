@@ -201,34 +201,23 @@ public class WeixinPayController {
                 System.out.println("infoUrl:"+infoUrl);
 		        JSONObject jsonObject = WXAuthUtil.doGetJson(infoUrl);
 		           if("0".equals(jsonObject.getString("subscribe"))){     
-		        	   System.out.println("没有关注");
-		        	   return "forward:/article/focus.jsp";
+			        	   System.out.println("没有关注");
+			        	   return "forward:/article/focus.jsp";
 		           }else{
-		        	   List<Customer> custList = custService.queryList(customer, new Pagination());
-		        	   if(custList ==null || custList.size() ==0){
-		        		   request.getSession().setAttribute("headImg", userInfo.getString("headimgurl"));
-		        		   return "forward:/web/registerInit?openId=" + customer.getOpenId();
-		        	   }else {
-		        		   if("0".equals(custList.get(0).getExamine())){
-		        			   return "forward:/web/registerInit?openId=0" ;
-		        		   }else{
-		        			   
-		        			   User user = new User();
-		        			   user.setRemark(customer.getOpenId());
-		        			   user.setPwd("123");
-		        			   user = userService.checkUser(user);
-		        			   request.getSession().setAttribute("webUser", user);
-		        			   Customer cust = custService.queryCustByUserNo(user.getUserNo());
-		        			   request.getSession().setAttribute("customer", cust);
-		        			   Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
-		        			   request.getSession().setAttribute("dic",   JSONObject.fromObject(dicMap));
-		        		   }
-		        	   }
-		        	   if( id != null && id != 0) {
-		        		   return "forward:/"+action+"/detail?id=" + id ;
-		        	   }else{
-		        		   return "forward:/web/login?userNo="+ customer.getOpenId() + "&&pwd=123"  ;
-		        	   }
+			        	   List<Customer> custList = custService.queryList(customer, new Pagination());
+			        	   if(custList ==null || custList.size() ==0){
+			        		   request.getSession().setAttribute("headImg", userInfo.getString("headimgurl"));
+			        		   return "forward:/web/registerInit?openId=" + customer.getOpenId();
+			        	   }else {
+			        		   if("0".equals(custList.get(0).getExamine())){
+			        			   return "forward:/web/registerInit?openId=0" ;
+			        		   }
+			        	   }
+			        	   if( id != null && id != 0) {
+			        		   return "forward:/"+action+"/detail?id=" + id ;
+			        	   }else{
+			        		   return "forward:/web/login?remark="+ customer.getOpenId() + "&&pwd=123"  ;
+			        	   }
 		           }
 		
 	}
