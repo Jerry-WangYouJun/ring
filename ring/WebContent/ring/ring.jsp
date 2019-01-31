@@ -69,7 +69,23 @@ layui.use('table', function(){
    			"city": "同意约会"
            ,"username": "invite/state?id=64&inviteStates=1"
            ,"classify": "/web/dating?id=  转 /ring/accept.jsp"
-      	  }]
+      	  },{
+ 			"city": "个人中心- 我的约会 "
+           ,"username": "web/dateinfo"
+           ,"classify": ":/new/date_list.jsp"
+      	  },{
+   			"city": "个人中心- 我的约会 - 全部约会 "
+          ,"username": "web/info"
+          ,"classify": "new/date_list.jsp"
+     	  },{
+    			"city": "我的约会 - 约会评价"
+	         ,"username": "web/evaluate?id=64"
+	         ,"classify": "/ring/evaluate.jsp"
+	    	  },{
+			"city": "我的约会 - 约会详情"
+	         ,"username": "web/detail?id=64##"
+	         ,"classify": "/ring/detail.jsp"
+	    	  }]
   		  ,page: true
   });
 });

@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="${basePath}/ring/css/main.css" />
 <script src="${basePath}/js/jquery-3.1.1.min.js"></script>
 <script src="${basePath}/ring/assets/js/bootstrap/bootstrap.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css"  media="all">
+<script src="${pageContext.request.contextPath }/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript">
 		$(function(){
 			 $(".dicSelect").each(function(){
@@ -59,17 +61,14 @@
 </script>
 </head>
 <body>
-
+<%@include file="/ring/header.jsp"%>
 		<div class="container-fluid">
 			 <div class="row">
                         <!-- col-lg-4 end here -->
                         <div class="">
                             <!-- col-lg-4 start here -->
-                            <div class="panel panel-default plain">
+                            <div class="panel panel-default plain mt10" >
                                 <!-- Start .panel -->
-                                <div class="panel-heading pink-bg">
-                                    <h4 class="panel-title"><i class="ec-user"></i> 约会信息</h4>
-                                </div>
                                 <div class="basic_1">
 				    	<div class="col-md-6 basic_1-left">
 				    	  <table class="table_working_hours">
@@ -149,8 +148,13 @@
 													class="form-control dicSelect" id="next" name="next" >
 												</select>
                                         <div class="form-group">
-                                            <label class="control-label">评价</label>
+                                       		 <input type="hidden" name="remark"  id="remark">
+                                            <label class="control-label">魅力值</label>
                                             <textarea class="form-control" rows="3" name="evaluateMsg">${evaluate.evaluateMsg }</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                       		<label class="control-label">综合评价</label>
+											<div id="test2"></div>
                                         </div>
                                         </div>
                                         <!-- End .form-group  -->
@@ -188,6 +192,30 @@
 			 function deleteTag(obj){
 				   $(obj).parent().remove();
 			 }
+			 alert("${evaluate.remark}")
+			 layui.use(['rate'], function(){
+				  var rate = layui.rate;
+				//显示文字
+				  rate.render({
+				    elem: '#test2'
+				    ,value: "${evaluate.remark}" //初始值
+				    ,text: true //开启文本
+				    ,choose: function(value){
+				          $("#remark").val(value);
+				      }
+				  ,setText: function(value){
+					    var arrs = {
+					      '1': '极差'
+					      ,'2': '差'
+					      ,'3': '中等'
+					      ,'4': '好'
+					      ,'5' : '非常好'
+					    };
+					    this.span.text(arrs[value] || ( value + "星"));
+					  }
+				  });
+			 });
+			 
 		</script>
 </body>
 </html>

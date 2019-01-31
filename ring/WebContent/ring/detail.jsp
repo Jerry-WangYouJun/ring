@@ -11,7 +11,6 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-easyui-1.4/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/layer/layer.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-table.min.css" />  
 
@@ -27,6 +26,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <!-- Custom stylesheets ( Put your own changes here ) -->
         <link href="${pageContext.request.contextPath}/ring/assets/css/custom.css" rel="stylesheet" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/new/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css"  media="all">
+<script src="${pageContext.request.contextPath }/layui/layui.js" charset="utf-8"></script>
 <!----font-Awesome----->
 <script>
 	 function invite(joinId){
@@ -357,6 +358,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<td class="day_label">是否愿意再次与对方见面:</td>
 									<td class="day_value dicValue" name="next" value="${ev.next}"></td>
 								</tr>
+								<tr class="opened">
+									<td class="day_label">对我的评价:</td>
+									<td class="day_value">${ev.evaluateMsg}</td>
+								</tr>
+								<tr class="opened">
+									<td class="day_label">对我的评分:</td>
+									<td id="test2"></td>
+								</tr>
 						    </tbody>
 				          </table>
 				         </div>
@@ -426,7 +435,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             return date.getFullYear() + "-" + month + "-" + currentDate + " " + hours + ":" + minutes + ":" + seconds;
         }
     }
-	
+	var val = '${ev.remark}';
+    layui.use(['rate'], function(){
+		  var rate = layui.rate;
+		  rate.render({
+		    elem: '#test2'
+		        ,value: val
+		        ,text: true //开启文本
+			  ,setText: function(value){
+				    var arrs = {
+				      '1': '极差'
+				      ,'2': '差'
+				      ,'3': '中等'
+				      ,'4': '好'
+				      ,'5' : '非常好'
+				    };
+				    this.span.text(arrs[value] || ( value + "星"));
+				  }
+		        ,readonly: true
+		    });
+    });
 	</script>
 <!-- FlexSlider -->
 <script defer src="${pageContext.request.contextPath}/ring/js/jquery.flexslider.js"></script>
