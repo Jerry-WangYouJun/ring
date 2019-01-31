@@ -31,7 +31,7 @@
 <script type="text/javascript">
 	var dic = eval('(${dic})');
 		$(function(){
-			//$("#dataForm").validate();
+			$("#dataForm").validate();
 		});
 		
 		function addInfo() {

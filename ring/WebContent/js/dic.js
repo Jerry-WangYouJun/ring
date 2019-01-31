@@ -5,7 +5,7 @@ function setCheckbox(dic , val){
 			if (dic.hasOwnProperty(field)) {
 				for ( var keyValue in dic[field]) {
 					htmlStr += ' <label class="checkbox-inline"> <input type="checkbox"  value="'
-						+ dic[field][keyValue].describ + '" name="custLoca"  ' 
+						+ dic[field][keyValue].describ + '" name="' + field +'"  ' 
 						if(val.indexOf(dic[field][keyValue].describ ) != -1){
 							htmlStr +=  'checked="checked" >' 
 						}else{

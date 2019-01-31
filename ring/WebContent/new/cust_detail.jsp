@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,7 +12,7 @@
 <link href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />  
 <script src="${pageContext.request.contextPath}/new/js/jquery-1.10.2.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="${pageContext.request.contextPath}/new/js/bootstrap.min.js"></script>
+
 <script src="${pageContext.request.contextPath}/new/js/public.js"></script>
 <title>会员资料</title>
 <script>
@@ -127,13 +128,24 @@ span{
 <body>
 <div class="index-main-about">
    <%@include file="/ring/header.jsp"%>
+   <script src="${pageContext.request.contextPath}/new/js/bootstrap.min.js"></script>
     <div class="list-main-bg">
-        <c:if test="${cust.sex eq '1'}">
+    			<c:if test="${empty cust.headImage}">
+        			<c:if test="${cust.sex eq '1'}">
 					<img src="${pageContext.request.contextPath}/img/men.jpg"  />
 		      	</c:if>
 		      	<c:if test="${cust.sex eq '0'}">
 							<img src="${pageContext.request.contextPath}/img/women.jpg" />
 		      	</c:if>
+    			</c:if>
+    			<c:choose>
+    				  <c:when test="${fn:startsWith(cust.headImage,'http')}">
+    				  		<img src="${cust.headImage}" alt="post Image" />
+    				  </c:when>
+    				  <c:otherwise>
+    				  	     <img src="${pageContext.request.contextPath}/upload/${cust.headImage}" alt="post Image">
+    				  </c:otherwise>
+    			</c:choose>
     </div>
     <div class="list-main-cot">
         <div class="list-main-tittle">基本资料</div>

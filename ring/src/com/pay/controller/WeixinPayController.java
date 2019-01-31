@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.common.StringUtils;
 import com.common.entry.Pagination;
 import com.model.Customer;
-import com.model.Dictionary;
 import com.model.User;
 import com.pay.config.WxPayConfig;
 import com.pay.msgreply.XMLUtil;
