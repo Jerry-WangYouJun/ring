@@ -93,6 +93,7 @@ public class CustomerController {
 		Message msg = new Message();
 		try{
 			 customer.setFlag(customer.getFlagTemp());
+			 customer.setLoca(customer.getCustLoca());
 			if(customer.getId() != null  &&  customer.getId() > 0){
 				service.update(customer);
 				User user = userService.queryUserByTelephone(customer.getTelephone());

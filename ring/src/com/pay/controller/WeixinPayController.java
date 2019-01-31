@@ -218,7 +218,7 @@ public class WeixinPayController {
 		        			   user.setPwd("123");
 		        			   user = userService.checkUser(user);
 		        			   request.getSession().setAttribute("webUser", user);
-		        			   Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
+		        			   Customer cust = custService.queryCustByUserNo(user.getUserNo());
 		        			   request.getSession().setAttribute("customer", cust);
 		        			   Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		        			   request.getSession().setAttribute("dic",   JSONObject.fromObject(dicMap));

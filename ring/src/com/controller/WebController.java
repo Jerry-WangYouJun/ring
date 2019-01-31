@@ -155,7 +155,7 @@ public class WebController {
 		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
 		User  user = (User)request.getSession().getAttribute("webUser");
-		Customer cust = custService.selectById(Integer.valueOf(user.getRemark()));
+		Customer cust = custService.queryCustByUserNo(user.getUserNo());
 		List<Focus>  list = cust.getFocus();
 		List<Customer> customerList = new ArrayList<>();
 		for(Focus f : list) {
