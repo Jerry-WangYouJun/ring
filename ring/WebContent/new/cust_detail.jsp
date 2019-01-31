@@ -140,10 +140,10 @@ span{
     			</c:if>
     			<c:choose>
     				  <c:when test="${fn:startsWith(cust.headImage,'http')}">
-    				  		<img src="${cust.headImage}" alt="post Image" />
+    				  		<img src="${cust.headImage}" />
     				  </c:when>
     				  <c:otherwise>
-    				  	     <img src="${pageContext.request.contextPath}/upload/${cust.headImage}" alt="post Image">
+    				  	     <img src="${pageContext.request.contextPath}/upload/${cust.headImage}" >
     				  </c:otherwise>
     			</c:choose>
     </div>

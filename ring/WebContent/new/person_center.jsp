@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,8 +25,23 @@
     </div>
     <div class="info_mc borderB">
         <div class="helper_headCover">
-            <div class="head_info_mc" style="background-image:url(images/1_03.jpg);">
-
+            <div class="head_info_mc" >
+					<c:if test="${empty cust.headImage}">
+        			<c:if test="${cust.sex eq '1'}">
+					<img src="${pageContext.request.contextPath}/img/men.jpg"  />
+		      	</c:if>
+		      	<c:if test="${cust.sex eq '0'}">
+							<img src="${pageContext.request.contextPath}/img/women.jpg" />
+		      	</c:if>
+    			</c:if>
+    			<c:choose>
+    				  <c:when test="${fn:startsWith(cust.headImage,'http')}">
+    				  		<img src="${cust.headImage}" />
+    				  </c:when>
+    				  <c:otherwise>
+    				  	     <img src="${pageContext.request.contextPath}/upload/${cust.headImage}" >
+    				  </c:otherwise>
+    			</c:choose>
             </div>
         </div>
 
