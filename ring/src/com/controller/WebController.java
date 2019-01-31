@@ -76,7 +76,7 @@ public class WebController {
 	UserService  userService;
 	
 	@RequestMapping("/login")
-	public String login( HttpSession session , User user) {
+	public String login( HttpSession session , User user , String headImg) {
 			user = service.checkUser(user);
 			Customer cust =  new Customer();
 			cust.setTelephone(user.getUserNo());
@@ -88,6 +88,10 @@ public class WebController {
 			if("0".equals(cust.getExamine())){
  			   return "forward:/web/registerInit?openId=0" ;
  		   }else{
+ 			   if(StringUtils.isEmpty(cust.getHeadImage())) {
+ 				    cust.setHeadImage(headImg);
+ 				    custService.update(cust);
+ 			   }
  			   session.setAttribute("dic",   JSONObject.fromObject(dicMap));
  			   session.setAttribute("webUser", user);
  			   session.setAttribute("customer", cust);

@@ -43,5 +43,15 @@ public class User {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+	
+	public User() {
+		super();
+	}
+	public User(String userNo, String remark , String pwd) {
+		super();
+		this.userNo = userNo;
+		this.pwd = pwd;
+		this.remark = remark;
+	}
 	 
 }
