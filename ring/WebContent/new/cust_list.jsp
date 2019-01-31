@@ -127,10 +127,10 @@ layui.use('laydate', function(){
 	        <div class="col-xs-4 list-left">
 	            <a href="${pageContext.request.contextPath}/web/customer?id=${customerJoin.id}">
 	            <c:if test="${empty customerJoin.headImage}">
-	        			<c:if test="${cust.sex eq '1'}">
+	        			<c:if test="${customerJoin.sex eq '1'}">
 						<img src="${pageContext.request.contextPath}/img/men.jpg"  width="100%" />
 			      	</c:if>
-			      	<c:if test="${cust.sex eq '0'}">
+			      	<c:if test="${customerJoin.sex eq '0'}">
 								<img src="${pageContext.request.contextPath}/img/women.jpg"  width="100%"/>
 			      	</c:if>
 	    			</c:if>
