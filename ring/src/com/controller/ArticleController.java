@@ -66,41 +66,21 @@ public class ArticleController {
 		Message msg = new Message();
 		
 		try{
-			if(request.getSession().getAttribute("articleImg") != null ) {
-				String img = request.getSession().getAttribute("articleImg").toString() ;
-				if(StringUtils.isNotEmpty(img)) {
-					 article.setArticleImg(img);
-				}else {
-					 msg.setSuccess(false);
-					 msg.setMsg("操作失败：请在正文中添加图片作为封面");
-					 return msg ;
-				}
-			}else {
-				 msg.setSuccess(false);
-				 msg.setMsg("操作失败：请在正文中添加图片作为封面");
-				 return msg ;
-			}
-			
 			if(article.getId() != null  &&  article.getId() > 0){
 				service.updateByPrimaryKey(article);
 			}else{
 				User user = (User)request.getSession().getAttribute("webUser");
-				if(user == null) {
-					 user = (User)request.getSession().getAttribute("user");
-				}
-				if(StringUtils.isNotBlank(user.getRemark())) {
-					article.setCustId(Integer.valueOf(user.getRemark()));
-				}
+//				if(user == null) {
+//					 user = (User)request.getSession().getAttribute("user");
+//				}
+//				if(StringUtils.isNotBlank(user.getRemark())) {
+//					article.setCustId(cust.getId());
+//				}
 				if("1".equals(user.getRole())) {
 					article.setArticleState("2");
 				}
 				article.setArticleDate(DateUtils.formatDate("yyyy-MM-dd HH:mm", new Date()));
-				Customer cust = custMapper.selectByPrimaryKey(Integer.valueOf(user.getRemark()));
-				if(cust == null ) {
-					 article.setAuthor("无名指之约");
-				}else {
-					article.setAuthor(cust.getNickName());
-				}
+				article.setAuthor(user.getUserName());
 				service.insert(article);
 			}
 			request.getSession().removeAttribute("articleImg");
@@ -195,14 +175,13 @@ public class ArticleController {
 	public String articledetail(HttpServletRequest  request , HttpSession session ,Integer id ) {
 		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
-		Article article = new Article();
-		Customer cust = (Customer)session.getAttribute("customer");
-		article.setCustId(cust.getId());
-		List<Article> articleList = service.queryByWhere(article, new Pagination());
-		request.setAttribute("articleList", articleList);
+		//Article article = new Article();
+//		Customer cust = (Customer)session.getAttribute("customer");
+//		article.setCustId(cust.getId());
+//		List<Article> articleList = service.queryByWhere(article, new Pagination());
+//		request.setAttribute("articleList", articleList);
 		Article articleDetail = service.selectByPrimaryKey(id);
 		request.setAttribute("article", articleDetail);
-		request.setAttribute("articleList", articleList);
 		return "forward:/article/detail.jsp";
 	}
 	

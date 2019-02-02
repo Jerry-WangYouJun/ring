@@ -68,9 +68,9 @@
             <span class="article1-bg bg join-act"></span>
             <span class="art_rev_tit">我的活动</span>
         </a>
-        <a class="article1">
+        <a class="article1" href="${pageContext.request.contextPath}/web/info">
             <span class="article1-bg bg"></span>
-            <span class="art_rev_tit">写文章</span>
+            <span class="art_rev_tit">我的邀约</span>
         </a>
         <a class="template1" href="${pageContext.request.contextPath}/web/dateinfo">
             <span class="review1-bg bg"></span>
@@ -96,7 +96,7 @@
 	        <div class="leaf_old_mc borderT mySpace borderB" style="position:relative" onclick="myinvite()">
 	            <div class="ic_rep_space1 im" style="position:relative;"></div>
 	            <div class="txt_leaf_omc ">我的邀约</div>
-	            <div class="sponsor-act"><span>5</span>个</div>
+	            <!-- <div class="sponsor-act"><span>5</span>个</div> -->
 	        </div>
         </a>
 	</div>
@@ -111,18 +111,12 @@
         <div class="leaf_old_mc borderT mySpace borderB" style="position:relative">
             <div class="ic_rep_space ic_rep_sponsor1 im" style="position:relative;"></div>
             <div class="txt_leaf_omc">我是活动发起人</div>
-            <div class="sponsor-act"><span>12</span>场</div>
+            <!-- <div class="sponsor-act"><span>12</span>场</div> -->
         </div>
         <div class="leaf_old_mc borderT mySpace borderB" style="position:relative">
             <div class="ic_rep_space ic_rep_sponsor im" style="position:relative;"></div>
             <div class="txt_leaf_omc ">参加过的活动</div>
         </div>
-         <a href="#">
-            <div class="leaf_old_mc borderT mySpace borderB">
-                <div class="ic_rep_space im" style="position:relative;"></div>
-                <div class="txt_leaf_omc ">我的文章和回顾</div>
-            </div>
-        </a>
     </div>
 </div>
 </body>

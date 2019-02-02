@@ -42,7 +42,7 @@
 	            <div class="txt_leaf_menu">历史文章</div>
 	        </div>
         </a>
-        <a href="${pageContext.request.contextPath}/web/acticle/index">
+      <%--   <a href="${pageContext.request.contextPath}/web/acticle/index">
         <div class="col-xs-4" >
             <i class="ic_wsy_article_square im"></i>
             <div class="txt_leaf_menu">人物专访</div>
@@ -59,7 +59,7 @@
             <i class="ic_party_post im"></i>
             <div class="txt_leaf_menu">文章系列</div>
         </div>
-        </a>
+        </a> --%>
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/new/js/jquery-1.10.2.js"></script>

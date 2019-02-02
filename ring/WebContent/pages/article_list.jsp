@@ -14,6 +14,8 @@
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
     <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/ueditor/lang/zh-cn/zh-cn.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css"  media="all">
+<script src="${pageContext.request.contextPath }/layui/layui.js" charset="utf-8"></script>
 <title>会员管理</title>
 <style type="text/css">
 .panel-body {
@@ -94,6 +96,16 @@
                                 </div>
 						</div>
 						<div class="form-group">
+                                <input type="hidden" name="articleImg" id="articleImg"   class="form-control" >
+							 <div class="layui-upload">
+							  <button type="button" class="layui-btn" id="upfileFront">文章展示图片</button>
+							  <div class="layui-upload-list">
+							    <img class="layui-upload-img" id="demo1" width="100%"  src="${pageContext.request.contextPath}/upload/${mycust.frontImg}" >
+							    <p id="demoText"></p>
+							  </div>
+							</div> 
+                        </div>
+						<div class="form-group">
 							<label for="message-text" class="control-label">文章正文:</label>
 							<script id="editor" type="text/plain" ></script>
 						</div>
@@ -115,6 +127,40 @@
 	</div>
 </body>
 <script type="text/javascript">
+layui.use('upload', function(){
+	  var $ = layui.jquery
+	  ,upload = layui.upload;
+	  
+	  //普通图片上传
+	  var uploadInst = upload.render({
+	    elem: '#upfileFront'
+	    ,url: '${basePath}/customer/cardimg'
+	    ,before: function(obj){
+	      //预读本地文件示例，不支持ie8
+	      obj.preview(function(index, file, result){
+	        $('#demo1').attr('src', result); //图片链接（base64）
+	      });
+	    }
+	    ,done: function(res){
+	    	  console.info(res);
+	      //如果上传失败
+	      if(res.success){
+	    	  	  $("#articleImg").val(res.msg);
+	      }else{
+	        return layer.msg('上传失败');
+	      }
+	      //上传成功
+	    }
+	    ,error: function(){
+	      //演示失败状态，并实现重传
+	      var demoText = $('#demoText');
+	      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+	      demoText.find('.demo-reload').on('click', function(){
+	        uploadInst.upload();
+	      });
+	    }
+	  });
+	});
 	function subInfo() {
 		subInfoAll("article");
 	}

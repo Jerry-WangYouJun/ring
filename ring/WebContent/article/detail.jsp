@@ -77,7 +77,7 @@
 	<section id="main-content" class="main-content blog-post-singgle-page">
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-8">
+			<div class="col-sm-12">
 				<div id="blog-post-content" class="blog-post-content">
 					<article class="post type-post">
 					<div class="post-top">
@@ -125,93 +125,6 @@
 					</div>
 					<!-- /#comment --> </article>
 				</div>
-			</div>
-			<div class="col-sm-4">
-				<div id="blog-sidebar" class="blog-sidebar widget-area"
-					role="complementary">
-					<div class="sidebar-content">
-
-						<aside class="widget widget_categories">
-						<h3 class="widget-title">该作者其他文章</h3>
-						<!-- /.widget-title -->
-
-						<ul class="category-list">
-							<c:forEach items="${articleList}" var="artName">
-								<li><a href="###" onclick="detailArticle('${artName.id}')">${artName.title}(${artName.articleDate}) </a></li>
-							</c:forEach>
-						</ul>
-						</aside>
-						<!-- /.widget -->
-
-						<aside class="widget widget_recent_entries">
-						<h3 class="widget-title">其他文章</h3>
-						<!-- /.widget-title -->
-						<ul class="recent-post">
-							<li>
-								<div class="recent-post-details">
-									<a class="post-title" href="##" onclick="getArticle('3')">精选</a><br>
-								</div>
-								<!-- /.recent-post-details -->
-							</li>
-							<li>
-								<div class="recent-post-details">
-									<a class="post-title" href="##"  onclick="getArticle('2')">美文</a><br>
-								</div>
-								<!-- /.recent-post-details -->
-							</li>
-							<li>
-								<div class="recent-post-details">
-									<a class="post-title" href="##"  onclick="getArticle('4')">置顶</a><br>
-								</div>
-								<!-- /.recent-post-details -->
-							</li>
-						</ul>
-						<!-- /.recent-post --> </aside>
-						<!-- /.widget -->
-
-						<aside class="widget widget wp_widget_tag_cloud clearfix">
-						<h3 class="widget-title">各种标签</h3>
-						<!-- /.widget-title -->
-						<div class="tag-cloud-wrapper">
-							<a href="#">design</a> <a href="#">html5</a> <a href="#">css3</a>
-							<a href="#">web-design</a> <a href="#">illustrator</a> <a
-								href="#">Photoshop</a> <a href="#">ui/ux</a> <a href="#">js</a>
-							<a href="#">icons</a> <a href="#">article</a> <a href="#">web</a>
-							<a href="#">inDesign</a>
-						</div>
-						<!-- /.tag-cloud-wrapper --> </aside>
-						<!-- /.widget -->
-
-						<aside class="widget widget_archive">
-						<h3 class="widget-title">不同时间文章</h3>
-						<!-- /.widget-title -->
-						<ul class="archive-list">
-							<li><a href="#">April 2015 <span class="count">05</span></a>
-							</li>
-							<li><a href="#">March 2015 <span class="count">35</span></a>
-							</li>
-							<li><a href="#">February 2015 <span class="count">15</span></a>
-							</li>
-						</ul>
-						</aside>
-						<!-- /.widget -->
-
-
-						<aside class="widget widget_rss">
-						<h3 class="widget-title">
-							<a class="rsswidget" href="#" title="Syndicate this content"><i
-								class="rss-icon fa fa-rss"></i>其他</a>
-						</h3>
-						<ul>
-							<li><a class="rsswidget" href="#">活动</a></li>
-							<li><a class="rsswidget" href="#">约会</a></li>
-							<li><a class="rsswidget" href="#">美文</a></li>
-						</ul>
-						</aside>
-					</div>
-					<!-- /.sidebar-content -->
-				</div>
-				<!-- /#sidebar -->
 			</div>
 		</div>
 	</div>

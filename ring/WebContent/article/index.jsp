@@ -1,180 +1,128 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    pageEncoding="UTF-8"%>
+<%@include file="/common.jsp"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="${pageContext.request.contextPath}/article/assets/css/bootstrap.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/article/assets/css/bootstrap.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/article/assets/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/article/assets/css/magnific-popup.css">
-<link href="${pageContext.request.contextPath}/article/assets/css/style.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/article/assets/css/icons.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/article/assets/css/main.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/article/assets/css/animate.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/article/assets/css/owl.carousel.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/article/assets/css/responsive.css" rel="stylesheet">
-<script src="${pageContext.request.contextPath}/article/assets/js/modernizr-2.8.3.min.js"></script>
-<script src="${pageContext.request.contextPath}/article/assets/js/jquery-2.1.0.min.js"></script>
-<script src="${pageContext.request.contextPath}/article/assets/js/jquery.magnific-popup.min.js"></script>
-<script src="${pageContext.request.contextPath}/article/assets/js/gmap3.js"></script>
-<script src="${pageContext.request.contextPath}/article/assets/js/plugins.js"></script>
-<script src="${pageContext.request.contextPath}/article/assets/js/functions.js"></script>
-<script src="${pageContext.request.contextPath}/article/assets/js/wow.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/article/assets/js/jquery.ajaxchimp.min.js"></script>
-<title>Insert title here</title>
+<link rel="stylesheet" href="${basePath}/css/style.css" />
+ <link href="${pageContext.request.contextPath}/ring/assets/css/main.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/ring/assets/css/custom.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/ring/assets/css/icons.css" rel="stylesheet" />
 <script type="text/javascript">
-$(function(){
-	 var dic = eval('(${dic})');
-	 var arr = dic.marriage;
-	$(".dicValue").each(function(){
-		 var field  = $(this).attr("name")
-		 var value =  $(this).attr("value");
-		 if(dic[field][value]!= undefined){
-			 $(this).text(dic[field][value]["describ"]);
-		 }
-	})
-});
-	function addArticle() {
-		window.location.href = "${pageContext.request.contextPath}/article/article.jsp";
-	}
-	
-	
-	function myArticle(){
-		window.location.href = "${pageContext.request.contextPath}/article/myArticle";
-	}
-	
-	function getArticle(state){
-		window.location.href = "${pageContext.request.contextPath}/article/index?state=" + state;
-	}
-	
-	function detailArticle(id){
-		window.location.href = "${pageContext.request.contextPath}/article/detail?id=" + id;
-	}
+		
+		function addActivity(){
+			 window.location.href="${pageContext.request.contextPath}/ring/activity/activity.jsp" ;
+		}
+		
+		$(function(){
+			 var dic = eval('(${dic})');
+			$(".dicValue").each(function(){
+				 var field  = $(this).attr("name")
+				 var value =  $(this).attr("value");
+				 if(dic[field][value]!= undefined){
+					 $(this).text($(this).text() + dic[field][value]["describ"]);
+				 }
+			})
+		 });
+		
+		function actDetail(id){
+			window.location.href="${pageContext.request.contextPath}/article/detail?id=" + id ;
+		}
 </script>
+<style type="text/css">
+.page-header {
+  border-bottom: 1px solid gray;
+}
+
+.page-top {
+  border-top: 1px solid gray;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+.dingwei2{
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    padding-bottom: 10px;
+
+}
+
+.images_3_of_b {
+    width: 45.2%;
+    float: left;
+}
+
+.desc2 {
+    display: block;
+    float: left;
+    margin: 0% 0 2% 2.6%;
+}
+
+.span_3_of_b {
+    width: 52.2%;
+}
+</style>
 </head>
-<body class="header-fixed-top">
-	<section>
-	<div class="search-page">
-		<!-- Start .search-page -->
-		<div class="col-lg-8 col-xs-8 mt5 mb5 ">
-			<form class="form-inline search-page-form" action="${pageContext.request.contextPath}/article/index" method="post">
-				<div class="input-group pull-right">
-					<input type="text" class="form-control" value="搜索文章"
-						placeholder="search here ..." name="title"> <span
-						class="input-group-btn">
-						<button type="submit" class="btn btn-primary">
-							<i class="ec-search s16"></i>
-						</button>
-					</span>
-				</div>
-			</form>
-		</div>
-		<div class="col-lg-4 col-xs-4 mt5 mb5 ">
-			<button type="button" class="btn btn-primary pull-center" onclick="myArticle()">我的文章</button>
-		</div>
-	</div>
-	</section>
-	<section>
-	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6" style="margin: 0 5">
-		<div class="tile-stats b brall mb5 gray-bg">
-			<a href="###" onclick="getArticle('2')">
-				<div class="tile-stats-icon">
-					<i class="st-book2 color-white"></i>
-				</div>
-				<div class="tile-stats-content">
-					<div class="tile-stats-number color-white">文海</div>
-					<div class="tile-stats-text color-white"></div>
-				</div>
-				<div class="clearfix"></div>
-			</a>
-		</div>
-	</div>
-
-	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6" style="margin: 0 5">
-		<div class="tile-stats b brall mb5 dark-bg">
-			<a href="###" onclick="getArticle('3')">
-				<div class="tile-stats-icon">
-					<i class="st-cube color-white"></i>
-				</div>
-				<div class="tile-stats-content">
-					<div class="tile-stats-number color-white">历史精选</div>
-					<div class="tile-stats-text color-white"></div>
-				</div>
-				<div class="clearfix"></div>
-			</a>
-		</div>
-	</div>
-	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6" style="margin: 0 5">
-		<div class="tile-stats b brall mb5 green-bg">
-			<a href="#">
-				<div class="tile-stats-icon">
-					<i class="st-star color-white"></i>
-				</div>
-				<div class="tile-stats-content">
-					<div class="tile-stats-number color-white">文章推荐</div>
-					<div class="tile-stats-text color-white"></div>
-				</div>
-				<div class="clearfix"></div>
-			</a>
-		</div>
-	</div>
-	</section>
-
-	<section id="latest-post" class="latest-post">
-	<div class="container">
-		<div class="post-area">
-			<div class="post-area-top text-center">
-				<h2 class="">精选文章</h2>
-				<p class="title-description">Vestibulum auctor dapibus nequ待定。</p>
+<body>
+<%@include file="/ring/activity/header.jsp"%>
+		<div class="container-fluid"  style="margin-top:60px">
+			<div class="row container ">
+				<div class="tab-content" style="margin-bottom: 93px;">
+					<div role="tabpanel" class="tab-pane active" id="home">
+						 <h3>文章列表</h3>
+						 	 <c:forEach items="${articleList }" var="act">
+						 	 		<div  onclick="actDetail('${act.id }')" style="height: 220px">
+						 	 			<div class="images_3_of_b">
+						 	 				<c:if test="${not empty act.articleImg }">
+											    <img class="layui-upload-img" id="demo1"  src="${pageContext.request.contextPath}/upload/${act.articleImg}" style="width:auto;height:auto;max-height: 200px;max-width: 100%">
+										  	</c:if>
+										  	<c:if test="${ empty act.articleImg }">
+											 	 <img  src="${pageContext.request.contextPath}/img/logo.jpg" style="width:auto;height:auto;max-height: 200px;max-width: 100%"/>
+										  	</c:if>
+						 	 			</div>
+									 	<div class="desc2 span_3_of_b">
+                                                    <ul class="list-unstyled">
+                                                        <li> <h3>文章标题：${act.title }</h3> </li>
+                                                        <li> <h3>时间：${act.articleDate }</h3> </li>
+                                                        <li> <h3>作者：${act.author }</h3> </li>
+                                                       <%--  <li> <h3>活动地点：${actinfo.actLoca }</h3> </li>
+                                                        <li>  <h3 class="dicValue"  name="actForm" value="${actinfo.actForm }">活动形式：</h3> </li>
+                                                        <li> <h3>活动人数：${actinfo.acount }</h3> </li> --%>
+                                                        <li> <h3 class="dicValue"  name="articleType" value="${act.articleType}">分类：</h3> </li>
+                                                    </ul>
+									 	</div>
+						 			</div>
+						 	 </c:forEach>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="profile">
+					</div>
+				</div> 
 			</div>
-			<!-- /.post-area-top -->
-
-			<div class="row">
-				<div class="latest-posts">
-					<c:forEach items="${articleList}" var="art">
-						<div class="col-sm-6">
-							<div class="item">
-								<article class="post type-post">
-								<div class="post-top">
-									<div class="post-thumbnail">
-										<img src="${pageContext.request.contextPath}/upload/${art.articleImg}" alt="post Image">
-									</div>
-									<!-- /.post-thumbnail -->
-									<div class="post-meta">
-										<div class="entry-meta">
-											<span class="entry-date"> <time datetime="2015-01-15">
-												${art.articleDate }</time>
-											</span> <span class="author-name"> <a href="#">${art.author }</a>
-											</span> <span class="post-tags">
-												<ul class="tag-list">
-													<li><a href="#">${art.articleTag }</a></li>
-												</ul>
-											</span>
-										</div>
-									</div>
-								</div>
-								<div class="post-content">
-									<h2 class="entry-title">
-										<a href="blog-single.html">${art.title }</a>
-									</h2>
-									<p class="entry-text dicValue"  name="articleState" value="${art.articleState }"></p>
-									<p class="entry-text">${art.discrib }</p>
-									<a class="btn" href="###" onclick="detailArticle(${art.id })"> <span class="btn-icon"><i
-											class="fa fa-arrow-circle-right"></i></span> 详情
-									</a>
-								</div>
-								</article>
-							</div>
-						</div>
-					</c:forEach>
+			<div>
+			<!-- <div class="dingwei2 pull-right">
+					  <button class="btn btn-primary  btn-circle" onclick="addActivity()">新建 </button>
+				</div> -->
+			</div>
+		</div>
+ 	<div class="modal fade" id="addModal"  role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="height: ">
+				<div class="modal-content">
+					<div class="modal-body">
+					 </div>
 				</div>
 			</div>
 		</div>
-	</div>
-	</section>
-
 </body>
 </html>
