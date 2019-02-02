@@ -48,7 +48,7 @@
 				<div class="modal-body">
 					<form id="dataForm">
 					 <input  class="form-control" name="id" type="hidden"></input>
-					  <input  class="form-control" name="role" type="hidden" value = "1"></input>
+					 <input  class="form-control" name="pwd" type="hidden"></input>
 						<div class="form-group">
 							<label for="recipient-name" class="control-label">登录名:</label> <input
 								type="text" class="form-control" name="userNo" id="userNo" onchange="checkUnique( 'user','userNo',this.value)" placeholder="必填" required>

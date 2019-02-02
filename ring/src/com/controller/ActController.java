@@ -281,6 +281,8 @@ public class ActController {
 			ActDetail actDetail = detailMapper.selectByPrimaryKey(id);
 			actDetail.setRemark(remark);
 			detailMapper.updateByPrimaryKey(actDetail);
+			msg.setSuccess(true);
+			 msg.setMsg("操作成功");
 		}catch(Exception e ){
 			 msg.setSuccess(false);
 			 msg.setMsg("操作失败：" + e.getMessage());
