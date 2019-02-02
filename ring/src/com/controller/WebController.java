@@ -328,21 +328,21 @@ public class WebController {
 	
 	@ResponseBody
 	@RequestMapping("/examineSuccess")
-	public Message examineSuccess(String table , String column , String state , Integer id  ) {
+	public Message examineSuccess(String table , String column , String state , Integer id , String remark ) {
 		Message msg = new Message();
 		try {
-			dao.updateExamine(table , column , state , id );
-			Customer customer =  new Customer();
-			if("invite".equals(table)) {
-				  Invite invte = inviteService.selectById(id);
-				  customer = custService.selectById(invte.getFromId());
-			}else if("act".equals(table)) {
-				Act act = actMapper.selectByPrimaryKey(id);
-				customer = custService.selectById(act.getCustId());
-			}else if("article".equals(table)) {
-				Article article = articleMapper.selectByPrimaryKey(id);
-				customer = custService.selectById(article.getCustId());
-			}
+			dao.updateExamine(table , column , state , id  , remark);
+//			Customer customer =  new Customer();
+//			if("invite".equals(table)) {
+//				  Invite invte = inviteService.selectById(id);
+//				  customer = custService.selectById(invte.getFromId());
+//			}else if("act".equals(table)) {
+//				Act act = actMapper.selectByPrimaryKey(id);
+//				customer = custService.selectById(act.getCustId());
+//			}else if("article".equals(table)) {
+//				Article article = articleMapper.selectByPrimaryKey(id);
+//				customer = custService.selectById(article.getCustId());
+//			}
 				 // WXAuthUtil.sendTemplateMsg(NoticeUtil.examine( customer,"1" , ""))	;
 		}catch(Exception e) {
 			 msg.setMsg("系统异常："  + e.getMessage());

@@ -56,12 +56,12 @@
 
 	<div class="modal fade" id="myModal" tabindex="-2" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog" style="height:">
+		<div class="modal-dialog" style="width:1100px">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">会员管理</h4>
+					<h4 class="modal-title" id="myModalLabel">文章管理</h4>
 				</div>
 				<div class="modal-body">
 					<form id="dataForm" enctype="multipart/form-data">
@@ -202,7 +202,7 @@
 		}
 		var selectObj = $("#infoTable").bootstrapTable('getSelections')[0];
 		var id = selectObj.id;
-		if (id > 0  &&  remark) {
+		if (id > 0  ) {
 		var url = "${pageContext.request.contextPath}/web/examineSuccess?table=article&column=article_state" ;
 			var path = url;
 			$.ajax({

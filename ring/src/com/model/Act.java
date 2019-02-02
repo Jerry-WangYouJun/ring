@@ -24,6 +24,7 @@ public class Act {
     private Double money;
     
     private String actState;
+    private String webState;
     
     private String actDate;
     
@@ -31,7 +32,9 @@ public class Act {
     private String actEnd ;
     private String payType;
     private String payRange;
-    
+    private String singleflag;
+    private String remark ;
+    private String actImg;
     
     private Customer customer;
     private ActDetail detail;
@@ -187,5 +190,35 @@ public class Act {
 	public void setDetail(ActDetail detail) {
 		this.detail = detail;
 	}
-    
+
+	public String getSingleflag() {
+		return singleflag;
+	}
+
+	public void setSingleflag(String singleflag) {
+		this.singleflag = singleflag;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getWebState() {
+		return webState;
+	}
+
+	public void setWebState(String webState) {
+		this.webState = webState;
+	}
+
+	public String getActImg() {
+		return actImg;
+	}
+	public void setActImg(String actImg) {
+		this.actImg = actImg;
+	}
 }

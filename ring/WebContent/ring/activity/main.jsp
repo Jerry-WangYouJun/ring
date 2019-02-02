@@ -84,7 +84,12 @@
 						 	 <c:forEach items="${actList }" var="actinfo">
 						 	 		<div  onclick="actDetail('${actinfo.id }')" style="height: 220px">
 						 	 			<div class="images_3_of_b">
-										 	 <img  src="${pageContext.request.contextPath}/ring/images/p1.jpg" style="width:100%;height:auto;max-height: 200px;"/>
+						 	 				<c:if test="${not empty actinfo.actImg }">
+											    <img class="layui-upload-img" id="demo1"  src="${pageContext.request.contextPath}/upload/${actinfo.actImg}" style="width:auto;height:auto;max-height: 200px;max-width: 100%">
+										  	</c:if>
+										  	<c:if test="${ empty actinfo.actImg }">
+											 	 <img  src="${pageContext.request.contextPath}/img/logo.jpg" style="width:auto;height:auto;max-height: 200px;max-width: 100%"/>
+										  	</c:if>
 						 	 			</div>
 									 	<div class="desc2 span_3_of_b">
                                                     <ul class="list-unstyled">
@@ -92,9 +97,9 @@
                                                         <li> <h3>时间：${actinfo.actDate }</h3> </li>
                                                         <li> <h3 class="dicValue"  name="admin" value="${actinfo.admin}">主办方：</h3> </li>
                                                         <li> <h3>组织者：${actinfo.customer.nickName }</h3> </li>
-                                                        <li> <h3>活动地点：${actinfo.actLoca }</h3> </li>
+                                                       <%--  <li> <h3>活动地点：${actinfo.actLoca }</h3> </li>
                                                         <li>  <h3 class="dicValue"  name="actForm" value="${actinfo.actForm }">活动形式：</h3> </li>
-                                                        <li> <h3>活动人数：${actinfo.acount }</h3> </li>
+                                                        <li> <h3>活动人数：${actinfo.acount }</h3> </li> --%>
                                                         <li>  <h3 >剩余名额： ${actinfo.acount  - fn:length(actinfo.detailList) } </h3> </li>
                                                     </ul>
 									 	</div>

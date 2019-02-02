@@ -66,6 +66,7 @@ public class ActController {
 		return grid;
 	}
 	
+	
 	@ResponseBody
 	@RequestMapping("/act_edit")
 	public Message  editAct(Act act , HttpServletRequest request ){
@@ -75,7 +76,8 @@ public class ActController {
 				service.updateByPrimaryKey(act);
 			}else{
 				User user = (User)request.getSession().getAttribute("webUser");
-				act.setCustId(Integer.valueOf(user.getRemark()));
+				Customer cust = (Customer)request.getSession().getAttribute("customer");
+				act.setCustId(cust.getId());
 				if("1".equals(user.getRole())) {
 					act.setActState("1");
 				}else {
@@ -109,6 +111,24 @@ public class ActController {
 		return msg;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/examine")
+	public Message  examine( Integer id , String actState , String remark  ){
+		Message msg = new Message();
+		try{
+			Act act = service.selectByPrimaryKey(id);
+			act.setActState(actState);
+		    act.setRemark(remark);
+			service.updateByPrimaryKey(act);
+			msg.setSuccess(true);
+			msg.setMsg("操作成功");
+		}catch(Exception e ){
+			 msg.setSuccess(false);
+			 msg.setMsg("操作失败：" + e.getMessage());
+			 return msg ;
+		} 
+		return msg;
+	}
 	
 	@ResponseBody
 	@RequestMapping("/act_unique")
@@ -141,7 +161,7 @@ public class ActController {
 		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
 		Act act = new Act() ;
-		act.setActState("2");
+		act.setWebState("0");
 		List<Act> actList = service.queryByWhere(act, new Pagination());
 		for (Act act2 : actList) {
 			ActDetail detail = new ActDetail();
@@ -189,17 +209,17 @@ public class ActController {
 		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
 		Act act = service.selectByPrimaryKey(id);
-		User user = (User)session.getAttribute("webUser");
+		Customer cust = (Customer)session.getAttribute("customer");
 		ActDetail detail = new ActDetail() ;
 		detail.setDetailState("2");
 		detail.setActId(id);
-		if(act.getCustId().equals(Integer.valueOf(user.getRemark()) )) {
+		if(act.getCustId().equals(cust.getId())) {
 			List<ActDetail> detailList = detailMapper.queryByWhere(detail, new Pagination());
 			request.setAttribute("detailList", detailList);
 			request.setAttribute("act", act);
 			return "forward:/ring/activity/detail_admin.jsp";
 		}else {
-			detail.setCustId(Integer.valueOf(user.getRemark()));
+			detail.setCustId(cust.getId());
 			List<ActDetail> detailList = detailMapper.queryByWhere(detail, new Pagination());
 			act.setDetailList(detailList); 
 			if(detailList!= null && detailList.size() >0) {
@@ -212,7 +232,7 @@ public class ActController {
 	
 	@RequestMapping("/addDetail")
 	public String addDetail(HttpServletRequest  request , HttpSession session ,Integer actId ) {
-		User user = (User)session.getAttribute("webUser");
+		Customer cust = (Customer)session.getAttribute("customer");
 		ActDetail detail = new ActDetail() ;
 		Act act = service.selectByPrimaryKey(actId);
 		ActDetail detailTemp = new ActDetail() ;
@@ -226,10 +246,47 @@ public class ActController {
 		}else {
 			detail.setActId(actId);
 			detail.setDetailState("2");
-			detail.setCustId(Integer.valueOf(user.getRemark()));
+			detail.setCustId(cust.getId());
 			detailMapper.insert(detail);
 		}
 		return "forward:/act/detail?id=" + actId;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/checkOut")
+	public Message  checkActOut( Integer id ){
+		Message msg = new Message();
+		try{
+			int total = service.checkActOut(id );
+			if(total > 23){
+				msg.setSuccess(true);
+				msg.setMsg("操作成功");
+			}else {
+				msg.setSuccess(false);
+				msg.setMsg("活动时间太近，不能退出了哦");
+			}
+		}catch(Exception e ){
+			 msg.setSuccess(false);
+			 msg.setMsg("操作失败：" + e.getMessage());
+			 return msg ;
+		} 
+		return msg;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/evaluate")
+	public Message  evaluate( Integer id  , String remark){
+		Message msg = new Message();
+		try{
+			ActDetail actDetail = detailMapper.selectByPrimaryKey(id);
+			actDetail.setRemark(remark);
+			detailMapper.updateByPrimaryKey(actDetail);
+		}catch(Exception e ){
+			 msg.setSuccess(false);
+			 msg.setMsg("操作失败：" + e.getMessage());
+			 return msg ;
+		} 
+		return msg;
 	}
 	
 	@RequestMapping("/updateDetail")
@@ -238,6 +295,14 @@ public class ActController {
 		detail.setDetailState(state);
 		detailMapper.updateByPrimaryKey(detail);
 		return "forward:/act/detail?id=" + detail.getActId();
+	}
+	
+	@RequestMapping("/updateState")
+	public String updateState(HttpServletRequest  request , HttpSession session ,Integer id ,  String state ) {
+		Act act = service.selectByPrimaryKey(id);
+		act.setActState(state);
+		service.updateByPrimaryKey(act);
+		return "forward:/act/detail?id=" + id;
 	}
 	
 	@RequestMapping("/updateDetailAdmin")

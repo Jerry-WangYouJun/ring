@@ -164,7 +164,6 @@ $(document).ready(function(){
 			</c:if>
 			<c:if test="${ webUser.role == '11' }">
 				<button type="button" class="btn  btn-success" onclick="signState('${customer.telephone}','0')"><i class="im-heart"></i> 管理员签退</button>
-			
 			<div style="margin: 30px" id="examine" class="showView"> 
 			<div class="row mb10 ">
 				  会员信息待审核 <a href="#">&nbsp;更多</a>

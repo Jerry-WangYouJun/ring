@@ -3,7 +3,6 @@ package com.common;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.springframework.util.FileCopyUtils;
@@ -39,7 +38,7 @@ public class CodeUtil {
         	if(osName.toUpperCase().startsWith("MAC")) {
 //        		int  splitIndex = System.getProperty("user.dir").lastIndexOf(System.getProperty("file.separator"));
 //        		path = System.getProperty("user.dir").substring(0, splitIndex);
-        		path="/Users/wangyoujun/Desktop/smd/WebContent/image";
+        		path="/Users/wangyoujun/Documents/soft/personal/upload";
         	}else{
         		path="D:\\uploadFile";
         	}

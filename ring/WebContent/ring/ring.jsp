@@ -85,6 +85,10 @@ layui.use('table', function(){
 			"city": "我的约会 - 约会详情"
 	         ,"username": "web/detail?id=64##"
 	         ,"classify": "/ring/detail.jsp"
+	    	  },{
+ 			"city": " 活动新增 "
+	         ,"username": "ring/activity/activity.jsp"
+	         ,"classify": "ring/activity/activity.jsp"
 	    	  }]
   		  ,page: true
   });

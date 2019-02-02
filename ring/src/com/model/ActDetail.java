@@ -5,6 +5,7 @@ public class ActDetail {
 	  private Integer actId;
 	  private Integer custId;
 	  private String detailState;
+	  private String remark; 
 	  private Customer customer;
 	  private Act act;
 	public Integer getId() {
@@ -42,6 +43,12 @@ public class ActDetail {
 	}
 	public void setAct(Act act) {
 		this.act = act;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	  
 }

@@ -40,6 +40,9 @@
 .panel-body {
 	padding: 0px !important;
 }
+.error{
+	 color:red;
+}
 </style>
 <script>
 var dic = eval('(${dic})');
@@ -54,6 +57,10 @@ $(document).ready(function(){
             $(this).toggleClass('open');       
         }
     );
+});
+
+$(function(){
+	$("#dataForm").validate();
 });
 </script>
 </head>
@@ -90,7 +97,7 @@ $(document).ready(function(){
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">活动人数:</label> <input
-								type="text" class="form-control number" name="acount" id="actLoca" placeholder="必填" >
+								type="text" class="form-control number" name="acount" id="acount" placeholder="必填" >
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">活动地点:</label> <input
@@ -101,6 +108,16 @@ $(document).ready(function(){
 								type="text" class="form-control required" name="actAddress" id="actAddress" placeholder="必填" >
 						</div>
 						<div class="form-group">
+                                <input type="hidden" name="actImg" id="actImg"   class="form-control" >
+							 <div class="layui-upload">
+							  <button type="button" class="layui-btn" id="upfileFront">封面图片:</button>
+							  <div class="layui-upload-list">
+								    <img class="layui-upload-img" id="demo1" width="100%"  src="" >
+							    <p id="demoText"></p>
+							  </div>
+							</div> 
+                        </div>
+						<div class="form-group">
 							<label for="message-text" class="control-label">费用类型:</label>
 							<select  class="form-control dicSelect"  name="payType" placeholder="必填" required>
 									 
@@ -109,11 +126,16 @@ $(document).ready(function(){
 						<div class="form-group">
 							<label for="message-text" class="control-label">费用范围:</label>
 							<input
-								type="text" class="form-control required" name="payRange" id="actAddress"  placeholder="请填写具体的费用或者范围" required>
+								type="text" class="form-control required" name="payRange" id="payRange"  placeholder="请填写具体的费用或者范围" required>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">主办方:</label>
 								<select  class="form-control dicSelect"  name="admin" placeholder="必填" required>
+								</select>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">活动限制:</label>
+								<select  class="form-control dicSelect"  name="singleflag" placeholder="必填" required>
 								</select>
 						</div>
 						<div class="form-group">
@@ -157,7 +179,8 @@ $(document).ready(function(){
 	var ue = UE.getEditor('editor',{
 		//这里可以选择自己需要的工具按钮名称,此处仅选择如下五个
 		toolbars:[['simpleupload','Source', 'Undo', 'Redo','Bold','test']],
-		initialFrameWidth: wid
+		initialFrameWidth: wid,
+		maximumWords: 1000 
 		});
 	
 	function subInfo() {
@@ -215,10 +238,15 @@ $(document).ready(function(){
 				    startDate: new Date(),
 				    minView: 1
 				})
-				
 			}
 	});
 	
+	function addDate(date,days){ 
+	    var d=new Date(date); 
+	    d.setDate(d.getDate()+days); 
+	    var m=d.getMonth()+1; 
+	    return d.getFullYear()+'-'+m+'-'+d.getDate(); 
+	  } 
 	function addTags(){
 		 var rand = parseInt(Math.random() * (4) + 1); 
 		 var  val = $("#tagA").val();
@@ -239,7 +267,7 @@ $(document).ready(function(){
 				    autoclose: true,
 				    language:"zh-CN",
 				    clearBtn: true ,
-				    startDate: new Date(),
+				    startDate: addDate(new Date() , 3),
 				    minView: 1
 				}).on('changeDate',function(){
 				   //$("#beginTime-error").hide();
@@ -249,6 +277,44 @@ $(document).ready(function(){
 				});
 			}
 		});
+	 
+	 
+	 
+	 layui.use('upload', function(){
+		  var $ = layui.jquery
+		  ,upload = layui.upload;
+		  
+		  //普通图片上传
+		  var uploadInst = upload.render({
+		    elem: '#upfileFront'
+		    ,url: '${pageContext.request.contextPath}/customer/cardimg'
+		    ,before: function(obj){
+		      //预读本地文件示例，不支持ie8
+		      obj.preview(function(index, file, result){
+		        $('#demo1').attr('src', result); //图片链接（base64）
+		      });
+		    }
+		    ,done: function(res){
+		    	  console.info(res);
+		      //如果上传失败
+		      if(res.success){
+		    	  	  $("#actImg").val(res.msg);
+		      }else{
+		        return layer.msg('上传失败');
+		      }
+		      //上传成功
+		    }
+		    ,error: function(){
+		      //演示失败状态，并实现重传
+		      var demoText = $('#demoText');
+		      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+		      demoText.find('.demo-reload').on('click', function(){
+		        uploadInst.upload();
+		      });
+		    }
+		  });
+		  
+	});
 </script>
 
 

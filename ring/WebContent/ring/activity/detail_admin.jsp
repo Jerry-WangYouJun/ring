@@ -61,7 +61,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	 
 	 function updateAct(id , state ){
 		  window.location.href="${pageContext.request.contextPath}/act/updateDetail?state=" + state + "&id="  + id ;
-		  
 	 }
 	 
 	 $(function(){
@@ -81,6 +80,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		 var actId = "${act.id}"
 		 window.location.href="${pageContext.request.contextPath}/act/updateDetailAdmin?id=" + id + "&actId="  + actId +"&custId=" + custId + "&detailState=" + state;
 	 }
+	 
+	 function updateState(state , id ){
+		 window.location.href="${pageContext.request.contextPath}/act/updateState?state=" + state + "&id="  + id ;
+	 }
 </script>
 </head>
 <body>
@@ -93,8 +96,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    	        <div class="col-sm-4 row_2">
 				<div class="flexslider">
 					 <ul class="slides">
-						<li data-thumb="${pageContext.request.contextPath}/ring/images/p1.jpg">
-							<img src="${pageContext.request.contextPath}/ring/images/p1.jpg" />
+						<li >
+							<c:if test="${not empty act.actImg }">
+							    <img class="layui-upload-img" id="demo1" width="100%"  src="${pageContext.request.contextPath}/upload/${act.actImg}" >
+						  	</c:if>
+						  	<c:if test="${ empty act.actImg }">
+							 	 <img  src="${pageContext.request.contextPath}/img/logo.jpg" style="width:auto;height:auto;max-height: 200px;max-width: 100%"/>
+						  	</c:if>
 						</li>
 					 </ul>
 				  </div>
@@ -103,12 +111,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				 <c:when test="${ empty act.actState }">
 					<button type="button" class="btn btn-default " onclick="addDetail('${act.id}')"> 报名 </button>
 				 </c:when>
+				 <c:when test="${  act.actState eq '1' }">
+					<button type="button" class="btn btn-default " onclick="updateState('2' ,'${act.id}')">  活动开始 </button>
+				 </c:when>
+				 <c:when test="${  act.actState eq '2' }">
+					<button type="button" class="btn btn-default " onclick="updateState('3' ,'${act.id}')">  活动结束 </button>
+				 </c:when>
 			</c:choose>
 			<div style="margin: 30px"> 
 		<div class="col_4">
 		    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 			   <ul id="myTab" class="nav nav-tabs nav-tabs1" role="tablist">
-				  <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">关于自己</a></li>
+				  <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">活动详情</a></li>
 			   </ul>
 			   <div id="myTabContent" class="tab-content">
 				  <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
@@ -124,7 +138,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				        	<tbody>
 				        		<tr class="opened_1">
 									<td class="day_label">主办方 :</td>
-									<td class="day_value" name="admin" value="${act.admin}"></td>
+									<td class="day_value dicValue" name="admin" value="${act.admin}"></td>
 								</tr>
 							    <tr class="opened">
 									<td class="day_label">活动时间 :</td>
@@ -159,20 +173,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				        	<tbody>
 				        		<tr class="opened_1">
 									<td class="day_label"> 报名人 </td>
-									<td class="day_label"> 报名状态</td>
-									<td class="day_label"> 联系电话</td>
 									<td class="day_label"> 具体信息</td>
+									<td class="day_label"> 活动评价</td>
 								</tr>
 								<c:forEach items="${detailList }" var ="det">
 								    <tr class="opened">
 										<td class="day_value">${det.customer.nickName }</td>
-										<td class="day_value dicValue"  name="detailState" value="${det.detailState}"></td>
-										<td class="day_value">
-											${det.customer.telephone }
-										</td>
 										<td class="day_value">
 											<a href="${pageContext.request.contextPath}/web/customer?id=${det.customer.id}"> 个人信息
 											</a>
+										</td>
+										<td class="day_value">
+											  ${det.remark }
 										</td>
 									</tr>
 								 	 

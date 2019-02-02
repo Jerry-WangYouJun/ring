@@ -18,11 +18,14 @@
     <result column="act_end" jdbcType="TIMESTAMP" property="actEnd" />
     <result column="pay_type" jdbcType="VARCHAR" property="payType" />
     <result column="pay_range" jdbcType="VARCHAR" property="payRange" />
+    <result column="singleflag" jdbcType="VARCHAR" property="singleflag" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+     <result column="actImg" jdbcType="VARCHAR" property="actImg" />
      <association property="customer" column="cust_id" javaType="com.model.Customer" select="selectCustomer"/>
   </resultMap>
   <sql id="Base_Column_List">
     id, act_name, act_loca, act_address, admin, act_form, tags, editorValue, money 
-    , act_date , act_state,cust_id ,acount ,act_end ,pay_type,pay_range
+    , act_date , act_state,cust_id ,acount ,act_end ,pay_type,pay_range , singleflag , remark  , actImg
   </sql>
   
    <select id="selectCustomer" parameterType="java.lang.Integer" resultType="com.model.Customer">
@@ -35,20 +38,26 @@
   	     <if test="obj.id!=null and obj.id > 0">
   	    	    and id = #{obj.id}
   	    </if>
-  	    <if test="obj.custId!=null and obj.custId > 0">
+  	    <if test="obj.custId !=null and obj.custId > 0">
   	    	    and cust_id = #{obj.custId}
   	    </if>
-  	    <if test="obj.actName!=null and obj.actName != ''">
+  	    <if test="obj.actName !=null and obj.actName != ''">
   	    	    and act_name  like  #{obj.actName}
   	    </if>
   	    <if test="obj.actForm !=null and obj.actForm != '' ">
   	    	 	and  act_form like #{obj.actForm}
   	    </if>
-  	    <if test="obj.actLoca!= null and obj.actLoca != '' ">
+  	    <if test="obj.actLoca != null and obj.actLoca != '' ">
   	    	     and act_loca like #{obj.actLoca}
   	    </if>
-  	    <if test="obj.actState!= null and obj.actState != '' ">
+  	    <if test="obj.actState != null and obj.actState != '' ">
   	    	     and act_state like #{obj.actState}
+  	    </if>
+  	    <if test="obj.webState != null and obj.webState != '' ">
+  	    	     and act_state  not in ('0' , '4')
+  	    </if>
+  	    <if test="obj.singleflag  != null and obj.singleflag != '' ">
+  	    	     and singleflag like #{obj.singleflag}
   	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
@@ -70,11 +79,21 @@
   	    <if test="actLoca!= null and actLoca != '' ">
   	    	     and act_loca like #{actLoca}
   	    </if>
-  	    <if test="actLoca!= null and actLoca != '' ">
-  	    	     and act_loca like #{actLoca}
+  	    <if test="actState != null and actState != '' ">
+  	    	     and act_state like #{actState}
+  	    </if>
+  	    <if test="webState != null and webState != '' ">
+  	    	     and act_state  not in ('0' , '4')
+  	    </if>
+  	    <if test="singleflag  != null and  singleflag != '' ">
+  	    	     and singleflag like #{singleflag}
   	    </if>
   </select>
   
+  <select id="checkActOut" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  		 select TIMESTAMPDIFF(HOUR ,now(), act_date ) , act_date  from t_act  where id = 
+  		 (select act_id from t_act_detail where id = #{id,jdbcType =INTEGER} ) 
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -88,12 +107,14 @@
   <insert id="insert" parameterType="com.model.Act">
     insert into t_act (id, act_name, act_loca, 
       act_address, admin, act_form, 
-      tags, editorValue, money ,act_date , act_state , cust_id , acount ,act_end ,pay_type,pay_range)
+      tags, editorValue, money ,act_date , act_state , cust_id , acount ,act_end ,pay_type,pay_range , singleflag , remark
+      ,actImg)
     values (#{id,jdbcType=INTEGER}, #{actName,jdbcType=VARCHAR}, #{actLoca,jdbcType=VARCHAR}, 
       #{actAddress,jdbcType=VARCHAR}, #{admin,jdbcType=VARCHAR}, #{actForm,jdbcType=VARCHAR}, 
       #{tags,jdbcType=VARCHAR}, #{editorValue,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE} ,
-      #{actDate,jdbcType=TIMESTAMP}, #{actState,jdbcType=VARCHAR},#{custId,jdbcType=INTEGER},#{acount,jdbcType=INTEGER},
-      #{actEnd,jdbcType=TIMESTAMP}, #{payType,jdbcType=VARCHAR}, #{payRange,jdbcType=VARCHAR})
+      #{actDate,jdbcType=TIMESTAMP}, #{actState,jdbcType=VARCHAR},#{custId,jdbcType=INTEGER},#{acount,jdbcType=INTEGER }, 
+      #{actEnd,jdbcType=TIMESTAMP}, #{payType,jdbcType=VARCHAR}, #{payRange,jdbcType=VARCHAR} , #{singleflag,jdbcType=VARCHAR}  ,
+      #{remark,jdbcType=VARCHAR},#{actImg,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.model.Act">
     update t_act
@@ -105,13 +126,16 @@
       tags = #{tags,jdbcType=VARCHAR},
       editorValue = #{editorValue,jdbcType=VARCHAR},
       money = #{money,jdbcType=DOUBLE},
-      act_ate = #{actDate,jdbcType=TIMESTAMP},
+      act_date = #{actDate,jdbcType=TIMESTAMP},
       act_state = #{actState,jdbcType=VARCHAR},
       cust_id = #{custId,jdbcType=INTEGER},
       acount =  #{acount,jdbcType=INTEGER},
       act_end = #{actEnd,jdbcType=TIMESTAMP},
       pay_type =  #{payType,jdbcType=VARCHAR},
-      pay_rang = #{payRange,jdbcType=VARCHAR}
+      pay_range = #{payRange,jdbcType=VARCHAR},
+      singleflag = #{singleflag , jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR} , 
+      actImg = #{actImg,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

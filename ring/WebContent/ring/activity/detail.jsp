@@ -29,10 +29,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!----font-Awesome----->
 <link href="${pageContext.request.contextPath}/ring/css/font-awesome.css" rel="stylesheet"> 
 <link href="${pageContext.request.contextPath}/ring/assets/css/plugins.css" rel="stylesheet" />
-        <!-- Main stylesheets (template main css file) -->
-        <link href="${pageContext.request.contextPath}/ring/assets/css/main.css" rel="stylesheet" />
-        <!-- Custom stylesheets ( Put your own changes here ) -->
-        <link href="${pageContext.request.contextPath}/ring/assets/css/custom.css" rel="stylesheet" />
+<!-- Main stylesheets (template main css file) -->
+<link href="${pageContext.request.contextPath}/ring/assets/css/main.css" rel="stylesheet" />
+<!-- Custom stylesheets ( Put your own changes here ) -->
+<link href="${pageContext.request.contextPath}/ring/assets/css/custom.css" rel="stylesheet" />
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/layer/layer.js"></script>
 <!----font-Awesome----->
 <script>
 	 function invite(joinId){
@@ -61,8 +63,49 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	 }
 	 
 	 function updateAct(id , state ){
-		  window.location.href="${pageContext.request.contextPath}/act/updateDetail?state=" + state + "&id="  + id ;
+		 var path = "${pageContext.request.contextPath}/act/checkOut?id=" + id;
+			$.ajax({
+				url : path,
+				type : 'post',
+				data : $("#dataForm").serialize(),
+				dataType : 'json',
+				success : function(data) {
+					if (data.success) {
+						 window.location.href="${pageContext.request.contextPath}/act/updateDetail?state=" + state + "&id="  + id ;
+					} else {
+						alert(data.msg);
+					}
+		
+				},
+				error : function(transport) {
+					alert("系统产生错误,请联系管理员!");
+				}
+			});
 		  
+	 }
+	 
+	 function evaluateAct(id){
+				layer.prompt({title: '输入活动评价，并确认', formType: 2}, function(text, index){
+					  layer.close(index);
+						var path = "${pageContext.request.contextPath}/act/evaluate";
+						$.ajax({
+							url : path,
+							type : 'post',
+							data : {id:id , remark:text},
+							dataType : 'json',
+							success : function(data) {
+								if (data.success) {
+									 window.location.href="${pageContext.request.contextPath}/act/detail?actId=" + id ;
+								} else {
+									alert(data.msg);
+								}
+							},
+							error : function(transport) {
+								alert("系统产生错误,请联系管理员!");
+							}
+						});
+					});
+
 	 }
 	 
 	 $(function(){
@@ -86,13 +129,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    <div class="profile" style="margin-top:70px">
    	 <div class="col-md-12 profile_left">
    	 		<h2>活动名称 : ${act.actName }</h2>
-   	 	
    	 	<div class="col_3">
    	        <div class="col-sm-4 row_2">
 				<div class="flexslider">
 					 <ul class="slides">
-						<li data-thumb="${pageContext.request.contextPath}/ring/images/p1.jpg">
-							<img src="${pageContext.request.contextPath}/ring/images/p1.jpg" />
+						<li >
+							<c:if test="${not empty act.actImg }">
+							    <img class="layui-upload-img" id="demo1" width="100%"  src="${pageContext.request.contextPath}/upload/${act.actImg}" >
+						  	</c:if>
+						  	<c:if test="${ empty act.actImg }">
+							 	 <img  src="${pageContext.request.contextPath}/img/logo.jpg" style="width:auto;height:auto;max-height: 200px;max-width: 100%"/>
+						  	</c:if>
 						</li>
 					 </ul>
 				  </div>
@@ -105,6 +152,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					 	<c:if test="${ act.acount ne fn:length(act.detailList)}">
 							<button type="button" class="btn btn-default " onclick="addDetail('${act.id}')"> 报名 </button>
 					 	</c:if>
+					 </c:when>
+					 <c:when test="${ act.actState  eq '3'}">
+							<button type="button" class="btn btn-default " onclick="evaluateAct('${act.detail.id}')"> 活动评价 </button>
 					 </c:when>
 					 <c:otherwise>
 						 	<c:if test="${ act.acount eq fn:length(act.detailList)}">

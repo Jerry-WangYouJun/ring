@@ -6,11 +6,12 @@
     <result column="act_id" jdbcType="INTEGER" property="actId" />
     <result column="cust_id" jdbcType="INTEGER" property="custId" />
     <result column="detail_state" jdbcType="VARCHAR" property="detailState" />
+     <result column="remark" jdbcType="VARCHAR" property="remark" />
      <association property="act" column="act_id" javaType="com.model.Act" select="selectAct"/>
     <association property="customer" column="cust_id" javaType="com.model.Customer" select="selectCustomer"/>
   </resultMap>
   <sql id="Base_Column_List">
-    id, act_id, cust_id, detail_state
+    id, act_id, cust_id, detail_state , remark
   </sql>
    <select id="selectAct" parameterType="java.lang.Integer" resultType="com.model.Act">
     select  * from t_act
@@ -35,6 +36,9 @@
   	    <if test="obj.custId!= null and obj.custId   > 0  ">
   	    	     and cust_id = #{obj.custId}
   	    </if>
+  	     <if test="obj.remark != null and obj.remark  != '' ">
+  	    	     and remark = #{obj.remark}
+  	    </if>
   	     limit  #{page.start}, #{page.pageSize} 
   </select>
   
@@ -52,6 +56,9 @@
   	    <if test="custId!= null and custId  > 0 ">
   	    	     and cust_id = #{custId}
   	    </if>
+  	    <if test="remark != null and remark  != '' ">
+  	    	     and remark = #{remark}
+  	    </if>
   </select>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -66,10 +73,10 @@
   </delete>
   <insert id="insert" parameterType="com.model.ActDetail">
     insert into t_act_detail (id, act_id, cust_id, 
-      detail_state
+      detail_state ,remark
       )
     values (#{id,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER}, #{custId,jdbcType=INTEGER}, 
-      #{detailState,jdbcType=VARCHAR}
+      #{detailState,jdbcType=VARCHAR} , #{remark,jdbcType=VARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.model.ActDetail">
@@ -77,7 +84,8 @@
     set
       act_id = #{actId,jdbcType=INTEGER},
       cust_id = #{custId,jdbcType=INTEGER},
-      detail_state = #{detailState,jdbcType=VARCHAR}
+      detail_state = #{detailState,jdbcType=VARCHAR}, 
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

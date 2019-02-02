@@ -24,4 +24,6 @@ public interface ActMapper {
 
 	int queryTotal(Act record);
 
+	Integer checkActOut(Integer id);
+
 }

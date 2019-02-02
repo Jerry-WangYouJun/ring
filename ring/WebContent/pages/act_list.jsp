@@ -6,6 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>活动查看</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css"  media="all">
+<script src="${pageContext.request.contextPath }/layui/layui.js" charset="utf-8"></script>
 <style type="text/css">
 .panel-body {
 	padding: 0px !important;
@@ -22,7 +24,15 @@
 				<div id="toolbar" class="btn-group">
 					<button id="btn_delete" type="button" class="btn btn-default"
 						onclick="detailInfo()">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>参与人员详情
+						参与人员详情
+					</button>
+					<button id="btn_delete" type="button" class="btn btn-default"
+						onclick="examine()">
+						审核通过
+					</button>
+					<button id="btn_delete" type="button" class="btn btn-default"
+						onclick="examineNot()">
+						审核不通过
 					</button>
 				</div>
 			</div>
@@ -43,6 +53,63 @@
 
 </body>
 <script type="text/javascript">
+function examineNot(){
+	var selectRow =  $("#infoTable").bootstrapTable('getSelections')[0];
+	if($("#infoTable").bootstrapTable('getSelections').length  == 0){
+		 alert("请选择一条记录！");
+		 return false;
+	}
+	var remark =  "";
+	layer.prompt({title: '输入拒绝的原因，并确认', formType: 2}, function(text, index){
+		  remark = text;
+		  layer.close(index);
+			var path = "${pageContext.request.contextPath}/act/examine";
+			$.ajax({
+				url : path,
+				type : 'post',
+				data : {id:selectRow.id , actState: '4' ,remark:remark},
+				dataType : 'json',
+				success : function(data) {
+					if (data.success) {
+						alert(data.msg);
+						$("#infoTable").bootstrapTable("refresh");
+					} else {
+						alert(data.msg);
+					}
+				},
+				error : function(transport) {
+					alert("系统产生错误,请联系管理员!");
+				}
+			});
+		});
+}
+
+
+  function examine(){
+	  var selectRow =  $("#infoTable").bootstrapTable('getSelections')[0];
+		if($("#infoTable").bootstrapTable('getSelections').length  == 0){
+			 alert("请选择一条记录！");
+			 return false;
+		}
+		var path = "${pageContext.request.contextPath}/act/examine";
+		$.ajax({
+			url : path,
+			type : 'post',
+			data : {id:selectRow.id , actState: '1', remark: ''},
+			dataType : 'json',
+			success : function(data) {
+				if (data.success) {
+					alert(data.msg);
+					$("#infoTable").bootstrapTable("refresh");
+				} else {
+					alert(data.msg);
+				}
+			},
+			error : function(transport) {
+				alert("系统产生错误,请联系管理员!");
+			}
+		});
+  }
 function detailInfo() {
 	var selectRow =  $("#infoTable").bootstrapTable('getSelections')[0];
 	if($("#infoTable").bootstrapTable('getSelections').length  == 0){
@@ -135,6 +202,11 @@ function detailInfo() {
 				formatter : function(value, row, index, field) {
 					return getDicDescirb(value, field);
 				}
+			}, {
+				field : 'remark',
+				title : '备注',
+				align : 'center',
+				valign : 'middle'
 			} ],
 			silent : true, // 刷新事件必须设置  
 		});

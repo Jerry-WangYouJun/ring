@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.common.StringUtils;
 import com.model.User;
 
 
@@ -41,8 +42,10 @@ public class UserDao {
 		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
 
-	public void updateExamine(String table, String column, String state, Integer id ) {
-		String sql = "update t_" + table +  " set " + column  + " = '" + state + "' where id =" + id  ;
+	public void updateExamine(String table, String column, String state, Integer id  , String remark) {
+		String sql = "update t_" + table +  " set " + column  + " = '" + state + "' "
+				+  (StringUtils.isEmpty(remark)?"":(" , remark = '" + remark + "'"))
+				+ " where id =" + id  ;
 		jdbcTemplate.update(sql);
 		
 	}
