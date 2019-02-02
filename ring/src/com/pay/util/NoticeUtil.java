@@ -124,9 +124,9 @@ public class NoticeUtil {
 	        List<TemplateParam> paras=new ArrayList<TemplateParam>();  
 	        paras.add(new TemplateParam("first","您有新的约会邀请","#333"));  
 	        paras.add(new TemplateParam("keyword1", "等待确认","#333"));
-	        paras.add(new TemplateParam("keyword2","原来是你","#333"));
+	        paras.add(new TemplateParam("keyword2","无名指之约","#333"));
 	        paras.add(new TemplateParam("keyword3", "待定","#333"));
-	        paras.add(new TemplateParam("keyword4",detail.getConfirmLoc(),"#333"));
+	        paras.add(new TemplateParam("keyword4", "待定","#333"));
 	        paras.add(new TemplateParam("remark","点击查看详情并选择具体约会时间地点","#333"));  
 	        tem.setTemplateParamList(paras);  
 	        tem.setToUser(joinOpenID);//用户openid
