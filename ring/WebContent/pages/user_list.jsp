@@ -57,14 +57,13 @@
 							<label for="message-text" class="control-label">管理员名称:</label> 
 								<input type="text" class="form-control" name="userName" id="userName" placeholder="必填" required>
 						</div>
-						<!-- <div class="form-group">
+						 <div class="form-group">
 							<label for="message-text" class="control-label">管理员类型:</label>
 							<select class="form-control"  id ="role" name="role" >  
 					           <option value="1" selected="selected">超级管理员</option>
-					           <option value="2">普通管理</option>
 					           <option value="3">其他</option>  
 					        </select>	
-						</div> -->
+						</div> 
 						<div class="form-group">
 							<label for="message-text" class="control-label">备注:</label> 
 								<input type="text" class="form-control" name="remark" id="remark">
