@@ -137,7 +137,7 @@ public class InviteController {
 		if(!"2".equals(inviteStates)){
 			invite.setInviteStates(inviteStates);
 		}
-		return "forward:/web/dating?id=" + id;
+		return "forward:/web/dateUpdate?id=" + id;
 	}
 	
 	@RequestMapping("/state")
@@ -249,6 +249,16 @@ public class InviteController {
 						 msg.setMsg("操作失败：对不起您只有一次修改约会地点的机会。" );
 						 return msg ;
 					 }
+					 if( StringUtils.isNotBlank(detail.getConfirmLoc())) {
+							detailTemp.setConfirmDate(detail.getPreDate());
+							inviteTemp.setPointId(Integer.valueOf(detail.getConfirmLoc()));
+						}else if( StringUtils.isNotBlank(detail.getConfirmLoc2())) {
+							detailTemp.setConfirmDate(detail.getPreDate2());
+							inviteTemp.setPointId(Integer.valueOf(detail.getConfirmLoc2()));
+						}else if( StringUtils.isNotBlank(detail.getConfirmLoc3())) {
+							detailTemp.setConfirmDate(detail.getPreDate3());
+							inviteTemp.setPointId(Integer.valueOf(detail.getConfirmLoc3()));
+						}
 					 service.update(inviteTemp);
 					 detailService.update(detailTemp);
 					 Location loc =locService.selectById(invite.getPointId());

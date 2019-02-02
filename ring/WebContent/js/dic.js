@@ -2,6 +2,7 @@ function setCheckbox(dic , val){
 	 $(".dicCheckbox").each(function(){
 		 var field = $(this).attr("name");
 		 var htmlStr = "";
+		 val = $(this).attr("value");
 			if (dic.hasOwnProperty(field)) {
 				for ( var keyValue in dic[field]) {
 					htmlStr += ' <label class="checkbox-inline"> <input type="checkbox"  value="'

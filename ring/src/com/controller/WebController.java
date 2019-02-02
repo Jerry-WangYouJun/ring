@@ -225,6 +225,7 @@ public class WebController {
 		List<Location> locList= locService.queryList(new Location(), new Pagination());
 		request.setAttribute("joinId", invite.getJoinId());
 		request.setAttribute("locList", locList);
+		request.setAttribute("inv", invite);
 		return "forward:/ring/dating.jsp";
 	}
 	
@@ -242,6 +243,21 @@ public class WebController {
 		return "forward:/ring/dating.jsp";
 	}
 	
+	/**
+	 * 第一次邀约请求
+	 * @param request
+	 * @param invite
+	 * @return
+	 */
+	@RequestMapping("/dateUpdate")
+	public String dateUpdate(HttpServletRequest request , Invite invite ) {
+		List<Location> locList= locService.queryList(new Location(), new Pagination());
+		Invite invite2 = inviteService.selectById(invite.getId());
+		request.setAttribute("locList", locList);
+		request.setAttribute("joinId", invite.getJoinId());
+		request.setAttribute("inv", invite2);
+		return "forward:/ring/dating.jsp";
+	}
 	
 	/**
 	 * 受邀人同意邀约申请，选择约会时间地点
@@ -255,8 +271,6 @@ public class WebController {
 		InviteDetail detail = inviteDetaiService.selectById(invite.getId());
 		request.setAttribute("joinId", invite.getJoinId());
 		request.setAttribute("inv", invite);
-		request.setAttribute("detail", detail);
-		
 		request.setAttribute("detail", detail);
 		return "forward:/ring/accept.jsp";
 	}

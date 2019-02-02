@@ -108,7 +108,7 @@ layui.use('laydate', function(){
                                         <!-- End .form-group  -->
                                         <div class="form-group">
                                             <label class="col-lg-2 col-md-2 col-sm-12 col-xs-4 control-label ">活动范围</label>
-                                            		<div class="form-group dicCheckbox" name="custLoca">
+                                            		<div class="form-group dicCheckbox" name="custLoca" value ="${custQuery.custLoca}">
 												 </div>
                                         </div>
                                          <div class="form-group">

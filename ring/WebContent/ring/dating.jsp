@@ -146,6 +146,7 @@ function addDate(date,days){
    	  	<div><span  style='color:red'>约会时间只能选择两周之内的时间</span></div>
 	     <form id="dataForm">
 						<input class="form-control" name="id" type="hidden" value="${inv.id }"></input>
+						<input class="form-control" name="inviteStates" type="hidden" value="${inv.inviteStates }"></input>
 						<input class="form-control" name="joinId" type="hidden" value="${joinId }"></input>
 								<div class="form-group" >
 							            <label for="message-text" class="control-label">约会时间一：</label>  

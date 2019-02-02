@@ -58,8 +58,7 @@ $(function(){
 		    clearBtn: true 
 		});
 	}
-	//加载多选字典数据，第二个字段为多选的已有值或者默认值
-	setCheckbox(dic,"");
+	
 });
 
 	$(document).ready(function() {
@@ -112,10 +111,9 @@ $(function(){
 
 					<form id="dataForm"  class="form-horizontal" role="form"  enctype="multipart/form-data" 
 					   action="${basePath}/customer/customer_submit" method="post">
-						<input class="form-control " name="openId" type="hidden"
-							value="${openId}"></input> <input class="form-control " name="id"
-							type="hidden"></input> <input class="form-control " name="flag"
-							id="flag" type="hidden"></input>
+						<input class="form-control " name="openId" type="hidden" value="${mycust.openId}"></input>
+						<input class="form-control " name="id" type="hidden" value="${mycust.id}"></input> 
+						<input class="form-control " name="flag" id="flag" type="hidden" value="${mycust.flag}"></input>
 						<div class="form-group"  style="text-align: center">
 							<label for="message-text" class="control-label" style="font-size:">个人信息</label> 
 						</div>
@@ -130,8 +128,8 @@ $(function(){
 								id="nickName" placeholder="必填"  onchange="check_unique('nickName')" value="${mycust.nickName}">
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">性别:</label> <select
-								class="form-control dicSelect" id="sex" name="sex"  value="${mycust.sex}"
+							<label for="message-text" class="control-label">性别:</label> 
+							<select  class="form-control dicSelect" id="sex" name="sex"  value="${mycust.sex}"
 								placeholder="必填" required>
 							</select>
 						</div>
@@ -141,30 +139,30 @@ $(function(){
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">微信号:</label> <input
-								type="text" class="form-control " name="wx">
+								type="text" class="form-control " name="wx" value="${mycust.wx}">
 						</div>
 						
 						<div class="form-group ">
 							<label for="message-text" class="control-label">邮箱:</label> <input
-								type="text" class="form-control email required " name="email">
+								type="text" class="form-control email required " name="email" value="${mycust.email}">
 						</div>
 						<!-- <div class="form-group">
                             <label class="control-label">头像</label>
                                 <input type="file" name="headFile" id="headFile" class="form-control " accept="image/*"  class="form-control" placeholder="请上传图片">
                         </div> -->
 						<div class="form-group">
-                                <input type="hidden" name="frontImg" id="frontImg"  class="form-control " class="form-control" >
+                                <input type="hidden" name="frontImg" id="frontImg" value="${mycust.frontImg}"  class="form-control" >
 							 <div class="layui-upload">
 							  <button type="button" class="layui-btn" id="upfileFront">上传身份证正面</button>
 							  <div class="layui-upload-list">
-							    <img class="layui-upload-img" id="demo1" width="100%" >
+							    <img class="layui-upload-img" id="demo1" width="100%"  src="${pageContext.request.contextPath}/upload/${mycust.frontImg}" >
 							    <p id="demoText"></p>
 							  </div>
 							</div> 
                         </div>
                         
                         <div class="form-group">
-                             <input type="hidden" name="backImg"  id="backImg" class="form-control " class="form-control" >
+                             <input type="hidden" name="backImg"  id="backImg" class="form-control " class="form-control" value="${mycust.backImg}" >
 							 <div class="layui-upload">
 							  <button type="button" class="layui-btn" id="upfileBack">上传身份证反面</button>
 							  <div class="layui-upload-list">
@@ -208,7 +206,7 @@ $(function(){
 						<div class="form-group">
 							<label for="message-text" class="control-label">经常活动区域:</label>
 								<div class="col-lg-12">
-								<div class="row dicCheckbox"  name="custLoca">
+								<div class="row dicCheckbox"  name="custLoca" value="${mycust.loca}">
 								</div>	
 							</div>
 
@@ -224,33 +222,33 @@ $(function(){
 						<div class="form-group ">
 							<label for="message-text" class="control-label">婚姻状况:</label> <select
 								class="form-control dicSelect" name="marriage" placeholder="必填"
-								required>
+								required  value="${mycust.marriage }">
 
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">子女:</label> <select
-								class="form-control dicSelect" name="children">
+								class="form-control dicSelect" name="children" value="${mycust.children }">
 
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">学历（全日制最高学历）:</label> <select
-								class="form-control dicSelect" name="degree" placeholder="必填"
+								class="form-control dicSelect" name="degree" placeholder="必填" value="${mycust.degree }"
 								required>
 
 							</select>
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">住房状态:</label> <select
-								class="form-control dicSelect" name="houseStatus"
+								class="form-control dicSelect" name="houseStatus" value="${mycust.houseStatus }"
 								placeholder="必填" required>
 
 							</select>
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">用车状态:</label> <select
-								class="form-control dicSelect" name="carStatus"
+								class="form-control dicSelect" name="carStatus" value="${mycust.carStatus }"
 								placeholder="必填" required>
 
 							</select>
@@ -266,7 +264,7 @@ $(function(){
 						<div class="form-group ">
 							<label for="message-text" class="control-label">从事行业:</label> 
 								<select
-									class="form-control dicSelect" name="industry" 
+									class="form-control dicSelect" name="industry"  value="${mycust.industry }"
 										>
 	
 								</select>
@@ -274,7 +272,7 @@ $(function(){
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">月收入(税前):</label> <select
-								class="form-control dicSelect" name="income" placeholder="必填"
+								class="form-control dicSelect" name="income" placeholder="必填" value="${mycust.income }"
 								required>
 
 							</select>
@@ -282,7 +280,7 @@ $(function(){
 						<div class="form-group">
 							<label for="message-text" class="control-label">性格:</label>
 								<div class="col-lg-12">
-								<div class="row dicCheckbox" name="disposition">
+								<div class="row dicCheckbox" name="disposition" value="${mycust.disposition}">
 												   
 								</div>	
 							</div>
@@ -290,39 +288,39 @@ $(function(){
 						<div class="form-group">
 							<label for="message-text" class="control-label">兴趣爱好:</label>
 								<div class="col-lg-12">
-								<div class="row dicCheckbox" name="hobby">
+								<div class="row dicCheckbox" name="hobby" value="${mycust.hobby}">
 								</div>	
 							</div>
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">工作时间 :</label> <select
-								class="form-control dicSelect" name="weekday">
+								class="form-control dicSelect" name="weekday" value="${mycust.weekday }">
 							</select>
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">工作性质（出差情况） :</label> <select
-								class="form-control dicSelect" name="travel"
+								class="form-control dicSelect" name="travel" value="${mycust.travel }"
 								>
 							</select>
 						</div>
 						
 						<div class="form-group ">
 							<label for="message-text" class="control-label">推荐人:</label> <input
-								type="text" class="form-control" name="referee">
+								type="text" class="form-control" name="referee" value="${mycust.referee }">
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">自我介绍:</label><!--  <input
 								type="text" class="form-control" name="introduction"
 								id="introduction"> -->
 								<textarea rows="3"   class="form-control" name="introduction"
-								id="introduction"></textarea>
+								id="introduction">${mycust.introduction }</textarea>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">爱情宣言:</label> <!-- <input
 								type="text" class="form-control" name="declaration"
 								id="declaration"> -->
 								<textarea rows="2"   class="form-control" name="declaration"
-								id="declaration"></textarea>
+								id="declaration">${mycust.declaration }</textarea>
 						</div>
 						
 						
@@ -335,18 +333,18 @@ $(function(){
 							<label for="message-text" class="control-label">出生年月:</label>
 							<div class="form-inline">
 									
-									<input type="text" class="form-control layui-input" id="age1"  name="age1" readonly="readonly">
+									<input type="text" class="form-control layui-input" id="age1"  name="age1" readonly="readonly" value="${mycust.age1 }">
 									<label for="message-text" class="control-label"> 至</label>
-									<input type="text" class="form-control layui-input" id="age2" name="age2" readonly="readonly">
+									<input type="text" class="form-control layui-input" id="age2" name="age2" readonly="readonly" value="${mycust.age2 }">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">身高范围:</label>
 							<div class="form-inline">
 									
-									<input type="text" class="form-control layui-input number" id="height1" name="height1"  >
+									<input type="text" class="form-control layui-input number" id="height1" name="height1"  value="${mycust.height1 }">
 									<label for="message-text" class="control-label"> 至</label>
-									<input type="text" class="form-control layui-input number" id="height2" name="height2" >
+									<input type="text" class="form-control layui-input number" id="height2" name="height2"  value="${mycust.height2 }">
 							</div>
 						</div>
 						<!-- <div class="form-group">
@@ -357,31 +355,31 @@ $(function(){
 						<div class="form-group">
 							<label for="message-text" class="control-label">税前月收入:</label>
 								<select
-								class="form-control dicSelect" name="economic">
+								class="form-control dicSelect" name="economic" value="${mycust.economic }">
 							</select>
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">住房状态:</label> <select
-								class="form-control dicSelect" name="houseStatus2"
+								class="form-control dicSelect" name="houseStatus2" value="${mycust.houseStatus2 }"
 								placeholder="必填" >
 
 							</select>
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">用车状态:</label> <select
-								class="form-control dicSelect" name="carStatus2"
+								class="form-control dicSelect" name="carStatus2" value="${mycust.carStatus2 }"
 								placeholder="必填" >
 
 							</select>
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">工作时间 :</label> <select
-								class="form-control dicSelect" name="weekday2">
+								class="form-control dicSelect" name="weekday2" value="${mycust.weekday2 }">
 							</select>
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">工作性质（出差情况） :</label> <select
-								class="form-control dicSelect" name="travel2"
+								class="form-control dicSelect" name="travel2" value="${mycust.travel2 }"
 								>
 							</select>
 						</div>
@@ -394,7 +392,7 @@ $(function(){
 						<div class="form-group">
 							<label for="message-text" class="control-label">性格:</label>
 								<div class="col-lg-12">
-								<div class="row dicCheckbox" name="disposition2">
+								<div class="row dicCheckbox" name="disposition2" value="${mycust.disposition2}">
 												    
 								</div>	
 							</div>
@@ -402,33 +400,33 @@ $(function(){
 						<div class="form-group">
 							<label for="message-text" class="control-label">兴趣爱好:</label>
 							<div class="col-lg-12">
-								<div class="row dicCheckbox" name="hobby2">
+								<div class="row dicCheckbox" name="hobby2" value="${mycust.hobby2}">
 								</div>	
 							</div>
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">期望对方将来的生活角色 :</label> 
 							<div class="col-lg-12">
-								<div class="row dicCheckbox" name="lifeRole">
+								<div class="row dicCheckbox" name="lifeRole" value="${mycust.lifeRole}">
 								</div>	
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">期望未来对象的类型:</label> 
 							<div class="col-lg-12">
-								<div class="row dicCheckbox" name="lifeType">
+								<div class="row dicCheckbox" name="lifeType" value="${mycust.lifeType}">
 								</div>
 							</div>
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">不可接受的类型:</label> 
 							 <input
-								type="text" class="form-control" name="nonType" id="nonType">
+								type="text" class="form-control" name="nonType" id="nonType"  value="${mycust.nonType}">
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">备注:</label> 
 								<textarea rows="2"   class="form-control" name="remark"
-								id="remark"></textarea>
+								id="remark">${mycust.remark }</textarea>
 						</div>
 						<div class="form-group">
 							<button type="button" class="btn btn-primary" onclick="subInfo()">提交</button>
@@ -442,11 +440,24 @@ $(function(){
 </body>
 <script type="text/javascript">
 	$(function(){
-	addressInit('cmbProvince', 'cmbCity', 'cmbArea');
-	addressInit('hometownProvince', 'hometownCity', 'hometownCountry');
-	$("#hometownProvince").val("");
-	$("#hometownCity").val("")
-	$("#hometownCountry").val("")
+		addressInit('cmbProvince', 'cmbCity', 'cmbArea');
+		addressInit('hometownProvince', 'hometownCity', 'hometownCountry');
+		if("${mycust.hometown}"){
+			var  hometownArr = "${mycust.hometown}".split(",");
+			$("#hometownProvince").val(hometownArr[0]);
+			$("#hometownCity").val(hometownArr[1])
+			$("#hometownCountry").val(hometownArr[2]) 
+		}else{
+			$("#hometownProvince").val("");
+			$("#hometownCity").val("")
+			$("#hometownCountry").val("") 
+		}
+		if("${mycust.addtress}"){
+			var  hometownArr = "${mycust.addtress}".split(",");
+			$("#cmbProvince").val(hometownArr[0]);
+			$("#cmbCity").val(hometownArr[1])
+			$("#cmbArea").val(hometownArr[2]) 
+		}
 	})
 	function subInfo() {
 		subInfoAll("customer");
@@ -496,7 +507,9 @@ $(function(){
 	}
 
 	$(function() {
-
+		//加载多选字典数据，第二个字段为多选的已有值或者默认值
+		setCheckbox(dic,"");
+		
 		$(".dicSelect").each(
 				function() {
 					var field = this.name;
@@ -513,6 +526,7 @@ $(function(){
 						}
 					}
 					$(this).append(htmlStr);
+					$(this).val($(this).attr("value"))
 				});
 
 		
