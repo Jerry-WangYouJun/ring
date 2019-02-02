@@ -101,11 +101,13 @@
         </a>
 	</div>
 	<div class="old_my_center my_message">
-        <div class="leaf_old_mc">
-            <div class="ic_rep_message im"></div>
-            <div class="txt_leaf_omc">我的消息</div>
-
-        </div>
+		<a href="${pageContext.request.contextPath}/pages/message_list.jsp">
+	        <div class="leaf_old_mc">
+	            <div class="ic_rep_message im"></div>
+	            <div class="txt_leaf_omc">我的消息</div>
+	
+	        </div>
+        </a>
     </div>
 <div class="new_my_center">
         <div class="leaf_old_mc borderT mySpace borderB" style="position:relative">

@@ -5,6 +5,7 @@
 <html id="a1">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>会员留言信息</title>
 <style type="text/css">
   .panel-body {
@@ -38,11 +39,8 @@
 			        pageList: [10,30,50],        //可供选择的每页的行数（*）  
 			        queryParamsType:'',
 			        singleSelect    : true,   
-			        showRefresh : true, // 是否显示刷新按钮  
 			        clickToSelect : true, // 是否启用点击选中行  
 			        showToggle : false, // 是否显示详细视图和列表视图的切换按钮  
-			        search:true,   //是否启用搜索框 
-			        
 			        columns : [ {  
 			            checkbox : true 
 			        },{  
