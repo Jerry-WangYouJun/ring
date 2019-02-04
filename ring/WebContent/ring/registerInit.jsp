@@ -120,10 +120,10 @@ $(function(){
 								<div class="row">
 									<div class="col-lg-4 col-md-4 col-xs-12">
 										<c:choose>
-											 <c:when test="${openId eq '0'}">
+											 <c:when test="${mycust.openId eq '0'}">
 											 	  <label class="col-lg-12 col-md-12 col-sm-12 control-label">审核正在进行中，请耐心等待~</label>
 											 </c:when>
-											  <c:when test="${openId eq '1'}">
+											  <c:when test="${mycust.openId eq '1'}">
 											 	  <label class="col-lg-12 col-md-12 col-sm-12 control-label">网络繁忙，请尝试退出重新登录~</label>
 											 </c:when>
 											 <c:otherwise>

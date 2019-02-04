@@ -155,7 +155,7 @@ $(function(){
 							 <div class="layui-upload">
 							  <button type="button" class="layui-btn" id="upfileFront">上传身份证正面</button>
 							  <div class="layui-upload-list">
-							    <img class="layui-upload-img" id="demo1" width="100%"  src="${pageContext.request.contextPath}/upload/${mycust.frontImg}" >
+							    <img class="layui-upload-img" id="demo1" width="100%"  >
 							    <p id="demoText"></p>
 							  </div>
 							</div> 
@@ -494,7 +494,7 @@ $(function(){
 				success : function(data) {
 					if (data.success) {
 						alert(data.msg);
-						window.location.href = "${pageContext.request.contextPath}/web/login?userNo=${openId}&pwd=123";
+						window.location.href = "${pageContext.request.contextPath}/web/login?remark=${mycust.openId}&pwd=123";
 					} else {
 						alert(data.msg);
 					}
