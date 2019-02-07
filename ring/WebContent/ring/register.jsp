@@ -430,6 +430,7 @@ $(function(){
 						</div>
 						<div class="form-group">
 							<button type="button" class="btn btn-primary" onclick="subInfo()">提交</button>
+							<button type="button" class="btn btn-primary" onclick="window.history.back()">返回</button>
 						</div>
 					</form>
 				</div>

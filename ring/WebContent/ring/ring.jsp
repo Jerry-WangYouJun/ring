@@ -74,7 +74,7 @@ layui.use('table', function(){
            ,"username": "web/dateinfo"
            ,"classify": ":/new/date_list.jsp"
       	  },{
-   			"city": "个人中心- 我的约会 - 全部约会 "
+   			"city": "个人中心- 我的邀约  ('1' , '2' , '3' , '5') 申请 ， 拒绝 ， 取消"
           ,"username": "web/info"
           ,"classify": "new/date_list.jsp"
      	  },{

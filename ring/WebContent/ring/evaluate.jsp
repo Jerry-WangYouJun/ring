@@ -10,6 +10,9 @@
 <link rel="stylesheet" href="${basePath}/css/style.css" />
 <link rel="stylesheet" href="${basePath}/ring/css/main.css" />
 <script src="${basePath}/js/jquery-3.1.1.min.js"></script>
+<script src="${basePath}/js/validate/jquery.validate.min.js"></script>
+<script src="${basePath}/js/validate/jquery.metadata.js"></script>
+<script src="${basePath}/js/validate/messages_zh.js"></script>
 <script src="${basePath}/ring/assets/js/bootstrap/bootstrap.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css"  media="all">
 <script src="${pageContext.request.contextPath }/layui/layui.js" charset="utf-8"></script>
@@ -59,6 +62,13 @@
 			 window.location.href="${pageContext.request.contextPath}/ring/evaluate.jsp"
 		}
 </script>
+<style type="text/css">
+
+	 .day_value{
+	 	 color: black;
+	 	 margin-left: 10px;
+	 }
+</style>
 </head>
 <body>
 <%@include file="/ring/header.jsp"%>
@@ -90,11 +100,11 @@
 									<td class="day_value">${invite.pointLocation.location} - ${invite.pointLocation.locName}</td>
 								</tr>
 								<tr class="opened_1">
-									<td class="day_label"> 详细地址  :</td>
+									<td class="day_label"> 详细地址 : </td>
 									<td class="day_value">  ${invite.pointLocation.address }</td>
 								</tr>
 							    <tr class="opened">
-									<td class="day_label">约会地点联系电话:</td>
+									<td class="day_label"> 店铺电话 :&nbsp; </td>
 									<td class="day_value " >${invite.pointLocation.telephone }</td>
 								</tr>
 								<tr class="opened">
@@ -192,7 +202,6 @@
 			 function deleteTag(obj){
 				   $(obj).parent().remove();
 			 }
-			 alert("${evaluate.remark}")
 			 layui.use(['rate'], function(){
 				  var rate = layui.rate;
 				//显示文字

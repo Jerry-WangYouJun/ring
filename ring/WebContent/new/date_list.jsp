@@ -63,26 +63,43 @@
 		 }
 		 
 		 function dateIndex(){
-			  window.location.href="${pageContext.request.contextPath}/web/info";
+			  window.location.href="${pageContext.request.contextPath}/web/${act}";
 		 }
+		 $(function() {
+				var dic = eval('(${dic})');
+				$(".dicValue").each(function(){
+					 var field  = $(this).attr("name")
+					 var value =  $(this).attr("value");
+					 if(dic[field] !=undefined && dic[field][value]!= undefined){
+						 $(this).text(dic[field][value]["describ"]);
+					 }
+				})
+			});
 </script>
+<style type="text/css">
+ .menu-list-bottom-line{
+ 	 width :2000px !important;
+ 	 margin-left:  -500px;
+ }
+ .list-right{
+ 	 width:100% !important;
+ }
+ .index-list {
+    padding: 0rem 1rem 0 1rem !important;
+    background-color: #fff;
+}
+</style>
 <title>约会信息</title>
 </head>
 <body>
 <%@include file="/ring/header.jsp"%>
 <div class="container">
-    <div class="row index-menu">
-        <div class="col-xs-3"><span class="on" onclick="dateIndex()">全部</span></div>
-        <div class="col-xs-3"><span>待接受</span></div>
-        <div class="col-xs-3"><span>待确认</span></div>
-        <div class="col-xs-3"><span>待评价</span></div>
-    </div>
     <div class="row index-list" style="margin:  10px">
-        <div class="col-xs-8 list-right">
-            <div class="row  index-list">
+        <div class="row list-right" style="margin:  10px">
+            <div class="row  index-list" style="margin:  10px">
 				<c:forEach items="${inviteInfo }" var="invite">
-							    <div class="row" style="margin:  10px">
-							    <p class="index-list-tittle">约会对象</p>
+							    <div class="row">
+							    <p class="index-list-tittle">约会对象-我约的</p>
 								 <p class="menu-list-main">
 								 	<c:if test="${invite.customerJoin.sex eq '1'}">
 										<img src="${pageContext.request.contextPath}/img/men.jpg"  />
@@ -104,75 +121,65 @@
 										 	 </c:when>
 											 </c:choose>
 										 	</span>
-					                    <span class="line"></span>
-										 <span> <a href="${pageContext.request.contextPath}/web/detail?id=${invite.id}"> 约会详细信息</a>
-										 </span>
-					                </div>
+										 	<span class="line"></span>
+												 
+					                    </div>
 					                <br>
 					                <div class="index-list-tap col-lg-12 col-xs-12">
 					                    <span>生日 <span></span></span>
 					                    <span class="line"></span>
-					                    <span>${invite.customerJoin.birthday }</span>
+					                    <span style="color: black;">${invite.customerJoin.birthday }</span>
 					                </div>
 					                <br>
 					                <div class="index-list-tap col-lg-12 col-xs-12">
 					                    <span>身高 <span></span></span>
 					                    <span class="line"></span>
-					                    <span>${invite.customerJoin.height }</span>
+					                    <span  style="color: black;">${invite.customerJoin.height }</span>
 					                </div>
 					                <br>
 					                <div class="index-list-tap col-lg-12 col-xs-12">
 					                    <span> 现居地 <span></span></span>
 					                    <span class="line"></span>
-					                    <span>${invite.customerJoin.addressProvince }-${invite.customerJoin.addressCity}-${invite.customerJoin.addressCountry }</span>
+					                    <span  style="color: black;">${invite.customerJoin.addtress }</span>
 					                </div>
-					                <br>
-					                 <c:choose>
-										 	 <c:when test="${invite.inviteStates eq '1'}">
-										 	 	 <div class="index-list-tap col-lg-12 col-xs-12">
-								                    <span> 约会时间 <span></span></span>
-								                    <span> ${invite.detail.preDate} </span>
-								                    <span class="line"></span>
-								                    <span> 地点 <span></span></span>
-								                    <span> ${invite.detail.location.location}, ${invite.detail.location.locName} </span>
-								                </div><br>
-								                <div class="index-list-tap col-lg-12 col-xs-12">
-								                    <span> 约会时间2 <span></span></span>
-								                    <span> ${invite.detail.preDate2} </span>
-								                    <span class="line"></span>
-								                    <span> 地点 <span></span></span>
-								                    <span> ${invite.detail.location2.location}, ${invite.detail.location2.locName} </span>
-								                </div><br>
-								                <div class="index-list-tap col-lg-12 col-xs-12">
-								                    <span> 约会时间3 <span></span></span>
-								                    <span> ${invite.detail.preDate3} </span>
-								                    <span class="line"></span>
-								                    <span> 地点 <span></span></span>
-								                    <span> ${invite.detail.location3.location}, ${invite.detail.location3.locName} </span>
-								                </div>
-										 	 </c:when>
-										 	 <c:otherwise>
-										 	 <div class="index-list-tap col-lg-12 col-xs-12">
-								                    <span> 约会时间 <span></span></span>
-								                    <span> ${invite.detail.confirmDate} </span>
-								                    <span class="line"></span>
-								                    <span> 地点 <span></span></span>
-								                    <span> ${invite.pointLocation.location}, ${invite.pointLocation.locName} </span>
-								                </div>
-										 	 </c:otherwise>
-										 </c:choose>
-					                
-									<hr />
+					                <div class="index-list-tap col-lg-12 col-xs-12">
+					                    <span> 邀约状态 
+							 			</span> 
+							 		</div>
+					                <div class="index-list-tap col-lg-12 col-xs-12">
+					                    <span  style="color: black;">
+					                    		<c:if test="${invite.inviteStates eq '1'}">
+					                   				  待确认<a href="${pageContext.request.contextPath}/web/detail?id=${invite.id}"> 约会详细信息</a>
+											 </c:if>
+					 	 					 <c:if test="${invite.inviteStates eq '3'}">
+					                   				  已拒绝  原因： ${invite.remark } 
+											 </c:if>
+											 <c:if test="${invite.inviteStates eq '5'}">
+											 	 	  已取消  
+											 </c:if>
+											 <c:if test="${invite.inviteStates eq '7'}">
+											 	 	  约会已结束
+											 	 	  <a class="btn btn-default" href="##" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
+											 </c:if>
+					                     </span>
+					               </div>
+					               <br>
 								</div>
+								<div class="row">
+									 <c:if test="${invite.inviteStates eq '4'  && invite.detail.signFrom ne '1' }">
+											 <a class="btn btn-success" href="###" onclick="signUp('${invite.id}')">约会签到</a>
+									 </c:if>
+								</div>
+								<div class="menu-list-bottom-line" ></div>
 						    </c:forEach>
             </div>
             
             
             
-            <div class="row  " style="margin:10px">
+            <div class="row  index-list" style="margin:10px">
 				<c:forEach items="${invitedInfo }" var="invite">
 							    <div class="row">
-							    <p class="index-list-tittle">约会对象</p>
+							     <p class="index-list-tittle">约会对象-约我的</p>
 								 <p class="menu-list-main">
 								 	<c:if test="${invite.customerFrom.sex eq '1'}">
 										<img src="${pageContext.request.contextPath}/img/men.jpg"  />
@@ -180,7 +187,6 @@
 							      	<c:if test="${invite.customerFrom.sex eq '0'}">
 												<img src="${pageContext.request.contextPath}/img/women.jpg" />
 							      	</c:if>
-								 
 								 ${invite.customerFrom.nickName } <a href="${pageContext.request.contextPath}/web/customer?id=${invite.joinId}">详细信息</a></p>
 									<div class="index-list-tap">
 					                    <i class="glyphicon glyphicon-bookmark fl">
@@ -194,73 +200,55 @@
 										 	 </c:when>
 											 </c:choose>
 										 	</span>
-										 	<span class="line"></span>
-												 <span> <a href="${pageContext.request.contextPath}/web/detail?id=${invite.id}"> 约会详细信息</a>
+												 <span> 
 											 </span>
 					                    </div>
 					                <br>
 					                <div class="index-list-tap col-lg-12 col-xs-12">
 					                    <span>生日 <span></span></span>
-					                    <span class="line"></span>
-					                    <span>${invite.customerFrom.birthday }</span>
+					                    <span style="color: black;">${invite.customerFrom.birthday }</span>
 					                </div>
 					                <br>
 					                <div class="index-list-tap col-lg-12 col-xs-12">
 					                    <span>身高 <span></span></span>
-					                    <span class="line"></span>
-					                    <span>${invite.customerFrom.height }</span>
+					                    <span  style="color: black;">${invite.customerFrom.height }</span>
 					                </div>
 					                <br>
 					                <div class="index-list-tap col-lg-12 col-xs-12">
 					                    <span> 现居地 <span></span></span>
-					                    <span class="line"></span>
-					                    <span>${invite.customerFrom.addressProvince }-${invite.customerFrom.addressCity}-${invite.customerFrom.addressCountry }</span>
+					                    <span  style="color: black;">${invite.customerFrom.addtress }</span>
 					                </div>
 					                <br>
-					                <c:choose>
-										 	 <c:when test="${invite.inviteStates eq '1'}">
-										 	 	 <div class="index-list-tap col-lg-12 col-xs-12">
-								                    <span> 约会时间 <span></span></span>
-								                    <span> ${invite.detail.preDate} </span>
-								                    <span class="line"></span>
-								                    <span> 地点 <span></span></span>
-								                    <span> ${invite.detail.location.location}, ${invite.detail.location.locName} </span>
-								                </div><br>
-								                <div class="index-list-tap col-lg-12 col-xs-12">
-								                    <span> 约会时间2 <span></span></span>
-								                    <span> ${invite.detail.preDate2} </span>
-								                    <span class="line"></span>
-								                    <span> 地点 <span></span></span>
-								                    <span> ${invite.detail.location2.location}, ${invite.detail.location2.locName} </span>
-								                </div><br>
-								                <div class="index-list-tap col-lg-12 col-xs-12">
-								                    <span> 约会时间3 <span></span></span>
-								                    <span> ${invite.detail.preDate3} </span>
-								                    <span class="line"></span>
-								                    <span> 地点 <span></span></span>
-								                    <span> ${invite.detail.location3.location}, ${invite.detail.location3.locName} </span>
-								                </div>
-										 	 </c:when>
-										 	 <c:otherwise>
-										 	 <div class="index-list-tap col-lg-12 col-xs-12">
-								                    <span> 约会时间 <span></span></span>
-								                    <span> ${invite.detail.confirmDate} </span>
-								                    <span class="line"></span>
-								                    <span> 地点 <span></span></span>
-								                    <span> ${invite.pointLocation.location}, ${invite.pointLocation.locName} </span>
-								                </div>
-										 	 </c:otherwise>
-										 </c:choose>
+					                <div class="index-list-tap col-lg-12 col-xs-12">
+					                    <span> 邀约状态</span>
+					                </div>
+					                <div class="index-list-tap col-lg-12 col-xs-12">
+					                    <span  style="color: black;">
+					                    		 <c:if test="${invite.inviteStates eq '1'}">
+					                   				  待确认<a href="${pageContext.request.contextPath}/web/detail?id=${invite.id}"> 约会详细信息</a>
+											 </c:if>
+					 	 					 <c:if test="${invite.inviteStates eq '3'}">
+					                   				  已拒绝  原因： ${invite.remark } 
+											 </c:if>
+											 <c:if test="${invite.inviteStates eq '5'}">
+											 	 	  已取消  
+											 </c:if>
+											 <c:if test="${invite.inviteStates eq '7'}">
+											 	 	  约会已结束
+											 	 	  <a class="btn btn-default" href="##" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
+											 </c:if>
+					                     </span>
+						               </div>
 								</div>
 								<div class="row">
 									 <c:if test="${invite.inviteStates eq '4'  && invite.detail.signJoin ne '1' }">
 											 <a class="btn btn-success" href="###" onclick="signUp('${invite.id}')">约会签到</a>
 									 </c:if>
 								</div>
+								<div class="menu-list-bottom-line"></div>
 						    </c:forEach>
             </div>
         </div>
-        <div class="menu-list-bottom-line"></div>
     </div>
 
 

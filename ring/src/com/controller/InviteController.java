@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.sf.json.JSONObject;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,6 @@ import com.common.CodeUtil;
 import com.common.entry.Grid;
 import com.common.entry.Message;
 import com.common.entry.Pagination;
-import com.dao.UserDao;
 import com.model.Customer;
 import com.model.Evaluate;
 import com.model.Invite;
@@ -36,6 +33,8 @@ import com.service.InviteDetailService;
 import com.service.InviteService;
 import com.service.LocationService;
 import com.service.UserService;
+
+import net.sf.json.JSONObject;
 
 
 @Controller

@@ -227,6 +227,13 @@ public class CustomerController {
 		return msg;
 	}
 	
+	@RequestMapping("/updateById")
+	public String updateById(Integer id ,HttpServletRequest request ,HttpSession session ) {
+		 Customer cust = service.selectById(id);
+		 request.setAttribute("mycust", cust);
+		 return "forward:/ring/register.jsp" ;
+	}
+	
 	@RequestMapping("/insertFocus")
 	public String insertFocus(Focus focus ,HttpServletRequest request ,HttpSession session ) {
 		 Customer cust = (Customer)session.getAttribute("customer");

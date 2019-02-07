@@ -28,6 +28,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <link rel="stylesheet" href="${pageContext.request.contextPath}/new/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css"  media="all">
 <script src="${pageContext.request.contextPath }/layui/layui.js" charset="utf-8"></script>
+<style type="text/css">
+a {
+    color: #428bca ;
+}
+</style>
 <!----font-Awesome----->
 <script>
 	 function invite(joinId){
@@ -153,8 +158,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				 $(this).text(dic[field][value]["describ"]);
 			 }
 		})
-
-		
 	});
 </script>
 </head>
@@ -199,92 +202,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script> 
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.zh-CN.js"></script> 
     </div>
-   <div class="profile" style="margin-top:70px">
+   <div class="profile" style="margin-top:0px">
    	 <div class="col-md-12 profile_left">
    	 	
    	 	<div class="col_3">
-   	        <div class="col-sm-4 row_2">
-				<div class="flexslider">
-					 <ul class="slides">
-						<li data-thumb="${pageContext.request.contextPath}/ring/images/p1.jpg">
-							<img src="${pageContext.request.contextPath}/ring/images/p1.jpg" />
-						</li>
-					 </ul>
-				  </div>
-			</div>
-			<c:if test="${customer.id eq invite.customerJoin.id }">
-										 	<c:if test="${ empty invite.detail.signJoin}">
-												<c:choose>
-												 	 <c:when test="${invite.inviteStates eq '1'}">
-												 	 	 <a href="###" onclick="addInvite('${invite.id}','1')">时间地点信息</a>
-										      			 <a href="##" onclick="updateStates('${invite.id}','3')">拒绝约请</a>
-												 	 </c:when>
-												 	 <c:when test="${invite.inviteStates eq '2'}">
-												 	 	  已接受
-												 	 </c:when>
-												 	 <c:when test="${invite.inviteStates eq '3'}">
-												 	 	  已拒绝  原因：<span class="dicValue" name="remark" value="${invite.remark }"></span>
-												 	 </c:when>
-												 	 <c:when test="${invite.inviteStates eq '4'}">
-												 	 	  准备约会，约会时间：${invite.detail.preDate}
-												 	 	 约会地点：${invite.pointLocation.location},${invite.pointLocation.address},${invite.pointLocation.locName}
-												 	 	<div>  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
-												 	 	   	<a href="##" onclick="updateDating('${invite.id}','4')">修改约会地点</a>
-												 	 	   	<a href="##" onclick="updateDating('${invite.id}','0')">约会爽约</a>
-												 	 	 </div>
-												 	 </c:when>
-												 	 <c:when test="${invite.inviteStates eq '6'}">
-												 	 	   申请取消约会 系统审核中
-												 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">撤回申请</a>
-												 	 </c:when>
-												 </c:choose>
-										 	</c:if>
-										 	<c:if test="${ not empty invite.detail.signJoin}">
-										 		 已签到
-											 	<c:if test="${invite.inviteStates eq '7'}">
-											 	 	  约会已结束
-											 	 	  <a class="btn btn-default" href="##" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
-											 	 </c:if>
-										 	</c:if>
-										 	
-			</c:if>
 			
-			<c:if test="${customer.id eq invite.customerFrom.id }">
-			<c:if test="${ empty invite.detail.signFrom}">
-				  	<c:choose>
-										 	 <c:when test="${invite.inviteStates eq '1'}">
-										 	 	  未确认
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '2'}">
-										 	 	  已接受
-										 	 	   <a href="##" onclick="updateStates('${invite.id}','4')">确定约会</a>
-										 	 	   <a href="##" onclick="updateStates('${invite.id}','5')">取消约会</a>
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '3'}">
-										 	 	  已拒绝   原因：${invite.remark }
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '4'}">
-										 	 	  准备约会，约会时间：${invite.detail.preDate}
-										 	 	  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
-										 	 	  <a href="##" onclick="updateDating('${invite.id}','4')">修改约会地点</a>
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '5'}">
-										 	 	  已取消：${invite.remark}
-										 	 </c:when>
-										 	 <c:when test="${invite.inviteStates eq '6'}">
-										 	 	  系统审核中
-										 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">申请取消约会</a>
-										 	 </c:when>
-										 </c:choose>
-			</c:if>
-										<c:if test="${ not empty invite.detail.signFrom}">
-										 		 已签到
-											 	<c:if test="${invite.inviteStates eq '7'}">
-											 	 	  约会已结束
-											 	 	  <a class="btn btn-default" href="##" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
-											 	 </c:if>
-										 	</c:if>
-			</c:if>
 			<div style="margin: 30px"> 
 		<div class="col_4">
 		    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
@@ -294,27 +216,109 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			   <div id="myTabContent" class="tab-content">
 				  <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
 				    <div class="basic_1">
-				    	<h3>约会情况 </h3>
 				    	<div class="col-md-6 basic_1-left">
 				    	  <table class="table_working_hours">
 				        	<tbody>
-				        		<tr class="opened_1">
-									<td class="day_label">邀请人 :</td>
-									<td class="day_value" ><a href="${pageContext.request.contextPath}/web/customer?id=${invite.fromId}">${invite.customerFrom.nickName}</a></td>
-								</tr>
-								<tr class="opened_1">
-									<td class="day_label">受邀人 :</td>
-									<td class="day_value" ><a href="${pageContext.request.contextPath}/web/customer?id=${invite.joinId}">${invite.customerJoin.nickName}</a></td>
-								</tr>
+				        		<tr class="opened">
+								<td class="day_label">邀请人 :</td>
+								<td class="day_value" ><a href="${pageContext.request.contextPath}/web/customer?id=${invite.fromId}">${invite.customerFrom.nickName}</a></td>
+							</tr>
+							<tr class="opened">
+								<td class="day_label">受邀人 :</td>
+								<td class="day_value" ><a href="${pageContext.request.contextPath}/web/customer?id=${invite.joinId}">${invite.customerJoin.nickName}</a></td>
+							</tr>
+							<tr class="opened">
+								<td class="day_label">邀约状态 :</td>
+								<td class="day_value" >
+									<c:if test="${customer.id eq invite.customerJoin.id }">
+									 	<c:if test="${ empty invite.detail.signJoin}">
+											<c:choose>
+											 	 <c:when test="${invite.inviteStates eq '1'}">
+											 	 	 <a href="##" onclick="addInvite('${invite.id}','1')">时间地点信息</a>
+									      			 <a href="##" onclick="updateStates('${invite.id}','3')">拒绝约请</a>
+											 	 </c:when>
+											 	 <c:when test="${invite.inviteStates eq '2'}">
+											 	 	  已接受
+											 	 </c:when>
+											 	 <c:when test="${invite.inviteStates eq '3'}">
+											 	 	  已拒绝  原因：<span class="dicValue" name="remark" value="${invite.remark }"></span>
+											 	 </c:when>
+											 	 <c:when test="${invite.inviteStates eq '4'}">
+											 	 	  准备约会，约会时间：${invite.detail.preDate}
+											 	 	 约会地点：${invite.pointLocation.location},${invite.pointLocation.address},${invite.pointLocation.locName}
+											 	 	<div>  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
+											 	 	   	<a href="##" onclick="updateDating('${invite.id}','4')">修改约会地点</a>
+											 	 	   	<a href="##" onclick="updateDating('${invite.id}','0')">约会爽约</a>
+											 	 	 </div>
+											 	 </c:when>
+											 	 <c:when test="${invite.inviteStates eq '6'}">
+											 	 	   申请取消约会 系统审核中
+											 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">撤回申请</a>
+											 	 </c:when>
+											 </c:choose>
+									 	</c:if>
+									 	<c:if test="${ not empty invite.detail.signJoin}">
+									 		 已签到
+										 	<c:if test="${invite.inviteStates eq '7'}">
+										 	 	  约会已结束
+										 	 	  <a class="btn btn-default" href="##" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
+										 	 </c:if>
+									 	</c:if>
+									</c:if>
+									<c:if test="${customer.id eq invite.customerFrom.id }">
+										<c:if test="${ empty invite.detail.signFrom}">
+											  	<c:choose>
+												 	 <c:when test="${invite.inviteStates eq '1'}">
+												 	 	  未确认
+												 	 </c:when>
+												 	 <c:when test="${invite.inviteStates eq '2'}">
+												 	 	  已接受
+												 	 	   <a href="##" onclick="updateStates('${invite.id}','4')">确定约会</a>
+												 	 	   <a href="##" onclick="updateStates('${invite.id}','5')">取消约会</a>
+												 	 </c:when>
+												 	 <c:when test="${invite.inviteStates eq '3'}">
+												 	 	  已拒绝   原因：${invite.remark }
+												 	 </c:when>
+												 	 <c:when test="${invite.inviteStates eq '4'}">
+												 	 	  准备约会，约会时间：${invite.detail.preDate}
+												 	 	  <a href="##" onclick="updateStates('${invite.id}','6')">申请取消约会</a>
+												 	 	  <a href="##" onclick="updateDating('${invite.id}','4')">修改约会地点</a>
+												 	 </c:when>
+												 	 <c:when test="${invite.inviteStates eq '5'}">
+												 	 	  已取消：${invite.remark}
+												 	 </c:when>
+												 	 <c:when test="${invite.inviteStates eq '6'}">
+												 	 	  系统审核中
+												 	 	  <a href="##" onclick="updateStates('${invite.id}','4')">申请取消约会</a>
+												 	 </c:when>
+												 </c:choose>
+										</c:if>
+										<c:if test="${ not empty invite.detail.signFrom}">
+										 		 已签到
+											 <c:if test="${invite.inviteStates eq '7'}">
+										 	 	  约会已结束
+										 	 	  <a class="btn btn-default" href="##" onclick="evaluateDate('${invite.id}')">评价约会对象</a>
+										 	 </c:if>
+									 	</c:if>
+									</c:if>
+								</td>
+							</tr>
 							    <tr class="opened">
 									<td class="day_label">约会时间 :</td>
-									<td class="day_value">${invite.detail.confirmDate }</td>
+									<td class="day_value">
+										<c:if test="${ not empty invite.detail.confirmDate}">
+											${invite.detail.confirmDate }
+										</c:if>
+										<c:if test="${  empty invite.detail.confirmDate}">
+											待定
+										</c:if>
+									</td>
 								</tr>
 								 <tr class="opened">
 									<td class="day_label">活动地点 :</td>
 									<td class="day_value">${invite.pointLocation.location} - ${invite.pointLocation.locName}</td>
 								</tr>
-								<tr class="opened_1">
+								<tr class="opened">
 									<td class="day_label"> 详细地址  :</td>
 									<td class="day_value">  ${invite.pointLocation.address }</td>
 								</tr>
@@ -325,7 +329,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<tr class="opened">
 									<td class="day_label">对我的评价:</td>
 									<td class="day_value " >
-									 <a  class="btn btn-primary" style="border: none;" onclick="detailView()" >详情</a></td>
+									 <a  class="btn btn-primary" style="border: none;color:white;" onclick="detailView()" >详情</a></td>
 								</tr>
 								<tr class="opened">
 									<td class="day_label" colspan="2">
@@ -342,29 +346,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				          </table>
 				          <table class="table_working">
 				        	<tbody>
-							    <tr class="opened">
-									<td class="day_label">是否发生迟到 :</td>
-									<td class="day_value dicValue" name="late" value="${ev.late}">${ev.late}</td>
-								</tr>
-								 <tr class="opened">
-									<td class="day_label">对方实际情况与系统描述相符情况 :</td>
-									<td class="day_value dicValue" name="compare" value="${ev.compare}"> </td>
+							    <tr class="opened_1">
+									<td class="day_value">是否发生迟到 :</td>
 								</tr>
 								<tr class="opened_1">
-									<td class="day_label">互动中，对方反馈积极程度 :</td>
-									<td class="day_value dicValue" name="talk" value="${ev.talk }">  </td>
+									<td class="day_label dicValue" style="color: black;" name="late" value="${ev.late}">${ev.late}</td>
+								</tr>
+								 <tr class="opened">
+									<td class=" day_value">对方实际情况与系统描述相符情况 :</td>
+								</tr>
+								<tr class="opened_1">
+									<td class="day_label dicValue" style="color: black;" name="compare" value="${ev.compare}"> </td>
 								</tr>
 								<tr class="opened">
-									<td class="day_label">是否愿意再次与对方见面:</td>
-									<td class="day_value dicValue" name="next" value="${ev.next}"></td>
+									<td class="day_value">互动中，对方反馈积极程度 :</td>
+								</tr>
+								<tr class="opened_1">
+									<td class="day_label dicValue" style="color: black;" name="talk" value="${ev.talk }">  </td>
 								</tr>
 								<tr class="opened">
-									<td class="day_label">对我的评价:</td>
-									<td class="day_value">${ev.evaluateMsg}</td>
+									<td class="day_value">是否愿意再次与对方见面:</td>
+								</tr>
+								<tr class="opened_1">
+									<td class="day_label dicValue" style="color: black;" name="next" value="${ev.next}"></td>
 								</tr>
 								<tr class="opened">
-									<td class="day_label">对我的评分:</td>
-									<td id="test2"></td>
+									<td class="day_value">对我的评价:</td>
+								</tr>
+								<tr class="opened_1">
+									<td class="day_label" style="color: black;">${ev.evaluateMsg}</td>
+								</tr>
+								<tr class="opened">
+									<td class="day_value">对我的评分:</td>
+								</tr>
+								<tr class="opened_1">
+									<td id="test2" style="color: black;"></td>
 								</tr>
 						    </tbody>
 				          </table>

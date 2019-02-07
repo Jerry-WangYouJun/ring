@@ -244,7 +244,7 @@ public class WebController {
 	}
 	
 	/**
-	 * 第一次邀约请求
+	 *  修改约会信息
 	 * @param request
 	 * @param invite
 	 * @return
@@ -483,16 +483,17 @@ public class WebController {
 		List<Invite> inviteInfo = new ArrayList<>();
 		List<Invite> invitedInfo = new ArrayList<>();
 		for(Invite invite : inviteList){
-			InviteDetail detail = inviteDetaiService.selectById(invite.getId());
-			invite.setDetail(detail);
+//			InviteDetail detail = inviteDetaiService.selectById(invite.getId());
+//			invite.setDetail(detail);
 			 if(cust.getId().equals( invite.getFromId())){
 				 inviteInfo.add(invite);
 			 }else{
 				 invitedInfo.add(invite);
 			 }
 		}
-		request.setAttribute("inviteInfo", inviteInfo);
-		request.setAttribute("invitedInfo", invitedInfo);
+		request.setAttribute("inviteInfo", inviteInfo);//邀请人
+		request.setAttribute("invitedInfo", invitedInfo);//受邀人
+		request.setAttribute("act", "info");
 		return "forward:/new/date_list.jsp";
 	}
 	
@@ -517,6 +518,7 @@ public class WebController {
 		}
 		request.setAttribute("inviteInfo", inviteInfo);
 		request.setAttribute("invitedInfo", invitedInfo);
+		request.setAttribute("act", "dateinfo");
 		return "forward:/new/date_list.jsp";
 	}
 	

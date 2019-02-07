@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.common.CodeUtil;
 import com.common.entry.Grid;
 import com.common.entry.Pagination;
+import com.model.Customer;
 import com.model.Message;
 import com.model.User;
 import com.pay.util.NoticeUtil;
@@ -37,11 +38,13 @@ public class MessageController {
 	public Grid  queryTest( HttpServletResponse response, HttpServletRequest request  , HttpSession session ) {
 		String col = request.getParameter("col");
 		User user = (User)session.getAttribute("user");
+		Customer cust = (Customer) session.getAttribute("customer");
 		String pageNo = request.getParameter("pageNumber");
 		String pageSize = request.getParameter("pageSize");
 	    Message message = new Message();
 		Pagination page =  new Pagination(pageNo, pageSize) ;
 	    CodeUtil.initPagination(page);
+	    message.setToId(cust.getId());
 		List<Message> list = service.queryList(message , page );
 		int total = service.queryTotal(message );
 		Grid grid = new Grid();
@@ -54,13 +57,13 @@ public class MessageController {
 	@RequestMapping("/remind_edit")
 	public com.common.entry.Message  editMessage(Message message ,HttpSession session ){
 		com.common.entry.Message msg = new com.common.entry.Message();
-		User user = (User)session.getAttribute("webUser");
+		Customer cust = (Customer)session.getAttribute("customer");
 		try{
 			message.setMsgDate(new Date());
 			if(message.getId() != null  &&  message.getId() > 0){
 				service.update(message);
 			}else{
-				message.setFromId(Integer.valueOf(user.getRemark()));
+				message.setFromId(cust.getId());
 				message.setMsgDate(new Date());
 				message.setRemark("0");
 				service.insert(message);

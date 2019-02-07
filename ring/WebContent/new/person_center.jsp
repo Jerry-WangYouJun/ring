@@ -19,7 +19,6 @@
 </head>
 <body>
 <div class="vue_my_container">
-
     <div class="popToast2 showToast-transition" style="display:none">
             <span class="icon_popToast" style="display:none">
             </span>
@@ -109,7 +108,7 @@
 	        </div>
         </a>
     </div>
-<div class="new_my_center">
+	<div class="new_my_center">
         <div class="leaf_old_mc borderT mySpace borderB" style="position:relative">
             <div class="ic_rep_space ic_rep_sponsor1 im" style="position:relative;"></div>
             <div class="txt_leaf_omc">我是活动发起人</div>
@@ -120,10 +119,18 @@
             <div class="txt_leaf_omc ">参加过的活动</div>
         </div>
     </div>
+	<div class="new_my_center">
+	    <div class="leaf_old_mc borderT mySpace borderB" style="position:relative" onclick="indexPage()">
+	        <div class="ic_rep_space ic_rep_phone im" style="position:relative;"></div>
+	        <div class="txt_leaf_omc ">返回主页</div>
+	    </div>
+	</div>
 </div>
 
 </body>
 <script type="text/javascript">
-
+	function indexPage(){
+		window.location.href="${pageContext.request.contextPath}/web/index" ;
+	}
 </script>
 </html>
