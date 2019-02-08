@@ -140,7 +140,9 @@ public class WebController {
 	public String registerInit(HttpServletRequest  request , HttpSession session ,String openId ) {
 		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
-		session.setAttribute("openId", openId);
+		Customer cust = new Customer();
+		cust.setOpenId(openId);
+		session.setAttribute("mycust", cust);
 		
 		return "forward:/ring/registerInit.jsp";
 	}
