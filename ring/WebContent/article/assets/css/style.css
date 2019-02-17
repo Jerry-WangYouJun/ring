@@ -23,7 +23,6 @@ Table of Contents End
 
 /* 1 - Google Font
 ------------------------------------------------------------------------*/
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800);
 
 /* 1 - Google Font End 
 ------------------------------------------------------------------------*/
@@ -31,17 +30,7 @@ Table of Contents End
 
 /* 2 - General styles
 ---------------------------------------------------------------------- */
-html,
-body {
-	font-family: 'Open Sans', Sans-serif;
-	font-size: 16px;
-	overflow: hidden;
 
-	-webkit-font-smoothing: antialiased;
-	-moz-font-smoothing: antialiased;
-	-ms-font-smoothing: antialiased;
-	-0-font-smoothing: antialiased;
-}
 a {
 	text-decoration: none;
 	-webkit-transition: all .25s ease;
@@ -72,7 +61,6 @@ li {
 }
 img {
 	max-width: 100%;
-	height: auto;
 	-webkit-transition: all .25s ease;
 	-moz-transition: all .25s ease;
 	-ms-transition: all .25s ease;

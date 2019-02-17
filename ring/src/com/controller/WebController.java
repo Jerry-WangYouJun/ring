@@ -137,13 +137,14 @@ public class WebController {
 	}
 	
 	@RequestMapping("/registerInit")
-	public String registerInit(HttpServletRequest  request , HttpSession session ,String openId ) {
+	public String registerInit(HttpServletRequest  request , HttpSession session ,String openId , String remark , Integer id  ) {
 		Map<String, Map<String, Dictionary>> dicMap = dicService.getDicMap();
 		session.setAttribute("dic",   JSONObject.fromObject(dicMap));
 		Customer cust = new Customer();
 		cust.setOpenId(openId);
+		cust.setRemark(remark);
+		cust.setId(id);
 		session.setAttribute("mycust", cust);
-		
 		return "forward:/ring/registerInit.jsp";
 	}
 	

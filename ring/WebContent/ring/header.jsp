@@ -27,8 +27,8 @@ $(function(){
 
 <div class="index-main">
     <div class="index-header">
-        <div class="col-xs-6" style="text-align: center;"  onclick="indexPage()"><img src="${pageContext.request.contextPath}/img/logo.jpg" height="18rem">&nbsp;主页</div>
-        <div class="col-xs-6 no-pad" style="text-align: center;"  onclick="personCenter()">
+        <div class="col-xs-5" style="text-align: center;"  onclick="indexPage()"><img src="${pageContext.request.contextPath}/img/logo.jpg" height="18rem">&nbsp;主页</div>
+        <div class="col-xs-5 no-pad" style="text-align: center;"  onclick="personCenter()">
         <c:if test="${sessionScope.customer.sex eq 0 }">
         	 	<img src="${pageContext.request.contextPath}/img/women.jpg" id="headsex" height="18rem">
         </c:if>
@@ -36,6 +36,7 @@ $(function(){
         	 	<img src="${pageContext.request.contextPath}/img/men.jpg"height="18rem" >
         </c:if>
         &nbsp;个人中心</div>
+        <div class="col-xs-2" style="text-align: center;" onclick="window.history.back()">返回</div>
         
     </div>
     </div>

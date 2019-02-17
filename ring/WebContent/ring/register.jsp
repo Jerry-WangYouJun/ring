@@ -17,98 +17,12 @@
 	padding: 0px !important;
 }
 </style>
-<script>
-function chooseImg(){
-	wx.chooseImage({
-	    count: 1, //张数， 默认9
-	    sizeType: ['compressed'], //建议压缩图
-	    sourceType: ['album', 'camera'], // 来源是相册、相机
-	    success: function (res) {
-	    	var localIds = res.localIds;
-	    	alert(localIds)
- //var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-	    //$('.driver-card img').prop('src',res.localIds[0]);
-	    //uploadPhoto.uploadToWeixinServer(res.localIds[0],'car')
-	   }
-	});
-}
-
-$(function(){
-	if($('#datetimepicker3')[0] != undefined){
-		$('#datetimepicker3').datetimepicker({ 
-			startView: 'decade',
-			minView:"2",
-			format: 'yyyy-mm-dd',
-		    todayBtn: true,//显示今日按钮
-		    endDate : new Date(),
-		    autoclose: true,
-		    maxDate:new Date(),
-		    language:"zh-CN",
-		    clearBtn: true 
-		});
-	}
-	
-	if($('#datetimepicker2')[0] != undefined){
-		$('#datetimepicker2').datetimepicker({  
-			minView: "month",
-			format: 'yyyy-mm-dd',
-		    todayBtn: true,//显示今日按钮
-		    autoclose: true,
-		    language:"zh-CN",
-		    clearBtn: true 
-		});
-	}
-	
-});
-
-	$(document).ready(function() {
-		$(".dropdown").hover(function() {
-			$('.dropdown-menu', this).stop(true, true).slideDown("fast");
-			$(this).toggleClass('open');
-		}, function() {
-			$('.dropdown-menu', this).stop(true, true).slideUp("fast");
-			$(this).toggleClass('open');
-		});
-	});
-
-	function mail() {
-
-		if (!$("#emailForm").validate().form()) {
-			return false;
-		}
-		var path = "${pageContext.request.contextPath}/web/sendMail";
-		$.ajax({
-			url : path,
-			type : 'post',
-			data : {codeEmail:$("#codeEmail").val()},
-			dataType : 'json',
-			success : function(data) {
-				if (data.success) {
-					alert(data.msg);
-					$("#code").val(data.obj.code);
-					$("#userNo").val(data.obj.openId);
-				} else {
-					alert(data.msg);
-					$("#codeEmail").val("")
-				}
-
-			},
-			error : function(transport) {
-				alert("系统产生错误,请联系管理员!");
-			}
-		});
-	}
-	
-
-	 
-</script>
 </head>
 <body id="a2">
 	<div class="grid_3">
 		<div class="container">
 			<div class="services">
 				<div class="col-sm-12 col-xs-12 login_left">
-
 					<form id="dataForm"  class="form-horizontal" role="form"  enctype="multipart/form-data" 
 					   action="${basePath}/customer/customer_submit" method="post">
 						<input class="form-control " name="openId" type="hidden" value="${mycust.openId}"></input>
@@ -128,7 +42,7 @@ $(function(){
 								id="nickName" placeholder="必填"  onchange="check_unique('nickName')" value="${mycust.nickName}">
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">性别:</label> 
+							<label for="message-text" class="control-label">性别(必选):</label> 
 							<select  class="form-control dicSelect" id="sex" name="sex"  value="${mycust.sex}"
 								placeholder="必填" required>
 							</select>
@@ -144,14 +58,14 @@ $(function(){
 						
 						<div class="form-group ">
 							<label for="message-text" class="control-label">邮箱:</label> <input
-								type="text" class="form-control email required " name="email" value="${mycust.email}">
+								type="text" class="form-control email required " name="email" value="${mycust.email}" placeholder="必填"  >
 						</div>
 						<!-- <div class="form-group">
                             <label class="control-label">头像</label>
                                 <input type="file" name="headFile" id="headFile" class="form-control " accept="image/*"  class="form-control" placeholder="请上传图片">
                         </div> -->
 						<div class="form-group">
-                                <input type="hidden" name="frontImg" id="frontImg" value="${mycust.frontImg}"  class="form-control" >
+                                <input type="hidden" name="frontImg" id="frontImg" value="${mycust.frontImg}"  class="form-control required" >
 							 <div class="layui-upload">
 							  <button type="button" class="layui-btn" id="upfileFront">上传身份证正面</button>
 							  <div class="layui-upload-list">
@@ -213,14 +127,14 @@ $(function(){
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">身高(cm):</label> <input
-								type="text" class="form-control number" name="height" value="${mycust.height}">
+								type="text" class="form-control number required"  name="height" value="${mycust.height}" placeholder="必填">
 						</div>
 						<div class="form-group ">
 							<label for="message-text" class="control-label">体重(kg):</label> <input
-								type="text" class="form-control number" name="weight" value="${mycust.weight}">
+								type="text" class="form-control number required" name="weight" value="${mycust.weight}" placeholder="必填">
 						</div> 
 						<div class="form-group ">
-							<label for="message-text" class="control-label">婚姻状况:</label> <select
+							<label for="message-text" class="control-label">婚姻状况(必选):</label> <select
 								class="form-control dicSelect" name="marriage" placeholder="必填"
 								required  value="${mycust.marriage }">
 
@@ -233,21 +147,21 @@ $(function(){
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">学历（全日制最高学历）:</label> <select
-								class="form-control dicSelect" name="degree" placeholder="必填" value="${mycust.degree }"
+							<label for="message-text" class="control-label">学历（全日制最高学历）(必选):</label> <select
+								class="form-control dicSelect" name="degree"  value="${mycust.degree }"
 								required>
 
 							</select>
 						</div>
 						<div class="form-group ">
-							<label for="message-text" class="control-label">住房状态:</label> <select
+							<label for="message-text" class="control-label">住房状态(必选):</label> <select
 								class="form-control dicSelect" name="houseStatus" value="${mycust.houseStatus }"
 								placeholder="必填" required>
 
 							</select>
 						</div>
 						<div class="form-group ">
-							<label for="message-text" class="control-label">用车状态:</label> <select
+							<label for="message-text" class="control-label">用车状态(必选):</label> <select
 								class="form-control dicSelect" name="carStatus" value="${mycust.carStatus }"
 								placeholder="必填" required>
 
@@ -262,16 +176,15 @@ $(function(){
 							</select>
 						</div> -->
 						<div class="form-group ">
-							<label for="message-text" class="control-label">从事行业:</label> 
+							<label for="message-text" class="control-label">从事行业(必选):</label> 
 								<select
-									class="form-control dicSelect" name="industry"  value="${mycust.industry }"
-										>
+									class="form-control dicSelect" name="industry"  value="${mycust.industry }" required>
 	
 								</select>
 
 						</div>
 						<div class="form-group ">
-							<label for="message-text" class="control-label">月收入(税前):</label> <select
+							<label for="message-text" class="control-label">月收入(税前)(必选):</label> <select
 								class="form-control dicSelect" name="income" placeholder="必填" value="${mycust.income }"
 								required>
 
@@ -441,6 +354,22 @@ $(function(){
 </body>
 <script type="text/javascript">
 	$(function(){
+		if($('#datetimepicker3')[0] != undefined){
+			$('#datetimepicker3').datetimepicker({ 
+				startView: 'decade',
+				minView:"2",
+				format: 'yyyy-mm-dd',
+			    todayBtn: true,//显示今日按钮
+			    endDate : new Date(),
+			    autoclose: true,
+			    maxDate:new Date(),
+			    language:"zh-CN",
+			    clearBtn: true 
+			});
+		}
+		
+	});
+	$(function(){
 		addressInit('cmbProvince', 'cmbCity', 'cmbArea');
 		addressInit('hometownProvince', 'hometownCity', 'hometownCountry');
 		if("${mycust.hometown}"){
@@ -460,9 +389,6 @@ $(function(){
 			$("#cmbArea").val(hometownArr[2]) 
 		}
 	})
-	function subInfo() {
-		subInfoAll("customer");
-	}
 
 	function checkTelephone(){
 		 var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
@@ -474,17 +400,33 @@ $(function(){
          check_unique('telephone');
 	}
 
+	function subInfo() {
+		subInfoAll("customer");
+	}
 	function subInfoAll(name) {
-
-		if (!$("#dataForm").validate().form()) {
-			return false;
-		}
+		 if (!$("#dataForm").validate().form()) {
+			 layer.msg("有必填选项没有填写，请仔细检查");
+     		$('#chName').focus();
+     		return false;
+		} 
 	            var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
 	            if (!myreg.test($("#telephone").val())) {
 	            		 layer.msg("手机号不合法");
 	                return false;
 	            } 
-
+	            var img1 = $("#frontImg").val();
+	            if(img1 == ''){
+	            		layer.msg("身份证正面必须上传");
+	            		$('#upfileFront').focus();
+	            		return false;
+	            		
+	            }
+	            var img2 = $("#backImg").val();
+	            if(img2 == ''){
+	            		layer.msg("身份证反面必须上传");
+	            		$('#upfileBack').focus();
+            		return false;
+            }
 		var path = "${pageContext.request.contextPath}/" + name + "/" + name
 				+ "_edit";
 			$("#dataForm").ajaxSubmit({
@@ -529,7 +471,6 @@ $(function(){
 					$(this).append(htmlStr);
 					$(this).val($(this).attr("value"))
 				});
-
 		
 	});
 	

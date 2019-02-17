@@ -33,7 +33,6 @@ function personCenter(){
 <div class="index-main">
     <div class="index-header">
         <div class="col-xs-4" style="text-align: center;" onclick="indexPage()"><img src="${pageContext.request.contextPath}/img/logo.jpg" height="18rem">主页</div>
-        <div class="col-xs-4 no-pad" style="text-align: center;"  onclick="addActivity()">新建活动</div>
        <div class="col-xs-4 no-pad" style="text-align: center;"  onclick="personCenter()">
         <c:if test="${sessionScope.customer.sex eq 0 }">
         	 	<img src="${pageContext.request.contextPath}/img/women.jpg" id="headsex" height="18rem">
@@ -42,6 +41,8 @@ function personCenter(){
         	 	<img src="${pageContext.request.contextPath}/img/men.jpg"height="18rem" >
         </c:if>
         &nbsp;个人中心</div>
+        <div class="col-xs-2 no-pad" style="text-align: center;"  onclick="addActivity()">新建</div>
+        <div class="col-xs-2 no-pad" style="text-align: center;"  onclick="window.history.back()">返回</div>
         
     </div>
     </div>

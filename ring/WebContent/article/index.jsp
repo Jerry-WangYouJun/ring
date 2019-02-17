@@ -75,7 +75,10 @@
 </style>
 </head>
 <body>
-<%@include file="/ring/activity/header.jsp"%>
+   <%@include file="/ring/header.jsp"%>
+<script src="${basePath}/js/validate/jquery.validate.min.js"></script>
+<script src="${basePath}/js/validate/jquery.metadata.js"></script>
+<script src="${basePath}/js/validate/messages_zh.js"></script>
 		<div class="container-fluid"  style="margin-top:60px">
 			<div class="row container ">
 				<div class="tab-content" style="margin-bottom: 93px;">

@@ -90,7 +90,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <%@include file="/ring/activity/header.jsp"%>
    <div class="profile" style="margin-top:70px">
    	 <div class="col-md-12 profile_left">
-   	 		<h2>活动名称 : ${act.actName }</h2>
+   	 		<%-- <h2>活动名称 : ${act.actName }</h2> --%>
    	 	
    	 	<div class="col_3">
    	        <div class="col-sm-4 row_2">

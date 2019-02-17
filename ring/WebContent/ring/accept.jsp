@@ -99,7 +99,7 @@ $(document).ready(function(){
 			 $("#confirmTime").val('${inv.detail.confirmTime}');
 		})
 		
-		 function personCenter(){
+	 function personCenter(){
 		 window.location.href="${pageContext.request.contextPath}/new/person_center.jsp";
 	 }
 		

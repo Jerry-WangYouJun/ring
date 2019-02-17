@@ -39,7 +39,6 @@ $(document).ready(function(){
 </script>
 </head>
 <body id="a2">
-<%@include file="/ring/activity/header.jsp"%>
 	<div class="grid_3" style="margin-top:70px">
   <div class="container">
    <div class="services">

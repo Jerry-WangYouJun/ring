@@ -189,7 +189,7 @@ public class WeixinPayController {
 			        	userInfo = getUserInfo(request, response);
 			        }catch(Exception e){
 			        	System.out.println("获取用户信息失败或网络异常");
-			        	 return "forward:/web/registerInit?openId=1" ;
+			          	 return "forward:/web/registerInit?openId=1" ;
 			        }
 		                Customer customer = new Customer();
 		                customer.setOpenId(userInfo.getString("openid"));
@@ -210,6 +210,8 @@ public class WeixinPayController {
 			        	   }else {
 			        		   if("0".equals(custList.get(0).getExamine())){
 			        			   return "forward:/web/registerInit?openId=0" ;
+			        		   }else if("2".equals(custList.get(0).getExamine())){
+			        			   return "forward:/web/registerInit?openId=2&remark="+  custList.get(0).getRemark() + "&id=" + custList.get(0).getId();
 			        		   }
 			        	   }
 			        	   if( id != null && id != 0) {

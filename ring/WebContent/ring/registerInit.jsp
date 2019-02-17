@@ -126,6 +126,10 @@ $(function(){
 											  <c:when test="${mycust.openId eq '1'}">
 											 	  <label class="col-lg-12 col-md-12 col-sm-12 control-label">网络繁忙，请尝试退出重新登录~</label>
 											 </c:when>
+											 <c:when test="${mycust.openId eq '2'}">
+											 	  <label class="col-lg-12 col-md-12 col-sm-12 control-label">您的审核信息不通过，${mycust.remark}</label>
+												  <a  href="###" onclick="updateRegister('${mycust.id}')">修改注册信息</a>
+											 </c:when>
 											 <c:otherwise>
 												<label class="col-lg-12 col-md-12 col-sm-12 control-label">尚未注册？</label>
 												<a  href="###" onclick="regist()">注册成为会员</a>
@@ -144,6 +148,10 @@ $(function(){
 	</div>
 </body>
 <script type="text/javascript">
+	function updateRegister(id){
+		 window.location.href="${pageContext.request.contextPath}/customer/updateInit?id=" + id ;
+	}
+	
 	function subInfo() {
 		subInfoAll("customer");
 	}
